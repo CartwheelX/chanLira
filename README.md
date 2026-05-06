@@ -263,6 +263,15 @@ architecture comparisons:
 python experiments/gen_results/qnn_qcnn_hqnn_models_comp_mnist.py
 ```
 
+Before running this step, place the MNIST sweep summaries in
+`experiments/gen_results/` with consistent architecture names:
+
+```text
+experiments/gen_results/qnn_extensive_results.csv
+experiments/gen_results/hqnn_extensive_results.csv
+experiments/gen_results/qcnn_extensive_results.csv
+```
+
 This produces target tables such as:
 
 ```text
