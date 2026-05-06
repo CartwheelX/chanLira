@@ -526,4 +526,4 @@ If you use QuRiFT, please cite the accompanying paper:
 }
 ```
 
-Update the BibTeX entry with the final author list, venue, and DOI once the paper is public.
+We will update the BibTeX entry with the final author list, venue, and DOI once the paper is public.
