@@ -1,5 +1,6 @@
 # furo @ git+https://github.com/frogcjn/torchquantum-doc-furo-theme.git
 dill==0.3.4
+configargparse>=0.14
 matplotlib>=3.3.2
 nbsphinx
 numpy>=1.19.2

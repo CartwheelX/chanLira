@@ -698,7 +698,7 @@ def _measure_pairs(qdev, ops: Sequence[str], pairs: Sequence[Tuple[int,int]]) ->
             # op like "XX","YY","ZZ","XY"
             feats.append(expval_joint_analytical(qdev, op, wires=[a, b]))  # <-- pass wires
     return torch.stack(feats, dim=1)  # (B, len(pairs)*len(ops))
-def auto_pair_ops(k: int) -> tuple[str, ...]:
+def auto_pair_ops(k: int) -> Tuple[str, ...]:
     """
     Return k 2-qubit Pauli ops over {X,Y,Z}.
     Order: axes first, then cross-terms.

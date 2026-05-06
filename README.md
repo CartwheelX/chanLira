@@ -135,6 +135,38 @@ cd QuRiFT
 pip install --editable .
 ```
 
+This is the same editable-install workflow as TorchQuantum:
+
+```bash
+pip install --editable .
+```
+
+The difference is that this repository installs the QuRiFT distribution
+(`qurift`) and uses the bundled TorchQuantum-compatible source tree as the
+upstream quantum primitive layer. Dependencies are read from `requirements.txt`
+through `setup.py`.
+
+## Dependencies
+
+- Python `>=3.7, <=3.9` is recommended. Python 3.10 may have a `concurrent`
+  package issue with some Qiskit/TorchQuantum dependency combinations.
+- PyTorch `>=1.8.0`
+- `configargparse >= 0.14`
+- GPU model training requires NVIDIA GPUs.
+
+Install dependencies together with QuRiFT:
+
+```bash
+pip install --editable .
+```
+
+If you need to install dependencies separately:
+
+```bash
+pip install -r requirements.txt
+pip install --editable . --no-deps
+```
+
 The experiment code uses TorchQuantum primitives through:
 
 ```python

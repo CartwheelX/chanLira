@@ -41,7 +41,7 @@ if __name__ == "__main__":
         license="MIT",
         install_requires=read_requirements(),
         extras_require={"doc": ["nbsphinx", "recommonmark"]},
-        python_requires=">=3.8",
+        python_requires=">=3.7,<3.10",
         include_package_data=True,
         packages=find_packages(),
         entry_points={
