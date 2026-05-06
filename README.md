@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="qurift_logo.png.png" alt="QuRiFT logo" width="420"/>
+  <img src="qurift_logoo.png" alt="QuRiFT logo" width="420"/>
 </p>
 
 # QuRiFT
