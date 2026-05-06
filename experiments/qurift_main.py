@@ -537,28 +537,7 @@ class PauliFeatureEncoder(tq.QuantumModule):
                     if axb in "XY": self._basis_change(qdev, axb, b, inv=True)
                 else:
                     raise NotImplementedError("Only 1- or 2-body Pauli terms supported.")
-# -------- Efficient SU2 (as a feature map) --------
-# class EfficientSU2FeatureEncoder(tq.QuantumModule):
-#     def __init__(self, n_wires: int, reps: int = 1,
-#                  single_ops: Sequence[str] = ("ry","rz"),
-#                  alpha: float = np.pi,
-#                  ent_kind: str = "linear", twoq_op: str = "cx"):
-#         super().__init__()
-#         self.n_wires, self.reps = n_wires, int(reps)
-#         self.alpha = float(alpha)
-#         self.single_ops = tuple(single_ops)
-#         self.entangler = make_entangler(ent_kind, n_wires, two_qubit_op=twoq_op,
-#                                         trainable=False, wire_reverse=False)
-#         self._op_tbl = {"rx": tq.RX(), "ry": tq.RY(), "rz": tq.RZ()}
-#     @tq.static_support
-#     def forward(self, qdev: tq.QuantumDevice, x: torch.Tensor):
-#         xw = x[:, :self.n_wires]
-#         for _ in range(self.reps):
-#             for op in self.single_ops:
-#                 gate = self._op_tbl[op.lower()]
-#                 for w in range(self.n_wires):
-#                     gate(qdev, wires=w, params=self.alpha * xw[:, w])
-#             self.entangler(qdev)
+
 from torchquantum.functional import func_name_dict
 from typing import Iterable, Optional, Sequence
 class EfficientSU2FeatureEncoder(tq.QuantumModule):
@@ -850,23 +829,7 @@ def make_qasm_qiskit_friendly(qasm: str, use_p: bool = False) -> str:
         inject_parts.append(_RZZ_DEF.strip())
     injection = ("\n\n".join(inject_parts) + "\n\n") if inject_parts else ""
     return 'OPENQASM 2.0;\ninclude "qelib1.inc";\n\n' + injection + body.lstrip()
-# def draw_circuit_from_qasm(
-#     qasm: str,
-#     backend: str = "mpl",
-#     save_path: Optional[str] = None
-# ) -> Tuple[Any, QuantumCircuit]:
-#     qasm = make_qasm_qiskit_friendly(qasm)
-#     qc = (qasm_loads(qasm) if qasm_loads is not None
-#           else QuantumCircuit.from_qasm_str(qasm))
-#     out = qc.draw(output=backend)  # "mpl" for figure, "text" for ASCII
-#     # print(out)
-#     if save_path:
-#         if backend == "mpl":
-#             out.savefig(save_path, bbox_inches="tight", dpi=200)
-#         else:
-#             with open(save_path, "w") as f:
-#                 f.write(str(out))
-#     return out, qc
+
 def draw_circuit_from_qasm(
     qasm: str,
     backend: str = "mpl",
@@ -960,19 +923,7 @@ class QuantumCircuit(tq.QuantumModule):
             self.random(qdev)
         for blk in self.blocks:
             blk(qdev)
-# class QFCHead(nn.Module):
-#     """
-#     Simple head that maps measured observables -> logits.
-#     If you keep len(measure_ops) == num_classes, the Linear is identity-like.
-#     Otherwise, it lets you decouple #measurements from #classes.
-#     """
-#     def __init__(self, measure_ops: Sequence[str], num_classes: int):
-#         super().__init__()
-#         self.measure_ops = tuple(measure_ops)
-#         self.linear = nn.Linear(len(self.measure_ops), num_classes, bias=True)
-#     def forward(self, measured: torch.Tensor) -> torch.Tensor:
-#         # measured: (B, M) where M == len(measure_ops)
-#         return self.linear(measured)
+
 class QFCHead(nn.Module):
     def __init__(self, in_features: int, num_classes: int):
         super().__init__()
@@ -996,24 +947,7 @@ class QFCModel(tq.QuantumModule):
         ops = ("ry","rz")
       
         if cfg.fm_kind.lower() == "z": 
-            # Build and save a ZZ op-list (example)
-            # z_name, z_ops = make_z_oplist(n_wires=cfg.n_wires, D=self.D, alpha=cfg.fm_z_alpha, pad_mode=cfg.fm_z_pad_mode)
-            # write_oplist_py("z_4x_auto.py", z_name, z_ops)
-            # self.encoder = GeneralEncoderPlus(z_ops)
-            # self.func_list = z_ops
-            # thi has issues for now
-            # z_name, z_ops =  build_tiled_pauli_oplist(
-            #     n_wires=cfg.n_wires, D=self.D, paulis=["Z"], entanglement=None, pad_mode="wrap")
-            
-            # z_name, z_ops = build_tiled_pauli_oplist(
-            #     n_wires=cfg.n_wires, D=self.D, entanglement="linear", pad_mode="wrap",
-            #     pair_phi="prod"   # ignored here (no pair terms)
-            # )
-            
-            # z_name,  z_ops  = build_z_oplist(n_wires=cfg.n_wires, D=self.D, pad_mode="wrap")
-            # write_oplist_py("z_with_pauli.py", z_name, z_ops)
-            # exit()
-            # build Z only (no entanglement), 5 wires, D=16, wrap padding; keep H as H
+
             z_name, z_ops = build_tiled_pauli_oplist(
                 n_wires=cfg.n_wires, D=self.D, paulis=["Z"], pad_mode=cfg.fm_z_pad_mode, repeats=cfg.fm_z_reps,
                 expand_h_to_u3=True,
@@ -1028,17 +962,7 @@ class QFCModel(tq.QuantumModule):
             # exit()
         # .........
         if cfg.fm_kind.lower() == "zz":
-            
-            # print("in ZZ list")
-            # # exit()
-            # zz_name, zz_ops =  build_tiled_pauli_oplist(
-            #     n_wires=cfg.n_wires, D=self.D, paulis=["Z", "ZZ"], entanglement=cfg.fm_zz_entanglement, pad_mode="wrap")
-            
-            # write_oplist_py("zz_with_pauli.py", zz_name, zz_ops)
-            # # exit()
-            # self.encoder = GeneralEncoderPlus_new(zz_ops, pad_mode="wrap", alpha=1.0) #oplist, pad_mode="wrap", alpha=1.0
-            # self.func_list = zz_ops
-           
+
             zz_name, zz_ops = build_tiled_pauli_oplist(
                 n_wires=cfg.n_wires, D=self.D, 
                 paulis=["Z", "ZZ"], 
@@ -1060,26 +984,6 @@ class QFCModel(tq.QuantumModule):
         if cfg.fm_kind.lower() == "pauli":
             print("in pauli maping op list generator")
            
-            # pauli_name, pauli_ops = build_pauli_map_qiskit_ops(
-            # n_wires=cfg.n_wires, D=self.D,
-            # paulis=cfg.fm_pauli_terms, #("Z","ZZ"),
-            # entanglement="liear",
-            # pad_mode="wrap"
-            # )
-            # # write_oplist_py("pauli_map_ops.py", pauli_name, pauli_ops)
-            # save_encoder_oplist_py("encoder_ops_pauli.py", pauli_name, pauli_ops)
-            # # exit()
-            # self.encoder = GeneralEncoderPlus(pauli_ops)
-            # self.func_list = pauli_ops
-            # name, d = build_zz_oplist(n_wires=2, D=self.D, entanglement="linear", pad_mode="wrap")
-            # save_encoder_oplist_py("encoder_ops_pauli.py", name, d)
-            # updaing this area for pauli to pass here
-            # pauli_name, pauli_ops =  build_tiled_pauli_oplist(
-            #     n_wires=cfg.n_wires, D=self.D, paulis=cfg.fm_pauli_terms, entanglement="linear", pad_mode="wrap")
-            # # exit()
-            # write_oplist_py("with_pauli.py", pauli_name, pauli_ops)
-            # self.encoder = GeneralEncoderPlus_new(pauli_ops, pad_mode="wrap", alpha=2.0)
-            # self.func_list = pauli_ops
             pauli_name, pauli_ops = build_tiled_pauli_oplist(
                 n_wires=cfg.n_wires, D=self.D, paulis=cfg.fm_pauli_terms, pad_mode=cfg.fm_pali_pad, entanglement=cfg.fm_pauli_entanglement, repeats=cfg.fm_pauli_reps,
                 expand_h_to_u3=True,
@@ -1291,108 +1195,6 @@ def build_classical_baseline(cfg: QFCConfig, reference: nn.Module) -> ClassicalB
     # exit()
     return ClassicalBenchmarkMLP(cfg, budget)
 
-
-# # 8888888888888888888888888888888888888888888888888888888888888888
-# class ClassicalAngleEncoder(nn.Module):
-#     def __init__(self, feature_dim: int, n_wires: int):
-#         super().__init__()
-#         self.feature_dim = feature_dim
-#         self.n_wires = n_wires
-
-#     def forward(self, feats: torch.Tensor) -> torch.Tensor:
-#         pooled = F.adaptive_avg_pool1d(feats.unsqueeze(1), self.n_wires)
-#         return torch.tanh(pooled.squeeze(1))
-
-
-# class ClassicalVariationalBlock1D(nn.Module):
-#     def __init__(self, n_wires: int, param_budget: int, ent_trainable: bool):
-#         super().__init__()
-#         self.n_wires = n_wires
-#         self.ent_trainable = ent_trainable
-#         budget = max(0, int(param_budget))
-#         self.theta = nn.Parameter(torch.zeros(budget, dtype=torch.float32))
-
-#     def _tile(self, vec: torch.Tensor, length: int) -> torch.Tensor:
-#         if length <= 0:
-#             return vec.new_zeros(0)
-#         if vec.numel() == 0:
-#             return vec.new_zeros(length)
-#         reps = math.ceil(length / vec.numel())
-#         return vec.repeat(reps)[:length]
-
-#     def forward(self, z: torch.Tensor) -> torch.Tensor:
-#         if self.theta.numel() == 0:
-#             return z
-#         needed_rot = 3 * self.n_wires
-#         tiled = self._tile(self.theta.view(-1), needed_rot)
-#         rx = tiled[:self.n_wires]
-#         ry = tiled[self.n_wires:2 * self.n_wires]
-#         rz = tiled[2 * self.n_wires:3 * self.n_wires]
-#         z = z + torch.sin(rx)[None, :] + torch.cos(ry)[None, :] + torch.tanh(rz)[None, :]
-#         shift = torch.roll(z, shifts=1, dims=1)
-#         if self.ent_trainable:
-#             ent_vals = self._tile(self.theta.view(-1)[needed_rot:], self.n_wires)
-#             alpha = torch.sigmoid(ent_vals)[None, :]
-#         else:
-#             alpha = z.new_zeros(1, self.n_wires)
-#         return (1.0 - alpha) * z + alpha * shift
-
-# class ClassicalMeasurement(nn.Module):
-#     def __init__(self):
-#         super().__init__()
-
-#     def forward(self, latent: torch.Tensor) -> torch.Tensor:
-#         return torch.tanh(latent)
-
-# class ClassicalQFCReplica(nn.Module):
-#     def __init__(self, cfg: QFCConfig, block_param_counts: Sequence[int]):
-#         super().__init__()
-#         self.cfg = cfg
-#         feat_dim = cfg.feature_dim or cfg.pool_hw * cfg.pool_hw
-#         self.pool_hw = cfg.pool_hw
-#         self.feature_dim = feat_dim
-#         self.pool = nn.AdaptiveAvgPool2d((cfg.pool_hw, cfg.pool_hw))
-#         self.encoder = ClassicalAngleEncoder(feat_dim, cfg.n_wires)
-#         self.blocks = nn.ModuleList([
-#             ClassicalVariationalBlock1D(cfg.n_wires, count, cfg.ent_trainable)
-#             for count in block_param_counts
-#         ])
-#         self.measure = ClassicalMeasurement()
-#         self.linear = nn.Linear(cfg.n_wires, cfg.num_classes, bias=True)
-#         self.dummy_head = nn.Linear(cfg.num_classes, cfg.num_classes, bias=True)
-
-#     def _prep(self, x: torch.Tensor) -> torch.Tensor:
-#         if x.dim() == 2:
-#             return x
-#         if x.dim() == 3:
-#             x = x.unsqueeze(1)
-#         if x.dim() == 4:
-#             bsz = x.size(0)
-#             return self.pool(x).view(bsz, -1)
-#         raise ValueError(f"Unsupported input shape {tuple(x.shape)}")
-
-#     def forward(self, x: torch.Tensor) -> torch.Tensor:
-#         feats = self._prep(x)
-#         latent = self.encoder(feats)
-#         for blk in self.blocks:
-#             latent = blk(latent)
-#         measured = self.measure(latent)
-#         logits = self.linear(measured)
-#         return F.log_softmax(logits, dim=1)
-
-
-# def build_classical_replica(cfg: QFCConfig, reference: QFCModel) -> ClassicalQFCReplica:
-#     block_counts = [
-#         count_trainable_params(block)
-#         for block in reference.vqc_circuit.blocks
-#     ]
-#     replica = ClassicalQFCReplica(cfg, block_counts)
-#     ref_params = count_trainable_params(reference)
-#     cls_params = count_trainable_params(replica)
-#     if ref_params != cls_params:
-#         raise ValueError(f"Param mismatch (quantum={ref_params}, classical={cls_params}).")
-#     return replica
-# 8888888888888888888888888888888888888888888888888888888888888888
 class VanillaCNN(nn.Module):
     """
     Vanilla CNN (Conv->ReLU->MaxPool with 3x3 kernels).
@@ -1427,27 +1229,6 @@ class VanillaCNN(nn.Module):
     @staticmethod
     def create(in_ch=1, pool_hw=4, dropout=0.5):
         return VanillaCNN(in_ch=in_ch, pool_hw=pool_hw, dropout=dropout)  
-
-
-# class CNNPreprocessor(nn.Module):
-#     def __init__(self, out_dim):  # out_dim = number of quantum angles you need
-#         super().__init__()
-#         self.conv1 = nn.Conv2d(1, 32, 3, padding=1)       # 3x3
-#         self.conv2 = nn.Conv2d(32, 64, 3, padding=1)      # 3x3
-#         self.pool  = nn.MaxPool2d(2)
-#         self.gap   = nn.AdaptiveAvgPool2d(1)              # -> B x C x 1 x 1
-#         self.head  = nn.Linear(64, out_dim)               # tiny head
-
-#     def forward(self, x):
-#         x = F.relu(self.conv1(x))          # B x 32 x H x W
-#         x = self.pool(x)                   # /2
-#         x = F.relu(self.conv2(x))          # B x 64 x H/2 x W/2
-#         x = self.pool(x)                   # /4
-#         x = self.gap(x).squeeze(-1).squeeze(-1)   # B x 64
-#         angles = self.head(x)              # B x out_dim
-#         # angles = torch.tanh(angles) * torch.pi    # scale to [-pi, pi]
-#         return angles
-
 
 
 class CNNPreprocessor(nn.Module):
@@ -2199,23 +1980,7 @@ class QCNN(tq.QuantumModule):
         self.q_layer = U3CU3Layer0(self.arch)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        
-        # print(f"Input x shape: {x.shape}")
-        # bsz = x.shape[0]
-        # x = x.view(bsz, 28, 28)
-        # print(f"after reshaping Input x shape: {x.shape}")
-        # exit()
 
-        # with torch.no_grad():
-        #   x = self.qf_hybrid(x, use_qiskit=False)
-        # # print(f"Quanv output shape: {x.shape}")
-        
-        # x = self.linear_hybrid(x)
-        # # print(f"Linear output shape: {x.shape}")
-        # # exit()
-        # return F.log_softmax(x, -1)
-        
-        
         bsz = x.size(0)
         # 1) Build quantum device
         qdev = tq.QuantumDevice(
@@ -2238,19 +2003,7 @@ class QCNN(tq.QuantumModule):
         # torch no grad the following
         # with torch.no_grad():
         feats = self.qf(x)
-        # print(f"Quanv output shape: {feats.shape}")
-        # print(f"Features from Quanv (first 5 samples): {feats[:1]}")
-        # exit()
-                # feats = feats.reshape(-1, 16)
-                # # print(f"Quanv output shape: {feats.shape}")
-                # # exit()
-                # logits = self.linear_layer(feats)
-                
-                # return F.log_softmax(logits, dim=1)
-        # print(f"Features from Quanv reshaped to: {feats.shape}")
-        # exit()
-        # qqqqqqqqqqqqqqqq
-        # feats = self.fe(x)
+
         feats = feats.reshape(-1, 16)
         # print(f"Features from CNN shape: {feats.shape}")
         # print(f"Features from CNN (first 5 samples): {feats[:1]}")
@@ -2278,21 +2031,6 @@ class QCNN(tq.QuantumModule):
         # exit()
         logits = self.head(measured)
         return F.log_softmax(logits, dim=1)
-
-# def save_model(model, path):
-#     torch.save(model.state_dict(), path)
-
-    
-
-# def load_model(model, path):
-#     # sssssssssssssssssssss
-#     # state = torch.load(path, map_location="cuda")
-#     # # model.load_state_dict(torch.load(path))
-#     # model.load_state_dict(state)
-#     model2 = model.load_state_dict(torch.load(path))
-    
-#     return model2
-
 
 def save_model(model, path):
     state = {
@@ -2327,23 +2065,6 @@ def train_one_epoch(dataflow, model, device, optimizer):
 
         if inputs.dim() >= 3:
             inputs = torch.pi * torch.tanh(inputs)/2.0
-        # else:
-        #     inputs = inputs.clamp(-1.0, 1.0) # this for blobs/moons/circles with qnn model
-        # inputs = inputs.clamp(-1.0, 1.0)* math.pi
-        # inputs = inputs.clamp(-1.0, 1.0)
-        
-        # inputs = torch.pi * torch.tanh(inputs) # for qcnn it will stick with this
-        
-        # inputs = inputs.mul(2.0).sub(1.0)
-        # inputs = torch.pi * torch.sigmoid(inputs)
-        # inputs = to_phase_from_minus1_1(inputs)
-
-        
-
-        # print(f"input shape: {inputs.shape}")
-        # print(f"input (first sample): {inputs[:50]}")
-        # exit()
-        # inputs = torch.pi * inputs
 
         targets = feed["digit"].to(device, non_blocking=True)
         outputs = model(inputs) # the model here returns log softmax outputs, not logits, so no softmax needed
@@ -2377,15 +2098,7 @@ def evaluate(dataflow, split, model, device):
         inputs = feed["image"].to(device, non_blocking=True).float()
         if inputs.dim() >= 3:
             inputs = torch.pi * torch.tanh(inputs)/2.0
-        # else:
-        #     inputs = inputs.clamp(-1.0, 1.0)
-        # inputs = inputs.clamp(-1.0, 1.0)* math.pi
-        # inputs = torch.pi * torch.tanh(inputs)
-        # inputs = inputs.clamp(-1.0, 1.0)
-        # inputs = to_phase_from_minus1_1(inputs)
 
-        # inputs = inputs.mul(2.0).sub(1.0)
-        # inputs = torch.pi * inputs
         targets = feed["digit"].to(device, non_blocking=True)
         outputs = model(inputs) # the model here returns log softmax outputs, not logits, so no softmax needed
         targets_all.append(targets)
@@ -2576,35 +2289,12 @@ def main():
     parser.add_argument("--fm-pauli-reps", type=int, default=1, help="Repetitions for Pauli feature map.")
     parser.add_argument("--fm-pauli-alpha", type=float, default=1.0, help="Alpha scaling for Pauli feature map.")
     
-      #     # #Note: do not use h, leads to theta errors for transpilation list in build_tiled_pauli_oplist
-    #     # # for pauli feature map
-    #     # fm_kind = "pauli",
-    #     # fm_pauli_reps = 1,
-    #     # fm_pauli_alpha = 1.0,
-    #     # fm_pauli_entanglement = "linear",   # 'linear' | 'ring' | 'full'
-    #     # fm_pali_pad = "wrap",
-    #     # fm_pauli_terms = ["Z","ZZ"] #must be genralized for qubit numbers
-
     parser.add_argument("--fm-eff-ent-kind", choices=["linear", "ring", "full"], default="linear", help="Entanglement pattern for Efficient SU2 feature map.")
     parser.add_argument("--fm-eff-reps", type=int, default=1, help="Repetitions for Efficient SU2 feature map.")
     parser.add_argument("--fm-eff-twoq-op", choices=["cz", "cnot","cx", "iswap"], default="cx", help="Two-qubit gate for Efficient SU2 feature map.")
     parser.add_argument("--fm-eff-pad-mod", choices=["wrap", "repeatlast", "zero"], default="wrap", help="Padding mode for Efficient SU2 feature map.")
     parser.add_argument("--fm-eff-alpha", type=float, default=1.0, help ="Alpha scaling for Efficient SU2 feature map.")    
-    
-        # #     fm_kind = "eff_su2",
-    # #     # fm_eff_reps = 2,
-    # #     fm_eff_alpha = 1.0, # not sure what to sure, need to investigate
-    # #     fm_eff_ent_kind = "linear",
-    # #     fm_eff_pad_mod = "wrap", # 'wrap' | 'repeatlast' | 'pad'
-    # #     fm_eff_twoq_op = "cx"
 
-    # parser.add_argument("--ent-kind", choices=["linear", "full"], default="linear", help="Entanglement pattern for variational circuit.")
-    # parser.add_argument("--twoq-op", choices=["cz", "cnot", "iswap"], default="cz", help="Two-qubit gate for variational circuit.")
-    # parser.add_argument("--ent-trainable", action="store_true", help="Make entangling gates trainable.")
-
-
-    
-    # dddddddddddddd
     parser.add_argument("--pool-hw", type=int, default=4, help="Adaptive pooling HW for image datasets (ignored for vector data)")
     
     
@@ -2697,14 +2387,6 @@ def main():
         n_test_samples = args.vector_test  # 600
         n_valid_samples = args.vector_valid  # 600
         
-        # dataset = MNIST(
-        #     root="./data",
-        #     train_valid_split_ratio=[0.5, 0.5],  # 600 / 600 split
-        #     digits_of_interest=[0, 2, 4, 5, 6, 7, 8, 9, 1, 3],
-        #     n_test_samples=n_test_samples,
-        #     n_train_samples=n_train_samples,
-        #     same_n_samples_each_class=True,
-        # )
         dataset = MNIST(
             root="./data",
             train_valid_split_ratio=[0.9, 0.1],  # fine; we sub-sample later anyway
@@ -2976,16 +2658,6 @@ def main():
         model1 = QFCModel(cfg).to(device)
         model = build_classical_baseline(cfg, model1).to(device)
 
-        # num_trainable_params1 = sum(
-        #     p.numel() for p in model1.parameters() if p.requires_grad
-        # )
-        # print("Trainable parameters for QFC:", num_trainable_params1)
-
-        # num_trainable_params = sum(
-        #     p.numel() for p in model.parameters() if p.requires_grad
-        # )
-        # print("Trainable parameters:", num_trainable_params)
-        # exit()
         optimizer = optim.Adam(model.parameters(), lr=5e-2)
         scheduler = CosineAnnealingLR(optimizer, T_max=args.epochs)
             
@@ -3009,32 +2681,6 @@ def main():
         # exit(0)
     else:
         raise ValueError(f"Unsupported model type: {args.model_type}")
-    
-    # if args.model_type != "mlp_qnn":
-    #     export_full_with_symbolic_encoder(
-    #         model,
-    #         D=feature_dim,
-    #         pad_mode="wrap",
-    #         backend="mpl",
-    #         save_path="full_symbolic.png",
-    #     )
-  
-    # exit()
-    # print header once
-    # path = f"{args.model_type}_model_{args.dataset}_{args.batch_size}_{args.epochs}.pt"
-    # suffix = [
-    #     args.dataset,
-    #     f"wrs{args.n_wires}",
-    #     f"d{args.depth}",
-    #     f"rand{args.random_ops}",
-    #     f"tr{args.vector_train}",
-    #     f"vv{args.vector_valid}",
-    #     f"ts{args.vector_test}",
-    #     f"bsz{args.batch_size}",
-    #     f"ep{args.epochs}",
-    #     f"noise{args.moons_noise}"
-    # ]
-    # path = f"{args.model_type}_{'_'.join(suffix)}.pt"
     
     mapper_suffix = [f"fm{args.fm_kind.lower()}"]
     if args.fm_kind.lower() == "z":

@@ -8,7 +8,7 @@ from typing import Optional, List, Dict, Tuple
 # INPUT FILES (Linux paths)
 # =========================
 MNIST_FILES = {
-    "QNN":  "experiments/gen_results/mnist_extensive_results_updated.csv",
+    "QNN":  "experiments/gen_results/qnn_extensive_results.csv",
     "HQNN": "experiments/gen_results/hqnn_extensive_results.csv",
     "QCNN": "experiments/gen_results/qcnn_extensive_results.csv",
 }
