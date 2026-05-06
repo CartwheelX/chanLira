@@ -1,8 +1,6 @@
 # QuRiFT
 
-**QuRiFT** (**Quantum Risk and Inference Fault-line Tracer**) is a controlled
-audit framework for structural privacy analysis in quantum machine learning
-(QML).
+**QuRiFT** (**Quantum Risk and Inference Fault-line Tracer**) is a controlled audit framework for studying **structural privacy leakage in quantum machine learning (QML)**.
 
 This repository accompanies the paper:
 
@@ -10,134 +8,116 @@ This repository accompanies the paper:
 Structural Privacy Vulnerabilities in Quantum Neural Networks
 ```
 
-QuRiFT studies whether membership-inference risk in quantum neural networks is
-shaped by circuit structure, especially the non-trainable classical-to-quantum
-encoder. The framework performs controlled interventions over QML architecture
-while keeping the training protocol fixed, then records utility, overfitting,
-and membership-inference signals.
+QuRiFT is designed to answer a specific question: **how much of membership-inference risk in QML is induced by circuit structure, especially the non-trainable classical-to-quantum encoder?**
 
-## Central Hypothesis
+Rather than treating privacy leakage only as a consequence of trainable model capacity, QuRiFT performs controlled interventions over QML design choices, keeps the training protocol fixed within each experimental family, and records utility, overfitting, and membership-inference signals.
 
-QuRiFT audits the pathway:
+---
+
+## Core Idea
+
+QuRiFT audits the following encoder-to-leakage chain:
 
 ```text
-encoder U_phi(x)
-  -> encoded state rho_phi(x)
-  -> Hilbert-Schmidt kernel geometry K_phi
+classical input x
+  -> encoder U_phi(x)
+  -> encoded quantum state rho_phi(x)
+  -> Hilbert-space geometry / Hilbert-Schmidt kernel K_phi
   -> train-test asymmetry
-  -> membership-inference signal
+  -> output-based membership-inference signal
 ```
 
-The core claim is not that the encoder reveals membership directly. Instead,
-the encoder shapes the Hilbert-space representation on which the trainable
-ansatz operates. Some feature maps and data-reuploading-style repetitions can
-make training samples easier to fit than unseen samples, producing a larger
-generalization gap and stronger output-based membership signals.
+The claim is **not** that the encoder directly reveals membership. The encoder is non-trainable, but it defines the representation seen by the trainable variational circuit. Some feature maps and data-reuploading-style repetitions can make training samples easier to fit than unseen samples. This increases the train-test gap and, in turn, strengthens black-box membership-inference signals in the model output probabilities.
 
-## Role of TorchQuantum
+QuRiFT therefore treats the encoder as a first-class privacy-relevant design choice in QML.
 
-QuRiFT uses [TorchQuantum](https://github.com/mit-han-lab/torchquantum) as the
-upstream quantum primitive layer. TorchQuantum provides PyTorch-native quantum
-devices, gates, differentiable circuit execution, measurements, and GPU-backed
-simulation. QuRiFT provides the audit framework, sweep orchestration, model
-wrappers, feature-map experiments, logging, and privacy-analysis pipeline built
-around those primitives.
+---
 
-All reported experiments in the paper use controlled noiseless TorchQuantum
-simulation to isolate encoder-induced representation effects before introducing
-backend-specific hardware noise.
+## What QuRiFT Provides
+
+QuRiFT provides an end-to-end experimental pipeline for:
+
+- running controlled QML architecture sweeps,
+- varying encoder and ansatz design factors,
+- training QNN, HQNN, and QCNN-style models,
+- exporting prediction vectors for member and non-member samples,
+- selecting stress, baseline, and hard target configurations,
+- training black-box membership-inference attacks,
+- generating CSV summaries for paper tables and analysis.
+
+The framework is intended for controlled privacy auditing, not for claiming hardware-level leakage. The reported experiments use noiseless simulation to isolate representation effects before hardware noise or backend-specific artifacts are introduced.
+
+---
+
+## Relationship to TorchQuantum
+
+QuRiFT builds around [TorchQuantum](https://github.com/mit-han-lab/torchquantum) as the quantum primitive layer. TorchQuantum provides PyTorch-native quantum devices, gates, differentiable circuit execution, measurements, and GPU-backed simulation.
+
+QuRiFT adds the privacy-audit layer on top of those primitives:
+
+- experiment drivers,
+- feature-map and ansatz configuration logic,
+- QNN/HQNN/QCNN model wrappers,
+- sweep orchestration,
+- result logging,
+- target-table construction,
+- prediction-vector export,
+- membership-inference attack training.
+
+TorchQuantum should be credited as the upstream quantum simulation and circuit-execution foundation. QuRiFT is the audit and analysis framework built around it.
+
+---
+
+## Repository Structure
+
+```text
+QuRiFT/
+├── experiments/
+│   ├── qurift_main.py
+│   ├── full_sweep_qnn_moons.py
+│   ├── full_sweep_qnn_circles.py
+│   ├── full_sweep_qnn_blobs.py
+│   ├── run_mnist_sweep_qnn.py
+│   ├── run_mnist_sweep_hqnn.py
+│   ├── run_mnist_sweep_qcnn.py
+│   └── gen_results/
+│       ├── make_runid_tables_for_mia.py
+│       ├── qnn_qcnn_hqnn_models_comp_mnist.py
+│       ├── run_selected_configs_for_mia.py
+│       ├── train_mia_attack.py
+│       └── run_train_mia_attack_cvholdout_multigpu.py
+├── data/
+│   └── MNIST/raw/
+├── requirements.txt
+├── setup.py
+└── README.md
+```
+
+Generated outputs such as checkpoints, sweep folders, CSV summaries, plots, and attack outputs are intentionally kept out of Git unless they are curated paper artifacts.
+
+---
 
 ## Main Entry Point
 
-The central QuRiFT experiment driver is:
+The central experiment driver is:
 
 ```bash
-experiments/qurift_main.py
+python experiments/qurift_main.py
 ```
 
-Installable console entry point:
+After installation, the same driver can also be called through the console command:
 
 ```bash
 qurift
 ```
 
-## Sweep Drivers
+Most sweep scripts in `experiments/` are wrappers around `experiments/qurift_main.py` with pre-defined experimental grids.
 
-The main sweep scripts call `experiments/qurift_main.py`:
-
-```text
-experiments/full_sweep_qnn_moons.py
-experiments/full_sweep_qnn_circles.py
-experiments/full_sweep_qnn_blobs.py
-experiments/run_mnist_sweep_qnn.py
-experiments/run_mnist_sweep_hqnn.py
-experiments/run_mnist_sweep_qcnn.py
-```
-
-These scripts launch controlled sweeps over synthetic datasets and MNIST model
-families.
-
-## What QuRiFT Sweeps
-
-QuRiFT varies structural QML components while holding the data protocol and
-optimizer fixed within each experimental family:
-
-- feature-map family: `z`, `zz`, `pauli`, `eff_su2`
-- feature-map repetitions via `--fm-*-reps`
-- feature-map padding mode
-- feature-map entanglement topology
-- circuit width via `--n-wires`
-- variational depth via `--depth`
-- q-layer entanglement topology via `--qlayer-ent-kind`
-- q-layer two-qubit operation via `--qlayer-twoq-op`
-- model family: `qnn`, `hqnn`, `qcnn`, `mlp_qnn`
-
-The paper emphasizes the distinction between feature-map repetitions and
-variational depth: repetitions repeatedly inject input-dependent structure into
-the fixed encoder, while depth primarily increases trainable ansatz capacity.
-
-## Model Families
-
-QuRiFT supports:
-
-- `qnn`: dense QNN with quantum encoder, variational circuit, measurement, and
-  classical classifier.
-- `hqnn`: hybrid CNN-QNN model with a trainable classical bottleneck before the
-  quantum encoder and an MLP head after measurement.
-- `qcnn`: quantum-filter/quanvolutional front end with local quantum processing
-  before the downstream encoder and classifier.
-- `mlp_qnn`: optional classical/MLP-style comparison path.
-
-Synthetic benchmarks include Moons, Circles, and Blobs. The MNIST setting uses
-a four-class subset over digits `{0, 1, 3, 8}` with compact `1x16`
-representations before the main quantum encoder.
-
-The repository includes a small MNIST cache under:
-
-```text
-data/MNIST/raw
-```
-
-MNIST experiments use `root="./data"`, so fresh clones can run the MNIST smoke
-tests without downloading MNIST again. If the cache is removed, TorchVision will
-attempt to download the dataset.
-
-## Metrics and Privacy Evaluation
-
-For every configuration, QuRiFT records:
-
-- train, validation, and test loss
-- train, validation, and test accuracy
-- train-test accuracy gap
-- probability vectors for member and non-member samples
-- output-derived attack features such as loss, entropy, confidence, margin, and
-  correctness
-
-Membership inference is evaluated in a black-box setting: the attacker observes
-the target model's prediction vector but does not access parameters, gradients,
-quantum states, training data, or optimizer state.
+---
 
 ## Installation
+
+Clone the repository and install it in editable mode:
 
 ```bash
 git clone https://github.com/CartwheelX/QuRiFT.git
@@ -145,42 +125,17 @@ cd QuRiFT
 pip install --editable .
 ```
 
-This is the same editable-install workflow as TorchQuantum:
+This installs the QuRiFT package and exposes the console command:
 
 ```bash
-pip install --editable .
+qurift
 ```
 
-The difference is that this repository installs the QuRiFT distribution
-(`qurift`) and uses the bundled TorchQuantum-compatible source tree as the
-upstream quantum primitive layer. Dependencies are read from `requirements.txt`
-through `setup.py`.
-
-## Dependencies
-
-- Python `>=3.7, <=3.9` is recommended. Python 3.10 may have a `concurrent`
-  package issue with some Qiskit/TorchQuantum dependency combinations.
-- PyTorch `>=1.8.0`
-- `configargparse >= 0.14`
-- GPU model training requires NVIDIA GPUs.
-
-Install dependencies together with QuRiFT:
-
-```bash
-pip install --editable .
-```
-
-If you need to install dependencies separately:
+If you prefer to install dependencies separately:
 
 ```bash
 pip install -r requirements.txt
 pip install --editable . --no-deps
-```
-
-The experiment code uses TorchQuantum primitives through:
-
-```python
-import torchquantum as tq
 ```
 
 The installable distribution name is:
@@ -195,54 +150,258 @@ Current package version:
 0.1.0
 ```
 
+---
+
+## Dependencies
+
+Recommended environment:
+
+- Python `>=3.7, <=3.9`
+- PyTorch `>=1.8.0`
+- `configargparse >= 0.14`
+- CUDA-enabled NVIDIA GPU for larger sweeps and target-model retraining
+
+Python 3.10 may cause compatibility issues with some TorchQuantum/Qiskit dependency combinations, including issues around the `concurrent` package in older stacks. Python 3.8 or 3.9 is recommended for reproducibility.
+
+The experiment code imports TorchQuantum primitives through:
+
+```python
+import torchquantum as tq
+```
+
+---
+
 ## Quick Start
 
 Run a small synthetic Moons experiment:
 
 ```bash
-python experiments/qurift_main.py --dataset moons --model-type qnn --n-wires 4 --depth 2 --epochs 1 --train_target --extra-feats
+python experiments/qurift_main.py \
+  --dataset moons \
+  --model-type qnn \
+  --n-wires 4 \
+  --depth 2 \
+  --epochs 1 \
+  --train_target \
+  --extra-feats
 ```
 
 Equivalent installed command:
 
 ```bash
-qurift --dataset moons --model-type qnn --n-wires 4 --depth 2 --epochs 1 --train_target --extra-feats
+qurift \
+  --dataset moons \
+  --model-type qnn \
+  --n-wires 4 \
+  --depth 2 \
+  --epochs 1 \
+  --train_target \
+  --extra-feats
 ```
 
-Example with prediction-vector export for membership-inference analysis:
+On Windows PowerShell, replace Linux/macOS line continuations `\` with `^`.
+
+---
+
+## Example: Export Prediction Vectors for MIA
+
+The following example trains a QNN target model on Moons and exports prediction-vector data for membership-inference analysis:
 
 ```bash
-python experiments/qurift_main.py ^
-  --dataset moons ^
-  --model-type qnn ^
-  --n-wires 4 ^
-  --depth 6 ^
-  --vector-train 50 ^
-  --vector-valid 50 ^
-  --vector-test 50 ^
-  --batch-size 8 ^
-  --epochs 100 ^
-  --moons-noise 0.3 ^
-  --fm-kind z ^
-  --fm-z-pad-mode wrap ^
-  --fm-z-reps 1 ^
-  --train_target ^
-  --extra-feats ^
-  --export-attack-data ^
-  --target-model-path checkpoints/moons_qnn.pt ^
+python experiments/qurift_main.py \
+  --dataset moons \
+  --model-type qnn \
+  --n-wires 4 \
+  --depth 6 \
+  --vector-train 50 \
+  --vector-valid 50 \
+  --vector-test 50 \
+  --batch-size 8 \
+  --epochs 100 \
+  --moons-noise 0.3 \
+  --fm-kind z \
+  --fm-z-pad-mode wrap \
+  --fm-z-reps 1 \
+  --train_target \
+  --extra-feats \
+  --export-attack-data \
+  --target-model-path checkpoints/moons_qnn.pt \
   --attack-data-out audit_outputs/moons_qnn_attack_data.pt
 ```
 
-On Linux/macOS, replace PowerShell line continuations `^` with `\`.
+The exported attack data contains prediction vectors and labels needed to train black-box membership-inference attacks.
 
-## MIA Target Selection and Attack Workflow
+---
 
-The `experiments/gen_results/` directory intentionally tracks only the
-source scripts needed for paper-table generation and membership-inference
-attack training. Generated CSVs, plots, saved models, and attack outputs remain
-ignored by Git.
+## Sweep Drivers
 
-Generate a run-id grid for a selected synthetic setup:
+The main sweep drivers are:
+
+```text
+experiments/full_sweep_qnn_moons.py
+experiments/full_sweep_qnn_circles.py
+experiments/full_sweep_qnn_blobs.py
+experiments/run_mnist_sweep_qnn.py
+experiments/run_mnist_sweep_hqnn.py
+experiments/run_mnist_sweep_qcnn.py
+```
+
+These scripts launch controlled sweeps across synthetic datasets and MNIST model families. They call `experiments/qurift_main.py` with different structural configurations.
+
+---
+
+## Structural Factors Swept by QuRiFT
+
+QuRiFT varies QML structure while keeping the data and training protocol fixed within each experimental family. The main factors are:
+
+| Factor | Example values / flags | Purpose |
+|---|---|---|
+| Feature-map family | `z`, `zz`, `pauli`, `eff_su2` | Tests encoder-induced representation effects |
+| Feature-map repetitions | `--fm-*-reps` | Repeatedly injects input-dependent structure |
+| Padding mode | e.g., `wrap` | Controls feature-to-qubit mapping when dimensions do not match |
+| Feature-map entanglement | e.g., `linear`, `full` | Controls encoder entanglement topology |
+| Circuit width | `--n-wires` | Changes number of qubits/wires |
+| Variational depth | `--depth` | Changes trainable ansatz capacity |
+| Q-layer entanglement | `--qlayer-ent-kind` | Controls trainable-layer connectivity |
+| Q-layer two-qubit gate | `--qlayer-twoq-op` | Tests trainable entangling operation choice |
+| Model family | `qnn`, `hqnn`, `qcnn`, `mlp_qnn` | Compares QML architecture families |
+
+A key distinction in the paper is between **feature-map repetitions** and **variational depth**. Feature-map repetitions re-inject the input through the fixed encoder, similar in spirit to data re-uploading. Variational depth mainly increases the number of trainable operations after encoding.
+
+---
+
+## Model Families
+
+QuRiFT supports the following model families:
+
+- **`qnn`**: Dense quantum neural network with a quantum encoder, variational circuit, measurement, and classical classifier.
+- **`hqnn`**: Hybrid CNN-QNN model with a trainable classical bottleneck before the quantum encoder and an MLP head after measurement.
+- **`qcnn`**: Quantum-filter/quanvolutional front end with local quantum processing before the downstream encoder and classifier.
+- **`mlp_qnn`**: Optional classical/MLP-style comparison path.
+
+Synthetic benchmarks include:
+
+```text
+Moons, Circles, Blobs
+```
+
+The MNIST experiments use a four-class subset:
+
+```text
+{0, 1, 3, 8}
+```
+
+MNIST inputs are represented using compact `1x16` features before the main quantum encoder.
+
+---
+
+## MNIST Data Cache
+
+The repository includes a small MNIST cache under:
+
+```text
+data/MNIST/raw
+```
+
+MNIST experiments use:
+
+```python
+root="./data"
+```
+
+Fresh clones can therefore run MNIST smoke tests without downloading MNIST again. If the cache is removed, TorchVision will attempt to download the dataset.
+
+---
+
+## Metrics Recorded
+
+For every configuration, QuRiFT records utility and privacy-relevant signals, including:
+
+- train, validation, and test loss,
+- train, validation, and test accuracy,
+- train-test accuracy gap,
+- prediction vectors for member and non-member samples,
+- output-derived attack features such as loss, entropy, confidence, margin, and correctness.
+
+The train-test accuracy gap is used as a structural proxy for memorization pressure. Membership inference is then evaluated directly using exported prediction vectors.
+
+---
+
+## Membership-Inference Threat Model
+
+QuRiFT evaluates membership inference in a strict black-box setting. The attacker observes only the target model's prediction vector for a queried sample.
+
+The attacker does **not** access:
+
+- model parameters,
+- gradients,
+- optimizer state,
+- quantum states,
+- circuit internals at inference time,
+- target training data.
+
+The attack objective is to distinguish member samples from non-member samples using output-derived signals.
+
+---
+
+## Result and MIA Workflow
+
+The `experiments/gen_results/` directory tracks the scripts needed for paper-table generation and membership-inference attack training. Generated CSVs, plots, checkpoints, and attack outputs are ignored by Git unless intentionally curated.
+
+A typical workflow is:
+
+```text
+1. Run QML sweeps.
+2. Copy or collect the resulting sweep summary CSVs into experiments/gen_results/.
+3. Generate target-configuration tables for MIA.
+4. Retrain/export selected target models and prediction vectors.
+5. Train membership-inference attacks.
+6. Aggregate attack results for paper tables and plots.
+```
+
+---
+
+## Step 1: Run Sweeps
+
+Run the desired synthetic and MNIST sweep drivers, for example:
+
+```bash
+python experiments/full_sweep_qnn_moons.py
+python experiments/full_sweep_qnn_circles.py
+python experiments/full_sweep_qnn_blobs.py
+python experiments/run_mnist_sweep_qnn.py
+python experiments/run_mnist_sweep_hqnn.py
+python experiments/run_mnist_sweep_qcnn.py
+```
+
+Each sweep creates a timestamped output directory. Examples include:
+
+```text
+sweep_full_pipeline_moons_<timestamp>/
+sweep_full_pipeline_circles_<timestamp>/
+sweep_full_pipeline_blobs_<timestamp>/
+mnist_extensive_sweep_qnn_<timestamp>/
+hqnn_sweep_<timestamp>/
+qcnn_sweep_100_<timestamp>/
+```
+
+The corresponding CSV summaries should be copied into `experiments/gen_results/` before target-table generation.
+
+Expected MNIST architecture summary names:
+
+```text
+experiments/gen_results/qnn_extensive_results.csv
+experiments/gen_results/hqnn_extensive_results.csv
+experiments/gen_results/qcnn_extensive_results.csv
+```
+
+Synthetic sweep summaries are similarly collected from their generated sweep directories.
+
+---
+
+## Step 2: Generate Run-ID Tables for Selected MIA Targets
+
+For a selected synthetic setup, use:
 
 ```bash
 python experiments/gen_results/make_runid_tables_for_mia.py \
@@ -256,42 +415,56 @@ python experiments/gen_results/make_runid_tables_for_mia.py \
   --fallback-if-empty
 ```
 
-Generate matched target-configuration CSVs for the synthetic QNN and MNIST
-architecture comparisons:
+This script filters sweep results and constructs run-id tables for target-model retraining and MIA export.
+
+---
+
+## Step 3: Generate Matched Target Tables
+
+Generate matched target-configuration CSVs for synthetic QNN and MNIST architecture comparisons:
 
 ```bash
 python experiments/gen_results/qnn_qcnn_hqnn_models_comp_mnist.py
 ```
 
-Before running this step, place the MNIST sweep summaries in
-`experiments/gen_results/` with consistent architecture names:
+This step expects the sweep summary CSVs to be present under `experiments/gen_results/` with consistent architecture names.
 
-```text
-experiments/gen_results/qnn_extensive_results.csv
-experiments/gen_results/hqnn_extensive_results.csv
-experiments/gen_results/qcnn_extensive_results.csv
-```
-
-This produces target tables such as:
+Typical output tables include:
 
 ```text
 experiments/gen_results/paper_arch_compare/synthetic_qnn_targets_table.csv
 experiments/gen_results/paper_arch_compare/mnist_matched_runids_table.csv
 ```
 
-Train/export selected target models and prediction-vector attack data:
+These tables are later consumed by the target retraining and prediction-vector export script.
+
+---
+
+## Step 4: Retrain Selected Targets and Export Attack Data
+
+Train/export selected target models and prediction-vector attack data for synthetic QNN targets:
 
 ```bash
 python experiments/gen_results/run_selected_configs_for_mia.py \
   --targets experiments/gen_results/paper_arch_compare/synthetic_qnn_targets_table.csv \
   --out experiments/gen_results/paper_arch_compare/saved_models_for_mia \
   --save-model
+```
 
+Train/export selected target models and prediction-vector attack data for matched MNIST targets:
+
+```bash
 python experiments/gen_results/run_selected_configs_for_mia.py \
   --targets experiments/gen_results/paper_arch_compare/mnist_matched_runids_table.csv \
   --out experiments/gen_results/paper_arch_compare/saved_models_for_mia \
   --save-model
 ```
+
+The output directory stores trained target checkpoints and exported attack-data files.
+
+---
+
+## Step 5: Train Membership-Inference Attacks
 
 Train MLP membership-inference attacks on a single GPU:
 
@@ -304,7 +477,7 @@ python experiments/gen_results/train_mia_attack.py \
   --device cuda --seed 42
 ```
 
-Train MLP membership-inference attacks with the multi-GPU launcher:
+Train attacks with the multi-GPU launcher:
 
 ```bash
 python experiments/gen_results/run_train_mia_attack_cvholdout_multigpu.py \
@@ -321,35 +494,95 @@ python experiments/gen_results/run_train_mia_attack_cvholdout_multigpu.py \
   --summary-only
 ```
 
-These scripts expect the corresponding sweep summary CSVs to be present under
-`experiments/gen_results/` before target-table generation.
+---
 
-## Repository Notes
+## Important Generated Files
 
-- The main QuRiFT driver is `experiments/qurift_main.py`.
-- Generated datasets, checkpoints, circuits, logs, plots, and attack outputs
-  should not be committed unless intentionally curated as paper artifacts.
-- Large result artifacts should be stored in GitHub Releases, Zenodo, or an
-  institutional data repository.
+The following files are commonly used in the paper analysis pipeline:
 
-## Paper Citation Stability
+```text
+experiments/gen_results/paper_arch_compare/synthetic_qnn_targets_table.csv
+experiments/gen_results/paper_arch_compare/mnist_matched_runids_table.csv
+```
 
-For a stable paper artifact, tag the version used in the paper:
+They are generated from sweep summary CSVs and are used as target lists for `run_selected_configs_for_mia.py`.
+
+The target retraining/export step then produces saved models and attack-data files under:
+
+```text
+experiments/gen_results/paper_arch_compare/saved_models_for_mia/
+```
+
+The MIA training step produces attack results under directories such as:
+
+```text
+experiments/gen_results/paper_arch_compare/mia_results/
+experiments/gen_results/paper_arch_compare/mia_results_multiGPU/
+```
+
+---
+
+## Reproducibility Notes
+
+- Keep sweep summary CSV names consistent before generating target tables.
+- Use the same random seeds when reproducing paper results.
+- Keep generated checkpoints, plots, and attack outputs outside Git unless they are curated artifacts.
+- Store large result artifacts in GitHub Releases, Zenodo, or an institutional data repository.
+- For paper reproducibility, tag the exact repository version used for experiments.
+
+Example release tag:
 
 ```bash
 git tag -a v0.1.0 -m "QuRiFT v0.1.0"
 git push origin v0.1.0
 ```
 
-Then create a GitHub release for `v0.1.0`. For a DOI, archive the GitHub release
-with Zenodo.
+For a DOI, archive the corresponding GitHub release with Zenodo.
+
+---
+
+## Repository Hygiene
+
+Do not commit routine generated artifacts such as:
+
+```text
+checkpoints/
+audit_outputs/
+sweep_full_pipeline_*/
+mnist_extensive_sweep_*/
+hqnn_sweep_*/
+qcnn_sweep_*/
+experiments/gen_results/paper_arch_compare/saved_models_for_mia/
+experiments/gen_results/paper_arch_compare/mia_results*/
+```
+
+Commit only source code, configuration files, documentation, and intentionally curated artifacts required for the paper or release.
+
+---
 
 ## Attribution
 
 QuRiFT builds on TorchQuantum by the MIT HAN Lab and contributors:
 
+```text
 https://github.com/mit-han-lab/torchquantum
+```
 
-TorchQuantum is distributed under the MIT License. Preserve upstream license and
-attribution notices when redistributing code derived from or bundled with
-TorchQuantum.
+TorchQuantum is distributed under the MIT License. Preserve upstream license and attribution notices when redistributing code derived from or bundled with TorchQuantum.
+
+---
+
+## Citation
+
+If you use QuRiFT, please cite the accompanying paper:
+
+```bibtex
+@misc{qurift2026,
+  title        = {Structural Privacy Vulnerabilities in Quantum Neural Networks},
+  author       = {Anonymous Authors},
+  year         = {2026},
+  note         = {QuRiFT: Quantum Risk and Inference Fault-line Tracer}
+}
+```
+
+Update the BibTeX entry with the final author list, venue, and DOI once the paper is public.
