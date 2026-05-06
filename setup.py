@@ -4,8 +4,7 @@ MIT License
 Copyright (c) 2020-present TorchQuantum Authors
 QuRiFT additions copyright (c) 2026 QuRiFT contributors
 
-This project is a research fork of TorchQuantum. The Python import namespace
-`torchquantum` is intentionally preserved for compatibility with upstream code.
+QuRiFT uses TorchQuantum primitives as its upstream quantum programming layer.
 """
 
 from pathlib import Path
@@ -34,11 +33,11 @@ if __name__ == "__main__":
     setup(
         name="qurift",
         version=VERSION["version"],
-        description="QuRiFT: quantum representation and privacy audit framework built on TorchQuantum",
+        description="QuRiFT: Quantum Risk and Inference Fault-line Tracer for structural privacy analysis in QML",
         long_description=(ROOT / "README.md").read_text(encoding="utf-8"),
         long_description_content_type="text/markdown",
         url="https://github.com/CartwheelX/QuRiFT",
-        author="QuRiFT contributors; based on TorchQuantum by the MIT HAN Lab",
+        author="QuRiFT contributors",
         license="MIT",
         install_requires=read_requirements(),
         extras_require={"doc": ["nbsphinx", "recommonmark"]},

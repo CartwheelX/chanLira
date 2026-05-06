@@ -1,8 +1,21 @@
-## Simple QNN for MNIST Training
+## QuRiFT Experiment Drivers
 
-To run the example:
-```python
-python mnist_example.py --epochs=5
+The central QuRiFT entry point is:
+
+```bash
+python examples/mnist/qurift_main.py
 ```
 
-The expected test set accuracy on noise-free torchquantum after 5 epoch is around 84%.
+The sweep drivers in this directory call `qurift_main.py` for controlled
+structural privacy experiments across synthetic datasets and MNIST:
+
+```text
+full_sweep_qnn_moons.py
+full_sweep_qnn_circles.py
+full_sweep_qnn_blobs.py
+run_mnist_sweep_qnn.py
+run_mnist_sweep_hqnn.py
+run_mnist_sweep_qcnn.py
+```
+
+TorchQuantum provides the upstream quantum primitives used by the models.

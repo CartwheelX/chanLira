@@ -11,7 +11,7 @@ from concurrent.futures import ProcessPoolExecutor, as_completed
 # =====================================================
 
 PYTHON_EXE = "python.exe"
-MAIN_SCRIPT = r".\examples\mnist\mnist_2qubit_4class.py"
+MAIN_SCRIPT = r".\examples\mnist\qurift_main.py"
 
 # Base arguments that do NOT change
 BASE_ARGS = [

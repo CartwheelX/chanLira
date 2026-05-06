@@ -7,11 +7,11 @@ import sys
 
 def main() -> None:
     root = Path(__file__).resolve().parents[1]
-    script = root / "examples" / "mnist" / "mnist_2qubit_4class.py"
+    script = root / "examples" / "mnist" / "qurift_main.py"
     if not script.exists():
         raise FileNotFoundError(
             "QuRiFT main experiment was not found. Run from a source checkout "
-            "or use: python examples/mnist/mnist_2qubit_4class.py"
+            "or use: python examples/mnist/qurift_main.py"
         )
 
     sys.path.insert(0, str(script.parent))

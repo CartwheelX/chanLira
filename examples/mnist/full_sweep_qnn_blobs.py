@@ -14,7 +14,7 @@ from multiprocessing import Manager
 # ================= CONFIGURATION =================
 
 # Path to your training script
-SCRIPT_PATH = Path("examples/mnist/mnist_2qubit_4class.py")
+SCRIPT_PATH = Path("examples/mnist/qurift_main.py")
 
 # SPEED SETTING: How many scripts to run on ONE GPU at the same time?
 JOBS_PER_GPU = 4 

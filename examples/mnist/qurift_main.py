@@ -1,3 +1,9 @@
+"""QuRiFT main experiment driver.
+
+QuRiFT (Quantum Risk and Inference Fault-line Tracer) is the controlled audit
+framework used for structural privacy analysis in QML experiments.
+"""
+
 import os
 import subprocess
 

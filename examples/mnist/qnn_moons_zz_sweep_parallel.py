@@ -17,7 +17,7 @@
 # # ================= CONFIGURATION =================
 
 # # Path to your training script
-# SCRIPT_PATH = Path("examples/mnist/mnist_2qubit_4class.py")
+# SCRIPT_PATH = Path("examples/mnist/qurift_main.py")
 
 # # SPEED SETTING: How many scripts to run on ONE GPU at the same time?
 # # Your screenshot showed 98% Compute Load with 4 jobs. 
@@ -353,7 +353,7 @@ from multiprocessing import Manager
 # ================= CONFIGURATION =================
 
 # Path to your training script
-SCRIPT_PATH = Path("examples/mnist/mnist_2qubit_4class.py")
+SCRIPT_PATH = Path("examples/mnist/qurift_main.py")
 
 # SPEED SETTING: How many scripts to run on ONE GPU at the same time?
 # 4 is safe for A100 80GB. Do not increase beyond 4 to avoid compute bottleneck.

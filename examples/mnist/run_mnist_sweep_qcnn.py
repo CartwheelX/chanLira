@@ -14,7 +14,7 @@ from multiprocessing import Manager
 # ================= CONFIGURATION =================
 
 # Path to your training script
-SCRIPT_PATH = Path("examples/mnist/mnist_2qubit_4class.py")
+SCRIPT_PATH = Path("examples/mnist/qurift_main.py")
 
 # SPEED SETTING: Jobs per GPU 
 # QCNN might use slightly more VRAM due to classical layers + quantum.

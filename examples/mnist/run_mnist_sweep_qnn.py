@@ -14,7 +14,7 @@
 # # ================= CONFIGURATION =================
 
 # # Path to your training script
-# SCRIPT_PATH = Path("examples/mnist/mnist_2qubit_4class.py")
+# SCRIPT_PATH = Path("examples/mnist/qurift_main.py")
 
 # # SPEED SETTING: How many scripts to run on ONE GPU at the same time?
 # # Since MNIST 4-wire circuits are small, you can likely run 6-8 per GPU.
@@ -339,7 +339,7 @@ from multiprocessing import Manager
 # ================= CONFIGURATION =================
 
 # Path to your training script
-SCRIPT_PATH = Path("examples/mnist/mnist_2qubit_4class.py")
+SCRIPT_PATH = Path("examples/mnist/qurift_main.py")
 
 # SPEED SETTING: Jobs per GPU (Adjust based on VRAM/Stability)
 JOBS_PER_GPU = 6 

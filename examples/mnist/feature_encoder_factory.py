@@ -13,7 +13,7 @@ import torch.nn.functional as F
 import torch.optim as optim
 
 
-from examples.mnist.mnist_2qubit_4class import QFCConfig, make_entangler
+from examples.mnist.qurift_main import QFCConfig, make_entangler
 import torchquantum as tq
 from torchquantum.measurement import expval_joint_analytical
 from torchquantum.dataset import MNIST
