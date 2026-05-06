@@ -348,3 +348,16 @@ model.pt
 .cursorignore
 .cursor/
 .github/copilot-instructions.md
+
+# QuRiFT generated outputs
+all_circ/
+audit_outputs/
+checkpoints/
+data/
+mia_analysis_results/
+examples/mnist/gen_results/
+*.pt
+*.pth
+*.ckpt
+*.onnx
+wandb/

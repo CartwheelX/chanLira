@@ -2,48 +2,52 @@
 MIT License
 
 Copyright (c) 2020-present TorchQuantum Authors
+QuRiFT additions copyright (c) 2026 QuRiFT contributors
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+This project is a research fork of TorchQuantum. The Python import namespace
+`torchquantum` is intentionally preserved for compatibility with upstream code.
 """
 
-from setuptools import setup, find_packages
+from pathlib import Path
 
-VERSION = {}  # type: ignore
+from setuptools import find_packages, setup
 
-with open("torchquantum/__version__.py", "r") as version_file:
+
+ROOT = Path(__file__).resolve().parent
+VERSION = {}
+
+with open(ROOT / "torchquantum" / "__version__.py", "r", encoding="utf-8") as version_file:
     exec(version_file.read(), VERSION)
 
-if __name__ == "__main__":
-    requirements = open("requirements.txt").readlines()
-    requirements = [r.strip() for r in requirements]
 
+def read_requirements():
+    requirements = []
+    for line in (ROOT / "requirements.txt").read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        requirements.append(line)
+    return requirements
+
+
+if __name__ == "__main__":
     setup(
-        name="torchquantum",
+        name="qurift",
         version=VERSION["version"],
-        description="Quantum Computing in PyTorch",
-        url="https://github.com/mit-han-lab/torchquantum",
-        author="Shreya Chaudhary, Zhuoyang Ye, Jiannan Cao, Jessica Ding, Jiai Gu, Song Han, Zirui Li, Zhiding Liang, Pengyu Liu, Mohammadreza Tavasoli, Hanrui Wang",
-        author_email="hanruiwang.hw@gmail.com",
+        description="QuRiFT: quantum representation and privacy audit framework built on TorchQuantum",
+        long_description=(ROOT / "README.md").read_text(encoding="utf-8"),
+        long_description_content_type="text/markdown",
+        url="https://github.com/CartwheelX/QuRiFT",
+        author="QuRiFT contributors; based on TorchQuantum by the MIT HAN Lab",
         license="MIT",
-        install_requires=requirements,
+        install_requires=read_requirements(),
         extras_require={"doc": ["nbsphinx", "recommonmark"]},
-        python_requires=">=3.5",
+        python_requires=">=3.8",
         include_package_data=True,
         packages=find_packages(),
+        entry_points={
+            "console_scripts": [
+                "qurift=qurift.cli:main",
+            ],
+        },
     )
