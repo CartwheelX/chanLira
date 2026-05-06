@@ -593,7 +593,7 @@ def main():
     for t in gpu_tickets: gpu_queue.put(t)
 
     # 3. EXECUTION
-    csv_path = base_dir / "mnist_extensive_results.csv"
+    csv_path = base_dir / "mnist_extensive_results_updated.csv"
     errors_path = base_dir / "errors.txt"
 
     with csv_path.open("w", newline="", encoding="utf-8") as f_csv, \
