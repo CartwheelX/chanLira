@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="qurift_logooo.png" alt="QuRiFT logo" width="420"/>
+  <img src="qurift_logoo_1.png" alt="QuRiFT logo" width="420"/>
 </p>
 
 **QuRiFT** (**Quantum Risk and Inference Fault-line Tracer**) is a controlled audit framework for studying **structural privacy leakage in quantum machine learning (QML)**.
