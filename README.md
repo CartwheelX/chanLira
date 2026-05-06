@@ -5,12 +5,6 @@
 
 **QuRiFT** (**Quantum Risk and Inference Fault-line Tracer**) is a controlled audit framework for studying **structural privacy leakage in quantum machine learning (QML)**.
 
-This repository accompanies the paper:
-
-```text
-Structural Privacy Vulnerabilities in Quantum Neural Networks
-```
-
 QuRiFT is designed to answer a specific question: **how much of membership-inference risk in QML is induced by circuit structure, especially the non-trainable classical-to-quantum encoder?**
 
 Rather than treating privacy leakage only as a consequence of trainable model capacity, QuRiFT performs controlled interventions over QML design choices, keeps the training protocol fixed within each experimental family, and records utility, overfitting, and membership-inference signals.
