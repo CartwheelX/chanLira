@@ -356,6 +356,8 @@ checkpoints/
 data/
 mia_analysis_results/
 examples/mnist/gen_results/
+qurift_moons_sweep_*/
+tmp_qurift_sweep*/
 *.pt
 *.pth
 *.ckpt
