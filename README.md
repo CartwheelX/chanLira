@@ -522,43 +522,6 @@ experiments/gen_results/paper_arch_compare/mia_results_multiGPU/
 
 ---
 
-## Reproducibility Notes
-
-- Keep sweep summary CSV names consistent before generating target tables.
-- Use the same random seeds when reproducing paper results.
-- Keep generated checkpoints, plots, and attack outputs outside Git unless they are curated artifacts.
-- Store large result artifacts in GitHub Releases, Zenodo, or an institutional data repository.
-- For paper reproducibility, tag the exact repository version used for experiments.
-
-Example release tag:
-
-```bash
-git tag -a v0.1.0 -m "QuRiFT v0.1.0"
-git push origin v0.1.0
-```
-
-For a DOI, archive the corresponding GitHub release with Zenodo.
-
----
-
-## Repository Hygiene
-
-Do not commit routine generated artifacts such as:
-
-```text
-checkpoints/
-audit_outputs/
-sweep_full_pipeline_*/
-mnist_extensive_sweep_*/
-hqnn_sweep_*/
-qcnn_sweep_*/
-experiments/gen_results/paper_arch_compare/saved_models_for_mia/
-experiments/gen_results/paper_arch_compare/mia_results*/
-```
-
-Commit only source code, configuration files, documentation, and intentionally curated artifacts required for the paper or release.
-
----
 
 ## Attribution
 
