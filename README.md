@@ -14,25 +14,6 @@ Rather than treating privacy leakage only as a consequence of trainable model ca
 
 ---
 
-## Core Idea
-
-QuRiFT audits the following encoder-to-leakage chain:
-
-```text
-classical input x
-  -> encoder U_phi(x)
-  -> encoded quantum state rho_phi(x)
-  -> Hilbert-space geometry / Hilbert-Schmidt kernel K_phi
-  -> train-test asymmetry
-  -> output-based membership-inference signal
-```
-
-The claim is **not** that the encoder directly reveals membership. The encoder is non-trainable, but it defines the representation seen by the trainable variational circuit. Some feature maps and data-reuploading-style repetitions can make training samples easier to fit than unseen samples. This increases the train-test gap and, in turn, strengthens black-box membership-inference signals in the model output probabilities.
-
-QuRiFT therefore treats the encoder as a first-class privacy-relevant design choice in QML.
-
----
-
 ## What QuRiFT Provides
 
 QuRiFT provides an end-to-end experimental pipeline for:
