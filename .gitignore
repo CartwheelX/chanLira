@@ -355,7 +355,8 @@ audit_outputs/
 checkpoints/
 data/
 mia_analysis_results/
-examples/mnist/gen_results/
+examples/mnist/
+experiments/gen_results/
 qurift_moons_sweep_*/
 tmp_qurift_sweep*/
 *.pt

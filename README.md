@@ -52,7 +52,7 @@ backend-specific hardware noise.
 The central QuRiFT experiment driver is:
 
 ```bash
-examples/mnist/qurift_main.py
+experiments/qurift_main.py
 ```
 
 Installable console entry point:
@@ -63,15 +63,15 @@ qurift
 
 ## Sweep Drivers
 
-The main sweep scripts call `examples/mnist/qurift_main.py`:
+The main sweep scripts call `experiments/qurift_main.py`:
 
 ```text
-examples/mnist/full_sweep_qnn_moons.py
-examples/mnist/full_sweep_qnn_circles.py
-examples/mnist/full_sweep_qnn_blobs.py
-examples/mnist/run_mnist_sweep_qnn.py
-examples/mnist/run_mnist_sweep_hqnn.py
-examples/mnist/run_mnist_sweep_qcnn.py
+experiments/full_sweep_qnn_moons.py
+experiments/full_sweep_qnn_circles.py
+experiments/full_sweep_qnn_blobs.py
+experiments/run_mnist_sweep_qnn.py
+experiments/run_mnist_sweep_hqnn.py
+experiments/run_mnist_sweep_qcnn.py
 ```
 
 These scripts launch controlled sweeps over synthetic datasets and MNIST model
@@ -190,7 +190,7 @@ Current package version:
 Run a small synthetic Moons experiment:
 
 ```bash
-python examples/mnist/qurift_main.py --dataset moons --model-type qnn --n-wires 4 --depth 2 --epochs 1 --train_target --extra-feats
+python experiments/qurift_main.py --dataset moons --model-type qnn --n-wires 4 --depth 2 --epochs 1 --train_target --extra-feats
 ```
 
 Equivalent installed command:
@@ -202,7 +202,7 @@ qurift --dataset moons --model-type qnn --n-wires 4 --depth 2 --epochs 1 --train
 Example with prediction-vector export for membership-inference analysis:
 
 ```bash
-python examples/mnist/qurift_main.py ^
+python experiments/qurift_main.py ^
   --dataset moons ^
   --model-type qnn ^
   --n-wires 4 ^
@@ -227,7 +227,7 @@ On Linux/macOS, replace PowerShell line continuations `^` with `\`.
 
 ## MIA Target Selection and Attack Workflow
 
-The `examples/mnist/gen_results/` directory intentionally tracks only the
+The `experiments/gen_results/` directory intentionally tracks only the
 source scripts needed for paper-table generation and membership-inference
 attack training. Generated CSVs, plots, saved models, and attack outputs remain
 ignored by Git.
@@ -235,9 +235,9 @@ ignored by Git.
 Generate a run-id grid for a selected synthetic setup:
 
 ```bash
-python examples/mnist/gen_results/make_runid_tables_for_mia.py \
+python experiments/gen_results/make_runid_tables_for_mia.py \
   --dataset Moons --arch QNN \
-  --out-dir examples/mnist/gen_results/paper_arch_compare/retrain_grid \
+  --out-dir experiments/gen_results/paper_arch_compare/retrain_grid \
   --fix "fm_kind=zz,fm_op_eff=rzz,n_wires=3,ql_ent=full,ql_op=crz,pad_mode=wrap,fm_ent=linear" \
   --reps "1,2,3,4,5" \
   --depths "2,3,4,5,6" \
@@ -250,36 +250,36 @@ Generate matched target-configuration CSVs for the synthetic QNN and MNIST
 architecture comparisons:
 
 ```bash
-python examples/mnist/gen_results/qnn_qcnn_hqnn_models_comp_mnist.py
+python experiments/gen_results/qnn_qcnn_hqnn_models_comp_mnist.py
 ```
 
 This produces target tables such as:
 
 ```text
-examples/mnist/gen_results/paper_arch_compare/synthetic_qnn_targets_table.csv
-examples/mnist/gen_results/paper_arch_compare/mnist_matched_runids_table.csv
+experiments/gen_results/paper_arch_compare/synthetic_qnn_targets_table.csv
+experiments/gen_results/paper_arch_compare/mnist_matched_runids_table.csv
 ```
 
 Train/export selected target models and prediction-vector attack data:
 
 ```bash
-python examples/mnist/gen_results/run_selected_configs_for_mia.py \
-  --targets examples/mnist/gen_results/paper_arch_compare/synthetic_qnn_targets_table.csv \
-  --out examples/mnist/gen_results/paper_arch_compare/saved_models_for_mia \
+python experiments/gen_results/run_selected_configs_for_mia.py \
+  --targets experiments/gen_results/paper_arch_compare/synthetic_qnn_targets_table.csv \
+  --out experiments/gen_results/paper_arch_compare/saved_models_for_mia \
   --save-model
 
-python examples/mnist/gen_results/run_selected_configs_for_mia.py \
-  --targets examples/mnist/gen_results/paper_arch_compare/mnist_matched_runids_table.csv \
-  --out examples/mnist/gen_results/paper_arch_compare/saved_models_for_mia \
+python experiments/gen_results/run_selected_configs_for_mia.py \
+  --targets experiments/gen_results/paper_arch_compare/mnist_matched_runids_table.csv \
+  --out experiments/gen_results/paper_arch_compare/saved_models_for_mia \
   --save-model
 ```
 
 Train MLP membership-inference attacks on a single GPU:
 
 ```bash
-python examples/mnist/gen_results/train_mia_attack.py \
-  --attack-data-dir examples/mnist/gen_results/paper_arch_compare/saved_models_for_mia \
-  --out examples/mnist/gen_results/paper_arch_compare/mia_results \
+python experiments/gen_results/train_mia_attack.py \
+  --attack-data-dir experiments/gen_results/paper_arch_compare/saved_models_for_mia \
+  --out experiments/gen_results/paper_arch_compare/mia_results \
   --test-ratio 0.2 --cv-folds 5 \
   --tune --n-trials 30 --max-epochs 200 --patience 15 \
   --device cuda --seed 42
@@ -288,9 +288,9 @@ python examples/mnist/gen_results/train_mia_attack.py \
 Train MLP membership-inference attacks with the multi-GPU launcher:
 
 ```bash
-python examples/mnist/gen_results/run_train_mia_attack_cvholdout_multigpu.py \
-  --attack-data-dir examples/mnist/gen_results/paper_arch_compare/saved_models_for_mia \
-  --out examples/mnist/gen_results/paper_arch_compare/mia_results_multiGPU \
+python experiments/gen_results/run_train_mia_attack_cvholdout_multigpu.py \
+  --attack-data-dir experiments/gen_results/paper_arch_compare/saved_models_for_mia \
+  --out experiments/gen_results/paper_arch_compare/mia_results_multiGPU \
   --launcher \
   --device cuda \
   --tune --n-trials 120 --max-epochs 300 --patience 25 \
@@ -303,11 +303,11 @@ python examples/mnist/gen_results/run_train_mia_attack_cvholdout_multigpu.py \
 ```
 
 These scripts expect the corresponding sweep summary CSVs to be present under
-`examples/mnist/gen_results/` before target-table generation.
+`experiments/gen_results/` before target-table generation.
 
 ## Repository Notes
 
-- The main QuRiFT driver is `examples/mnist/qurift_main.py`.
+- The main QuRiFT driver is `experiments/qurift_main.py`.
 - Generated datasets, checkpoints, circuits, logs, plots, and attack outputs
   should not be committed unless intentionally curated as paper artifacts.
 - Large result artifacts should be stored in GitHub Releases, Zenodo, or an
