@@ -112,6 +112,16 @@ Synthetic benchmarks include Moons, Circles, and Blobs. The MNIST setting uses
 a four-class subset over digits `{0, 1, 3, 8}` with compact `1x16`
 representations before the main quantum encoder.
 
+The repository includes a small MNIST cache under:
+
+```text
+data/MNIST/raw
+```
+
+MNIST experiments use `root="./data"`, so fresh clones can run the MNIST smoke
+tests without downloading MNIST again. If the cache is removed, TorchVision will
+attempt to download the dataset.
+
 ## Metrics and Privacy Evaluation
 
 For every configuration, QuRiFT records:

@@ -2698,7 +2698,7 @@ def main():
         n_valid_samples = args.vector_valid  # 600
         
         # dataset = MNIST(
-        #     root="./mnist_data",
+        #     root="./data",
         #     train_valid_split_ratio=[0.5, 0.5],  # 600 / 600 split
         #     digits_of_interest=[0, 2, 4, 5, 6, 7, 8, 9, 1, 3],
         #     n_test_samples=n_test_samples,
@@ -2706,7 +2706,7 @@ def main():
         #     same_n_samples_each_class=True,
         # )
         dataset = MNIST(
-            root="./mnist_data",
+            root="./data",
             train_valid_split_ratio=[0.9, 0.1],  # fine; we sub-sample later anyway
             digits_of_interest=[0, 1, 3, 8], #  0, 2, 4, 5, 6, 7, 8, 9, 1, 3
             n_test_samples=n_test_samples,
