@@ -4,8 +4,10 @@ configargparse>=0.14
 matplotlib>=3.3.2
 nbsphinx
 numpy>=1.19.2
+pandas>=1.1.0
 
 opt_einsum
+optuna>=3.0.0
 pathos>=0.2.7
 pylatexenc>=2.10
 pyscf>=2.0.1
@@ -14,7 +16,9 @@ recommonmark
 qiskit_ibm_runtime
 qiskit-aer
 
+scikit-learn>=0.24.0
 scipy>=1.5.2
+seaborn>=0.11.0
 setuptools>=52.0.0
 tensorflow>=2.4.1
 torch>=1.8.0
