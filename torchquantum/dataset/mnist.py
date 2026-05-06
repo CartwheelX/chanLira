@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+import math
 import torch
 
 from torchpack.datasets.dataset import Dataset
@@ -40,6 +41,31 @@ resize_modes = {
     "nearest": InterpolationMode.NEAREST,
 }
 
+# we may need to ditch # 1. Standard normalization (zero mean, unit variance) if it did not work
+class QuantumScaleMinusPiToPi:
+    """Normalize → tanh → scale to (-π, π)"""
+    def __call__(self, tensor):
+        # tensor: (1, 28, 28)
+        # 1. Standard normalization (zero mean, unit variance)
+        # tensor = (tensor - tensor.mean()) / (tensor.std() + 1e-8)
+
+        # 2. tanh squashing to (-1, 1)
+        tensor = torch.tanh(tensor)
+
+        # 3. scale to (-π, π)
+        tensor = tensor * math.pi
+        return tensor
+    
+class QuantumScaleZeroToPi:
+    """Normalize → tanh → scale to (0, π)"""
+    def __call__(self, tensor):
+        # Step 1: zero-mean, unit-variance normalization
+        # tensor = (tensor - tensor.mean()) / (tensor.std() + 1e-8)
+        # Step 2 & 3: tanh + scale
+        # tensor = (torch.tanh(tensor) + 1) * (math.pi / 2) #--> For (0, π)
+        tensor = (torch.tanh(tensor) + 1) * math.pi #--> For (0, 2π)
+
+        return tensor   
 
 class MNISTDataset:
     def __init__(
@@ -86,6 +112,7 @@ class MNISTDataset:
         sample_quota = {}
         indices = []
         n_samples_each_class = n_samples // self.n_digits
+       
 
         for digit_of_interest in self.digits_of_interest:
             sample_ctr[digit_of_interest] = 0
@@ -110,7 +137,11 @@ class MNISTDataset:
             tran.append(transforms.CenterCrop(self.center_crop))
         if not self.resize == 28:
             tran.append(transforms.Resize(self.resize, interpolation=self.resize_mode))
+        
+        # tran.append(QuantumScaleMinusPiToPi()) # just comment this part in case (-.pi, pi) is not desired
+        # tran.append(QuantumScaleZeroToPi()) # use this line instead for (0, 2pi)
         transform = transforms.Compose(tran)
+        
 
         if self.split == "train" or self.split == "valid":
             if self.fashion:
@@ -253,6 +284,7 @@ class MNIST(Dataset):
         n_valid_samples=None,
         fashion=False,
         n_train_samples=None,
+        same_n_samples_each_class=False,  # <-- ADD THIS LINE
     ):
         self.root = root
 
@@ -272,6 +304,8 @@ class MNIST(Dataset):
                     n_valid_samples=n_valid_samples,
                     fashion=fashion,
                     n_train_samples=n_train_samples,
+                    # v-- AND ADD THIS LINE --v
+                    same_n_samples_each_class=same_n_samples_each_class,
                 )
                 for split in ["train", "valid", "test"]
             }

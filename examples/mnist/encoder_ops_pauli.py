@@ -1,0 +1,25 @@
+encoder_op_list_name_dict = {
+  "2x3_hrzz_linear_prod": [
+    {"input_idx": None, "func": "h", "wires": [0]},
+    {"input_idx": None, "func": "h", "wires": [1]},
+    {"input_idx": [0], "func": "u1", "wires": [0]},
+    {"input_idx": [1], "func": "u1", "wires": [1]},
+    {"input_idx": None, "func": "cx", "wires": [0, 1]},
+    {"input_idx": [0, 1], "func": "u1", "wires": [1]},
+    {"input_idx": None, "func": "cx", "wires": [0, 1]},
+    {"input_idx": None, "func": "h", "wires": [0]},
+    {"input_idx": None, "func": "h", "wires": [1]},
+    {"input_idx": [2], "func": "u1", "wires": [0]},
+    {"input_idx": [3], "func": "u1", "wires": [1]},
+    {"input_idx": None, "func": "cx", "wires": [0, 1]},
+    {"input_idx": [2, 3], "func": "u1", "wires": [1]},
+    {"input_idx": None, "func": "cx", "wires": [0, 1]},
+    {"input_idx": None, "func": "h", "wires": [0]},
+    {"input_idx": None, "func": "h", "wires": [1]},
+    {"input_idx": [4], "func": "u1", "wires": [0]},
+    {"input_idx": [0], "func": "u1", "wires": [1]},
+    {"input_idx": None, "func": "cx", "wires": [0, 1]},
+    {"input_idx": [4, 0], "func": "u1", "wires": [1]},
+    {"input_idx": None, "func": "cx", "wires": [0, 1]},
+  ]
+}
