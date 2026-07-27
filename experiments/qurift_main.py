@@ -128,7 +128,7 @@ class QFCConfig:
     
     
     # Efficient SU2 **as feature map** (data-bound angles)
-    # fm_eff_reps: int = 1
+    fm_eff_reps: int = 1
     fm_eff_single_ops: Sequence[str] = ("ry","rz")  # per-qubit stack
     fm_eff_alpha: float = np.pi
     fm_eff_ent_kind: str = "linear"                 # reuse your entangler factory
