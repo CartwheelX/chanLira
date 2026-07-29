@@ -619,6 +619,22 @@ def _json_default(o: Any):
 # -------------------------
 # One target end-to-end (Option 1)
 # -------------------------
+import random
+import secrets
+
+import numpy as np
+import torch
+
+seed = secrets.randbits(32)
+print(f"Random seed for this run: {seed}")
+
+random.seed(seed)
+np.random.seed(seed)
+torch.manual_seed(seed)
+
+if torch.cuda.is_available():
+    torch.cuda.manual_seed_all(seed)
+    
 def run_one_target(
     attack_data_path: Path,
     out_dir: Path,

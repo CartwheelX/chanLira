@@ -1004,7 +1004,8 @@ class QFCModel(tq.QuantumModule):
                 D=self.D, n_wires=cfg.n_wires,
                 single_ops=("ry","rz"),
                 entanglement=cfg.fm_eff_ent_kind, twoq=cfg.fm_eff_twoq_op,
-                pad_mode=cfg.fm_eff_pad_mod, alpha=cfg.fm_eff_alpha
+                pad_mode=cfg.fm_eff_pad_mod, alpha=cfg.fm_eff_alpha,
+                reps=cfg.fm_eff_reps
             )
             
             save_oplist_py("efficient_su2_3w.py", su2_name, su2_op)
@@ -2345,42 +2346,57 @@ def main():
     parser.add_argument("--attack-metrics-out", type=str, default=None,
                     help="Optional JSON path to write export metrics/fingerprints (besides the .pt).")
 
-    
+    parser.add_argument(
+    "--seed",
+    type=int,
+    default=None,
+        help="Random seed. If omitted, generate a different seed for each run.",
+    )
+        
     args = parser.parse_args()
     # Repro
     
-
     
-    if args.dataset in {"moons", "blobs", "circles"}:
-        seed = 0
-        random.seed(seed)
-        np.random.seed(seed)
-        torch.manual_seed(seed)
-    
-    elif args.dataset in {"mnist"}:
-        # print("Setting seed for MNIST dataset...")
-        # exit()
-        seed = 43
+    # I am gona use this by commenting out the above because I NEED it change seeds for the MIA attacks
+    # I can be wrong, cuz the MIA part just takes the attack data that is generted by this script, so it may not matter, but I will keep it for now
 
-        random.seed(seed)
-        np.random.seed(seed)
-        torch.manual_seed(seed)
+    # Use the supplied seed, or generate a random one when omitted
+    if args.seed is None:
+        seed = random.SystemRandom().randint(0, 2**32 - 1)
+    else:
+        seed = args.seed
+
+    print(f"Seed used for this run: {seed}")
+
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+
+    if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed)
 
-        torch.backends.cudnn.deterministic = True
-        torch.backends.cudnn.benchmark = False
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+        
+    # if args.dataset in {"moons", "blobs", "circles"}:
+    #     seed = 0
+    #     random.seed(seed)
+    #     np.random.seed(seed)
+    #     torch.manual_seed(seed)
     
+    # elif args.dataset in {"mnist"}:
+    #     # print("Setting seed for MNIST dataset...")
+    #     # exit()
+    #     seed = 43
 
-    # seed = 43
+    #     random.seed(seed)
+    #     np.random.seed(seed)
+    #     torch.manual_seed(seed)
+    #     torch.cuda.manual_seed_all(seed)
 
-    # random.seed(seed)
-    # np.random.seed(seed)
-    # torch.manual_seed(seed)
-    # torch.cuda.manual_seed_all(seed)
+    #     torch.backends.cudnn.deterministic = True
+    #     torch.backends.cudnn.benchmark = False
 
-    # torch.backends.cudnn.deterministic = True
-    # torch.backends.cudnn.benchmark = False
-    
 
     if args.dataset == "mnist":
         n_train_samples = args.vector_train  # 600
@@ -2599,6 +2615,7 @@ def main():
 
     elif mapper_cfg["fm_kind"] == "eff_su2":
         mapper_cfg |= dict(
+            fm_eff_reps=args.fm_eff_reps,
             fm_eff_alpha=1.0, # not sure what to sure, need to investigate
             fm_eff_ent_kind=args.fm_eff_ent_kind, 
             fm_eff_pad_mod=args.fm_eff_pad_mod, # 'wrap' | 'repeatlast' | 'pad'
@@ -2884,6 +2901,25 @@ def main():
                     "ql_op": args.qlayer_twoq_op,
                     "vector_train": int(args.vector_train),
                     "vector_test": int(args.vector_test),
+                    "seed": int(args.seed),
+                    "fm_kind": args.fm_kind,
+                    "reps": int(
+                        args.fm_z_reps if args.fm_kind == "z"
+                        else args.fm_zz_reps if args.fm_kind == "zz"
+                        else args.fm_eff_reps
+                    ),
+                    "pad_mode": (
+                        args.fm_z_pad_mode if args.fm_kind == "z"
+                        else args.fm_zz_pad_mode if args.fm_kind == "zz"
+                        else args.fm_eff_pad_mod
+                    ),
+                    "fm_ent": (
+                        "NA" if args.fm_kind == "z"
+                        else args.fm_zz_entanglement if args.fm_kind == "zz"
+                        else args.fm_eff_ent_kind
+                    ),
+                    "fm_op": "NA" if args.fm_kind in {"z", "zz"} else args.fm_eff_twoq_op,
+                    "trainable_params": count_trainable_params(model),
                 },
                 "stats": {
                     "loss": torch.cat([loss_tr, loss_te], dim=0).float(),
