@@ -1,0 +1,13 @@
+role,architecture,n_rows,n_model_seeds,expected_model_seeds,complete
+eff_control,hqnn,3,3,3,True
+eff_control,mlp_qnn,3,3,3,True
+eff_control,qcnn,3,3,3,True
+eff_control,qnn,3,3,3,True
+high_reupload,hqnn,3,3,3,True
+high_reupload,mlp_qnn,3,3,3,True
+high_reupload,qcnn,3,3,3,True
+high_reupload,qnn,3,3,3,True
+low_reupload,hqnn,3,3,3,True
+low_reupload,mlp_qnn,3,3,3,True
+low_reupload,qcnn,3,3,3,True
+low_reupload,qnn,3,3,3,True

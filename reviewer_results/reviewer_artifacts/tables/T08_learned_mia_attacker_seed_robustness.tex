@@ -1,0 +1,15 @@
+\begin{table}[t]
+\caption{Learned prediction-vector MIA sensitivity across attacker seeds and comparison with loss-threshold MIA.}
+\label{tab:learned-mia-robustness}
+\begin{tabular}{llrrlrrl}
+\toprule
+Experiment & Wrapper & Targets & Attacker seeds & Learned AUC across targets & Mean within-target attacker-seed SD & Loss-threshold AUC mean & Learned − threshold AUC \\
+\midrule
+architecture\_control & HQNN & 9 & 3 & 0.550 ± 0.052 & 0.045 & 0.551 & -0.001 ± 0.050 \\
+architecture\_control & MLP-QNN & 9 & 3 & 0.537 ± 0.040 & 0.043 & 0.575 & -0.038 ± 0.033 \\
+architecture\_control & QCNN & 9 & 3 & 0.549 ± 0.077 & 0.046 & 0.546 & 0.003 ± 0.058 \\
+architecture\_control & QNN & 9 & 3 & 0.551 ± 0.060 & 0.055 & 0.565 & -0.014 ± 0.029 \\
+multiseed\_factorial & QNN & 36 & 3 & 0.574 ± 0.065 & 0.054 & 0.596 & -0.022 ± 0.039 \\
+\bottomrule
+\end{tabular}
+\end{table}

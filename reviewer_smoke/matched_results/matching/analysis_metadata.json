@@ -1,0 +1,16 @@
+{
+  "bootstrap_replicates": 5,
+  "bootstrap_unit": "matched-pair ID; all model seeds retained inside each pair",
+  "ci_method": "cluster percentile bootstrap over matched-pair IDs, preserving all target seeds and Z/ZZ pairing",
+  "error_bar_type": "pair-level sample SD plus cluster-bootstrap 95% CI",
+  "inputs": [
+    "/home/najeeb/quarift_neurips_rebutal_2/reviewer_smoke/matched_results/metrics/retrained_target_metrics_raw.csv"
+  ],
+  "notes": "Primary matching: |\u0394gap|\u22640.02; |\u0394train|, |\u0394test|\u22640.02. Sensitivity gap tolerance=0.05.",
+  "outputs": [
+    "/home/najeeb/quarift_neurips_rebutal_2/reviewer_smoke/matched_results/matching/matched_pair_verification_raw.csv",
+    "/home/najeeb/quarift_neurips_rebutal_2/reviewer_smoke/matched_results/matching/matched_pair_verification_by_pair.csv",
+    "/home/najeeb/quarift_neurips_rebutal_2/reviewer_smoke/matched_results/matching/matched_pair_verification_effects.csv"
+  ],
+  "script": "verify_matched_pairs.py"
+}

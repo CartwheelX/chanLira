@@ -1,0 +1,13 @@
+dataset,fm_kind,reps,rows,unique_data_seeds,unique_state_realizations,independent_seed_variation_observed,reporting_note
+MNIST,eff_su2,1,3,3,1,False,Nominal seeds duplicated the encoded states; do not interpret zero SD as seed robustness.
+MNIST,eff_su2,5,3,3,1,False,Nominal seeds duplicated the encoded states; do not interpret zero SD as seed robustness.
+MNIST,z,1,3,3,1,False,Nominal seeds duplicated the encoded states; do not interpret zero SD as seed robustness.
+MNIST,z,5,3,3,1,False,Nominal seeds duplicated the encoded states; do not interpret zero SD as seed robustness.
+MNIST,zz,1,3,3,1,False,Nominal seeds duplicated the encoded states; do not interpret zero SD as seed robustness.
+MNIST,zz,5,3,3,1,False,Nominal seeds duplicated the encoded states; do not interpret zero SD as seed robustness.
+Moons,eff_su2,1,3,3,3,True,Data seeds produced distinct encoded-state realizations.
+Moons,eff_su2,5,3,3,3,True,Data seeds produced distinct encoded-state realizations.
+Moons,z,1,3,3,3,True,Data seeds produced distinct encoded-state realizations.
+Moons,z,5,3,3,3,True,Data seeds produced distinct encoded-state realizations.
+Moons,zz,1,3,3,3,True,Data seeds produced distinct encoded-state realizations.
+Moons,zz,5,3,3,3,True,Data seeds produced distinct encoded-state realizations.

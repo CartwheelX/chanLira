@@ -1,0 +1,18 @@
+{
+  "bootstrap_replicates": 0,
+  "bootstrap_unit": "none",
+  "ci_method": "none",
+  "error_bar_type": "",
+  "inputs": [
+    "/home/najeeb/quarift_neurips_rebutal_2/reviewer_smoke/matched_targets.csv",
+    "/home/najeeb/quarift_neurips_rebutal_2/reviewer_smoke/matched_runs",
+    ""
+  ],
+  "notes": "A run is complete only when both model and attack payload exist and are nonempty.",
+  "outputs": [
+    "/home/najeeb/quarift_neurips_rebutal_2/reviewer_smoke/matched_results/inventory/expected_run_inventory.csv",
+    "/home/najeeb/quarift_neurips_rebutal_2/reviewer_smoke/matched_results/inventory/missing_runs.csv",
+    "/home/najeeb/quarift_neurips_rebutal_2/reviewer_smoke/matched_results/inventory/seed_completion.csv"
+  ],
+  "script": "identify_missing_runs.py"
+}

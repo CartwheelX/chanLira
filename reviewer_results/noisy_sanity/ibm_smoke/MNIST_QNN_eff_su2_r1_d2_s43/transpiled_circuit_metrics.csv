@@ -1,0 +1,21 @@
+target_id,sample_id,source_split,source_index,transpiler_seed,optimization_level,backend_name,transpiled_depth,transpiled_total_gates,transpiled_one_qubit_gates,transpiled_two_qubit_gates,transpiled_multi_qubit_gates,measurement_operations,operation_counts,num_qubits,num_clbits
+MNIST_QNN_eff_su2_r1_d2_s43,d32a55ce6325cc74,train,5,2026,1,ibm_kingston,88,203,178,25,0,6,"{""cz"": 25, ""measure"": 6, ""rz"": 109, ""sx"": 69}",156,6
+MNIST_QNN_eff_su2_r1_d2_s43,19eff6293ed1eecc,train,15,2026,1,ibm_kingston,88,203,178,25,0,6,"{""cz"": 25, ""measure"": 6, ""rz"": 109, ""sx"": 69}",156,6
+MNIST_QNN_eff_su2_r1_d2_s43,f13fd5fe49b1927e,train,34,2026,1,ibm_kingston,88,203,178,25,0,6,"{""cz"": 25, ""measure"": 6, ""rz"": 109, ""sx"": 69}",156,6
+MNIST_QNN_eff_su2_r1_d2_s43,c4f317fc266a08a1,train,70,2026,1,ibm_kingston,88,203,178,25,0,6,"{""cz"": 25, ""measure"": 6, ""rz"": 109, ""sx"": 69}",156,6
+MNIST_QNN_eff_su2_r1_d2_s43,3b1d7b2b92a50e2e,train,71,2026,1,ibm_kingston,88,203,178,25,0,6,"{""cz"": 25, ""measure"": 6, ""rz"": 109, ""sx"": 69}",156,6
+MNIST_QNN_eff_su2_r1_d2_s43,2feb011e180acd56,train,73,2026,1,ibm_kingston,88,203,178,25,0,6,"{""cz"": 25, ""measure"": 6, ""rz"": 109, ""sx"": 69}",156,6
+MNIST_QNN_eff_su2_r1_d2_s43,ef1097acfa368dd6,train,91,2026,1,ibm_kingston,88,203,178,25,0,6,"{""cz"": 25, ""measure"": 6, ""rz"": 109, ""sx"": 69}",156,6
+MNIST_QNN_eff_su2_r1_d2_s43,457712b429cc0764,train,124,2026,1,ibm_kingston,88,203,178,25,0,6,"{""cz"": 25, ""measure"": 6, ""rz"": 109, ""sx"": 69}",156,6
+MNIST_QNN_eff_su2_r1_d2_s43,a4a2e43b5db1fee1,train,128,2026,1,ibm_kingston,88,203,178,25,0,6,"{""cz"": 25, ""measure"": 6, ""rz"": 109, ""sx"": 69}",156,6
+MNIST_QNN_eff_su2_r1_d2_s43,77f273743d3e0616,train,162,2026,1,ibm_kingston,88,203,178,25,0,6,"{""cz"": 25, ""measure"": 6, ""rz"": 109, ""sx"": 69}",156,6
+MNIST_QNN_eff_su2_r1_d2_s43,50cce0ad802f784d,test,23,2026,1,ibm_kingston,88,203,178,25,0,6,"{""cz"": 25, ""measure"": 6, ""rz"": 109, ""sx"": 69}",156,6
+MNIST_QNN_eff_su2_r1_d2_s43,1c1b814b446f0b7b,test,31,2026,1,ibm_kingston,88,203,178,25,0,6,"{""cz"": 25, ""measure"": 6, ""rz"": 109, ""sx"": 69}",156,6
+MNIST_QNN_eff_su2_r1_d2_s43,d848832fec3a2f4e,test,55,2026,1,ibm_kingston,88,203,178,25,0,6,"{""cz"": 25, ""measure"": 6, ""rz"": 109, ""sx"": 69}",156,6
+MNIST_QNN_eff_su2_r1_d2_s43,e41316eb43aca657,test,56,2026,1,ibm_kingston,88,203,178,25,0,6,"{""cz"": 25, ""measure"": 6, ""rz"": 109, ""sx"": 69}",156,6
+MNIST_QNN_eff_su2_r1_d2_s43,8da4d238e9d9c760,test,119,2026,1,ibm_kingston,88,203,178,25,0,6,"{""cz"": 25, ""measure"": 6, ""rz"": 109, ""sx"": 69}",156,6
+MNIST_QNN_eff_su2_r1_d2_s43,77f7f9d7492deb43,test,125,2026,1,ibm_kingston,88,203,178,25,0,6,"{""cz"": 25, ""measure"": 6, ""rz"": 109, ""sx"": 69}",156,6
+MNIST_QNN_eff_su2_r1_d2_s43,20859825910e024c,test,141,2026,1,ibm_kingston,88,203,178,25,0,6,"{""cz"": 25, ""measure"": 6, ""rz"": 109, ""sx"": 69}",156,6
+MNIST_QNN_eff_su2_r1_d2_s43,549a656ce012ad24,test,149,2026,1,ibm_kingston,88,203,178,25,0,6,"{""cz"": 25, ""measure"": 6, ""rz"": 109, ""sx"": 69}",156,6
+MNIST_QNN_eff_su2_r1_d2_s43,8f8257b5d1f556ab,test,179,2026,1,ibm_kingston,88,203,178,25,0,6,"{""cz"": 25, ""measure"": 6, ""rz"": 109, ""sx"": 69}",156,6
+MNIST_QNN_eff_su2_r1_d2_s43,cfb3adbbb318b663,test,186,2026,1,ibm_kingston,88,203,178,25,0,6,"{""cz"": 25, ""measure"": 6, ""rz"": 109, ""sx"": 69}",156,6

@@ -1,0 +1,28 @@
+\begin{table}[t]
+\caption{Paired complete-wrapper effects relative to QNN. These are not pure causal quantum-architecture effects.}
+\label{tab:architecture-effects}
+\begin{tabular}{lllrrlrrr}
+\toprule
+Metric & Wrapper & Baseline & Mean difference & Paired SD & 95\% CI & Structural roles & Paired role/seed units & Valid bootstrap \\
+\midrule
+gap\_acc & HQNN & QNN & -0.071 & 0.096 & [-0.167, 0.009] & 3 & 9 & 5000 \\
+test\_acc & HQNN & QNN & 0.201 & 0.237 & [-0.021, 0.333] & 3 & 9 & 5000 \\
+test\_loss & HQNN & QNN & -0.481 & 0.499 & [-0.789, -0.030] & 3 & 9 & 5000 \\
+auc & HQNN & QNN & -0.014 & 0.051 & [-0.068, 0.030] & 3 & 9 & 5000 \\
+balanced\_accuracy\_crossfit & HQNN & QNN & 0.013 & 0.058 & [-0.041, 0.062] & 3 & 9 & 5000 \\
+membership\_advantage\_crossfit & HQNN & QNN & 0.026 & 0.115 & [-0.084, 0.124] & 3 & 9 & 5000 \\
+gap\_acc & MLP-QNN & QNN & 0.016 & 0.098 & [-0.087, 0.096] & 3 & 9 & 5000 \\
+test\_acc & MLP-QNN & QNN & 0.146 & 0.093 & [0.062, 0.259] & 3 & 9 & 5000 \\
+test\_loss & MLP-QNN & QNN & -0.187 & 0.207 & [-0.420, 0.017] & 3 & 9 & 5000 \\
+auc & MLP-QNN & QNN & 0.011 & 0.044 & [-0.038, 0.045] & 3 & 9 & 5000 \\
+balanced\_accuracy\_crossfit & MLP-QNN & QNN & 0.018 & 0.038 & [-0.017, 0.048] & 3 & 9 & 5000 \\
+membership\_advantage\_crossfit & MLP-QNN & QNN & 0.036 & 0.076 & [-0.034, 0.098] & 3 & 9 & 5000 \\
+gap\_acc & QCNN & QNN & -0.041 & 0.042 & [-0.083, -0.007] & 3 & 9 & 5000 \\
+test\_acc & QCNN & QNN & 0.190 & 0.052 & [0.148, 0.249] & 3 & 9 & 5000 \\
+test\_loss & QCNN & QNN & -0.405 & 0.112 & [-0.527, -0.311] & 3 & 9 & 5000 \\
+auc & QCNN & QNN & -0.019 & 0.025 & [-0.040, -0.001] & 3 & 9 & 5000 \\
+balanced\_accuracy\_crossfit & QCNN & QNN & 0.003 & 0.039 & [-0.031, 0.026] & 3 & 9 & 5000 \\
+membership\_advantage\_crossfit & QCNN & QNN & 0.006 & 0.078 & [-0.057, 0.053] & 3 & 9 & 5000 \\
+\bottomrule
+\end{tabular}
+\end{table}

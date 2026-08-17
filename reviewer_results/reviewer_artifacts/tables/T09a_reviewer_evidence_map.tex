@@ -1,0 +1,17 @@
+\begin{table}[t]
+\caption{Mapping from reviewer concerns to new evidence and remaining limitations.}
+\label{tab:reviewer-evidence-map}
+\begin{tabular}{lllll}
+\toprule
+Reviewer & Concern & Evidence & Supported response & Residual limitation \\
+\midrule
+Epmi & Encoder effect versus ordinary overfitting; gap is not MIA & T01, T02, T07; F01, F02 & Report paired structural effects and gap–AUC association; interpret residual coefficients descriptively and avoid a direct causal claim. & Fixed primary data split; observational mediation evidence is not causal identification. \\
+Epmi / 1myw & Narrow attack suite and unclear driving output signal & T03, T08, T10; F03, F07 & Separate loss, entropy, confidence, margin, correctness and max-probability attacks; a learned prediction-vector attacker; calibrated online/offline LiRA; and a class-label-only boundary proxy. & LiRA uses 16 references per structural configuration and an approximate reference-training distribution; label-only uses a chord-boundary proxy rather than a certified minimum boundary distance. \\
+Epmi & Hilbert-space mechanism is indirect & T04; F04 & Report kernel alignment, class-similarity gap, train/test MMD² and effective rank immediately after the fixed encoder. & MNIST nominal geometry seeds duplicate the same states; only Moons supplies genuine data-seed variability. \\
+1myw / Area Chair & Noiseless simulation and finite-shot robustness & T05; F05 & Compare exact, ideal finite-shot and IBM-backend-derived noisy finite-shot results with paired simulator-seed uncertainty. & Backend-derived Aer noise model, not execution on quantum hardware; five prespecified structural configurations. \\
+nVBH & No multi-seed uncertainty and post-hoc selected regimes & T01, T02, T03, T09; F01–F03 & Report all 36 prespecified factorial targets over three target seeds with no outcome filtering and paired/hierarchical intervals. & One fixed split in the primary factorial and three, not five, learned-attacker seeds. \\
+Epmi / nVBH & Confounded architecture comparisons and missing capacity accounting & T06; F06 & Report complete-wrapper comparisons paired within role/seed together with quantum/classical parameter and gate counts. & Wrappers retain different preprocessing and heads; results are not pure causal architecture effects. \\
+1myw / nVBH & Simple datasets and limited external validity & Scope statement in reviewer index & Bound claims to controlled MNIST/Moons simulation and describe sensitive-domain transfer as untested. & No healthcare, finance, or public-sector dataset was added. \\
+\bottomrule
+\end{tabular}
+\end{table}

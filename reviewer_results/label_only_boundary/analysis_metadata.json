@@ -1,0 +1,16 @@
+{
+  "bootstrap_replicates": 5000,
+  "bootstrap_unit": "member/non-member records within target; target seed for summary SD",
+  "ci_method": "stratified percentile bootstrap over member/non-member records",
+  "error_bar_type": "mean \u00b1 sample SD across target-model seeds",
+  "inputs": [
+    "/home/najeeb/quarift_neurips_rebutal_2/reviewer_targets/multiseed_factorial_targets.csv",
+    "/home/najeeb/quarift_neurips_rebutal_2/reviewer_runs"
+  ],
+  "notes": "Only predicted class labels are consumed by the attack. Boundary distance is estimated by binary searches toward held-out validation anchors and is not claimed to be the certified or globally minimal radius.",
+  "outputs": [
+    "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/label_only_boundary/label_only_boundary_raw.csv",
+    "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/label_only_boundary/label_only_boundary_summary.csv"
+  ],
+  "script": "qurift_label_only_boundary.py"
+}

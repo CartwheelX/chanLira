@@ -1,0 +1,13 @@
+target_id,experiment,pair_id,role,dataset,architecture,fm_kind,n_wires,reps,depth,ql_ent,ql_op,model_seed,data_seed,seed,structural_cell_id
+SmokePair1_z_s43,matched_gap_mia,SmokePair1,low_gap_z,Smoke,qnn,z,4,1,2,linear,crz,43,43,43,SmokePair1|z
+SmokePair1_z_s44,matched_gap_mia,SmokePair1,low_gap_z,Smoke,qnn,z,4,1,2,linear,crz,44,43,44,SmokePair1|z
+SmokePair1_z_s45,matched_gap_mia,SmokePair1,low_gap_z,Smoke,qnn,z,4,1,2,linear,crz,45,43,45,SmokePair1|z
+SmokePair1_zz_s43,matched_gap_mia,SmokePair1,low_gap_zz,Smoke,qnn,zz,4,1,2,linear,crz,43,43,43,SmokePair1|zz
+SmokePair1_zz_s44,matched_gap_mia,SmokePair1,low_gap_zz,Smoke,qnn,zz,4,1,2,linear,crz,44,43,44,SmokePair1|zz
+SmokePair1_zz_s45,matched_gap_mia,SmokePair1,low_gap_zz,Smoke,qnn,zz,4,1,2,linear,crz,45,43,45,SmokePair1|zz
+SmokePair2_z_s43,matched_gap_mia,SmokePair2,high_gap_z,Smoke,qnn,z,4,1,2,linear,crz,43,43,43,SmokePair2|z
+SmokePair2_z_s44,matched_gap_mia,SmokePair2,high_gap_z,Smoke,qnn,z,4,1,2,linear,crz,44,43,44,SmokePair2|z
+SmokePair2_z_s45,matched_gap_mia,SmokePair2,high_gap_z,Smoke,qnn,z,4,1,2,linear,crz,45,43,45,SmokePair2|z
+SmokePair2_zz_s43,matched_gap_mia,SmokePair2,high_gap_zz,Smoke,qnn,zz,4,1,2,linear,crz,43,43,43,SmokePair2|zz
+SmokePair2_zz_s44,matched_gap_mia,SmokePair2,high_gap_zz,Smoke,qnn,zz,4,1,2,linear,crz,44,43,44,SmokePair2|zz
+SmokePair2_zz_s45,matched_gap_mia,SmokePair2,high_gap_zz,Smoke,qnn,zz,4,1,2,linear,crz,45,43,45,SmokePair2|zz

@@ -1,0 +1,3 @@
+method,correlation,ci95_low,ci95_high,valid_bootstrap_replicates,ci_method,bootstrap_unit,bootstrap_replicates
+pearson,0.3842544932279264,0.1317291812082972,0.5211072967791658,5,hierarchical cluster percentile bootstrap over structural cells with target seeds nested,structural cell; target-model seed nested,5
+spearman,0.426115433581217,0.33007472324372866,0.5874663621186469,5,hierarchical cluster percentile bootstrap over structural cells with target seeds nested,structural cell; target-model seed nested,5

@@ -1,0 +1,104 @@
+{
+  "target_meta": {
+    "target_id": "MNIST_QNN_eff_su2_r1_d6_s44",
+    "experiment": "multiseed_factorial",
+    "dataset": "mnist",
+    "architecture": "qnn",
+    "model_type": "qnn",
+    "run_id": 1646,
+    "model_seed": 44,
+    "data_seed": 43,
+    "seed": 44,
+    "membership_convention": "0=member",
+    "attack_feature_mode": "pv+stats",
+    "learning_rate": 0.05,
+    "n_wires": 6,
+    "depth": 6,
+    "ql_ent": "linear",
+    "ql_op": "crz",
+    "fm_kind": "eff_su2",
+    "reps": 1,
+    "fm_ent": "linear",
+    "fm_op": "cx",
+    "pad_mode": "wrap",
+    "vector_train": 200,
+    "vector_valid": 200,
+    "vector_test": 200
+  },
+  "target_id": "MNIST_QNN_eff_su2_r1_d6_s44",
+  "attacker_seed": 42,
+  "membership_convention": "1=member,0=nonmember",
+  "source_membership_convention": "0=member",
+  "target_model_perf": {
+    "target_train_acc": 0.79,
+    "target_test_acc": 0.765,
+    "target_gap_acc": 0.025000000000000022,
+    "train_log_path": "reviewer_runs/multiseed_factorial/MNIST_QNN_eff_su2_r1_d6_s44/train.log"
+  },
+  "split": {
+    "test_ratio": 0.2,
+    "n_pool": 320,
+    "n_test": 80
+  },
+  "cv": {
+    "requested_folds": 5,
+    "feasible_folds": 5
+  },
+  "tuning_info": {
+    "method": "optuna",
+    "study_name": "mia_cv_42_89250953",
+    "storage": "in_memory",
+    "best_cv_score": 0.6143576323247406,
+    "best_cv_auc_mean": 0.6220703125,
+    "best_cv_auc_std": 0.030850720701037723,
+    "fold_best_epochs": [
+      53,
+      51,
+      37,
+      53,
+      1
+    ],
+    "chosen_final_epochs": 51,
+    "n_trials": 30,
+    "n_splits": 5,
+    "lambda_std": 0.25
+  },
+  "best_params": {
+    "hidden_dim": 469,
+    "n_layers": 1,
+    "dropout": 0.426256889774999,
+    "lr": 0.00017772505530762477,
+    "weight_decay": 1.1575245833203469e-06,
+    "batch_size": 16,
+    "layernorm": true,
+    "activation": "relu",
+    "chosen_final_epochs": 51
+  },
+  "final_epochs": 51,
+  "metrics_test": {
+    "accuracy": 0.525,
+    "precision": 0.5227272727272727,
+    "recall": 0.575,
+    "f1": 0.5476190476190477,
+    "auc_roc": 0.52,
+    "auc_pr": 0.5194284901423906,
+    "tpr_at_low_fpr": {
+      "tpr@fpr=0.001": 0.025,
+      "tpr@fpr=0.01": 0.025,
+      "tpr@fpr=0.05": 0.05,
+      "tpr@fpr=0.1": 0.05
+    },
+    "tn": 19,
+    "fp": 21,
+    "fn": 17,
+    "tp": 23
+  },
+  "paths": {
+    "run_out_dir": "reviewer_results/learned_mia_seed42/MNIST_QNN_eff_su2_r1_d6_s44",
+    "attack_train_log": "reviewer_results/learned_mia_seed42/MNIST_QNN_eff_su2_r1_d6_s44/attack_train.log",
+    "best_params_json": "reviewer_results/learned_mia_seed42/MNIST_QNN_eff_su2_r1_d6_s44/best_params.json",
+    "roc_csv": "reviewer_results/learned_mia_seed42/MNIST_QNN_eff_su2_r1_d6_s44/roc_curve.csv",
+    "roc_pdf": "reviewer_results/learned_mia_seed42/MNIST_QNN_eff_su2_r1_d6_s44/attack_roc_loglog.pdf",
+    "target_train_log": "reviewer_runs/multiseed_factorial/MNIST_QNN_eff_su2_r1_d6_s44/train.log"
+  }
+}

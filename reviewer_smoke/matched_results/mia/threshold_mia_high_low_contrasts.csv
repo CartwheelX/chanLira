@@ -1,0 +1,19 @@
+attack,metric,contrast,mean_difference,ci95_low,ci95_high,valid_bootstrap_replicates,ci_method
+confidence,auc,high minus low,0.29462962962962963,0.247537037037037,0.3437592592592592,5,hierarchical percentile bootstrap over dataset/architecture/encoder blocks with target seeds nested
+confidence,balanced_accuracy_crossfit,high minus low,0.20555555555555552,0.17222222222222222,0.21666666666666667,5,hierarchical percentile bootstrap over dataset/architecture/encoder blocks with target seeds nested
+confidence,membership_advantage_crossfit,high minus low,0.41111111111111104,0.37111111111111106,0.6177777777777778,5,hierarchical percentile bootstrap over dataset/architecture/encoder blocks with target seeds nested
+correctness,auc,high minus low,0.0,0.0,0.0,5,hierarchical percentile bootstrap over dataset/architecture/encoder blocks with target seeds nested
+correctness,balanced_accuracy_crossfit,high minus low,0.0,0.0,0.0,5,hierarchical percentile bootstrap over dataset/architecture/encoder blocks with target seeds nested
+correctness,membership_advantage_crossfit,high minus low,0.0,0.0,0.0,5,hierarchical percentile bootstrap over dataset/architecture/encoder blocks with target seeds nested
+entropy,auc,high minus low,0.29462962962962963,0.2577592592592592,0.35274074074074063,5,hierarchical percentile bootstrap over dataset/architecture/encoder blocks with target seeds nested
+entropy,balanced_accuracy_crossfit,high minus low,0.20555555555555552,0.16333333333333327,0.23555555555555555,5,hierarchical percentile bootstrap over dataset/architecture/encoder blocks with target seeds nested
+entropy,membership_advantage_crossfit,high minus low,0.41111111111111104,0.30222222222222217,0.48444444444444446,5,hierarchical percentile bootstrap over dataset/architecture/encoder blocks with target seeds nested
+loss,auc,high minus low,0.29462962962962963,0.24253703703703697,0.28887037037037033,5,hierarchical percentile bootstrap over dataset/architecture/encoder blocks with target seeds nested
+loss,balanced_accuracy_crossfit,high minus low,0.20555555555555552,0.14222222222222217,0.3088888888888889,5,hierarchical percentile bootstrap over dataset/architecture/encoder blocks with target seeds nested
+loss,membership_advantage_crossfit,high minus low,0.41111111111111104,0.28222222222222215,0.4911111111111111,5,hierarchical percentile bootstrap over dataset/architecture/encoder blocks with target seeds nested
+margin,auc,high minus low,0.29462962962962963,0.2737037037037037,0.30729629629629623,5,hierarchical percentile bootstrap over dataset/architecture/encoder blocks with target seeds nested
+margin,balanced_accuracy_crossfit,high minus low,0.20555555555555552,0.16222222222222218,0.21333333333333332,5,hierarchical percentile bootstrap over dataset/architecture/encoder blocks with target seeds nested
+margin,membership_advantage_crossfit,high minus low,0.41111111111111104,0.3044444444444444,0.5244444444444445,5,hierarchical percentile bootstrap over dataset/architecture/encoder blocks with target seeds nested
+max_probability,auc,high minus low,0.29462962962962963,0.2721666666666666,0.32594444444444437,5,hierarchical percentile bootstrap over dataset/architecture/encoder blocks with target seeds nested
+max_probability,balanced_accuracy_crossfit,high minus low,0.20555555555555552,0.16111111111111107,0.1933333333333333,5,hierarchical percentile bootstrap over dataset/architecture/encoder blocks with target seeds nested
+max_probability,membership_advantage_crossfit,high minus low,0.41111111111111104,0.3244444444444444,0.5,5,hierarchical percentile bootstrap over dataset/architecture/encoder blocks with target seeds nested

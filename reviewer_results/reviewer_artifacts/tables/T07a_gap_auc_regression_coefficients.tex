@@ -1,0 +1,25 @@
+\begin{table}[t]
+\caption{Standardized descriptive ridge-regression coefficients with structural-cell bootstrap intervals.}
+\label{tab:gap-auc-coefficients}
+\begin{tabular}{llrlr}
+\toprule
+Model & Term & Coefficient & 95\% CI & Valid bootstrap \\
+\midrule
+M1\_gap & Intercept & 0.589 & [0.560, 0.606] & 5000 \\
+M1\_gap & z\_gap & 0.039 & [0.010, 0.053] & 5000 \\
+M1\_gap & z\_reps & 0.010 & [-0.001, 0.032] & 5000 \\
+M1\_gap & z\_depth & 0.004 & [-0.005, 0.020] & 5000 \\
+M1\_gap & fm\_z & 0.020 & [-0.003, 0.061] & 5000 \\
+M1\_gap & fm\_zz & 0.003 & [-0.024, 0.048] & 5000 \\
+M2\_behavior\_resources & Intercept & 0.583 & [0.474, 0.689] & 5000 \\
+M2\_behavior\_resources & z\_train\_acc & 0.027 & [-0.005, 0.054] & 5000 \\
+M2\_behavior\_resources & z\_test\_acc & -0.051 & [-0.068, 0.010] & 5000 \\
+M2\_behavior\_resources & z\_reps & 0.017 & [-0.083, 0.107] & 5000 \\
+M2\_behavior\_resources & z\_depth & 0.008 & [-0.039, 0.029] & 5000 \\
+M2\_behavior\_resources & z\_log\_gate\_count & -0.014 & [-0.091, 0.177] & 5000 \\
+M2\_behavior\_resources & z\_log\_parameter\_count & 0.008 & [-0.039, 0.029] & 5000 \\
+M2\_behavior\_resources & fm\_z & 0.020 & [-0.064, 0.150] & 5000 \\
+M2\_behavior\_resources & fm\_zz & 0.020 & [-0.174, 0.185] & 5000 \\
+\bottomrule
+\end{tabular}
+\end{table}

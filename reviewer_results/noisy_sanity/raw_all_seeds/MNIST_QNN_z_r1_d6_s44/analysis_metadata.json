@@ -1,0 +1,7 @@
+{
+  "confidence_interval": "95% paired/percentile bootstrap over finite-shot simulator seeds",
+  "low_fpr_policy": "No fixed-FPR claim is generated here; Checkpoint 5/6 uses 10% primary and 5% secondary.",
+  "primary_uncertainty": "mean \u00b1 sample SD across simulator seeds for a fixed target checkpoint",
+  "pseudo_replication_warning": "Simulator seeds are repeated measurements of one fixed target checkpoint, not independent target-model seeds.",
+  "record_bootstrap": "not performed in Checkpoint 4 noisy evaluator"
+}

@@ -1,0 +1,20 @@
+{
+  "bootstrap_replicates": 5,
+  "bootstrap_unit": "structural role; target-model seed nested",
+  "ci_method": "paired hierarchical percentile bootstrap over structural roles with target-model seeds nested",
+  "error_bar_type": "mean \u00b1 sample SD across target-model seeds",
+  "inputs": [
+    "/home/najeeb/quarift_neurips_rebutal_2/reviewer_smoke/architecture_results/metrics/retrained_target_metrics_raw.csv",
+    "/home/najeeb/quarift_neurips_rebutal_2/reviewer_smoke/architecture_results/mia/threshold_mia_raw.csv",
+    "/home/najeeb/quarift_neurips_rebutal_2/reviewer_smoke/architecture_results/resources/model_resources_raw.csv"
+  ],
+  "notes": "This is a complete-wrapper comparison. QNN, HQNN, QCNN, and MLP-QNN differ in preprocessing and/or heads; effects must not be presented as a pure causal quantum-architecture comparison. Aggregate CIs are exploratory because only three structural roles are included.",
+  "outputs": [
+    "/home/najeeb/quarift_neurips_rebutal_2/reviewer_smoke/architecture_results/analysis/architecture_control_raw.csv",
+    "/home/najeeb/quarift_neurips_rebutal_2/reviewer_smoke/architecture_results/analysis/architecture_control_summary.csv",
+    "/home/najeeb/quarift_neurips_rebutal_2/reviewer_smoke/architecture_results/analysis/architecture_control_overall_descriptive.csv",
+    "/home/najeeb/quarift_neurips_rebutal_2/reviewer_smoke/architecture_results/analysis/architecture_control_effects.csv",
+    "/home/najeeb/quarift_neurips_rebutal_2/reviewer_smoke/architecture_results/analysis/architecture_control_completeness.csv"
+  ],
+  "script": "architecture_control_analysis.py"
+}

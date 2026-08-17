@@ -1,0 +1,16 @@
+{
+  "bootstrap_replicates": 0,
+  "bootstrap_unit": "none",
+  "ci_method": "none; extraction plus mean and sample SD",
+  "error_bar_type": "sample SD across target-model seeds",
+  "inputs": [
+    "/home/najeeb/quarift_neurips_rebutal_2/reviewer_smoke/factorial_runs",
+    "/home/najeeb/quarift_neurips_rebutal_2/reviewer_smoke/factorial_targets.csv"
+  ],
+  "notes": "Validation metrics require the reviewer patch. Older payloads remain usable but their validation fields are NA.",
+  "outputs": [
+    "/home/najeeb/quarift_neurips_rebutal_2/reviewer_smoke/factorial_results/metrics/retrained_target_metrics_raw.csv",
+    "/home/najeeb/quarift_neurips_rebutal_2/reviewer_smoke/factorial_results/metrics/retrained_target_metrics_summary.csv"
+  ],
+  "script": "extract_retrained_metrics.py"
+}

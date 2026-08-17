@@ -1,0 +1,13 @@
+target_id,status,gpu,seconds,output_csv,log_path,return_code,error
+GEOM_Moons_z_r1_ds43,skipped,,0.0,reviewer_results/geometry_smoke/runs/GEOM_Moons_z_r1_ds43/geometry.csv,reviewer_results/geometry_smoke/runs/GEOM_Moons_z_r1_ds43/geometry.log,0,
+GEOM_Moons_zz_r1_ds43,skipped,,0.0,reviewer_results/geometry_smoke/runs/GEOM_Moons_zz_r1_ds43/geometry.csv,reviewer_results/geometry_smoke/runs/GEOM_Moons_zz_r1_ds43/geometry.log,0,
+GEOM_Moons_z_r5_ds43,skipped,,0.0,reviewer_results/geometry_smoke/runs/GEOM_Moons_z_r5_ds43/geometry.csv,reviewer_results/geometry_smoke/runs/GEOM_Moons_z_r5_ds43/geometry.log,0,
+GEOM_Moons_zz_r5_ds43,skipped,,0.0,reviewer_results/geometry_smoke/runs/GEOM_Moons_zz_r5_ds43/geometry.csv,reviewer_results/geometry_smoke/runs/GEOM_Moons_zz_r5_ds43/geometry.log,0,
+GEOM_Moons_eff_su2_r5_ds43,skipped,,0.0,reviewer_results/geometry_smoke/runs/GEOM_Moons_eff_su2_r5_ds43/geometry.csv,reviewer_results/geometry_smoke/runs/GEOM_Moons_eff_su2_r5_ds43/geometry.log,0,
+GEOM_MNIST_z_r1_ds43,skipped,,0.0,reviewer_results/geometry_smoke/runs/GEOM_MNIST_z_r1_ds43/geometry.csv,reviewer_results/geometry_smoke/runs/GEOM_MNIST_z_r1_ds43/geometry.log,0,
+GEOM_Moons_eff_su2_r1_ds43,skipped,,0.0,reviewer_results/geometry_smoke/runs/GEOM_Moons_eff_su2_r1_ds43/geometry.csv,reviewer_results/geometry_smoke/runs/GEOM_Moons_eff_su2_r1_ds43/geometry.log,0,
+GEOM_MNIST_z_r5_ds43,skipped,,0.0,reviewer_results/geometry_smoke/runs/GEOM_MNIST_z_r5_ds43/geometry.csv,reviewer_results/geometry_smoke/runs/GEOM_MNIST_z_r5_ds43/geometry.log,0,
+GEOM_MNIST_zz_r5_ds43,skipped,,0.0,reviewer_results/geometry_smoke/runs/GEOM_MNIST_zz_r5_ds43/geometry.csv,reviewer_results/geometry_smoke/runs/GEOM_MNIST_zz_r5_ds43/geometry.log,0,
+GEOM_MNIST_zz_r1_ds43,skipped,,0.0,reviewer_results/geometry_smoke/runs/GEOM_MNIST_zz_r1_ds43/geometry.csv,reviewer_results/geometry_smoke/runs/GEOM_MNIST_zz_r1_ds43/geometry.log,0,
+GEOM_MNIST_eff_su2_r1_ds43,ok,1,16.838,reviewer_results/geometry_smoke/runs/GEOM_MNIST_eff_su2_r1_ds43/geometry.csv,reviewer_results/geometry_smoke/runs/GEOM_MNIST_eff_su2_r1_ds43/geometry.log,0,
+GEOM_MNIST_eff_su2_r5_ds43,ok,0,17.016,reviewer_results/geometry_smoke/runs/GEOM_MNIST_eff_su2_r5_ds43/geometry.csv,reviewer_results/geometry_smoke/runs/GEOM_MNIST_eff_su2_r5_ds43/geometry.log,0,

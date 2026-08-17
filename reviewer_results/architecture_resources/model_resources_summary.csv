@@ -1,0 +1,13 @@
+experiment,dataset,architecture,role,fm_kind,reps,depth,trainable_parameters_total_count,trainable_parameters_total_mean,trainable_parameters_total_std,trainable_parameters_quantum_count,trainable_parameters_quantum_mean,trainable_parameters_quantum_std,trainable_parameters_classical_count,trainable_parameters_classical_mean,trainable_parameters_classical_std,trainable_parameters_unclassified_count,trainable_parameters_unclassified_mean,trainable_parameters_unclassified_std,quantum_gate_count_total_count,quantum_gate_count_total_mean,quantum_gate_count_total_std,quantum_one_qubit_gates_count,quantum_one_qubit_gates_mean,quantum_one_qubit_gates_std,quantum_two_qubit_gates_count,quantum_two_qubit_gates_mean,quantum_two_qubit_gates_std
+architecture_control,MNIST,HQNN,eff_control,eff_su2,1,2,3,19930.0,0.0,3,46.0,0.0,3,19884.0,0.0,3,0.0,0.0,3,63.0,0.0,3,48.0,0.0,3,15.0,0.0
+architecture_control,MNIST,HQNN,high_reupload,zz,5,6,3,20022.0,0.0,3,138.0,0.0,3,19884.0,0.0,3,0.0,0.0,3,543.0,0.0,3,363.0,0.0,3,180.0,0.0
+architecture_control,MNIST,HQNN,low_reupload,z,1,2,3,19930.0,0.0,3,46.0,0.0,3,19884.0,0.0,3,0.0,0.0,3,82.0,0.0,3,72.0,0.0,3,10.0,0.0
+architecture_control,MNIST,QCNN,eff_control,eff_su2,1,2,3,592.0,0.0,3,394.0,0.0,3,198.0,0.0,3,0.0,0.0,3,67.0,0.0,3,52.0,0.0,3,15.0,0.0
+architecture_control,MNIST,QCNN,high_reupload,zz,5,6,3,684.0,0.0,3,486.0,0.0,3,198.0,0.0,3,0.0,0.0,3,547.0,0.0,3,367.0,0.0,3,180.0,0.0
+architecture_control,MNIST,QCNN,low_reupload,z,1,2,3,592.0,0.0,3,394.0,0.0,3,198.0,0.0,3,0.0,0.0,3,86.0,0.0,3,76.0,0.0,3,10.0,0.0
+architecture_control,MNIST,QNN,eff_control,eff_su2,1,2,3,74.0,0.0,3,46.0,0.0,3,28.0,0.0,3,0.0,0.0,3,63.0,0.0,3,48.0,0.0,3,15.0,0.0
+architecture_control,MNIST,QNN,high_reupload,zz,5,6,3,166.0,0.0,3,138.0,0.0,3,28.0,0.0,3,0.0,0.0,3,543.0,0.0,3,363.0,0.0,3,180.0,0.0
+architecture_control,MNIST,QNN,low_reupload,z,1,2,3,74.0,0.0,3,46.0,0.0,3,28.0,0.0,3,0.0,0.0,3,82.0,0.0,3,72.0,0.0,3,10.0,0.0
+architecture_control,MNIST,mlp_qnn,eff_control,eff_su2,1,2,3,96.0,0.0,3,0.0,0.0,3,96.0,0.0,3,0.0,0.0,3,0.0,0.0,3,0.0,0.0,3,0.0,0.0
+architecture_control,MNIST,mlp_qnn,high_reupload,zz,5,6,3,188.0,0.0,3,0.0,0.0,3,188.0,0.0,3,0.0,0.0,3,0.0,0.0,3,0.0,0.0,3,0.0,0.0
+architecture_control,MNIST,mlp_qnn,low_reupload,z,1,2,3,96.0,0.0,3,0.0,0.0,3,96.0,0.0,3,0.0,0.0,3,0.0,0.0,3,0.0,0.0,3,0.0,0.0

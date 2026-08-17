@@ -1,0 +1,4 @@
+target_id,mode,shots,simulator_seed,transpiler_seed,backend_name,noise_model_loaded,quantum_execution_scope,status,payload_path,seconds
+MNIST_QNN_eff_su2_r1_d2_s43,exact,0,-1,2026,none,False,exact_full_model,ok,reviewer_results/noisy_sanity/ibm_smoke/MNIST_QNN_eff_su2_r1_d2_s43/payloads/exact.pt,
+MNIST_QNN_eff_su2_r1_d2_s43,ideal_shot,128,0,2026,ibm_kingston,False,full_main_quantum_stack,ok,reviewer_results/noisy_sanity/ibm_smoke/MNIST_QNN_eff_su2_r1_d2_s43/payloads/ideal_shot_shots128_sim0.pt,0.355
+MNIST_QNN_eff_su2_r1_d2_s43,noisy_shot,128,0,2026,ibm_kingston,True,full_main_quantum_stack,ok,reviewer_results/noisy_sanity/ibm_smoke/MNIST_QNN_eff_su2_r1_d2_s43/payloads/noisy_shot_shots128_sim0.pt,4.641

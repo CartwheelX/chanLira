@@ -1,0 +1,9 @@
+experiment,dataset,architecture,role,fm_kind,reps,depth,trainable_parameters_total_count,trainable_parameters_total_mean,trainable_parameters_total_std,trainable_parameters_quantum_count,trainable_parameters_quantum_mean,trainable_parameters_quantum_std,trainable_parameters_classical_count,trainable_parameters_classical_mean,trainable_parameters_classical_std,trainable_parameters_unclassified_count,trainable_parameters_unclassified_mean,trainable_parameters_unclassified_std,quantum_gate_count_total_count,quantum_gate_count_total_mean,quantum_gate_count_total_std,quantum_one_qubit_gates_count,quantum_one_qubit_gates_mean,quantum_one_qubit_gates_std,quantum_two_qubit_gates_count,quantum_two_qubit_gates_mean,quantum_two_qubit_gates_std
+multiseed_factorial,MNIST,qnn,z_r1_d2,z,1,2,3,96.0,0.0,3,57.0,0.0,3,39.0,0.0,3,0.0,0.0,3,62.0,0.0,3,40.0,0.0,3,22.0,0.0
+multiseed_factorial,MNIST,qnn,z_r1_d6,z,1,6,3,168.0,0.0,3,100.0,0.0,3,68.0,0.0,3,0.0,0.0,3,102.0,0.0,3,68.0,0.0,3,34.0,0.0
+multiseed_factorial,MNIST,qnn,z_r5_d2,z,5,2,3,96.0,0.0,3,57.0,0.0,3,39.0,0.0,3,0.0,0.0,3,110.0,0.0,3,72.0,0.0,3,38.0,0.0
+multiseed_factorial,MNIST,qnn,z_r5_d6,z,5,6,3,168.0,0.0,3,100.0,0.0,3,68.0,0.0,3,0.0,0.0,3,150.0,0.0,3,100.0,0.0,3,50.0,0.0
+multiseed_factorial,MNIST,qnn,zz_r1_d2,zz,1,2,3,96.0,0.0,3,57.0,0.0,3,39.0,0.0,3,0.0,0.0,3,72.0,0.0,3,48.0,0.0,3,24.0,0.0
+multiseed_factorial,MNIST,qnn,zz_r1_d6,zz,1,6,3,168.0,0.0,3,100.0,0.0,3,68.0,0.0,3,0.0,0.0,3,112.0,0.0,3,74.0,0.0,3,38.0,0.0
+multiseed_factorial,MNIST,qnn,zz_r5_d2,zz,5,2,3,96.0,0.0,3,57.0,0.0,3,39.0,0.0,3,0.0,0.0,3,120.0,0.0,3,80.0,0.0,3,40.0,0.0
+multiseed_factorial,MNIST,qnn,zz_r5_d6,zz,5,6,3,168.0,0.0,3,100.0,0.0,3,68.0,0.0,3,0.0,0.0,3,160.0,0.0,3,106.0,0.0,3,54.0,0.0

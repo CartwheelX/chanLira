@@ -1,0 +1,13 @@
+target_id,dataset,architecture,fm_kind,n_wires,reps,pad_mode,fm_ent,fm_op,depth,ql_ent,ql_op,seed,model_seed,data_seed,structural_cell_id,learning_rate,base_target_id
+GEOM_Moons_z_r1_ds43,Moons,QNN,z,4,1,wrap,linear,,2,linear,crz,43,43,43,GEOM_Moons_z_r1,0.05,GEOM_Moons_z_r1
+GEOM_Moons_z_r5_ds43,Moons,QNN,z,4,5,wrap,linear,,2,linear,crz,43,43,43,GEOM_Moons_z_r5,0.05,GEOM_Moons_z_r5
+GEOM_Moons_zz_r1_ds43,Moons,QNN,zz,4,1,wrap,linear,,2,linear,crz,43,43,43,GEOM_Moons_zz_r1,0.05,GEOM_Moons_zz_r1
+GEOM_Moons_zz_r5_ds43,Moons,QNN,zz,4,5,wrap,linear,,2,linear,crz,43,43,43,GEOM_Moons_zz_r5,0.05,GEOM_Moons_zz_r5
+GEOM_Moons_eff_su2_r1_ds43,Moons,QNN,eff_su2,4,1,wrap,linear,cx,2,linear,crz,43,43,43,GEOM_Moons_eff_su2_r1,0.05,GEOM_Moons_eff_su2_r1
+GEOM_Moons_eff_su2_r5_ds43,Moons,QNN,eff_su2,4,5,wrap,linear,cx,2,linear,crz,43,43,43,GEOM_Moons_eff_su2_r5,0.05,GEOM_Moons_eff_su2_r5
+GEOM_MNIST_z_r1_ds43,MNIST,QNN,z,6,1,wrap,linear,,2,linear,crz,43,43,43,GEOM_MNIST_z_r1,0.05,GEOM_MNIST_z_r1
+GEOM_MNIST_z_r5_ds43,MNIST,QNN,z,6,5,wrap,linear,,2,linear,crz,43,43,43,GEOM_MNIST_z_r5,0.05,GEOM_MNIST_z_r5
+GEOM_MNIST_zz_r1_ds43,MNIST,QNN,zz,6,1,wrap,linear,,2,linear,crz,43,43,43,GEOM_MNIST_zz_r1,0.05,GEOM_MNIST_zz_r1
+GEOM_MNIST_zz_r5_ds43,MNIST,QNN,zz,6,5,wrap,linear,,2,linear,crz,43,43,43,GEOM_MNIST_zz_r5,0.05,GEOM_MNIST_zz_r5
+GEOM_MNIST_eff_su2_r1_ds43,MNIST,QNN,eff_su2,6,1,wrap,linear,cx,2,linear,crz,43,43,43,GEOM_MNIST_eff_su2_r1,0.05,GEOM_MNIST_eff_su2_r1
+GEOM_MNIST_eff_su2_r5_ds43,MNIST,QNN,eff_su2,6,5,wrap,linear,cx,2,linear,crz,43,43,43,GEOM_MNIST_eff_su2_r5,0.05,GEOM_MNIST_eff_su2_r5

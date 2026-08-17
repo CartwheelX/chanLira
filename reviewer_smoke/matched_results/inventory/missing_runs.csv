@@ -1,0 +1,1 @@
+target_id,experiment,pair_id,role,dataset,architecture,fm_kind,n_wires,reps,depth,ql_ent,ql_op,model_seed,data_seed,seed,structural_cell_id,expected_output_dir,model_exists,attack_exists,log_exists,metrics_json_exists,model_bytes,attack_bytes,artifact_complete,log_error_detected,log_tail

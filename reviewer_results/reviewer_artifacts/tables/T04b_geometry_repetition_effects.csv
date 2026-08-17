@@ -1,0 +1,6 @@
+Metric,Contrast,Mean difference,Unique paired-effect SD,95% CI,Dataset/encoder blocks,Unique paired seed effects,Valid bootstrap
+class_similarity_gap,reps 5 minus reps 1,-0.12350219633016324,0.06147376291924639,"[-0.158, -0.079]",6,12,5000
+kernel_label_alignment,reps 5 minus reps 1,-0.20842962939706114,0.1323679431328723,"[-0.285, -0.109]",6,12,5000
+effective_rank,reps 5 minus reps 1,49.74707812733121,37.44812778226299,"[15.791, 83.870]",6,12,5000
+mmd2_train_test,reps 5 minus reps 1,-0.003180075540310811,0.007759092900615936,"[-0.010, 0.003]",6,12,5000
+encoder_operation_count,reps 5 minus reps 1,113.33333333333333,110.3207444983339,"[50.000, 204.667]",6,6,5000

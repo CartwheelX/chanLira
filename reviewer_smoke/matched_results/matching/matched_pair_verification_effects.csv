@@ -1,0 +1,4 @@
+contrast,n_pairs,n_pair_seed_units,mean_pair_level_difference,sd_across_pair_means,ci95_low,ci95_high,valid_bootstrap_replicates,ci_method
+ZZ minus Z train_acc,2,6,0.0,0.0,0.0,0.0,5,"cluster percentile bootstrap over matched-pair IDs, preserving all target seeds and Z/ZZ pairing"
+ZZ minus Z test_acc,2,6,0.0020000000000000018,0.0,0.0020000000000000018,0.0020000000000000018,5,"cluster percentile bootstrap over matched-pair IDs, preserving all target seeds and Z/ZZ pairing"
+ZZ minus Z gap,2,6,-0.002000000000000001,9.69739903612216e-19,-0.002000000000000001,-0.0020000000000000005,5,"cluster percentile bootstrap over matched-pair IDs, preserving all target seeds and Z/ZZ pairing"

@@ -1,0 +1,7 @@
+{
+  "n_targets": 15,
+  "n_passed": 15,
+  "n_failed": 0,
+  "all_passed": true,
+  "report": "reviewer_results/noisy_sanity/noisy_validation_report.csv"
+}

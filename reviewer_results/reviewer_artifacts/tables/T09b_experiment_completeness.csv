@@ -1,0 +1,10 @@
+Evidence block,Expected units,Observed units,Status,Replication unit
+Factorial target models,36,36,complete,target-model seed within 12 structural cells
+Factorial scalar attacks,216,216,complete,target × scalar attack
+Encoder geometry,36,36,complete_with_MNIST_duplicate_seed_caveat,nominal data seed; uniqueness audited separately
+Architecture wrappers,36,36,complete,wrapper × structural role × target seed
+Noisy targets,15,15,complete,target checkpoint
+Noisy conditions,915,915,complete,target × mode × shots × simulator seed
+Learned MIA,72,72,complete,target checkpoints at attacker seed 41
+Learned MIA,72,72,complete,target checkpoints at attacker seed 42
+Learned MIA,72,72,complete,target checkpoints at attacker seed 43

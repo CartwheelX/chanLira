@@ -56,19 +56,23 @@ def dataset_arch(label: str) -> tuple[str, str]:
 
 def base_protocol(dataset: str, architecture: str) -> Dict[str, object]:
     # Reviewer subsets use a common protocol within each comparison.
+    default_learning_rate = 0.01 if str(architecture).lower() == "hqnn" else 0.05
     if dataset == "MNIST":
         return {
             "vector_train": 200, "vector_valid": 200, "vector_test": 200,
             "batch_size": 16, "epochs": 100, "extra_feats": False,
+            "learning_rate": default_learning_rate,
         }
     if dataset == "Circles":
         return {
             "vector_train": 100, "vector_valid": 100, "vector_test": 100,
             "batch_size": 8, "epochs": 100, "extra_feats": True,
+            "learning_rate": default_learning_rate,
         }
     return {
         "vector_train": 50, "vector_valid": 50, "vector_test": 50,
         "batch_size": 8, "epochs": 100, "extra_feats": True,
+        "learning_rate": default_learning_rate,
     }
 
 
@@ -172,6 +176,9 @@ def main() -> None:
                     "role": f"{pair['regime']}_{fm_name}",
                     "pair_id": pair["pair_id"],
                     "seed": seed,
+                    "model_seed": seed,
+                    "data_seed": 43,
+                    "structural_cell_id": f"{pair['pair_id']}|{fm_name}",
                     **cfg,
                 })
     pd.DataFrame(long_rows).to_csv(
@@ -205,6 +212,9 @@ def main() -> None:
                             "experiment": "multiseed_factorial",
                             "role": f"{fm}_r{reps}_d{depth}",
                             "seed": seed,
+                            "model_seed": seed,
+                            "data_seed": 43,
+                            "structural_cell_id": f"{fm}_r{reps}_d{depth}",
                             **cfg,
                         })
     pd.DataFrame(factorial_rows).to_csv(
@@ -228,6 +238,8 @@ def main() -> None:
             row = find_row(masters[source_label], **query)
             cfg = config_from_row(row, "MNIST", arch)
             cfg.update(base_protocol("MNIST", arch))
+            # Controlled wrapper comparison uses the same Adam learning rate.
+            cfg["learning_rate"] = 0.01
             cfg["pad_mode"] = "wrap"
             cfg["fm_ent"] = "linear"
             for seed in seeds:
@@ -236,6 +248,9 @@ def main() -> None:
                     "experiment": "architecture_control",
                     "role": cfg_spec["name"],
                     "seed": seed,
+                    "model_seed": seed,
+                    "data_seed": 43,
+                    "structural_cell_id": f"{cfg_spec['name']}|{str(arch).lower()}",
                     **cfg,
                 })
     pd.DataFrame(arch_rows).to_csv(
@@ -261,6 +276,10 @@ def main() -> None:
                     "ql_ent": "linear",
                     "ql_op": "crz",
                     "seed": 43,
+                    "model_seed": 43,
+                    "data_seed": 43,
+                    "learning_rate": 0.05,
+                    "structural_cell_id": f"GEOM_{dataset}_{fm}_r{reps}",
                 })
     pd.DataFrame(geom_rows).to_csv(
         args.out_dir / "geometry_targets.csv", index=False

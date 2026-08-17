@@ -1,0 +1,3 @@
+Method,Correlation,95% CI,Structural cells,Target rows,Valid bootstrap
+Pearson,0.948456050904842,"[0.864, 0.982]",12,36,5000
+Spearman,0.9308702677224434,"[0.710, 0.974]",12,36,5000

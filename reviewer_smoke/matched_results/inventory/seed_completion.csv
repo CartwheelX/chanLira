@@ -1,0 +1,7 @@
+experiment,dataset,architecture,fm_kind,reps,depth,model_seed,data_seed,expected,complete,completion_fraction
+matched_gap_mia,Smoke,qnn,z,1,2,43,43,2,2,1.0
+matched_gap_mia,Smoke,qnn,z,1,2,44,43,2,2,1.0
+matched_gap_mia,Smoke,qnn,z,1,2,45,43,2,2,1.0
+matched_gap_mia,Smoke,qnn,zz,1,2,43,43,2,2,1.0
+matched_gap_mia,Smoke,qnn,zz,1,2,44,43,2,2,1.0
+matched_gap_mia,Smoke,qnn,zz,1,2,45,43,2,2,1.0

@@ -19,9 +19,15 @@ Usage:
 
 import argparse
 import json
+import os
+import re
 from dataclasses import dataclass, asdict
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, TextIO
+
+# Required for deterministic CUDA matrix operations when deterministic
+# algorithms are enabled below.
+os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
 
 import numpy as np
 import pandas as pd
@@ -46,6 +52,7 @@ from sklearn.metrics import (
 # -------------------------
 @dataclass
 class AttackDataset:
+    target_id: str
     run_id: int
     dataset: str
     architecture: str
@@ -53,7 +60,8 @@ class AttackDataset:
     X: torch.Tensor
     y_true: torch.Tensor
     y_pred: torch.Tensor
-    membership: torch.Tensor  # 0=member, 1=non-member
+    membership: torch.Tensor  # normalized: 1=member, 0=nonmember
+    source_membership_convention: str
     split: torch.Tensor
     pv: torch.Tensor
     stats: Dict[str, torch.Tensor]
@@ -89,11 +97,51 @@ def _require_keys(d: Dict[str, Any], keys: List[str], path: Path) -> None:
         raise KeyError(f"Missing keys {missing} in {path}")
 
 
+def normalize_membership_labels(
+    data: Dict[str, Any],
+) -> Tuple[torch.Tensor, str]:
+    """Normalize labels once to the reviewer convention 1=member, 0=nonmember."""
+    raw = torch.as_tensor(data["membership"]).long().reshape(-1)
+    split = torch.as_tensor(data["split"]).long().reshape(-1)
+    meta = data.get("meta", {}) or {}
+    declared = str(meta.get("membership_convention", "")).strip().lower()
+
+    if declared in {"1=member", "member_is_1", "one_is_member"}:
+        member_value = 1
+        source_convention = "1=member"
+    elif declared in {"0=member", "member_is_0", "zero_is_member"}:
+        member_value = 0
+        source_convention = "0=member"
+    elif len(raw) == len(split):
+        train_values = raw[split == 0]
+        test_values = raw[split == 1]
+        if (
+            train_values.numel()
+            and test_values.numel()
+            and torch.all(train_values == 1)
+            and torch.all(test_values == 0)
+        ):
+            member_value = 1
+            source_convention = "1=member_inferred"
+        else:
+            member_value = 0
+            source_convention = "0=member_inferred"
+    else:
+        member_value = 0
+        source_convention = "0=member_default"
+
+    return (raw == member_value).long(), source_convention
+
+
 def load_attack_data(path: Path) -> AttackDataset:
-    data = torch.load(path, map_location="cpu")
+    try:
+        data = torch.load(path, map_location="cpu", weights_only=False)
+    except TypeError:
+        data = torch.load(path, map_location="cpu")
     _require_keys(data, ["X", "y_true", "y_pred", "membership", "split", "pv", "stats"], path)
 
     meta = data.get("meta", {})
+    target_id = str(meta.get("target_id", path.parent.name)).strip() or path.parent.name
     run_id = int(meta.get("run_id", -1))
     dataset = str(meta.get("dataset", "unknown"))
     architecture = str(meta.get("model_type", "unknown")).upper()
@@ -102,7 +150,7 @@ def load_attack_data(path: Path) -> AttackDataset:
     X = data["X"].float()
     y_true = data["y_true"].long()
     y_pred = data["y_pred"].long()
-    membership = data["membership"].long()
+    membership, source_membership_convention = normalize_membership_labels(data)
     split = data["split"].long()
     pv = data["pv"].float()
 
@@ -115,6 +163,7 @@ def load_attack_data(path: Path) -> AttackDataset:
         stats_clean[k] = v.float() if torch.is_tensor(v) else torch.tensor(v).float()
 
     return AttackDataset(
+        target_id=target_id,
         run_id=run_id,
         dataset=dataset,
         architecture=architecture,
@@ -123,12 +172,37 @@ def load_attack_data(path: Path) -> AttackDataset:
         y_true=y_true,
         y_pred=y_pred,
         membership=membership,
+        source_membership_convention=source_membership_convention,
         split=split,
         pv=pv,
         stats=stats_clean,
         meta=meta,
         source_path=path,
     )
+
+
+def target_output_dir(out_dir: Path, dataset: AttackDataset) -> Path:
+    """Return a collision-free directory based on the reviewer target ID."""
+    safe_target_id = re.sub(r"[^A-Za-z0-9_.-]+", "_", dataset.target_id).strip("._")
+    if not safe_target_id:
+        safe_target_id = (
+            f"{dataset.dataset}_{dataset.architecture}_run{dataset.run_id}"
+        )
+    return out_dir / safe_target_id
+
+
+def set_attacker_seed(seed: int) -> None:
+    """Seed every RNG used by learned-MIA training."""
+    np.random.seed(int(seed))
+    torch.manual_seed(int(seed))
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(int(seed))
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    try:
+        torch.use_deterministic_algorithms(True, warn_only=True)
+    except Exception:
+        pass
 
 
 # -------------------------
@@ -619,22 +693,6 @@ def _json_default(o: Any):
 # -------------------------
 # One target end-to-end (Option 1)
 # -------------------------
-import random
-import secrets
-
-import numpy as np
-import torch
-
-seed = secrets.randbits(32)
-print(f"Random seed for this run: {seed}")
-
-random.seed(seed)
-np.random.seed(seed)
-torch.manual_seed(seed)
-
-if torch.cuda.is_available():
-    torch.cuda.manual_seed_all(seed)
-    
 def run_one_target(
     attack_data_path: Path,
     out_dir: Path,
@@ -650,26 +708,30 @@ def run_one_target(
     verbose: bool = True,
 ) -> Dict[str, Any]:
 
+    set_attacker_seed(seed)
     ds = load_attack_data(attack_data_path)
 
-    run_out_dir = out_dir / f"{ds.dataset}_{ds.architecture}_run{ds.run_id}"
+    run_out_dir = target_output_dir(out_dir, ds)
     run_out_dir.mkdir(parents=True, exist_ok=True)
 
     log_path = run_out_dir / "attack_train.log"
     best_params_path = run_out_dir / "best_params.json"
 
     X = ds.X
-    y = ds.membership  # 0/1
+    y = ds.membership  # normalized: 1=member, 0=nonmember
     y_np = y.detach().cpu().numpy().astype(int)
 
     # safety: ensure both classes exist
-    n0 = int((y == 0).sum().item())
-    n1 = int((y == 1).sum().item())
-    if n0 < 2 or n1 < 2:
-        raise ValueError(f"Too few samples per class: members={n0}, nonmembers={n1} in {attack_data_path}")
+    n_nonmember = int((y == 0).sum().item())
+    n_member = int((y == 1).sum().item())
+    if n_nonmember < 2 or n_member < 2:
+        raise ValueError(
+            f"Too few samples per class: members={n_member}, "
+            f"nonmembers={n_nonmember} in {attack_data_path}"
+        )
 
     # choose feasible CV folds
-    min_class = min(n0, n1)
+    min_class = min(n_nonmember, n_member)
     feasible_folds = min(cv_folds, min_class)
     if feasible_folds < 2:
         # cannot do CV; fall back to no tuning with fixed params
@@ -727,8 +789,16 @@ def run_one_target(
 
     with open(log_path, "w", encoding="utf-8") as log_fh:
         log_fh.write(f"Source: {attack_data_path}\n")
-        log_fh.write(f"Target: {ds.architecture} on {ds.dataset} (run_id={ds.run_id})\n")
-        log_fh.write(f"Members={n0}, NonMembers={n1}\n")
+        log_fh.write(
+            f"Target: {ds.target_id} ({ds.architecture} on {ds.dataset}, "
+            f"source_run_id={ds.run_id})\n"
+        )
+        log_fh.write(f"Members={n_member}, NonMembers={n_nonmember}\n")
+        log_fh.write(
+            "Membership convention used for learned MIA: "
+            "1=member,0=nonmember "
+            f"(source={ds.source_membership_convention})\n"
+        )
         log_fh.write(f"Holdout test_ratio={test_ratio} | TEST size={len(X_test)} | TRAINPOOL size={len(X_pool)}\n")
         log_fh.write(f"CV folds requested={cv_folds}, feasible={feasible_folds}\n")
         log_fh.write(f"Tuning info: {tuning_info}\n")
@@ -769,12 +839,16 @@ def run_one_target(
     roc_csv = run_out_dir / "roc_curve.csv"
     pd.DataFrame({"fpr": fpr, "tpr": tpr, "threshold": thr}).to_csv(roc_csv, index=False)
 
-    title = f"ROC (log-log): {ds.architecture} on {ds.dataset} (run_id={ds.run_id})"
+    title = f"ROC (log-log): {ds.target_id}"
     plot_and_save_roc_loglog(fpr, tpr, title=title, save_prefix=run_out_dir / "attack", eps=1e-6)
 
     # Save results JSON
     results = {
         "target_meta": ds.meta,
+        "target_id": ds.target_id,
+        "attacker_seed": int(seed),
+        "membership_convention": "1=member,0=nonmember",
+        "source_membership_convention": ds.source_membership_convention,
         "split": {"test_ratio": float(test_ratio), "n_pool": int(len(X_pool)), "n_test": int(len(X_test))},
         "cv": {"requested_folds": int(cv_folds), "feasible_folds": int(feasible_folds)},
         "tuning_info": tuning_info,
@@ -828,8 +902,18 @@ def main():
 
     ap.add_argument("--filter-dataset", type=str, default=None)
     ap.add_argument("--filter-arch", type=str, default=None)
+    ap.add_argument("--cpu-threads", type=int, default=1)
+    ap.add_argument(
+        "--resume",
+        action="store_true",
+        help="Skip targets whose target-ID output already has attack_results.json.",
+    )
 
     args = ap.parse_args()
+    if args.cpu_threads < 1:
+        ap.error("--cpu-threads must be at least 1")
+    torch.set_num_threads(int(args.cpu_threads))
+    torch.set_num_interop_threads(max(1, int(args.cpu_threads)))
 
     out_dir = Path(args.out)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -864,6 +948,14 @@ def main():
     all_results: List[Dict[str, Any]] = []
     for f in files:
         try:
+            dataset = load_attack_data(f)
+            result_path = target_output_dir(out_dir, dataset) / "attack_results.json"
+            if args.resume and result_path.exists():
+                print(f"[Resume] Skipping (already exists): {result_path.parent}")
+                all_results.append(
+                    json.loads(result_path.read_text(encoding="utf-8"))
+                )
+                continue
             r = run_one_target(
                 attack_data_path=f,
                 out_dir=out_dir,
@@ -889,9 +981,17 @@ def main():
         m = r.get("metrics_test", {})
         tpr_map = m.get("tpr_at_low_fpr", {}) if isinstance(m, dict) else {}
         rows.append({
+            "target_id": str(r.get("target_id", meta.get("target_id", "unknown"))),
+            "experiment": meta.get("experiment", ""),
             "dataset": meta.get("dataset", "unknown"),
             "architecture": str(meta.get("model_type", "unknown")).upper(),
             "run_id": meta.get("run_id", -1),
+            "model_seed": meta.get("model_seed", meta.get("seed", np.nan)),
+            "data_seed": meta.get("data_seed", np.nan),
+            "attacker_seed": r.get("attacker_seed", np.nan),
+            "membership_convention": r.get(
+                "membership_convention", "1=member,0=nonmember"
+            ),
             "n_wires": meta.get("n_wires", -1),
             "depth": meta.get("depth", -1),
             "attack_acc": m.get("accuracy", np.nan),

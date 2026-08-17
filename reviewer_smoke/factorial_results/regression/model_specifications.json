@@ -1,0 +1,54 @@
+{
+  "M1_gap": {
+    "bootstrap": "structural-cell cluster bootstrap with target seeds nested",
+    "categorical_encoding": "one-hot with first category as reference",
+    "dropped_features": [
+      "width: zero variance"
+    ],
+    "kept_features": [
+      "generalization_gap",
+      "fm_kind",
+      "reps",
+      "depth"
+    ],
+    "numeric_scaling": "z-score",
+    "outcome": "loss-threshold MIA ROC AUC",
+    "requested_features": [
+      "generalization_gap",
+      "fm_kind",
+      "reps",
+      "width",
+      "depth"
+    ],
+    "ridge_alpha": 1e-06
+  },
+  "M2_behavior_resources": {
+    "bootstrap": "structural-cell cluster bootstrap with target seeds nested",
+    "categorical_encoding": "one-hot with first category as reference",
+    "dropped_features": [
+      "width: zero variance"
+    ],
+    "kept_features": [
+      "train_accuracy",
+      "test_accuracy",
+      "fm_kind",
+      "reps",
+      "depth",
+      "log_gate_count",
+      "log_parameter_count"
+    ],
+    "numeric_scaling": "z-score",
+    "outcome": "loss-threshold MIA ROC AUC",
+    "requested_features": [
+      "train_accuracy",
+      "test_accuracy",
+      "fm_kind",
+      "reps",
+      "width",
+      "depth",
+      "log_gate_count",
+      "log_parameter_count"
+    ],
+    "ridge_alpha": 1e-06
+  }
+}

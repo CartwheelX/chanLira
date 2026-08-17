@@ -1,0 +1,3 @@
+model,status,n_rows,n_structural_cells,kept_features,dropped_features,valid_bootstrap_replicates,invalid_bootstrap_replicates,example_failures,error
+M1_gap,fitted,24,8,"[""generalization_gap"", ""fm_kind"", ""reps"", ""depth""]","[""width: zero variance""]",5,0,[],
+M2_behavior_resources,fitted,24,8,"[""train_accuracy"", ""test_accuracy"", ""fm_kind"", ""reps"", ""depth"", ""log_gate_count"", ""log_parameter_count""]","[""width: zero variance""]",5,0,[],

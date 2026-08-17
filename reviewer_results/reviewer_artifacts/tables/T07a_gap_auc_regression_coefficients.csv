@@ -1,0 +1,16 @@
+Model,Term,Coefficient,95% CI,Valid bootstrap
+M1_gap,Intercept,0.5886584037188061,"[0.560, 0.606]",5000
+M1_gap,z_gap,0.03901734067624161,"[0.010, 0.053]",5000
+M1_gap,z_reps,0.009598299835175081,"[-0.001, 0.032]",5000
+M1_gap,z_depth,0.0037802902005192674,"[-0.005, 0.020]",5000
+M1_gap,fm_z,0.020361790547060627,"[-0.003, 0.061]",5000
+M1_gap,fm_zz,0.002721331629854342,"[-0.024, 0.048]",5000
+M2_behavior_resources,Intercept,0.5829038200890644,"[0.474, 0.689]",5000
+M2_behavior_resources,z_train_acc,0.027011705281871308,"[-0.005, 0.054]",5000
+M2_behavior_resources,z_test_acc,-0.05112069639242845,"[-0.068, 0.010]",5000
+M2_behavior_resources,z_reps,0.016765691928411385,"[-0.083, 0.107]",5000
+M2_behavior_resources,z_depth,0.008105738610878438,"[-0.039, 0.029]",5000
+M2_behavior_resources,z_log_gate_count,-0.013894556941688894,"[-0.091, 0.177]",5000
+M2_behavior_resources,z_log_parameter_count,0.00810573936949703,"[-0.039, 0.029]",5000
+M2_behavior_resources,fm_z,0.020366627859059058,"[-0.064, 0.150]",5000
+M2_behavior_resources,fm_zz,0.01998024520708104,"[-0.174, 0.185]",5000

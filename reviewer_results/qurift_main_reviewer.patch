@@ -1,0 +1,439 @@
+--- experiments/qurift_main.py
++++ experiments/qurift_main.py.reviewer
+@@ -953,7 +953,8 @@
+                 expand_h_to_u3=True,
+             )
+             # self.encoder =  make_encoder_from_oplist(oplist, alpha=1.0, multi_index_rule="prod")
+-            write_oplist_py("z_with_pauli.py", z_name, z_ops)
++            if not os.environ.get("QURIFT_DISABLE_DEBUG_EXPORTS"):
++                write_oplist_py("z_with_pauli.py", z_name, z_ops)
+             self.encoder =  GeneralEncoderPlus_new(z_ops, alpha=cfg.fm_z_alpha, multi_index_rule="sum")
+             # self.encoder = GeneralEncoderPlus_new(z_ops, pad_mode="wrap", alpha=1.0)
+             
+@@ -972,7 +973,8 @@
+                 expand_h_to_u3=True,
+             )
+             # self.encoder =  make_encoder_from_oplist(oplist, alpha=1.0, multi_index_rule="prod")
+-            write_oplist_py("zasdasd_with_pauli.py", zz_name, zz_ops)
++            if not os.environ.get("QURIFT_DISABLE_DEBUG_EXPORTS"):
++                write_oplist_py("zasdasd_with_pauli.py", zz_name, zz_ops)
+             self.encoder =  GeneralEncoderPlus_new(zz_ops, alpha=cfg.fm_zz_alpha, multi_index_rule="sum")
+             # self.encoder = GeneralEncoderPlus_new(z_ops, pad_mode="wrap", alpha=1.0)
+             
+@@ -989,7 +991,8 @@
+                 expand_h_to_u3=True,
+             )
+             # self.encoder =  make_encoder_from_oplist(oplist, alpha=1.0, multi_index_rule="prod")
+-            write_oplist_py("pauli_with_pauli.py", pauli_name, pauli_ops)
++            if not os.environ.get("QURIFT_DISABLE_DEBUG_EXPORTS"):
++                write_oplist_py("pauli_with_pauli.py", pauli_name, pauli_ops)
+             self.encoder =  GeneralEncoderPlus_new(pauli_ops, alpha=cfg.fm_pauli_alpha, multi_index_rule="prod")
+             # self.encoder = GeneralEncoderPlus_new(z_ops, pad_mode="wrap", alpha=1.0)
+             
+@@ -1008,7 +1011,8 @@
+                 reps=cfg.fm_eff_reps
+             )
+             
+-            save_oplist_py("efficient_su2_3w.py", su2_name, su2_op)
++            if not os.environ.get("QURIFT_DISABLE_DEBUG_EXPORTS"):
++                save_oplist_py("efficient_su2_3w.py", su2_name, su2_op)
+             # exit()
+             # Note: out of the Gen ecnoder for SU2, run for longer epochs to see which one works best
+             # self.encoder = self.encoder = tq.GeneralEncoder(su2_op) # older one working as well
+@@ -1274,7 +1278,8 @@
+                 expand_h_to_u3=True,
+             )
+             # self.encoder =  make_encoder_from_oplist(oplist, alpha=1.0, multi_index_rule="prod")
+-            write_oplist_py("z_with_pauli.py", z_name, z_ops)
++            if not os.environ.get("QURIFT_DISABLE_DEBUG_EXPORTS"):
++                write_oplist_py("z_with_pauli.py", z_name, z_ops)
+             self.encoder =  GeneralEncoderPlus_new(z_ops, alpha=cfg.fm_z_alpha, multi_index_rule="sum")
+             # self.encoder = GeneralEncoderPlus_new(z_ops, pad_mode="wrap", alpha=1.0)
+             
+@@ -1289,7 +1294,8 @@
+                 n_wires=cfg.n_wires, D=self.D, paulis=["Z", "ZZ"], pad_mode=cfg.fm_zz_pad_mode, entanglement=cfg.fm_zz_entanglement, repeats=cfg.fm_zz_reps,
+                 expand_h_to_u3=True,)
+             # self.encoder =  make_encoder_from_oplist(oplist, alpha=1.0, multi_index_rule="prod")
+-            write_oplist_py("zasdasd_with_pauli.py", zz_name, zz_ops)
++            if not os.environ.get("QURIFT_DISABLE_DEBUG_EXPORTS"):
++                write_oplist_py("zasdasd_with_pauli.py", zz_name, zz_ops)
+             self.encoder =  GeneralEncoderPlus_new(zz_ops, alpha=cfg.fm_zz_alpha, multi_index_rule="sum")
+             # self.encoder = GeneralEncoderPlus_new(z_ops, pad_mode="wrap", alpha=1.0)
+             
+@@ -1305,7 +1311,8 @@
+                 expand_h_to_u3=True,
+             )
+             # self.encoder =  make_encoder_from_oplist(oplist, alpha=1.0, multi_index_rule="prod")
+-            write_oplist_py("pauli_with_pauli.py", pauli_name, pauli_ops)
++            if not os.environ.get("QURIFT_DISABLE_DEBUG_EXPORTS"):
++                write_oplist_py("pauli_with_pauli.py", pauli_name, pauli_ops)
+             self.encoder =  GeneralEncoderPlus_new(pauli_ops, alpha=cfg.fm_pauli_alpha, multi_index_rule="prod")
+             # self.encoder = GeneralEncoderPlus_new(z_ops, pad_mode="wrap", alpha=1.0)
+             
+@@ -1317,13 +1324,14 @@
+             print("In SU2 encoder part")
+             
+             su2_name, su2_op = build_efficient_su2_oplist_qisk_new(
+-                D=self.D, n_wires=cfg.n_wires,
++                D=self.D, n_wires=cfg.n_wires, reps=cfg.fm_eff_reps,
+                 single_ops=("ry","rz"),
+                 entanglement=cfg.fm_eff_ent_kind, twoq=cfg.fm_eff_twoq_op,
+                 pad_mode=cfg.fm_eff_pad_mod, alpha=cfg.fm_eff_alpha
+             )
+             
+-            save_oplist_py("efficient_su2_3w_ecp2.py", su2_name, su2_op)
++            if not os.environ.get("QURIFT_DISABLE_DEBUG_EXPORTS"):
++                save_oplist_py("efficient_su2_3w_ecp2.py", su2_name, su2_op)
+             # exit()
+             # Note: out of the Gen ecnoder for SU2, run for longer epochs to see which one works best
+             # self.encoder = self.encoder = tq.GeneralEncoder(su2_op) # older one working as well
+@@ -1866,7 +1874,8 @@
+                 expand_h_to_u3=True,
+             )
+             # self.encoder =  make_encoder_from_oplist(oplist, alpha=1.0, multi_index_rule="prod")
+-            write_oplist_py("z_with_pauli.py", z_name, z_ops)
++            if not os.environ.get("QURIFT_DISABLE_DEBUG_EXPORTS"):
++                write_oplist_py("z_with_pauli.py", z_name, z_ops)
+             self.encoder =  GeneralEncoderPlus_new(z_ops, alpha=cfg.fm_z_alpha, multi_index_rule="sum")
+             # self.encoder = GeneralEncoderPlus_new(z_ops, pad_mode="wrap", alpha=1.0)
+             
+@@ -1882,7 +1891,8 @@
+                 expand_h_to_u3=True,
+             )
+             # self.encoder =  make_encoder_from_oplist(oplist, alpha=1.0, multi_index_rule="prod")
+-            write_oplist_py("zasdasd_with_pauli.py", zz_name, zz_ops)
++            if not os.environ.get("QURIFT_DISABLE_DEBUG_EXPORTS"):
++                write_oplist_py("zasdasd_with_pauli.py", zz_name, zz_ops)
+             self.encoder =  GeneralEncoderPlus_new(zz_ops, alpha=cfg.fm_zz_alpha, multi_index_rule="sum")
+             # self.encoder = GeneralEncoderPlus_new(z_ops, pad_mode="wrap", alpha=1.0)
+             
+@@ -1898,7 +1908,8 @@
+                 expand_h_to_u3=True,
+             )
+             # self.encoder =  make_encoder_from_oplist(oplist, alpha=1.0, multi_index_rule="prod")
+-            write_oplist_py("pauli_with_pauli.py", pauli_name, pauli_ops)
++            if not os.environ.get("QURIFT_DISABLE_DEBUG_EXPORTS"):
++                write_oplist_py("pauli_with_pauli.py", pauli_name, pauli_ops)
+             self.encoder =  GeneralEncoderPlus_new(pauli_ops, alpha=cfg.fm_pauli_alpha, multi_index_rule="prod")
+             # self.encoder = GeneralEncoderPlus_new(z_ops, pad_mode="wrap", alpha=1.0)
+             
+@@ -1910,13 +1921,14 @@
+             print("In SU2 encoder part")
+             
+             su2_name, su2_op = build_efficient_su2_oplist_qisk_new(
+-                D=self.D, n_wires=cfg.n_wires,
++                D=self.D, n_wires=cfg.n_wires, reps=cfg.fm_eff_reps,
+                 single_ops=("ry","rz"),
+                 entanglement=cfg.fm_eff_ent_kind, twoq=cfg.fm_eff_twoq_op,
+                 pad_mode=cfg.fm_eff_pad_mod, alpha=cfg.fm_eff_alpha
+             )
+             
+-            save_oplist_py("efficient_su2_3w.py", su2_name, su2_op)
++            if not os.environ.get("QURIFT_DISABLE_DEBUG_EXPORTS"):
++                save_oplist_py("efficient_su2_3w.py", su2_name, su2_op)
+             # exit()
+             # Note: out of the Gen ecnoder for SU2, run for longer epochs to see which one works best
+             # self.encoder = self.encoder = tq.GeneralEncoder(su2_op) # older one working as well
+@@ -2216,6 +2228,74 @@
+     return {"sha256_y": _sha256_int_tensor(y), "hist": hist, "N": int(y.numel())}
+ 
+ 
++
++def reviewer_resource_summary(model: nn.Module, cfg: QFCConfig, model_type: str) -> dict:
++    """Return exact trainable-parameter counts and main-stack gate counts.
++
++    Gate counts cover every distinct exported encoder operation list plus the
++    downstream variational circuit. QCNN quanvolutional front-end operations are
++    intentionally not folded into this number because the wrapper uses a
++    separate patch-wise circuit whose execution count depends on preprocessing.
++    """
++    from collections import Counter
++
++    parameter_counts = Counter()
++    for name, parameter in model.named_parameters():
++        if not parameter.requires_grad:
++            continue
++        lname = name.lower()
++        if any(token in lname for token in ("vqc", "q_layer", "qlayer", "quantum", "theta", "pqc", "qf.", "q_filter", "quanv")):
++            component = "quantum"
++        elif any(token in lname for token in ("cnn", "mlp", "head", "classifier", "linear", "fc", "backbone", "fe")):
++            component = "classical"
++        else:
++            component = "unclassified"
++        parameter_counts[component] += int(parameter.numel())
++
++    gate_counts = Counter()
++    seen_lists = set()
++    for module in model.modules():
++        operations = getattr(module, "func_list", None)
++        if not isinstance(operations, list) or id(operations) in seen_lists:
++            continue
++        seen_lists.add(id(operations))
++        for operation in operations:
++            if isinstance(operation, dict):
++                gate_counts[str(operation.get("func", "unknown")).lower()] += 1
++
++    n_wires = int(cfg.n_wires)
++    depth = int(cfg.depth)
++    topology = str(cfg.qlayer_ent_kind).lower()
++    if topology in {"ring", "circular"}:
++        entanglers_per_layer = n_wires
++    elif topology == "full":
++        entanglers_per_layer = n_wires * (n_wires - 1) // 2
++    elif topology == "pairwise":
++        entanglers_per_layer = n_wires // 2
++    else:
++        entanglers_per_layer = max(n_wires - 1, 0)
++
++    gate_counts["rx"] += depth * n_wires
++    gate_counts["ry"] += depth * n_wires
++    gate_counts["rz"] += depth * n_wires
++    gate_counts[str(cfg.qlayer_twoq_op).lower()] += depth * entanglers_per_layer
++
++    one_qubit_names = {"rx", "ry", "rz", "h", "x", "y", "z", "s", "sdg", "t", "u", "u1", "u2", "u3", "p"}
++    two_qubit_names = {"cx", "cnot", "cz", "swap", "crx", "cry", "crz", "rxx", "ryy", "rzz", "iswap"}
++    return {
++        "trainable_parameters_total": int(sum(parameter_counts.values())),
++        "trainable_parameters_quantum": int(parameter_counts["quantum"]),
++        "trainable_parameters_classical": int(parameter_counts["classical"]),
++        "trainable_parameters_unclassified": int(parameter_counts["unclassified"]),
++        "gate_counts": dict(sorted(gate_counts.items())),
++        "quantum_gate_count_total": int(sum(gate_counts.values())),
++        "quantum_one_qubit_gates": int(sum(value for gate, value in gate_counts.items() if gate in one_qubit_names)),
++        "quantum_two_qubit_gates": int(sum(value for gate, value in gate_counts.items() if gate in two_qubit_names)),
++        "gate_count_scope": "fixed encoder plus downstream variational circuit",
++        "qcnn_frontend_included": False if model_type == "qcnn" else None,
++    }
++
++
+ # ----------------------------
+ # Script
+ # ----------------------------
+@@ -2227,6 +2307,11 @@
+     parser.add_argument("--batch-size", type=int, default=256)
+     #add runid argument
+     parser.add_argument("--run-id", type=int, default=0, help="Run ID for experiment tracking.")
++    parser.add_argument("--model-seed", type=int, default=43, help="Model initialization/training seed.")
++    parser.add_argument("--data-seed", type=int, default=43, help="Dataset generation/subsampling seed.")
++    parser.add_argument("--target-id", type=str, default=None, help="Unique reviewer target identifier stored in exports.")
++    parser.add_argument("--experiment-id", type=str, default=None, help="Reviewer experiment identifier stored in exports.")
++    parser.add_argument("--learning-rate", type=float, default=None, help="Optional common learning rate for controlled architecture comparisons.")
+     # add target model path argument
+     # parser.add_argument("--target-model-path", type=str, default="qcnn_model.pth", help="Path to save/load the trained model.")
+     parser.add_argument("--target-model-path", type=str, default=None, help="Explicit path to save the trained model.")
+@@ -2360,24 +2445,24 @@
+     # I am gona use this by commenting out the above because I NEED it change seeds for the MIA attacks
+     # I can be wrong, cuz the MIA part just takes the attack data that is generted by this script, so it may not matter, but I will keep it for now
+ 
+-    # Use the supplied seed, or generate a random one when omitted
+-    if args.seed is None:
+-        seed = random.SystemRandom().randint(0, 2**32 - 1)
+-    else:
+-        seed = args.seed
+-
+-    print(f"Seed used for this run: {seed}")
+-
+-    random.seed(seed)
+-    np.random.seed(seed)
+-    torch.manual_seed(seed)
+-
+-    if torch.cuda.is_available():
+-        torch.cuda.manual_seed_all(seed)
+-
+-    torch.backends.cudnn.deterministic = True
+-    torch.backends.cudnn.benchmark = False
+-        
++    model_seed = int(args.seed if args.seed is not None else args.model_seed)
++    data_seed = int(args.data_seed)
++
++    def _set_qurift_reviewer_seed(seed_value: int) -> None:
++        random.seed(seed_value)
++        np.random.seed(seed_value)
++        torch.manual_seed(seed_value)
++        if torch.cuda.is_available():
++            torch.cuda.manual_seed_all(seed_value)
++        torch.backends.cudnn.deterministic = True
++        torch.backends.cudnn.benchmark = False
++        try:
++            torch.use_deterministic_algorithms(True, warn_only=True)
++        except Exception:
++            pass
++
++    # Dataset construction/subsampling must not vary with target-model seed.
++    _set_qurift_reviewer_seed(data_seed)
+     # if args.dataset in {"moons", "blobs", "circles"}:
+     #     seed = 0
+     #     random.seed(seed)
+@@ -2478,7 +2563,7 @@
+             cluster_std=args.blobs_cluster_std,
+             center_distance=args.blobs_center_distance,
+             n_features=args.blobs_n_features,
+-            seed=seed,
++            seed=data_seed,
+             # pppppppppppppppppp
+             scale_to_2pi=False,
+             multiclass_features=args.multiclass_features,
+@@ -2547,6 +2632,12 @@
+         print(f"Vector scaling applied: target={scale_cfg['target']} min={scale_min} max={scale_max}")
+     # here
+     # exit()
++    # Reset RNGs after dataset construction so model initialization/training
++    # varies independently from the fixed data split.
++    _set_qurift_reviewer_seed(model_seed)
++    reviewer_train_generator = torch.Generator()
++    reviewer_train_generator.manual_seed(model_seed)
++
+     use_cuda = torch.cuda.is_available()
+     device = torch.device("cuda" if use_cuda else "cpu")
+     # Safer DataLoader defaults:
+@@ -2568,6 +2659,7 @@
+             pin_memory=bool(use_cuda) if is_train else False,
+             persistent_workers=False,         # safer on Windows
+             drop_last=False,
++            generator=reviewer_train_generator if is_train else None,
+         )
+     
+ 
+@@ -2665,28 +2757,40 @@
+     
+     
+ 
++    default_learning_rates = {
++        "qnn": 5e-2,
++        "mlp_qnn": 5e-2,
++        "hqnn": 1e-2,
++        "qcnn": 5e-2,
++    }
++    effective_learning_rate = float(
++        args.learning_rate
++        if args.learning_rate is not None
++        else default_learning_rates[args.model_type]
++    )
++
+     # Target model
+     if args.model_type == "qnn":
+         model = QFCModel(cfg).to(device)
+-        optimizer = optim.Adam(model.parameters(), lr=5e-2)
++        optimizer = optim.Adam(model.parameters(), lr=effective_learning_rate)
+         scheduler = CosineAnnealingLR(optimizer, T_max=args.epochs)
+     
+     elif args.model_type == "mlp_qnn":
+         model1 = QFCModel(cfg).to(device)
+         model = build_classical_baseline(cfg, model1).to(device)
+ 
+-        optimizer = optim.Adam(model.parameters(), lr=5e-2)
++        optimizer = optim.Adam(model.parameters(), lr=effective_learning_rate)
+         scheduler = CosineAnnealingLR(optimizer, T_max=args.epochs)
+             
+     elif args.model_type == "hqnn":
+         model = HybridQNN(cfg).to(device)
+-        optimizer = optim.Adam(model.parameters(), lr=1e-2)
++        optimizer = optim.Adam(model.parameters(), lr=effective_learning_rate)
+         scheduler = CosineAnnealingLR(optimizer, T_max=args.epochs)
+         # optimizer = torch.optim.SGD(model.parameters(), lr=1e-2, momentum=0.9)
+     
+     elif args.model_type == "qcnn":
+         model = QCNN(cfg).to(device)
+-        optimizer = optim.Adam(model.parameters(), lr=5e-2)
++        optimizer = optim.Adam(model.parameters(), lr=effective_learning_rate)
+ 
+         # scheduler = CosineAnnealingLR(optimizer, T_max=args.epochs)
+         # optimizer = optim.Adam(model.parameters(), lr=5e-3, weight_decay=1e-4)
+@@ -2754,14 +2858,15 @@
+         save_target_path = f"id{args.run_id}_fallback_model.pt"
+ 
+     
+-    if args.model_type != "mlp_qnn":
++    if args.model_type != "mlp_qnn" and not os.environ.get("QURIFT_DISABLE_CIRCUIT_EXPORTS"):
+ 
+ 
+         from pathlib import Path
+         
+         circuit_dir = Path("all_circ") 
+         circuit_dir.mkdir(parents=True, exist_ok=True)
+-        path_circuit = circuit_dir / f"{args.model_type}_{'_'.join(suffix)}.png"
++        safe_target_id = re.sub(r"[^A-Za-z0-9_.-]+", "_", args.target_id or f"run{args.run_id}")
++        path_circuit = circuit_dir / f"{safe_target_id}_ms{model_seed}_ds{data_seed}_{args.model_type}_{'_'.join(suffix)}.png"
+ 
+         export_full_with_symbolic_encoder(
+             model,
+@@ -2817,10 +2922,12 @@
+             # Collect probabilities for train (members) and test (non-members)
+             probs_tr, y_tr = collect_probs_and_labels(dataflow, "train", model, device)
+             probs_te, y_te = collect_probs_and_labels(dataflow, "test", model, device)
++            probs_va, y_va = collect_probs_and_labels(dataflow, "valid", model, device)
+             
+             # Compute metrics
+             tr_metrics = metrics_from_probs(probs_tr, y_tr)
+             te_metrics = metrics_from_probs(probs_te, y_te)
++            va_metrics = metrics_from_probs(probs_va, y_va)
+             
+             # Build attack features
+             if args.attack_feature_mode == "pv":
+@@ -2891,35 +2998,35 @@
+                 "membership": membership,
+                 "split": split,
+                 "meta": {
++                    "target_id": args.target_id or f"run{args.run_id}",
++                    "experiment": args.experiment_id or "",
+                     "dataset": args.dataset,
++                    "architecture": args.model_type,
+                     "model_type": args.model_type,
+                     "run_id": int(args.run_id),
++                    "model_seed": int(model_seed),
++                    "data_seed": int(data_seed),
++                    "seed": int(model_seed),
++                    "membership_convention": "0=member",
+                     "attack_feature_mode": args.attack_feature_mode,
++                    "learning_rate": float(effective_learning_rate),
+                     "n_wires": int(args.n_wires),
+                     "depth": int(args.depth),
+                     "ql_ent": args.qlayer_ent_kind,
+                     "ql_op": args.qlayer_twoq_op,
++                    "fm_kind": args.fm_kind,
++                    "reps": int({"z": args.fm_z_reps, "zz": args.fm_zz_reps,
++                                 "pauli": args.fm_pauli_reps, "eff_su2": args.fm_eff_reps}[args.fm_kind]),
++                    "fm_ent": ({"zz": args.fm_zz_entanglement,
++                                "pauli": args.fm_pauli_entanglement,
++                                "eff_su2": args.fm_eff_ent_kind}.get(args.fm_kind, "none")),
++                    "fm_op": (args.fm_eff_twoq_op if args.fm_kind == "eff_su2" else "none"),
++                    "pad_mode": ({"z": args.fm_z_pad_mode, "zz": args.fm_zz_pad_mode,
++                                  "pauli": args.fm_pauli_pad,
++                                  "eff_su2": args.fm_eff_pad_mod}[args.fm_kind]),
+                     "vector_train": int(args.vector_train),
++                    "vector_valid": int(args.vector_valid),
+                     "vector_test": int(args.vector_test),
+-                    "seed": int(args.seed),
+-                    "fm_kind": args.fm_kind,
+-                    "reps": int(
+-                        args.fm_z_reps if args.fm_kind == "z"
+-                        else args.fm_zz_reps if args.fm_kind == "zz"
+-                        else args.fm_eff_reps
+-                    ),
+-                    "pad_mode": (
+-                        args.fm_z_pad_mode if args.fm_kind == "z"
+-                        else args.fm_zz_pad_mode if args.fm_kind == "zz"
+-                        else args.fm_eff_pad_mod
+-                    ),
+-                    "fm_ent": (
+-                        "NA" if args.fm_kind == "z"
+-                        else args.fm_zz_entanglement if args.fm_kind == "zz"
+-                        else args.fm_eff_ent_kind
+-                    ),
+-                    "fm_op": "NA" if args.fm_kind in {"z", "zz"} else args.fm_eff_twoq_op,
+-                    "trainable_params": count_trainable_params(model),
+                 },
+                 "stats": {
+                     "loss": torch.cat([loss_tr, loss_te], dim=0).float(),
+@@ -2929,8 +3036,10 @@
+                 },
+                 "target_metrics": {
+                     "train": tr_metrics,
++                    "valid": va_metrics,
+                     "test": te_metrics,
+-                }
++                },
++                "resource_counts": reviewer_resource_summary(model, cfg, args.model_type),
+             }
+             
+             # Determine save path

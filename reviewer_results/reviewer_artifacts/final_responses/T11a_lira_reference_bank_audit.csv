@@ -1,0 +1,13 @@
+Structural configuration,References,Candidate fingerprints,IN references/candidate,Training records/reference,Epochs,Learning rate,Audit
+eff_su2_r1_d2,16,1,8,200,100,0.05,PASS
+eff_su2_r1_d6,16,1,8,200,100,0.05,PASS
+eff_su2_r5_d2,16,1,8,200,100,0.05,PASS
+eff_su2_r5_d6,16,1,8,200,100,0.05,PASS
+z_r1_d2,16,1,8,200,100,0.05,PASS
+z_r1_d6,16,1,8,200,100,0.05,PASS
+z_r5_d2,16,1,8,200,100,0.05,PASS
+z_r5_d6,16,1,8,200,100,0.05,PASS
+zz_r1_d2,16,1,8,200,100,0.05,PASS
+zz_r1_d6,16,1,8,200,100,0.05,PASS
+zz_r5_d2,16,1,8,200,100,0.05,PASS
+zz_r5_d6,16,1,8,200,100,0.05,PASS

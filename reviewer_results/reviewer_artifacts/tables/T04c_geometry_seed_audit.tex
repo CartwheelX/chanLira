@@ -1,0 +1,22 @@
+\begin{table}[t]
+\caption{Audit of nominal versus unique encoder-geometry realizations.}
+\label{tab:geometry-seed-audit}
+\begin{tabular}{llrrrrrl}
+\toprule
+dataset & fm\_kind & reps & rows & unique\_data\_seeds & unique\_state\_realizations & independent\_seed\_variation\_observed & reporting\_note \\
+\midrule
+MNIST & eff\_su2 & 1 & 3 & 3 & 1 & False & Nominal seeds duplicated the encoded states; do not interpret zero SD as seed robustness. \\
+MNIST & eff\_su2 & 5 & 3 & 3 & 1 & False & Nominal seeds duplicated the encoded states; do not interpret zero SD as seed robustness. \\
+MNIST & z & 1 & 3 & 3 & 1 & False & Nominal seeds duplicated the encoded states; do not interpret zero SD as seed robustness. \\
+MNIST & z & 5 & 3 & 3 & 1 & False & Nominal seeds duplicated the encoded states; do not interpret zero SD as seed robustness. \\
+MNIST & zz & 1 & 3 & 3 & 1 & False & Nominal seeds duplicated the encoded states; do not interpret zero SD as seed robustness. \\
+MNIST & zz & 5 & 3 & 3 & 1 & False & Nominal seeds duplicated the encoded states; do not interpret zero SD as seed robustness. \\
+Moons & eff\_su2 & 1 & 3 & 3 & 3 & True & Data seeds produced distinct encoded-state realizations. \\
+Moons & eff\_su2 & 5 & 3 & 3 & 3 & True & Data seeds produced distinct encoded-state realizations. \\
+Moons & z & 1 & 3 & 3 & 3 & True & Data seeds produced distinct encoded-state realizations. \\
+Moons & z & 5 & 3 & 3 & 3 & True & Data seeds produced distinct encoded-state realizations. \\
+Moons & zz & 1 & 3 & 3 & 3 & True & Data seeds produced distinct encoded-state realizations. \\
+Moons & zz & 5 & 3 & 3 & 3 & True & Data seeds produced distinct encoded-state realizations. \\
+\bottomrule
+\end{tabular}
+\end{table}

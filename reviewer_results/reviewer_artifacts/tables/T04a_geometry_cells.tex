@@ -1,0 +1,22 @@
+\begin{table}[t]
+\caption{Direct post-encoder Hilbert-space geometry. The unique-realization column prevents duplicated nominal seeds from being interpreted as independent evidence.}
+\label{tab:geometry-cells}
+\begin{tabular}{llrrrlllll}
+\toprule
+Dataset & Feature map & Repetitions & Nominal data seeds & Unique state realizations & Class-similarity gap & Kernel alignment & Effective rank & Train/test MMD² & Encoder operations \\
+\midrule
+MNIST & EffSU2 & 1 & 3 & 1 & 0.132 ± 0.000 & 0.396 ± 0.000 & 52.09 ± 0.00 & 0.009 ± 0.000 & 17.0 ± 0.0 \\
+MNIST & EffSU2 & 5 & 3 & 1 & 0.023 ± 0.000 & 0.216 ± 0.000 & 160.85 ± 0.00 & 0.001 ± 0.000 & 85.0 ± 0.0 \\
+MNIST & Z & 1 & 3 & 1 & 0.191 ± 0.000 & 0.453 ± 0.000 & 21.77 ± 0.00 & 0.016 ± 0.000 & 36.0 ± 0.0 \\
+MNIST & Z & 5 & 3 & 1 & 0.027 ± 0.000 & 0.130 ± 0.000 & 28.94 ± 0.00 & 0.001 ± 0.000 & 180.0 ± 0.0 \\
+MNIST & ZZ & 1 & 3 & 1 & 0.169 ± 0.000 & 0.426 ± 0.000 & 25.52 ± 0.00 & 0.011 ± 0.000 & 81.0 ± 0.0 \\
+MNIST & ZZ & 5 & 3 & 1 & 0.027 ± 0.000 & 0.216 ± 0.000 & 136.30 ± 0.00 & 0.000 ± 0.000 & 405.0 ± 0.0 \\
+Moons & EffSU2 & 1 & 3 & 3 & 0.048 ± 0.005 & 0.126 ± 0.010 & 14.46 ± 1.01 & -0.006 ± 0.001 & 11.0 ± 0.0 \\
+Moons & EffSU2 & 5 & 3 & 3 & 0.028 ± 0.007 & 0.136 ± 0.023 & 61.11 ± 4.79 & -0.001 ± 0.001 & 55.0 ± 0.0 \\
+Moons & Z & 1 & 3 & 3 & 0.191 ± 0.007 & 0.380 ± 0.010 & 6.74 ± 0.21 & -0.008 ± 0.001 & 8.0 ± 0.0 \\
+Moons & Z & 5 & 3 & 3 & 0.017 ± 0.002 & 0.063 ± 0.005 & 16.67 ± 0.76 & -0.004 ± 0.003 & 40.0 ± 0.0 \\
+Moons & ZZ & 1 & 3 & 3 & 0.169 ± 0.003 & 0.356 ± 0.004 & 8.14 ± 0.23 & -0.008 ± 0.001 & 17.0 ± 0.0 \\
+Moons & ZZ & 5 & 3 & 3 & 0.037 ± 0.005 & 0.124 ± 0.013 & 23.33 ± 1.91 & -0.003 ± 0.005 & 85.0 ± 0.0 \\
+\bottomrule
+\end{tabular}
+\end{table}

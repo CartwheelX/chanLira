@@ -1,0 +1,32 @@
+{
+  "best_params": {
+    "hidden_dim": 204,
+    "n_layers": 3,
+    "dropout": 0.36573592275542743,
+    "lr": 0.00021763605724466352,
+    "weight_decay": 6.673096475440691e-06,
+    "batch_size": 16,
+    "layernorm": true,
+    "activation": "relu",
+    "chosen_final_epochs": 25
+  },
+  "tuning_info": {
+    "method": "optuna",
+    "study_name": "mia_cv_43_505323902",
+    "storage": "in_memory",
+    "best_cv_score": 0.5906170156169482,
+    "best_cv_auc_mean": 0.6115234375,
+    "best_cv_auc_std": 0.08362568753220732,
+    "fold_best_epochs": [
+      25,
+      1,
+      52,
+      103,
+      10
+    ],
+    "chosen_final_epochs": 25,
+    "n_trials": 30,
+    "n_splits": 5,
+    "lambda_std": 0.25
+  }
+}

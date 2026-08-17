@@ -1,0 +1,18 @@
+{
+  "bootstrap_replicates": 0,
+  "bootstrap_unit": "none",
+  "ci_method": "none; deterministic descriptive resource accounting",
+  "error_bar_type": "none for deterministic model resources",
+  "inputs": [
+    "reviewer_runs/multiseed_factorial",
+    "reviewer_targets/multiseed_factorial_targets.csv",
+    ""
+  ],
+  "notes": "Trainable parameter counts are exact only when exported or reconstructed. Checkpoint tensor-element counts are diagnostic and are not labeled trainable. Gate counts cover the fixed encoder and downstream VQC; QCNN patch-wise frontend execution is excluded and explicitly marked.",
+  "outputs": [
+    "reviewer_results/factorial_resources/model_resources_raw.csv",
+    "reviewer_results/factorial_resources/model_resources_summary.csv",
+    "reviewer_results/factorial_resources/model_resources_missing.csv"
+  ],
+  "script": "count_model_resources.py"
+}

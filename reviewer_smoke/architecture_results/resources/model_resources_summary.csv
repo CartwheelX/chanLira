@@ -1,0 +1,9 @@
+experiment,dataset,architecture,role,fm_kind,reps,depth,trainable_parameters_total_count,trainable_parameters_total_mean,trainable_parameters_total_std,trainable_parameters_quantum_count,trainable_parameters_quantum_mean,trainable_parameters_quantum_std,trainable_parameters_classical_count,trainable_parameters_classical_mean,trainable_parameters_classical_std,trainable_parameters_unclassified_count,trainable_parameters_unclassified_mean,trainable_parameters_unclassified_std,quantum_gate_count_total_count,quantum_gate_count_total_mean,quantum_gate_count_total_std,quantum_one_qubit_gates_count,quantum_one_qubit_gates_mean,quantum_one_qubit_gates_std,quantum_two_qubit_gates_count,quantum_two_qubit_gates_mean,quantum_two_qubit_gates_std
+architecture_control,MNIST,hqnn,high_reupload,zz,5,2,3,130.0,0.0,3,78.0,0.0,3,52.0,0.0,3,0.0,0.0,3,80.0,0.0,3,52.0,0.0,3,28.0,0.0
+architecture_control,MNIST,hqnn,low_reupload,z,1,2,3,130.0,0.0,3,78.0,0.0,3,52.0,0.0,3,0.0,0.0,3,60.0,0.0,3,40.0,0.0,3,20.0,0.0
+architecture_control,MNIST,mlp_qnn,high_reupload,zz,5,2,3,170.0,0.0,3,102.0,0.0,3,68.0,0.0,3,0.0,0.0,3,0.0,0.0,3,0.0,0.0,3,0.0,0.0
+architecture_control,MNIST,mlp_qnn,low_reupload,z,1,2,3,170.0,0.0,3,102.0,0.0,3,68.0,0.0,3,0.0,0.0,3,0.0,0.0,3,0.0,0.0,3,0.0,0.0
+architecture_control,MNIST,qcnn,high_reupload,zz,5,2,3,150.0,0.0,3,90.0,0.0,3,60.0,0.0,3,0.0,0.0,3,80.0,0.0,3,52.0,0.0,3,28.0,0.0
+architecture_control,MNIST,qcnn,low_reupload,z,1,2,3,150.0,0.0,3,90.0,0.0,3,60.0,0.0,3,0.0,0.0,3,60.0,0.0,3,40.0,0.0,3,20.0,0.0
+architecture_control,MNIST,qnn,high_reupload,zz,5,2,3,110.0,0.0,3,66.0,0.0,3,44.0,0.0,3,0.0,0.0,3,80.0,0.0,3,52.0,0.0,3,28.0,0.0
+architecture_control,MNIST,qnn,low_reupload,z,1,2,3,110.0,0.0,3,66.0,0.0,3,44.0,0.0,3,0.0,0.0,3,60.0,0.0,3,40.0,0.0,3,20.0,0.0

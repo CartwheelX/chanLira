@@ -1,0 +1,16 @@
+target_id,structural_cell_id,model_seed,target_directory_exists,noise_model_loaded,noise_backend,calibration_timestamp,n_status_errors_or_skips,n_conditions,expected_conditions,n_member,n_nonmember,samples_identical_across_conditions,passed
+MNIST_QNN_eff_su2_r1_d2_s43,eff_su2_r1_d2,43,True,True,ibm_kingston,2026-07-30T14:33:14+08:00,0,61,61,100,100,True,True
+MNIST_QNN_eff_su2_r1_d2_s44,eff_su2_r1_d2,44,True,True,ibm_kingston,2026-07-30T14:33:14+08:00,0,61,61,100,100,True,True
+MNIST_QNN_eff_su2_r1_d2_s45,eff_su2_r1_d2,45,True,True,ibm_kingston,2026-07-30T14:33:14+08:00,0,61,61,100,100,True,True
+MNIST_QNN_eff_su2_r5_d2_s43,eff_su2_r5_d2,43,True,True,ibm_kingston,2026-07-30T14:33:14+08:00,0,61,61,100,100,True,True
+MNIST_QNN_eff_su2_r5_d2_s44,eff_su2_r5_d2,44,True,True,ibm_kingston,2026-07-30T14:33:14+08:00,0,61,61,100,100,True,True
+MNIST_QNN_eff_su2_r5_d2_s45,eff_su2_r5_d2,45,True,True,ibm_kingston,2026-07-30T14:33:14+08:00,0,61,61,100,100,True,True
+MNIST_QNN_z_r1_d6_s43,z_r1_d6,43,True,True,ibm_kingston,2026-07-30T14:33:14+08:00,0,61,61,100,100,True,True
+MNIST_QNN_z_r1_d6_s44,z_r1_d6,44,True,True,ibm_kingston,2026-07-30T14:33:14+08:00,0,61,61,100,100,True,True
+MNIST_QNN_z_r1_d6_s45,z_r1_d6,45,True,True,ibm_kingston,2026-07-30T15:15:22+08:00,0,61,61,100,100,True,True
+MNIST_QNN_zz_r1_d6_s43,zz_r1_d6,43,True,True,ibm_kingston,2026-07-30T15:15:22+08:00,0,61,61,100,100,True,True
+MNIST_QNN_zz_r1_d6_s44,zz_r1_d6,44,True,True,ibm_kingston,2026-07-30T15:15:22+08:00,0,61,61,100,100,True,True
+MNIST_QNN_zz_r1_d6_s45,zz_r1_d6,45,True,True,ibm_kingston,2026-07-30T15:15:22+08:00,0,61,61,100,100,True,True
+MNIST_QNN_zz_r5_d6_s43,zz_r5_d6,43,True,True,ibm_kingston,2026-07-30T15:15:22+08:00,0,61,61,100,100,True,True
+MNIST_QNN_zz_r5_d6_s44,zz_r5_d6,44,True,True,ibm_kingston,2026-07-30T15:15:22+08:00,0,61,61,100,100,True,True
+MNIST_QNN_zz_r5_d6_s45,zz_r5_d6,45,True,True,ibm_kingston,2026-07-30T15:15:22+08:00,0,61,61,100,100,True,True

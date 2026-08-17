@@ -1,0 +1,30 @@
+{
+  "selection_is_predeclared": true,
+  "selection_time_relative_to_noisy_results": "before",
+  "core_model_seed": 43,
+  "all_model_seeds": [
+    43,
+    44,
+    45
+  ],
+  "n_structural_cells": 5,
+  "n_core_targets": 5,
+  "n_all_seed_targets": 15,
+  "feature_maps": [
+    "eff_su2",
+    "z",
+    "zz"
+  ],
+  "repetitions": [
+    1,
+    5
+  ],
+  "risk_roles": [
+    "low_risk_anchor",
+    "corrected_eff_su2_repetition_control",
+    "medium_risk_z_anchor",
+    "medium_risk_zz_repetition_baseline",
+    "high_risk_anchor"
+  ],
+  "important_limitation": "Historical Efficient-SU2 r5 metrics were produced before the repetition bug was fixed; they are not used to assign risk. The r5 cell is included only as a corrected, predeclared control."
+}

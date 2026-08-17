@@ -1,0 +1,9 @@
+role,architecture,n_rows,n_model_seeds,expected_model_seeds,complete
+high_reupload,hqnn,3,3,3,True
+high_reupload,mlp_qnn,3,3,3,True
+high_reupload,qcnn,3,3,3,True
+high_reupload,qnn,3,3,3,True
+low_reupload,hqnn,3,3,3,True
+low_reupload,mlp_qnn,3,3,3,True
+low_reupload,qcnn,3,3,3,True
+low_reupload,qnn,3,3,3,True

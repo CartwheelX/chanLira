@@ -1,0 +1,15 @@
+\begin{table}[t]
+\caption{Paired effects of increasing encoder repetitions from one to five.}
+\label{tab:geometry-effects}
+\begin{tabular}{llrrlrrr}
+\toprule
+Metric & Contrast & Mean difference & Unique paired-effect SD & 95\% CI & Dataset/encoder blocks & Unique paired seed effects & Valid bootstrap \\
+\midrule
+class\_similarity\_gap & reps 5 minus reps 1 & -0.124 & 0.061 & [-0.158, -0.079] & 6 & 12 & 5000 \\
+kernel\_label\_alignment & reps 5 minus reps 1 & -0.208 & 0.132 & [-0.285, -0.109] & 6 & 12 & 5000 \\
+effective\_rank & reps 5 minus reps 1 & 49.747 & 37.448 & [15.791, 83.870] & 6 & 12 & 5000 \\
+mmd2\_train\_test & reps 5 minus reps 1 & -0.003 & 0.008 & [-0.010, 0.003] & 6 & 12 & 5000 \\
+encoder\_operation\_count & reps 5 minus reps 1 & 113.333 & 110.321 & [50.000, 204.667] & 6 & 6 & 5000 \\
+\bottomrule
+\end{tabular}
+\end{table}

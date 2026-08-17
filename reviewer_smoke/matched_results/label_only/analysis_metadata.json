@@ -1,0 +1,16 @@
+{
+  "bootstrap_replicates": 5,
+  "bootstrap_unit": "member/non-member records",
+  "ci_method": "stratified percentile bootstrap over member/non-member records",
+  "error_bar_type": "mean \u00b1 sample SD across target-model seeds",
+  "inputs": [
+    "/home/najeeb/quarift_neurips_rebutal_2/reviewer_smoke/matched_runs",
+    "/home/najeeb/quarift_neurips_rebutal_2/reviewer_smoke/matched_targets.csv"
+  ],
+  "notes": "Correctness-only label-output baseline. It does not claim the stronger decision-boundary label-only threat model.",
+  "outputs": [
+    "/home/najeeb/quarift_neurips_rebutal_2/reviewer_smoke/matched_results/label_only/label_only_correctness_raw.csv",
+    "/home/najeeb/quarift_neurips_rebutal_2/reviewer_smoke/matched_results/label_only/label_only_correctness_summary.csv"
+  ],
+  "script": "label_only_correctness_attack.py"
+}

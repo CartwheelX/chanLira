@@ -1,0 +1,24 @@
+{
+  "all_sample_manifests_consistent": true,
+  "attacks": [
+    "loss",
+    "confidence",
+    "correctness"
+  ],
+  "bootstrap_replicates": 5000,
+  "fixed_fpr_points": [
+    0.05,
+    0.1
+  ],
+  "low_fpr_policy": "TPR@0.1% and TPR@1% are not generated. With 100 nonmembers, FPR resolution is 1%; TPR@10% is primary and TPR@5% secondary.",
+  "main_output": "noisy_mia_results_long.csv",
+  "membership_convention": "1=member,0=nonmember",
+  "n_targets_with_results": 15,
+  "primary_attack_metric": "ROC AUC",
+  "pseudo_replication_warning": "Simulator seeds and record bootstraps are not treated as independent target models. Target-seed summaries average simulator replicates before aggregating model seeds.",
+  "record_auc_ci": "95% stratified percentile bootstrap over member/nonmember records within a fixed target condition",
+  "scope": "backend-derived local Aer finite-shot sanity check; not hardware execution",
+  "simulator_uncertainty": "mean\u00b1SD and percentile bootstrap CI over simulator seeds for a fixed target checkpoint",
+  "target_model_uncertainty": "mean\u00b1sample SD across independently trained target-model seeds after averaging simulator repeats",
+  "threshold_selection": "stratified cross-fitting; Youden J threshold learned on calibration folds"
+}

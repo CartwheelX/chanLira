@@ -1,0 +1,108 @@
+{
+  "artifacts": {
+    "F01 factorial interactions": {
+      "pdf": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/figures/F01_factorial_interactions.pdf",
+      "png": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/figures/F01_factorial_interactions.png"
+    },
+    "F02 gap versus AUC": {
+      "pdf": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/figures/F02_gap_vs_loss_auc.pdf",
+      "png": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/figures/F02_gap_vs_loss_auc.png"
+    },
+    "F03 attack suite": {
+      "pdf": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/figures/F03_attack_suite.pdf",
+      "png": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/figures/F03_attack_suite.png"
+    },
+    "F04 encoder geometry": {
+      "pdf": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/figures/F04_encoder_geometry.pdf",
+      "png": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/figures/F04_encoder_geometry.png"
+    },
+    "F05 noisy finite shots": {
+      "pdf": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/figures/F05_noisy_finite_shots.pdf",
+      "png": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/figures/F05_noisy_finite_shots.png"
+    },
+    "F06 architecture wrappers": {
+      "pdf": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/figures/F06_architecture_wrappers.pdf",
+      "png": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/figures/F06_architecture_wrappers.png"
+    },
+    "F07 learned versus threshold": {
+      "pdf": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/figures/F07_learned_vs_threshold.pdf",
+      "png": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/figures/F07_learned_vs_threshold.png"
+    },
+    "T01 factorial cells": {
+      "csv": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T01_factorial_cells.csv",
+      "tex": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T01_factorial_cells.tex"
+    },
+    "T02 factorial paired effects": {
+      "csv": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T02_factorial_paired_effects.csv",
+      "tex": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T02_factorial_paired_effects.tex"
+    },
+    "T03 attack suite": {
+      "csv": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T03_attack_suite.csv",
+      "tex": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T03_attack_suite.tex"
+    },
+    "T04a geometry cells": {
+      "csv": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T04a_geometry_cells.csv",
+      "tex": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T04a_geometry_cells.tex"
+    },
+    "T04b geometry effects": {
+      "csv": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T04b_geometry_repetition_effects.csv",
+      "tex": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T04b_geometry_repetition_effects.tex"
+    },
+    "T04c geometry seed audit": {
+      "csv": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T04c_geometry_seed_audit.csv",
+      "tex": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T04c_geometry_seed_audit.tex"
+    },
+    "T05a noisy conditions": {
+      "csv": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T05a_noisy_conditions.csv",
+      "tex": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T05a_noisy_conditions.tex"
+    },
+    "T05b noisy changes": {
+      "csv": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T05b_noisy_changes.csv",
+      "tex": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T05b_noisy_changes.tex"
+    },
+    "T06a architecture wrappers": {
+      "csv": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T06a_architecture_wrappers.csv",
+      "tex": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T06a_architecture_wrappers.tex"
+    },
+    "T06b architecture effects": {
+      "csv": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T06b_architecture_paired_effects.csv",
+      "tex": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T06b_architecture_paired_effects.tex"
+    },
+    "T07a regression coefficients": {
+      "csv": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T07a_gap_auc_regression_coefficients.csv",
+      "tex": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T07a_gap_auc_regression_coefficients.tex"
+    },
+    "T07b regression fit": {
+      "csv": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T07b_gap_auc_regression_fit.csv",
+      "tex": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T07b_gap_auc_regression_fit.tex"
+    },
+    "T07c gap correlations": {
+      "csv": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T07c_gap_auc_correlations.csv",
+      "tex": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T07c_gap_auc_correlations.tex"
+    },
+    "T08 learned MIA robustness": {
+      "csv": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T08_learned_mia_attacker_seed_robustness.csv",
+      "tex": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T08_learned_mia_attacker_seed_robustness.tex"
+    },
+    "T09a reviewer evidence map": {
+      "csv": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T09a_reviewer_evidence_map.csv",
+      "tex": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T09a_reviewer_evidence_map.tex"
+    },
+    "T09b experiment completeness": {
+      "csv": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T09b_experiment_completeness.csv",
+      "tex": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_results/reviewer_artifacts/tables/T09b_experiment_completeness.tex"
+    }
+  },
+  "bootstrap_replicates": 5000,
+  "bootstrap_seed": 2026,
+  "important_caveats": [
+    "MNIST geometry nominal data seeds duplicate identical encoded states.",
+    "The primary factorial uses one fixed data split.",
+    "Architecture results compare complete wrappers, not isolated quantum architectures.",
+    "Noise is IBM-backend-derived Aer simulation, not hardware execution.",
+    "Only three learned-attacker seeds (41, 42, 43) are available.",
+    "LiRA uses 16 references per structural configuration and an approximate reference-training distribution; label-only is a chord-boundary proxy, not a certified minimum-distance method."
+  ],
+  "ridge_alpha": 1e-06,
+  "script": "/home/najeeb/quarift_neurips_rebutal_2/reviewer_tools/generate_reviewer_artifacts.py"
+}

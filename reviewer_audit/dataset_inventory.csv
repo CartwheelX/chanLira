@@ -1,7 +1,0 @@
-source_label,path,raw_rows,ok_rows,unique_configurations,error_rows
-Moons_QNN,experiments/gen_results/master_results_full_pipeline_moon.csv,54000,54000,54000,0
-Blobs_QNN,experiments/gen_results/master_results_full_pipeline_blobs.csv,27000,27000,27000,0
-Circles_QNN,experiments/gen_results/master_results_full_pipeline_circles.csv,27000,27000,27000,0
-MNIST_QNN,experiments/gen_results/mnist_extensive_results.csv,2880,2880,2880,0
-MNIST_HQNN,experiments/gen_results/hqnn_extensive_results.csv,2880,2880,2880,0
-MNIST_QCNN,experiments/gen_results/qcnn_extensive_results.csv,2880,2880,2880,0

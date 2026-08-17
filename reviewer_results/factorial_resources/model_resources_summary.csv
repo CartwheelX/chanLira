@@ -1,0 +1,13 @@
+experiment,dataset,architecture,role,fm_kind,reps,depth,trainable_parameters_total_count,trainable_parameters_total_mean,trainable_parameters_total_std,trainable_parameters_quantum_count,trainable_parameters_quantum_mean,trainable_parameters_quantum_std,trainable_parameters_classical_count,trainable_parameters_classical_mean,trainable_parameters_classical_std,trainable_parameters_unclassified_count,trainable_parameters_unclassified_mean,trainable_parameters_unclassified_std,quantum_gate_count_total_count,quantum_gate_count_total_mean,quantum_gate_count_total_std,quantum_one_qubit_gates_count,quantum_one_qubit_gates_mean,quantum_one_qubit_gates_std,quantum_two_qubit_gates_count,quantum_two_qubit_gates_mean,quantum_two_qubit_gates_std
+multiseed_factorial,MNIST,QNN,eff_su2_r1_d2,eff_su2,1,2,3,74.0,0.0,3,46.0,0.0,3,28.0,0.0,3,0.0,0.0,3,63.0,0.0,3,48.0,0.0,3,15.0,0.0
+multiseed_factorial,MNIST,QNN,eff_su2_r1_d6,eff_su2,1,6,3,166.0,0.0,3,138.0,0.0,3,28.0,0.0,3,0.0,0.0,3,155.0,0.0,3,120.0,0.0,3,35.0,0.0
+multiseed_factorial,MNIST,QNN,eff_su2_r5_d2,eff_su2,5,2,3,74.0,0.0,3,46.0,0.0,3,28.0,0.0,3,0.0,0.0,3,131.0,0.0,3,96.0,0.0,3,35.0,0.0
+multiseed_factorial,MNIST,QNN,eff_su2_r5_d6,eff_su2,5,6,3,166.0,0.0,3,138.0,0.0,3,28.0,0.0,3,0.0,0.0,3,223.0,0.0,3,168.0,0.0,3,55.0,0.0
+multiseed_factorial,MNIST,QNN,z_r1_d2,z,1,2,3,74.0,0.0,3,46.0,0.0,3,28.0,0.0,3,0.0,0.0,3,82.0,0.0,3,72.0,0.0,3,10.0,0.0
+multiseed_factorial,MNIST,QNN,z_r1_d6,z,1,6,3,166.0,0.0,3,138.0,0.0,3,28.0,0.0,3,0.0,0.0,3,174.0,0.0,3,144.0,0.0,3,30.0,0.0
+multiseed_factorial,MNIST,QNN,z_r5_d2,z,5,2,3,74.0,0.0,3,46.0,0.0,3,28.0,0.0,3,0.0,0.0,3,226.0,0.0,3,216.0,0.0,3,10.0,0.0
+multiseed_factorial,MNIST,QNN,z_r5_d6,z,5,6,3,166.0,0.0,3,138.0,0.0,3,28.0,0.0,3,0.0,0.0,3,318.0,0.0,3,288.0,0.0,3,30.0,0.0
+multiseed_factorial,MNIST,QNN,zz_r1_d2,zz,1,2,3,74.0,0.0,3,46.0,0.0,3,28.0,0.0,3,0.0,0.0,3,127.0,0.0,3,87.0,0.0,3,40.0,0.0
+multiseed_factorial,MNIST,QNN,zz_r1_d6,zz,1,6,3,166.0,0.0,3,138.0,0.0,3,28.0,0.0,3,0.0,0.0,3,219.0,0.0,3,159.0,0.0,3,60.0,0.0
+multiseed_factorial,MNIST,QNN,zz_r5_d2,zz,5,2,3,74.0,0.0,3,46.0,0.0,3,28.0,0.0,3,0.0,0.0,3,451.0,0.0,3,291.0,0.0,3,160.0,0.0
+multiseed_factorial,MNIST,QNN,zz_r5_d6,zz,5,6,3,166.0,0.0,3,138.0,0.0,3,28.0,0.0,3,0.0,0.0,3,543.0,0.0,3,363.0,0.0,3,180.0,0.0

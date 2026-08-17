@@ -1,0 +1,53 @@
+{
+  "meta": {
+    "target_id": "SmokeArch_low_reupload_qcnn_s45",
+    "experiment": "architecture_control",
+    "role": "low_reupload",
+    "dataset": "MNIST",
+    "architecture": "qcnn",
+    "fm_kind": "z",
+    "n_wires": 6,
+    "reps": 1,
+    "depth": 2,
+    "ql_ent": "linear",
+    "ql_op": "crz",
+    "model_seed": 45,
+    "data_seed": 43,
+    "seed": 45,
+    "structural_cell_id": "low_reupload|qcnn",
+    "membership_convention": "0=member"
+  },
+  "target_metrics": {
+    "train": {
+      "acc": 0.88,
+      "loss": 0.12,
+      "N": 30
+    },
+    "valid": {
+      "acc": 0.818,
+      "loss": 0.18200000000000005,
+      "N": 30
+    },
+    "test": {
+      "acc": 0.828,
+      "loss": 0.17200000000000004,
+      "N": 30
+    }
+  },
+  "resource_counts": {
+    "trainable_parameters_total": 150,
+    "trainable_parameters_quantum": 90,
+    "trainable_parameters_classical": 60,
+    "trainable_parameters_unclassified": 0,
+    "gate_counts": {
+      "ry": 20,
+      "rz": 20,
+      "cx": 20
+    },
+    "quantum_gate_count_total": 60,
+    "quantum_one_qubit_gates": 40,
+    "quantum_two_qubit_gates": 20,
+    "gate_count_scope": "fixed encoder plus downstream variational circuit",
+    "qcnn_frontend_included": false
+  }
+}

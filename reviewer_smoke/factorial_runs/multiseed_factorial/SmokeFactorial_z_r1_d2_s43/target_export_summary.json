@@ -1,0 +1,53 @@
+{
+  "meta": {
+    "target_id": "SmokeFactorial_z_r1_d2_s43",
+    "experiment": "multiseed_factorial",
+    "role": "z_r1_d2",
+    "dataset": "MNIST",
+    "architecture": "qnn",
+    "fm_kind": "z",
+    "n_wires": 6,
+    "reps": 1,
+    "depth": 2,
+    "ql_ent": "linear",
+    "ql_op": "crz",
+    "model_seed": 43,
+    "data_seed": 43,
+    "seed": 43,
+    "structural_cell_id": "z_r1_d2",
+    "membership_convention": "0=member"
+  },
+  "target_metrics": {
+    "train": {
+      "acc": 0.82,
+      "loss": 0.18000000000000005,
+      "N": 30
+    },
+    "valid": {
+      "acc": 0.752,
+      "loss": 0.248,
+      "N": 30
+    },
+    "test": {
+      "acc": 0.762,
+      "loss": 0.238,
+      "N": 30
+    }
+  },
+  "resource_counts": {
+    "trainable_parameters_total": 96,
+    "trainable_parameters_quantum": 57,
+    "trainable_parameters_classical": 39,
+    "trainable_parameters_unclassified": 0,
+    "gate_counts": {
+      "ry": 20,
+      "rz": 20,
+      "cx": 22
+    },
+    "quantum_gate_count_total": 62,
+    "quantum_one_qubit_gates": 40,
+    "quantum_two_qubit_gates": 22,
+    "gate_count_scope": "fixed encoder plus downstream variational circuit",
+    "qcnn_frontend_included": null
+  }
+}

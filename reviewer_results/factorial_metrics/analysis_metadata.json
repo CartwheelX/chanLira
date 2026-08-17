@@ -1,0 +1,16 @@
+{
+  "bootstrap_replicates": 0,
+  "bootstrap_unit": "none",
+  "ci_method": "none; extraction plus mean and sample SD",
+  "error_bar_type": "sample SD across target-model seeds",
+  "inputs": [
+    "reviewer_runs/multiseed_factorial",
+    "reviewer_targets/multiseed_factorial_targets.csv"
+  ],
+  "notes": "Validation metrics require the reviewer patch. Older payloads remain usable but their validation fields are NA.",
+  "outputs": [
+    "reviewer_results/factorial_metrics/retrained_target_metrics_raw.csv",
+    "reviewer_results/factorial_metrics/retrained_target_metrics_summary.csv"
+  ],
+  "script": "extract_retrained_metrics.py"
+}

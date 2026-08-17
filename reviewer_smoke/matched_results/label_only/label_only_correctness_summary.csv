@@ -1,0 +1,5 @@
+experiment,dataset,architecture,role,fm_kind,reps,depth,auc_count,auc_mean,auc_std,balanced_accuracy_crossfit_count,balanced_accuracy_crossfit_mean,balanced_accuracy_crossfit_std,membership_advantage_crossfit_count,membership_advantage_crossfit_mean,membership_advantage_crossfit_std,error_bar_type
+matched_gap_mia,Smoke,qnn,high_gap_z,z,1,2,3,0.5,0.0,3,0.5,0.0,3,0.0,0.0,mean ± sample SD across target-model seeds
+matched_gap_mia,Smoke,qnn,high_gap_zz,zz,1,2,3,0.5,0.0,3,0.5,0.0,3,0.0,0.0,mean ± sample SD across target-model seeds
+matched_gap_mia,Smoke,qnn,low_gap_z,z,1,2,3,0.5,0.0,3,0.5,0.0,3,0.0,0.0,mean ± sample SD across target-model seeds
+matched_gap_mia,Smoke,qnn,low_gap_zz,zz,1,2,3,0.5,0.0,3,0.5,0.0,3,0.0,0.0,mean ± sample SD across target-model seeds

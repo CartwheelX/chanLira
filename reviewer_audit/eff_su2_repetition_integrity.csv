@@ -1,7 +1,0 @@
-source_label,n_eff_rows,n_rep_groups,groups_identical_across_reps,fraction_identical
-Moons_QNN,32400,6480,6480,1.0
-Blobs_QNN,16200,3240,3240,1.0
-Circles_QNN,16200,3240,3240,1.0
-MNIST_QNN,1440,288,288,1.0
-MNIST_HQNN,1440,288,288,1.0
-MNIST_QCNN,1440,288,288,1.0

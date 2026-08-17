@@ -1,0 +1,54 @@
+{
+  "meta": {
+    "target_id": "SmokePair2_z_s43",
+    "experiment": "matched_gap_mia",
+    "pair_id": "SmokePair2",
+    "role": "high_gap_z",
+    "dataset": "Smoke",
+    "architecture": "qnn",
+    "fm_kind": "z",
+    "n_wires": 4,
+    "reps": 1,
+    "depth": 2,
+    "ql_ent": "linear",
+    "ql_op": "crz",
+    "model_seed": 43,
+    "data_seed": 43,
+    "seed": 43,
+    "structural_cell_id": "SmokePair2|z",
+    "membership_convention": "0=member"
+  },
+  "target_metrics": {
+    "train": {
+      "acc": 0.977,
+      "loss": 0.02300000000000002,
+      "N": 30
+    },
+    "valid": {
+      "acc": 0.77,
+      "loss": 0.22999999999999998,
+      "N": 30
+    },
+    "test": {
+      "acc": 0.78,
+      "loss": 0.21999999999999997,
+      "N": 30
+    }
+  },
+  "resource_counts": {
+    "trainable_parameters_total": 70,
+    "trainable_parameters_quantum": 42,
+    "trainable_parameters_classical": 28,
+    "trainable_parameters_unclassified": 0,
+    "gate_counts": {
+      "ry": 13,
+      "rz": 13,
+      "cx": 14
+    },
+    "quantum_gate_count_total": 40,
+    "quantum_one_qubit_gates": 26,
+    "quantum_two_qubit_gates": 14,
+    "gate_count_scope": "fixed encoder plus downstream variational circuit",
+    "qcnn_frontend_included": null
+  }
+}

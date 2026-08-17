@@ -1,0 +1,2 @@
+target_id,experiment,role,pair_id,seed,dataset,architecture,source_run_id,fm_kind,n_wires,reps,pad_mode,fm_ent,fm_op,depth,ql_ent,ql_op,ql_rev,original_acc_train,original_acc_test,original_gap,vector_train,vector_valid,vector_test,batch_size,epochs,extra_feats,model_seed,data_seed,structural_cell_id,learning_rate
+Moons_QNN_z19651_zz19652_z_s43,matched_gap_mia,low_gap_z,Moons_QNN_z19651_zz19652,43,Moons,QNN,19651,z,4,1,wrap,,,3,pairwise,cx,False,0.92,0.92,0.0,50,50,50,8,100,True,43,43,Moons_QNN_z19651_zz19652|z,0.05

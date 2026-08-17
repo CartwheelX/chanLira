@@ -1,0 +1,12 @@
+Attack,Access,Targets,Reference models/configuration,AUC,TPR@5% FPR,TPR@10% FPR,Interpretation
+Loss threshold,true-label probability + known candidate label,36,—,0.596 ± 0.052,0.061 ± 0.024,0.135 ± 0.039,
+Confidence threshold,maximum predicted-class probability,36,—,0.520 ± 0.025,0.055 ± 0.020,0.117 ± 0.029,
+Entropy threshold,entropy of the prediction vector,36,—,0.521 ± 0.023,0.053 ± 0.020,0.116 ± 0.029,
+Margin threshold,top-1 minus top-2 predicted probability,36,—,0.521 ± 0.026,0.053 ± 0.019,0.116 ± 0.029,
+Maximum-probability threshold,maximum predicted-class probability,36,—,0.520 ± 0.025,0.055 ± 0.020,0.117 ± 0.029,
+Correctness,predicted label + known candidate label,36,—,0.582 ± 0.049,0.000 ± 0.000,0.000 ± 0.000,
+Learned prediction-vector,full prediction vector + statistics,36,—,0.574 ± 0.065,0.099 ± 0.044,0.157 ± 0.061,mean over three attacker seeds per target
+"Online LiRA, fixed variance",true-label probability + calibrated reference QNNs,36,16,0.609 ± 0.063,0.128 ± 0.056,0.192 ± 0.069,primary calibrated reference-model result
+"Online LiRA, per-record variance",true-label probability + calibrated reference QNNs,36,16,0.594 ± 0.057,0.086 ± 0.034,0.155 ± 0.063,variance-model sensitivity check
+"Offline LiRA, fixed variance",true-label probability + calibrated reference QNNs,36,16,0.517 ± 0.029,0.066 ± 0.027,0.128 ± 0.035,offline sensitivity check
+Label-only chord-boundary,predicted class labels only + held-out anchors,36,—,0.582 ± 0.052,0.077 ± 0.027,0.139 ± 0.030,query-based boundary proxy; not certified minimum distance

@@ -1,0 +1,6 @@
+Experiment,Wrapper,Targets,Attacker seeds,Learned AUC across targets,Mean within-target attacker-seed SD,Loss-threshold AUC mean,Learned − threshold AUC
+architecture_control,HQNN,9,3,0.550 ± 0.052,0.04548478223069427,0.5512861111111111,-0.001 ± 0.050
+architecture_control,MLP-QNN,9,3,0.537 ± 0.040,0.04325690141740249,0.5753138888888888,-0.038 ± 0.033
+architecture_control,QCNN,9,3,0.549 ± 0.077,0.04568019574223618,0.5455944444444445,0.003 ± 0.058
+architecture_control,QNN,9,3,0.551 ± 0.060,0.05511626908615323,0.5648083333333334,-0.014 ± 0.029
+multiseed_factorial,QNN,36,3,0.574 ± 0.065,0.053893527470714644,0.5963527777777778,-0.022 ± 0.039
