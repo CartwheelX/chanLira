@@ -23,7 +23,7 @@ QuRiFT provides an end-to-end experimental pipeline for:
 - training black-box membership-inference attacks,
 - generating CSV summaries for paper tables and analysis.
 
-The framework is intended for controlled privacy auditing, not for claiming hardware-level leakage. The reported experiments use noiseless simulation to isolate representation effects before hardware noise or backend-specific artifacts are introduced.
+The framework is intended for controlled privacy auditing, not for claiming hardware-level leakage. The original sweep uses noiseless simulation to isolate representation effects. The NeurIPS rebuttal additionally includes a targeted finite-shot check using local Aer simulation with an IBM-backend-derived noise model; it is not execution on quantum hardware.
 
 ---
 
@@ -66,6 +66,11 @@ QuRiFT/
 │       └── run_train_mia_attack_cvholdout_multigpu.py
 ├── data/
 │   └── MNIST/raw/
+├── commands/                       # Rebuttal workflow wrappers
+├── reviewer_targets/               # Prespecified confirmatory target tables
+├── reviewer_tools/                 # Training, attack, geometry, noise, and analysis tools
+├── reviewer_runs/                  # Exported target runs and attack payloads
+├── reviewer_results/               # Rebuttal summaries, tables, figures, and responses
 ├── requirements.txt
 ├── setup.py
 └── README.md
@@ -497,6 +502,274 @@ The MIA training step produces attack results under directories such as:
 experiments/gen_results/paper_arch_compare/mia_results/
 experiments/gen_results/paper_arch_compare/mia_results_multiGPU/
 ```
+
+---
+
+## NeurIPS 2026 Rebuttal Reproduction
+
+The rebuttal supplements the submission's broad exploratory sweep with a focused confirmatory workflow. Its principal components are:
+
+- a `3 × 2 × 2` MNIST-QNN factorial over feature-map family, encoder repetitions, and variational depth;
+- three independently initialized target models per structural configuration (`36` targets total);
+- separate scalar threshold attacks, a learned prediction-vector attack, calibrated LiRA, and a class-label-only boundary attack;
+- direct post-encoder fidelity-kernel geometry;
+- a five-configuration finite-shot and IBM-backend-derived noise check; and
+- complete-wrapper QNN, HQNN, QCNN, and small classical MLP controls.
+
+All commands below are run from the repository root. The target tables under `reviewer_targets/` are the committed, prespecified tables used for the rebuttal. Rebuilding those tables is unnecessary and requires the original broad-sweep summaries, which are not part of the clean-clone reproduction path.
+
+The historical `reviewer_tools/apply_qurift_main_reviewer_patch.py` records how the experiment driver was updated during rebuttal development. Do not apply it again: the checked-in `experiments/qurift_main.py` already contains those changes.
+
+### Rebuttal environment and live logs
+
+Activate the Python environment, install the project, and create the output directories:
+
+```bash
+cd /path/to/quarift_neurips_rebutal_2
+pip install --editable .
+mkdir -p reviewer_logs reviewer_runs reviewer_results
+```
+
+The experiment driver enables deterministic PyTorch behavior. Set the cuBLAS workspace configuration before starting Python so CUDA matrix multiplication also follows the deterministic configuration:
+
+```bash
+export CUBLAS_WORKSPACE_CONFIG=:4096:8
+```
+
+Commands below use unbuffered Python and `tee`, so progress remains visible while a complete log is written. In an additional terminal, a log can be followed with:
+
+```bash
+tail -f reviewer_logs/multiseed_factorial.log
+```
+
+All long-running launchers support `--resume`; rerunning the same command skips completed targets.
+
+### 1. Train the 36-target confirmatory factorial
+
+This launches 12 structural configurations across model seeds 43, 44, and 45:
+
+```bash
+set -o pipefail
+python -u reviewer_tools/run_multiseed_factorial.py \
+  --targets reviewer_targets/multiseed_factorial_targets.csv \
+  --repo-root . \
+  --out reviewer_runs \
+  --gpus 0,1,2,3,4,5,6,7 \
+  --jobs-per-gpu 2 \
+  --cpu-threads 2 \
+  --resume \
+  2>&1 | tee reviewer_logs/multiseed_factorial.log
+```
+
+The target checkpoints and exported member/non-member attack payloads are written under `reviewer_runs/multiseed_factorial/`. Membership labels in the raw target payload are normalized by the reviewer analysis tools to `1=member, 0=nonmember`.
+
+### 2. Train the architecture-control targets
+
+The architecture experiment compares complete QNN, HQNN, QCNN, and small classical MLP wrappers across three structural roles and three target-model seeds:
+
+```bash
+python -u reviewer_tools/run_architecture_controls.py \
+  --targets reviewer_targets/architecture_control_targets.csv \
+  --repo-root . \
+  --out reviewer_runs \
+  --gpus 0,1,2,3,4,5,6,7 \
+  --jobs-per-gpu 2 \
+  --cpu-threads 2 \
+  --resume \
+  2>&1 | tee reviewer_logs/architecture_controls.log
+```
+
+These are complete-wrapper controls, not isolated causal comparisons of only the quantum circuit. Outputs are written under `reviewer_runs/architecture_control/`.
+
+### 3. Compute direct post-encoder geometry
+
+This computes the pure-state fidelity kernel immediately after the fixed encoder and reports class-similarity separation, centered kernel-label alignment, effective rank, and train/test MMD²:
+
+```bash
+python -u reviewer_tools/run_multiseed_geometry.py \
+  --targets reviewer_targets/geometry_targets.csv \
+  --repo-root . \
+  --out-dir reviewer_results/geometry_multiseed \
+  --seeds 43,44,45 \
+  --gpus 0,1,2,3,4,5,6,7 \
+  --jobs-per-gpu 1 \
+  --cpu-threads 2 \
+  --n-train 100 \
+  --n-test 100 \
+  --batch-size 32 \
+  --bootstrap 5000 \
+  --bootstrap-seed 2026 \
+  --resume \
+  2>&1 | tee reviewer_logs/geometry_multiseed.log
+```
+
+Principal outputs are under `reviewer_results/geometry_multiseed/`, including `geometry_raw.csv`, `geometry_summary.csv`, `geometry_repetition_effects.csv`, and `repetition_integrity.csv`.
+
+### 4. Extract factorial metrics, resources, and threshold attacks
+
+Extract target utility/generalization metrics:
+
+```bash
+python -u reviewer_tools/extract_retrained_metrics.py \
+  --attack-data-dir reviewer_runs/multiseed_factorial \
+  --targets reviewer_targets/multiseed_factorial_targets.csv \
+  --out-dir reviewer_results/factorial_metrics
+```
+
+Record trainable-parameter and main-circuit gate counts:
+
+```bash
+python -u reviewer_tools/count_model_resources.py \
+  --run-root reviewer_runs/multiseed_factorial \
+  --targets reviewer_targets/multiseed_factorial_targets.csv \
+  --out-dir reviewer_results/factorial_resources \
+  --fail-on-missing-exact
+```
+
+Run the six scalar attacks separately—loss, confidence, maximum probability, entropy, margin, and correctness—with five-fold cross-fitted thresholds and record-bootstrap AUC intervals:
+
+```bash
+python -u reviewer_tools/threshold_mia_bootstrap.py \
+  --attack-data-dir reviewer_runs/multiseed_factorial \
+  --targets reviewer_targets/multiseed_factorial_targets.csv \
+  --out-dir reviewer_results/factorial_threshold_mia \
+  --bootstrap 10000 \
+  --bootstrap-chunk-size 2048 \
+  --bootstrap-seed 2026 \
+  --threshold-folds 5 \
+  --threshold-seed 2026 \
+  --fprs 0.05,0.10 \
+  2>&1 | tee reviewer_logs/factorial_threshold_mia.log
+```
+
+### 5. Run the learned prediction-vector MIA
+
+The wrapper trains the prediction-vector-plus-statistics attacker with attacker seeds 41, 42, and 43. It consumes completed attack payloads under `reviewer_runs/` and can therefore cover both factorial and architecture targets:
+
+```bash
+bash run_learned_mia.sh
+```
+
+Outputs are written to `reviewer_results/learned_mia_seed41/`, `learned_mia_seed42/`, and `learned_mia_seed43/`. The corresponding live logs are stored under `reviewer_logs/`.
+
+### 6. Run calibrated LiRA and label-only baselines
+
+Run both additional attack families:
+
+```bash
+bash commands/run_missing_mia_baselines.sh
+```
+
+The LiRA experiment trains 16 same-architecture reference models per structural configuration, with each candidate included in exactly eight references. The label-only attack estimates decision-boundary distance from changed-label validation anchors and consumes predicted class labels only. Outputs are written under:
+
+```text
+reviewer_results/lira_reference_mia/
+reviewer_results/label_only_boundary/
+```
+
+The complete baseline protocol and provenance are documented in `reviewer_tools/README_MISSING_MIA_BASELINES.md`.
+
+### 7. Run finite-shot and backend-derived noisy evaluation
+
+This experiment queries IBM backend metadata only to construct a local Aer noise model; it does not submit jobs to quantum hardware. The completed rebuttal environment used:
+
+```bash
+pip install qiskit==1.4.3 qiskit-aer==0.17.1 qiskit-ibm-runtime==0.43.1
+```
+
+The five-configuration target selection can be reconstructed deterministically from the factorial target table:
+
+```bash
+python -u reviewer_tools/build_noisy_sanity_targets.py \
+  --factorial-targets reviewer_targets/multiseed_factorial_targets.csv \
+  --out-dir reviewer_targets \
+  --model-seeds 43,44,45
+```
+
+Export IBM credentials without placing them in a command-line argument or source file:
+
+```bash
+export QISKIT_IBM_TOKEN="<your-IBM-Quantum-token>"
+export QISKIT_IBM_INSTANCE="<your-IBM-instance-CRN>"
+export QURIFT_NOISE_BACKEND="ibm_kingston"
+unset QURIFT_IBM_ACCOUNT_NAME
+```
+
+Quotes are recommended. Never commit actual tokens or CRNs. If using a genuinely saved Qiskit account instead, omit the token/instance exports and set `QURIFT_IBM_ACCOUNT_NAME` to that saved account's name.
+
+Verify that the backend-derived noise model loads:
+
+```bash
+python -u reviewer_tools/probe_ibm_backend_noise.py \
+  --backend-name "$QURIFT_NOISE_BACKEND" \
+  --require-noise \
+  --out reviewer_results/noisy_sanity/backend_probe.json
+```
+
+Run all five selected structural configurations, all three target-model seeds, shot counts 128/512/1024, and simulator seeds 0–9 on the DGX GPUs:
+
+```bash
+bash commands/run_all_seeds_dgx.sh
+```
+
+For a CPU-only run, use:
+
+```bash
+bash commands/run_all_seeds_cpu.sh
+```
+
+Validate sample consistency and combine the noisy results with bootstrap summaries:
+
+```bash
+bash commands/combine_and_validate.sh
+```
+
+Raw and combined outputs are written under `reviewer_results/noisy_sanity/`. The reported condition is backend-derived local Aer simulation, not hardware execution or a claim about all devices and calibrations.
+
+### 8. Generate consolidated tables, figures, and reviewer responses
+
+The artifact wrapper extracts architecture metrics, audits factorial and architecture resources, runs the architecture loss-threshold analysis, performs paired architecture comparisons, fits the descriptive gap–AUC models, and generates the consolidated tables and figures:
+
+```bash
+bash commands/generate_reviewer_artifacts.sh
+```
+
+Generate the completed reviewer-response documents and the LiRA repetition/reference-bank audit:
+
+```bash
+python -u reviewer_tools/generate_final_reviewer_responses.py \
+  --results-root reviewer_results \
+  --out-dir reviewer_results/reviewer_artifacts/final_responses \
+  --bootstrap 5000 \
+  --bootstrap-seed 2026
+
+python -u reviewer_tools/generate_lira_repetition_audit.py \
+  --metrics reviewer_results/factorial_metrics/retrained_target_metrics_raw.csv \
+  --lira reviewer_results/lira_reference_mia/lira_reference_mia_raw.csv \
+  --reference-root reviewer_results/lira_reference_mia/reference_models \
+  --out-dir reviewer_results/reviewer_artifacts/final_responses \
+  --bootstrap 5000
+
+python -u reviewer_tools/generate_reviewer_response_markdown.py \
+  --artifact-dir reviewer_results/reviewer_artifacts \
+  --out reviewer_results/reviewer_artifacts/REVIEWER_RESPONSE_TABLES.md
+
+python -u reviewer_tools/generate_reviewer_1myw_followup.py
+```
+
+The final reproducibility bundle is under `reviewer_results/reviewer_artifacts/`:
+
+```text
+reviewer_results/reviewer_artifacts/
+├── tables/                 # CSV and LaTeX tables T01–T09
+├── figures/                # PNG and PDF figures F01–F07
+├── final_responses/        # Consolidated reviewer and Area Chair responses
+├── README.md               # Concern-to-evidence index and caveats
+├── REVIEWER_RESPONSE_TABLES.md
+└── manifest.json
+```
+
+The generated artifact index records the replication unit and interpretation limits for each analysis: target-model seeds for factorial/architecture results, data seeds for geometry, simulator seeds for finite-shot conditions, and attacker seeds for learned-MIA robustness.
 
 ---
 
