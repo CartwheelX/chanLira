@@ -69,6 +69,8 @@ def build_command(
     model_path = (output_dir / "target_model.pt").resolve()
     attack_path = (output_dir / "target_attack_data.pt").resolve()
     metrics_json = (output_dir / "target_export_summary.json").resolve()
+    preprocessor_path = (output_dir / "dataset_preprocessor.joblib").resolve()
+    provenance_path = (output_dir / "dataset_provenance.json").resolve()
     log_path = output_dir / "train.log"
 
     model_seed = safe_int(row.get("model_seed", row.get("seed", 43)), 43)
@@ -127,6 +129,35 @@ def build_command(
         str(metrics_json),
     ]
 
+    if dataset == "credit_default":
+        command += [
+            "--credit-data-path",
+            text_value(
+                row,
+                "credit_data_path",
+                "data/credit_default/credit_default.csv.gz",
+            ),
+            "--credit-pca-components",
+            str(safe_int(row.get("credit_pca_components", row.get("n_wires", 6)), 6)),
+            "--preprocessor-out",
+            str(preprocessor_path),
+            "--dataset-provenance-out",
+            str(provenance_path),
+        ]
+    elif dataset == "breast_cancer_wdbc":
+        command += [
+            "--wdbc-data-path",
+            text_value(row, "wdbc_data_path", "data/wdbc/wdbc.csv.gz"),
+            "--wdbc-pca-components",
+            str(safe_int(row.get("wdbc_pca_components", row.get("n_wires", 6)), 6)),
+            "--preprocessor-out",
+            str(preprocessor_path),
+            "--dataset-provenance-out",
+            str(provenance_path),
+        ]
+    elif dataset == "fashion_mnist":
+        command += ["--dataset-provenance-out", str(provenance_path)]
+
     learning_rate = row.get("learning_rate", None)
     try:
         learning_rate_available = learning_rate is not None and not pd.isna(learning_rate)
@@ -134,6 +165,12 @@ def build_command(
         learning_rate_available = False
     if learning_rate_available:
         command += ["--learning-rate", str(float(learning_rate))]
+    weight_decay = row.get("weight_decay", 0.0)
+    try:
+        weight_decay = 0.0 if pd.isna(weight_decay) else float(weight_decay)
+    except Exception:
+        weight_decay = 0.0
+    command += ["--weight-decay", str(weight_decay)]
 
     if as_bool(row.get("ql_rev", False)):
         command.append("--qlayer-ent-wire-reverse")
@@ -159,9 +196,18 @@ def build_command(
     padding = text_value(row, "pad_mode", "wrap")
     feature_entanglement = text_value(row, "fm_ent", "linear")
     feature_gate = text_value(row, "fm_op", "cx")
+    feature_angle_scale_raw = row.get("feature_angle_scale", 1.0)
+    try:
+        feature_angle_scale = 1.0 if pd.isna(feature_angle_scale_raw) else float(feature_angle_scale_raw)
+    except Exception:
+        feature_angle_scale = 1.0
 
     if feature_map == "z":
-        command += ["--fm-z-reps", repetitions, "--fm-z-pad-mode", padding]
+        command += [
+            "--fm-z-reps", repetitions,
+            "--fm-z-pad-mode", padding,
+            "--fm-z-alpha", str(feature_angle_scale),
+        ]
     elif feature_map == "zz":
         command += [
             "--fm-zz-reps",
@@ -170,6 +216,8 @@ def build_command(
             padding,
             "--fm-zz-entanglement",
             feature_entanglement,
+            "--fm-zz-alpha",
+            str(feature_angle_scale),
         ]
     elif feature_map == "eff_su2":
         command += [
@@ -181,6 +229,8 @@ def build_command(
             feature_entanglement,
             "--fm-eff-twoq-op",
             feature_gate,
+            "--fm-eff-alpha",
+            str(feature_angle_scale),
         ]
     elif feature_map == "pauli":
         command += [
@@ -190,6 +240,8 @@ def build_command(
             padding,
             "--fm-pauli-entanglement",
             feature_entanglement,
+            "--fm-pauli-alpha",
+            str(feature_angle_scale),
         ]
     else:
         raise ValueError(f"Unsupported feature map: {feature_map}")
@@ -301,12 +353,29 @@ def main() -> None:
             "attack_path": str(attack_path),
             "metrics_json": str(metrics_json),
         }
+        preprocessor_path = model_path.parent / "dataset_preprocessor.joblib"
+        provenance_path = model_path.parent / "dataset_provenance.json"
         complete = (
             model_path.exists()
             and model_path.stat().st_size > 0
             and attack_path.exists()
             and attack_path.stat().st_size > 0
         )
+        dataset_name = text_value(row, "dataset", "mnist").lower()
+        if dataset_name in {"credit_default", "breast_cancer_wdbc"}:
+            complete = (
+                complete
+                and preprocessor_path.exists()
+                and preprocessor_path.stat().st_size > 0
+                and provenance_path.exists()
+                and provenance_path.stat().st_size > 0
+            )
+        elif dataset_name == "fashion_mnist":
+            complete = (
+                complete
+                and provenance_path.exists()
+                and provenance_path.stat().st_size > 0
+            )
         if args.resume and complete:
             return {
                 **base,

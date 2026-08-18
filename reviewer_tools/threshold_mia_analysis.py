@@ -21,6 +21,7 @@ from reviewer_common import (
     scalar_attack_scores,
     stable_seed,
     stratified_bootstrap_auc,
+    stratified_bootstrap_tpr_at_fpr,
     tpr_at_resolvable_fpr,
     torch_load,
     write_analysis_metadata,
@@ -217,8 +218,19 @@ def main() -> None:
                 for requested in requested_fprs:
                     tpr, attained = tpr_at_resolvable_fpr(membership, score, requested)
                     tag = f"{requested:.4f}".rstrip("0").rstrip(".").replace(".", "p")
+                    tpr_low, tpr_high, tpr_valid = stratified_bootstrap_tpr_at_fpr(
+                        membership,
+                        score,
+                        requested,
+                        args.bootstrap,
+                        stable_seed(args.bootstrap_seed, target_id, attack, "tpr", tag),
+                        chunk_size=max(1, min(args.bootstrap_chunk_size, 1024)),
+                    )
                     expected_false_positives = requested * record["n_nonmember"]
                     record[f"tpr_at_requested_fpr_{tag}"] = tpr
+                    record[f"tpr_at_requested_fpr_{tag}_record_ci95_low"] = tpr_low
+                    record[f"tpr_at_requested_fpr_{tag}_record_ci95_high"] = tpr_high
+                    record[f"tpr_at_requested_fpr_{tag}_valid_bootstrap_replicates"] = tpr_valid
                     record[f"attained_fpr_{tag}"] = attained
                     record[f"expected_false_positives_{tag}"] = expected_false_positives
                     record[f"resolvable_{tag}"] = bool(expected_false_positives >= 2)

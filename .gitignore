@@ -354,6 +354,11 @@ all_circ/
 audit_outputs/
 checkpoints/
 data/
+
+# SaTML generated artifacts. Frozen target manifests and source code remain tracked.
+satml_runs/
+satml_results/
+satml_logs/
 mia_analysis_results/
 examples/mnist/
 experiments/gen_results/

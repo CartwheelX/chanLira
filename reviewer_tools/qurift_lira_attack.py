@@ -71,12 +71,17 @@ def safe_name(value: Any) -> str:
 
 def cell_id(row: Mapping[str, Any]) -> str:
     explicit = str(row.get("structural_cell_id", "")).strip()
+    weight_decay = float(row.get("weight_decay", 0.0) or 0.0)
+    block = str(row.get("block_id", "")).strip()
+    block_suffix = "" if block.lower() in {"", "nan", "none"} else f"_block{block}"
     if explicit and explicit.lower() not in {"nan", "none"}:
-        return safe_name(explicit.split("|", 1)[0])
-    return safe_name(
+        base = explicit.split("|", 1)[0]
+        return safe_name(f"{base}_wd{weight_decay:g}{block_suffix}")
+    base = (
         f"{row.get('architecture', 'qnn')}_{row.get('fm_kind', 'unknown')}"
         f"_r{int(float(row.get('reps', 0)))}_d{int(float(row.get('depth', 0)))}"
     )
+    return safe_name(f"{base}_wd{weight_decay:g}{block_suffix}")
 
 
 def tensor_fingerprint(inputs: torch.Tensor, labels: torch.Tensor) -> str:
@@ -203,6 +208,22 @@ def reference_path(out_dir: Path, structural_cell: str, reference_id: int) -> Pa
     )
 
 
+class CandidateDataset(torch.utils.data.Dataset):
+    """Dataset view whose indices exactly match the recorded LiRA candidates."""
+
+    def __init__(self, inputs: torch.Tensor, labels: torch.Tensor):
+        if len(inputs) != len(labels):
+            raise ValueError("LiRA candidate inputs and labels differ in length")
+        self.inputs = inputs
+        self.labels = labels
+
+    def __len__(self) -> int:
+        return len(self.labels)
+
+    def __getitem__(self, index: int) -> Dict[str, torch.Tensor]:
+        return {"image": self.inputs[index], "digit": self.labels[index]}
+
+
 def load_context(
     repo_root: Path, targets: Path, target_id: str, device: torch.device
 ):
@@ -216,10 +237,11 @@ def load_context(
         )
     dataset, feature_dim = build_dataset(qmain, row, repo_root)
     config = build_config(qmain, row, feature_dim, device)
+    target_train_size = int(float(row.get("vector_train", len(dataset["train"]))))
     samples = select_member_nonmember_samples(
         dataset,
-        n_member=None,
-        n_nonmember=None,
+        n_member=target_train_size,
+        n_nonmember=target_train_size,
         selection_seed=int(float(row.get("data_seed", 43))),
     )
     return qmain, row, dataset, config, samples
@@ -263,15 +285,18 @@ def train_reference(args: argparse.Namespace) -> None:
             f"the {len(inclusion)}-record candidate pool."
         )
 
-    train_dataset = torch.utils.data.Subset(
-        torch.utils.data.ConcatDataset([dataset["train"], dataset["test"]]),
-        np.flatnonzero(inclusion).tolist(),
-    )
+    # Inclusion rows are defined over ``samples``.  Build the reference
+    # training subset from those exact candidate tensors; using positional
+    # indices into train+full-test would select the wrong nonmembers whenever
+    # the target has a larger test pool (as in the Credit low-FPR protocol).
+    candidate_dataset = CandidateDataset(samples.inputs, samples.labels)
+    train_dataset = torch.utils.data.Subset(candidate_dataset, np.flatnonzero(inclusion).tolist())
     seed_row = dict(row)
     seed_row["model_seed"] = int(reference_seed)
     set_all_seeds(reference_seed)
     model, _ = instantiate_model(qmain, seed_row, config, device)
     learning_rate = float(row.get("learning_rate", 0.05))
+    weight_decay = float(row.get("weight_decay", 0.0))
     epochs = args.epochs if args.epochs is not None else int(float(row.get("epochs", 100)))
     batch_size = int(float(row.get("batch_size", 16)))
     generator = torch.Generator()
@@ -288,7 +313,7 @@ def train_reference(args: argparse.Namespace) -> None:
         dataset["valid"], batch_size=batch_size, shuffle=False, num_workers=0
     )
     dataflow = {"train": train_loader, "valid": valid_loader}
-    optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+    optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=epochs)
     final_train_loss = final_train_acc = float("nan")
     final_valid_loss = final_valid_acc = float("nan")
@@ -332,6 +357,7 @@ def train_reference(args: argparse.Namespace) -> None:
             reference_seed=np.asarray(reference_seed),
             epochs=np.asarray(epochs),
             learning_rate=np.asarray(learning_rate),
+            weight_decay=np.asarray(weight_decay),
             train_size=np.asarray(int(inclusion.sum())),
             final_train_loss=np.asarray(final_train_loss),
             final_train_acc=np.asarray(final_train_acc),
@@ -476,8 +502,8 @@ def score_target(args: argparse.Namespace) -> None:
             "num_reference_models": args.num_references,
             "reference_epochs": json.dumps(bank_meta["epochs"]),
             "reference_candidate_protocol": (
-                "400 target-candidate records; each candidate IN in exactly half "
-                "of references; each reference trains on 200 records"
+                f"{len(membership)} target-candidate records; each candidate IN in exactly half "
+                f"of references; each reference trains on {len(membership) // 2} records"
             ),
             "score_statistic": "true-class log-odds",
             "ci_method": CI_RECORD,
@@ -549,8 +575,8 @@ def aggregate(args: argparse.Namespace) -> None:
         error_bar_type="mean ± sample SD across target-model seeds",
         notes=(
             "Online/offline LiRA with per-record balanced IN/OUT reference models. "
-            "References train on the union of the canonical 200 target-train and "
-            "200 target-test candidates, half included per model. This is calibrated "
+            "References train on the union of the target-training members and an equal-size "
+            "deterministic target-test candidate subset, with half included per model. This is calibrated "
             "reference-model evidence, not a claim of target/reference distribution identity."
         ),
     )

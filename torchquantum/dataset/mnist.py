@@ -84,6 +84,7 @@ class MNISTDataset:
         fashion,
         n_train_samples,
         same_n_samples_each_class=False,
+        split_seed=1,
     ):
         self.root = root
         self.split = split
@@ -99,6 +100,7 @@ class MNISTDataset:
         self.n_valid_samples = n_valid_samples
         self.n_train_samples = n_train_samples
         self.fashion = fashion
+        self.split_seed = int(split_seed)
 
         self.n_digits = len(digits_of_interest)
 
@@ -132,7 +134,8 @@ class MNISTDataset:
         return indices
 
     def load(self):
-        tran = [transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))]
+        normalization = ((0.2860,), (0.3530,)) if self.fashion else ((0.1307,), (0.3081,))
+        tran = [transforms.ToTensor(), transforms.Normalize(*normalization)]
         if not self.center_crop == 28:
             tran.append(transforms.CenterCrop(self.center_crop))
         if not self.resize == 28:
@@ -161,7 +164,7 @@ class MNISTDataset:
             train_len = int(self.train_valid_split_ratio[0] * len(train_valid))
             split = [train_len, len(train_valid) - train_len]
             train_subset, valid_subset = torch.utils.data.random_split(
-                train_valid, split, generator=torch.Generator().manual_seed(1)
+                train_valid, split, generator=torch.Generator().manual_seed(self.split_seed)
             )
 
             if self.split == "train":
@@ -237,12 +240,22 @@ class MNISTDataset:
                         else:
                             sample_quota[digit_of_interest] = n_samples_each_class
 
-                    for idx, target in enumerate(test.targets):
+                    candidate_order = (
+                        torch.randperm(
+                            len(test.targets),
+                            generator=torch.Generator().manual_seed(self.split_seed),
+                        ).tolist()
+                        if self.fashion
+                        else range(len(test.targets))
+                    )
+                    for idx in candidate_order:
+                        target = test.targets[idx]
                         digit = target.item()
                         if sample_ctr[digit] < sample_quota[digit]:
                             indices.append(idx)
                             sample_ctr[digit] += 1
 
+                    self.source_indices = torch.as_tensor(indices, dtype=torch.long)
                     test.targets = test.targets[indices]
                     test.data = test.data[indices]
                 else:
@@ -253,6 +266,12 @@ class MNISTDataset:
                 logger.warning(
                     f"Only use the front {self.n_test_samples} " f"images as TEST set."
                 )
+
+        if not hasattr(self, "source_indices"):
+            if hasattr(self.data, "indices"):
+                self.source_indices = torch.as_tensor(self.data.indices, dtype=torch.long)
+            else:
+                self.source_indices = torch.arange(len(self.data), dtype=torch.long)
 
     def __getitem__(self, index: int):
         img = self.data[index][0]
@@ -285,6 +304,7 @@ class MNIST(Dataset):
         fashion=False,
         n_train_samples=None,
         same_n_samples_each_class=False,  # <-- ADD THIS LINE
+        split_seed=1,
     ):
         self.root = root
 
@@ -306,6 +326,7 @@ class MNIST(Dataset):
                     n_train_samples=n_train_samples,
                     # v-- AND ADD THIS LINE --v
                     same_n_samples_each_class=same_n_samples_each_class,
+                    split_seed=split_seed,
                 )
                 for split in ["train", "valid", "test"]
             }

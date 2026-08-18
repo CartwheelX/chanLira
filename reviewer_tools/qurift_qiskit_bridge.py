@@ -13,6 +13,7 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 from datetime import datetime
 import json
+import hashlib
 import os
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple
@@ -450,3 +451,41 @@ def run_aer_counts(
 def write_backend_probe(context: BackendNoiseContext, output_path: Path) -> None:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps(asdict(context.metadata), indent=2), encoding="utf-8")
+
+
+def write_backend_snapshot(context: BackendNoiseContext, output_dir: Path) -> Dict[str, str]:
+    """Persist enough backend state to reconstruct the local Aer noise model.
+
+    Credentials and service/account objects are deliberately excluded.
+    """
+    output_dir.mkdir(parents=True, exist_ok=True)
+    payloads: Dict[str, Any] = {
+        "metadata.json": asdict(context.metadata),
+    }
+    if context.noise_model is not None:
+        payloads["aer_noise_model.json"] = context.noise_model.to_dict()
+    properties = _safe_backend_properties(context.noise_backend or context.backend)
+    if properties is not None and hasattr(properties, "to_dict"):
+        payloads["backend_properties.json"] = properties.to_dict()
+    try:
+        configuration = (context.backend or context.noise_backend).configuration()
+        if hasattr(configuration, "to_dict"):
+            payloads["backend_configuration.json"] = configuration.to_dict()
+    except Exception:
+        pass
+
+    hashes: Dict[str, str] = {}
+    for filename, payload in payloads.items():
+        path = output_dir / filename
+        encoded = json.dumps(payload, indent=2, sort_keys=True, default=str).encode("utf-8")
+        path.write_bytes(encoded)
+        hashes[filename] = hashlib.sha256(encoded).hexdigest()
+    manifest = {
+        "files_sha256": hashes,
+        "credentials_recorded": False,
+        "reconstruction": "qiskit_aer.noise.NoiseModel.from_dict(aer_noise_model.json)",
+    }
+    manifest_path = output_dir / "snapshot_manifest.json"
+    manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8")
+    hashes[manifest_path.name] = hashlib.sha256(manifest_path.read_bytes()).hexdigest()
+    return hashes

@@ -14,6 +14,15 @@ os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
 
 import sys
 
+# Prefer the repository's bundled TorchQuantum implementation over any
+# unrelated editable installation in the active environment. This is required
+# for portable, seeded dataset behavior when the driver is invoked as
+# ``python experiments/qurift_main.py`` (whose default sys.path starts at the
+# experiments directory).
+_QURIFT_REPOSITORY_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _QURIFT_REPOSITORY_ROOT not in sys.path:
+    sys.path.insert(0, _QURIFT_REPOSITORY_ROOT)
+
 print("All arguments:", sys.argv)
 if len(sys.argv) > 1:
     print(f"The first argument is: {sys.argv[1]}")
@@ -183,7 +192,6 @@ class VectorDataset(Dataset):
         if scale is not None:
             feats = _apply_feature_scale(feats, scale)
         self.features = torch.from_numpy(feats)
-        self.features = self.features.clamp(-1.0, 1.0)
         self.targets = torch.from_numpy(labs)
         self.coords = torch.from_numpy(orig_feats)
         self.feature_dim = int(self.features.shape[1])
@@ -959,7 +967,7 @@ class QFCModel(tq.QuantumModule):
                 expand_h_to_u3=True,
             )
             # self.encoder =  make_encoder_from_oplist(oplist, alpha=1.0, multi_index_rule="prod")
-            if not os.environ.get("QURIFT_DISABLE_DEBUG_EXPORTS"):
+            if os.environ.get("QURIFT_ENABLE_DEBUG_EXPORTS") == "1":
                 write_oplist_py("z_with_pauli.py", z_name, z_ops)
             self.encoder =  GeneralEncoderPlus_new(z_ops, alpha=cfg.fm_z_alpha, multi_index_rule="sum")
             # self.encoder = GeneralEncoderPlus_new(z_ops, pad_mode="wrap", alpha=1.0)
@@ -979,7 +987,7 @@ class QFCModel(tq.QuantumModule):
                 expand_h_to_u3=True,
             )
             # self.encoder =  make_encoder_from_oplist(oplist, alpha=1.0, multi_index_rule="prod")
-            if not os.environ.get("QURIFT_DISABLE_DEBUG_EXPORTS"):
+            if os.environ.get("QURIFT_ENABLE_DEBUG_EXPORTS") == "1":
                 write_oplist_py("zasdasd_with_pauli.py", zz_name, zz_ops)
             self.encoder =  GeneralEncoderPlus_new(zz_ops, alpha=cfg.fm_zz_alpha, multi_index_rule="sum")
             # self.encoder = GeneralEncoderPlus_new(z_ops, pad_mode="wrap", alpha=1.0)
@@ -997,7 +1005,7 @@ class QFCModel(tq.QuantumModule):
                 expand_h_to_u3=True,
             )
             # self.encoder =  make_encoder_from_oplist(oplist, alpha=1.0, multi_index_rule="prod")
-            if not os.environ.get("QURIFT_DISABLE_DEBUG_EXPORTS"):
+            if os.environ.get("QURIFT_ENABLE_DEBUG_EXPORTS") == "1":
                 write_oplist_py("pauli_with_pauli.py", pauli_name, pauli_ops)
             self.encoder =  GeneralEncoderPlus_new(pauli_ops, alpha=cfg.fm_pauli_alpha, multi_index_rule="prod")
             # self.encoder = GeneralEncoderPlus_new(z_ops, pad_mode="wrap", alpha=1.0)
@@ -1017,7 +1025,7 @@ class QFCModel(tq.QuantumModule):
                 reps=cfg.fm_eff_reps
             )
             
-            if not os.environ.get("QURIFT_DISABLE_DEBUG_EXPORTS"):
+            if os.environ.get("QURIFT_ENABLE_DEBUG_EXPORTS") == "1":
                 save_oplist_py("efficient_su2_3w.py", su2_name, su2_op)
             # exit()
             # Note: out of the Gen ecnoder for SU2, run for longer epochs to see which one works best
@@ -1284,7 +1292,7 @@ class HybridQNN(tq.QuantumModule):
                 expand_h_to_u3=True,
             )
             # self.encoder =  make_encoder_from_oplist(oplist, alpha=1.0, multi_index_rule="prod")
-            if not os.environ.get("QURIFT_DISABLE_DEBUG_EXPORTS"):
+            if os.environ.get("QURIFT_ENABLE_DEBUG_EXPORTS") == "1":
                 write_oplist_py("z_with_pauli.py", z_name, z_ops)
             self.encoder =  GeneralEncoderPlus_new(z_ops, alpha=cfg.fm_z_alpha, multi_index_rule="sum")
             # self.encoder = GeneralEncoderPlus_new(z_ops, pad_mode="wrap", alpha=1.0)
@@ -1300,7 +1308,7 @@ class HybridQNN(tq.QuantumModule):
                 n_wires=cfg.n_wires, D=self.D, paulis=["Z", "ZZ"], pad_mode=cfg.fm_zz_pad_mode, entanglement=cfg.fm_zz_entanglement, repeats=cfg.fm_zz_reps,
                 expand_h_to_u3=True,)
             # self.encoder =  make_encoder_from_oplist(oplist, alpha=1.0, multi_index_rule="prod")
-            if not os.environ.get("QURIFT_DISABLE_DEBUG_EXPORTS"):
+            if os.environ.get("QURIFT_ENABLE_DEBUG_EXPORTS") == "1":
                 write_oplist_py("zasdasd_with_pauli.py", zz_name, zz_ops)
             self.encoder =  GeneralEncoderPlus_new(zz_ops, alpha=cfg.fm_zz_alpha, multi_index_rule="sum")
             # self.encoder = GeneralEncoderPlus_new(z_ops, pad_mode="wrap", alpha=1.0)
@@ -1317,7 +1325,7 @@ class HybridQNN(tq.QuantumModule):
                 expand_h_to_u3=True,
             )
             # self.encoder =  make_encoder_from_oplist(oplist, alpha=1.0, multi_index_rule="prod")
-            if not os.environ.get("QURIFT_DISABLE_DEBUG_EXPORTS"):
+            if os.environ.get("QURIFT_ENABLE_DEBUG_EXPORTS") == "1":
                 write_oplist_py("pauli_with_pauli.py", pauli_name, pauli_ops)
             self.encoder =  GeneralEncoderPlus_new(pauli_ops, alpha=cfg.fm_pauli_alpha, multi_index_rule="prod")
             # self.encoder = GeneralEncoderPlus_new(z_ops, pad_mode="wrap", alpha=1.0)
@@ -1336,7 +1344,7 @@ class HybridQNN(tq.QuantumModule):
                 pad_mode=cfg.fm_eff_pad_mod, alpha=cfg.fm_eff_alpha
             )
             
-            if not os.environ.get("QURIFT_DISABLE_DEBUG_EXPORTS"):
+            if os.environ.get("QURIFT_ENABLE_DEBUG_EXPORTS") == "1":
                 save_oplist_py("efficient_su2_3w_ecp2.py", su2_name, su2_op)
             # exit()
             # Note: out of the Gen ecnoder for SU2, run for longer epochs to see which one works best
@@ -1880,7 +1888,7 @@ class QCNN(tq.QuantumModule):
                 expand_h_to_u3=True,
             )
             # self.encoder =  make_encoder_from_oplist(oplist, alpha=1.0, multi_index_rule="prod")
-            if not os.environ.get("QURIFT_DISABLE_DEBUG_EXPORTS"):
+            if os.environ.get("QURIFT_ENABLE_DEBUG_EXPORTS") == "1":
                 write_oplist_py("z_with_pauli.py", z_name, z_ops)
             self.encoder =  GeneralEncoderPlus_new(z_ops, alpha=cfg.fm_z_alpha, multi_index_rule="sum")
             # self.encoder = GeneralEncoderPlus_new(z_ops, pad_mode="wrap", alpha=1.0)
@@ -1897,7 +1905,7 @@ class QCNN(tq.QuantumModule):
                 expand_h_to_u3=True,
             )
             # self.encoder =  make_encoder_from_oplist(oplist, alpha=1.0, multi_index_rule="prod")
-            if not os.environ.get("QURIFT_DISABLE_DEBUG_EXPORTS"):
+            if os.environ.get("QURIFT_ENABLE_DEBUG_EXPORTS") == "1":
                 write_oplist_py("zasdasd_with_pauli.py", zz_name, zz_ops)
             self.encoder =  GeneralEncoderPlus_new(zz_ops, alpha=cfg.fm_zz_alpha, multi_index_rule="sum")
             # self.encoder = GeneralEncoderPlus_new(z_ops, pad_mode="wrap", alpha=1.0)
@@ -1914,7 +1922,7 @@ class QCNN(tq.QuantumModule):
                 expand_h_to_u3=True,
             )
             # self.encoder =  make_encoder_from_oplist(oplist, alpha=1.0, multi_index_rule="prod")
-            if not os.environ.get("QURIFT_DISABLE_DEBUG_EXPORTS"):
+            if os.environ.get("QURIFT_ENABLE_DEBUG_EXPORTS") == "1":
                 write_oplist_py("pauli_with_pauli.py", pauli_name, pauli_ops)
             self.encoder =  GeneralEncoderPlus_new(pauli_ops, alpha=cfg.fm_pauli_alpha, multi_index_rule="prod")
             # self.encoder = GeneralEncoderPlus_new(z_ops, pad_mode="wrap", alpha=1.0)
@@ -1933,7 +1941,7 @@ class QCNN(tq.QuantumModule):
                 pad_mode=cfg.fm_eff_pad_mod, alpha=cfg.fm_eff_alpha
             )
             
-            if not os.environ.get("QURIFT_DISABLE_DEBUG_EXPORTS"):
+            if os.environ.get("QURIFT_ENABLE_DEBUG_EXPORTS") == "1":
                 save_oplist_py("efficient_su2_3w.py", su2_name, su2_op)
             # exit()
             # Note: out of the Gen ecnoder for SU2, run for longer epochs to see which one works best
@@ -2329,6 +2337,7 @@ def main():
     parser.add_argument("--target-id", type=str, default=None, help="Unique reviewer target identifier stored in exports.")
     parser.add_argument("--experiment-id", type=str, default=None, help="Reviewer experiment identifier stored in exports.")
     parser.add_argument("--learning-rate", type=float, default=None, help="Optional common learning rate for controlled architecture comparisons.")
+    parser.add_argument("--weight-decay", type=float, default=0.0, help="Adam L2 weight decay; fixed within each declared protocol arm.")
     # add target model path argument
     # parser.add_argument("--target-model-path", type=str, default="qcnn_model.pth", help="Path to save/load the trained model.")
     parser.add_argument("--target-model-path", type=str, default=None, help="Explicit path to save the trained model.")
@@ -2359,7 +2368,11 @@ def main():
     
     parser.add_argument("--random-ops", type=int, default=0)
     parser.add_argument("--workers", type=int, default=None, help="None => auto")
-    parser.add_argument("--dataset", choices=["cifar10", "mnist", "moons", "circles", "blobs", "multiclass"], default="mnist")
+    parser.add_argument(
+        "--dataset",
+        choices=["cifar10", "mnist", "fashion_mnist", "moons", "circles", "blobs", "multiclass", "credit_default", "breast_cancer_wdbc"],
+        default="mnist",
+    )
     
     # add argument for feature map kind
     parser.add_argument("--fm-kind", choices=["z", "zz", "pauli", "eff_su2"], default="eff_su2", help="Type of quantum feature map to use.")
@@ -2376,7 +2389,7 @@ def main():
     parser.add_argument("--fm-zz-pad-mode", choices=["wrap", "repeatlast", "zero"], default="wrap", help="Padding mode for ZZ feature map.")
     parser.add_argument("--fm-zz-entanglement", choices=["linear", "ring", "full"], default="linear", help="Entanglement pattern for ZZ feature map.")
     parser.add_argument("--fm-zz-reps", type=int, default=1, help="Repetitions for ZZ feature map.")
-    # parser.add_argument("--fm-zz-alpha", type=float, default=1.0, help="Alpha scaling for ZZ feature map.")
+    parser.add_argument("--fm-zz-alpha", type=float, default=1.0, help="Global input-angle scale for the ZZ feature map.")
     
       #     fm_kind = "zz",
     #     fm_zz_reps = 4,
@@ -2410,6 +2423,27 @@ def main():
     parser.add_argument("--moons-separation", type=float, default=0.5)
     parser.add_argument("--vector-scale-to-2pi", action="store_true", help="Rescale vector dataset features into [0, 2π].")
     parser.add_argument("--extra-feats", action="store_true", help="Add extra features to vector datasets (moons/circles/blobs).")
+    parser.add_argument(
+        "--credit-data-path",
+        type=Path,
+        default=Path("data/credit_default/credit_default.csv.gz"),
+        help="Pinned canonical CSV for the UCI Credit-default dataset.",
+    )
+    parser.add_argument(
+        "--credit-pca-components",
+        type=int,
+        default=6,
+        help="PCA output dimension fitted on Credit target-training records only.",
+    )
+    parser.add_argument("--preprocessor-out", type=Path, default=None)
+    parser.add_argument("--dataset-provenance-out", type=Path, default=None)
+    parser.add_argument(
+        "--wdbc-data-path",
+        type=Path,
+        default=Path("data/wdbc/wdbc.csv.gz"),
+        help="Pinned canonical CSV for UCI Breast Cancer Wisconsin Diagnostic.",
+    )
+    parser.add_argument("--wdbc-pca-components", type=int, default=6)
    
     parser.add_argument("--circles-noise", type=float, default=0.1)
     parser.add_argument("--circles-factor", type=float, default=0.5)
@@ -2500,6 +2534,7 @@ def main():
     #     torch.backends.cudnn.benchmark = False
 
 
+    dataset_provenance = {}
     if args.dataset == "mnist":
         n_train_samples = args.vector_train  # 600
         n_test_samples = args.vector_test  # 600
@@ -2531,6 +2566,63 @@ def main():
         dataset = MNIST(**mnist_kwargs)
         feature_dim = args.pool_hw * args.pool_hw
         # default_n_wires = args.n_wires if args.n_wires is not None else 10 # change as needed
+
+    elif args.dataset == "fashion_mnist":
+        from qurift.satml_fashion import build_fashion_mnist
+
+        dataset, dataset_provenance = build_fashion_mnist(
+            MNIST,
+            root=Path("./data"),
+            n_train=args.vector_train,
+            n_valid=args.vector_valid,
+            n_test=args.vector_test,
+            data_seed=data_seed,
+        )
+        feature_dim = args.pool_hw * args.pool_hw
+
+    elif args.dataset == "credit_default":
+        import joblib
+        from qurift.satml_data import prepare_credit_default
+
+        prepared = prepare_credit_default(
+            args.credit_data_path,
+            n_train=args.vector_train,
+            n_valid=args.vector_valid,
+            n_test=args.vector_test,
+            data_seed=data_seed,
+            n_components=args.credit_pca_components,
+        )
+        dataset = {
+            split: VectorDataset(prepared.features[split], prepared.labels[split])
+            for split in ("train", "valid", "test")
+        }
+        dataset_provenance = prepared.provenance
+        feature_dim = int(args.credit_pca_components)
+        if args.preprocessor_out is not None:
+            args.preprocessor_out.parent.mkdir(parents=True, exist_ok=True)
+            joblib.dump(prepared.preprocessor, args.preprocessor_out)
+
+    elif args.dataset == "breast_cancer_wdbc":
+        import joblib
+        from qurift.satml_wdbc import prepare_wdbc
+
+        prepared = prepare_wdbc(
+            args.wdbc_data_path,
+            n_train=args.vector_train,
+            n_valid=args.vector_valid,
+            n_test=args.vector_test,
+            data_seed=data_seed,
+            n_components=args.wdbc_pca_components,
+        )
+        dataset = {
+            split: VectorDataset(prepared.features[split], prepared.labels[split])
+            for split in ("train", "valid", "test")
+        }
+        dataset_provenance = prepared.provenance
+        feature_dim = int(args.wdbc_pca_components)
+        if args.preprocessor_out is not None:
+            args.preprocessor_out.parent.mkdir(parents=True, exist_ok=True)
+            joblib.dump(prepared.preprocessor, args.preprocessor_out)
 
     elif args.dataset == "cifar10":
         #     n_test_samples=100,
@@ -2597,7 +2689,7 @@ def main():
             n_features=args.blobs_n_features,
             seed=data_seed,
             # pppppppppppppppppp
-            scale_to_2pi=False,
+            scale_to_2pi=args.vector_scale_to_2pi,
             multiclass_features=args.multiclass_features,
             multiclass_classes=args.multiclass_classes,
             multiclass_labels=args.multiclass_labels,
@@ -2620,6 +2712,12 @@ def main():
         default_n_wires = feature_dim
 
     dataset = {split: dataset[split] for split in dataset}
+    if args.dataset_provenance_out is not None and dataset_provenance:
+        args.dataset_provenance_out.parent.mkdir(parents=True, exist_ok=True)
+        args.dataset_provenance_out.write_text(
+            json.dumps(dataset_provenance, indent=2, sort_keys=True), encoding="utf-8"
+        )
+
     num_classes = infer_num_classes(dataset)
 
     #print the total samoles in each split
@@ -2629,11 +2727,15 @@ def main():
     
     if args.dataset in {"moons", "circles", "blobs"}:
         num_classes = 2
+    elif args.dataset in {"credit_default", "breast_cancer_wdbc"}:
+        num_classes = 2
+    elif args.dataset == "fashion_mnist":
+        num_classes = 4
     elif args.dataset == "multiclass":
         num_classes = args.multiclass_classes
 
     n_wires = args.n_wires if args.n_wires is not None else 10
-    pool_hw_cfg = args.pool_hw if args.dataset in ("mnist", "cifar10") else 1
+    pool_hw_cfg = args.pool_hw if args.dataset in ("mnist", "fashion_mnist", "cifar10") else 1
 
     # if args.dataset in {"moons", "circles", "blobs", "multiclass"} and n_wires != feature_dim:
     #     raise ValueError(
@@ -2700,7 +2802,7 @@ def main():
     if mapper_cfg["fm_kind"] == "z":
         mapper_cfg |= dict(
             fm_z_reps=args.fm_z_reps, 
-            fm_z_alpha=1.0, 
+            fm_z_alpha=args.fm_z_alpha,
             fm_z_pad_mode=args.fm_z_pad_mode
         )
 
@@ -2714,7 +2816,7 @@ def main():
             fm_zz_reps=args.fm_zz_reps,
             fm_zz_entanglement=args.fm_zz_entanglement,  # 'linear' | 'ring' | 'full'
             fm_zz_pad_mode=args.fm_zz_pad_mode,
-            fm_zz_alpha=1.0,
+            fm_zz_alpha=args.fm_zz_alpha,
             fm_zz_phi="pi_minus",  # or prod  | 'pi_minus'
         )
 
@@ -2726,7 +2828,7 @@ def main():
     elif mapper_cfg["fm_kind"] == "pauli":
         mapper_cfg |= dict(
             fm_pauli_reps=args.fm_pauli_reps,
-            fm_pauli_alpha=1.0,
+            fm_pauli_alpha=args.fm_pauli_alpha,
             fm_pauli_entanglement=args.fm_pauli_entanglement,  # 'linear' | 'ring' | 'full'
             fm_pali_pad=args.fm_pauli_pad,
             fm_pauli_terms=args.fm_pauli_terms, #must be genralized for qubit numbers
@@ -2740,7 +2842,7 @@ def main():
     elif mapper_cfg["fm_kind"] == "eff_su2":
         mapper_cfg |= dict(
             fm_eff_reps=args.fm_eff_reps,
-            fm_eff_alpha=1.0, # not sure what to sure, need to investigate
+            fm_eff_alpha=args.fm_eff_alpha,
             fm_eff_ent_kind=args.fm_eff_ent_kind, 
             fm_eff_pad_mod=args.fm_eff_pad_mod, # 'wrap' | 'repeatlast' | 'pad'
             fm_eff_twoq_op=args.fm_eff_twoq_op, 
@@ -2804,25 +2906,25 @@ def main():
     # Target model
     if args.model_type == "qnn":
         model = QFCModel(cfg).to(device)
-        optimizer = optim.Adam(model.parameters(), lr=effective_learning_rate)
+        optimizer = optim.Adam(model.parameters(), lr=effective_learning_rate, weight_decay=args.weight_decay)
         scheduler = CosineAnnealingLR(optimizer, T_max=args.epochs)
     
     elif args.model_type == "mlp_qnn":
         model1 = QFCModel(cfg).to(device)
         model = build_classical_baseline(cfg, model1).to(device)
 
-        optimizer = optim.Adam(model.parameters(), lr=effective_learning_rate)
+        optimizer = optim.Adam(model.parameters(), lr=effective_learning_rate, weight_decay=args.weight_decay)
         scheduler = CosineAnnealingLR(optimizer, T_max=args.epochs)
             
     elif args.model_type == "hqnn":
         model = HybridQNN(cfg).to(device)
-        optimizer = optim.Adam(model.parameters(), lr=effective_learning_rate)
+        optimizer = optim.Adam(model.parameters(), lr=effective_learning_rate, weight_decay=args.weight_decay)
         scheduler = CosineAnnealingLR(optimizer, T_max=args.epochs)
         # optimizer = torch.optim.SGD(model.parameters(), lr=1e-2, momentum=0.9)
     
     elif args.model_type == "qcnn":
         model = QCNN(cfg).to(device)
-        optimizer = optim.Adam(model.parameters(), lr=effective_learning_rate)
+        optimizer = optim.Adam(model.parameters(), lr=effective_learning_rate, weight_decay=args.weight_decay)
 
         # scheduler = CosineAnnealingLR(optimizer, T_max=args.epochs)
         # optimizer = optim.Adam(model.parameters(), lr=5e-3, weight_decay=1e-4)
@@ -3040,6 +3142,7 @@ def main():
                     "membership_convention": "0=member",
                     "attack_feature_mode": args.attack_feature_mode,
                     "learning_rate": float(effective_learning_rate),
+                    "weight_decay": float(args.weight_decay),
                     "n_wires": int(args.n_wires),
                     "depth": int(args.depth),
                     "ql_ent": args.qlayer_ent_kind,
@@ -3057,6 +3160,13 @@ def main():
                     "vector_train": int(args.vector_train),
                     "vector_valid": int(args.vector_valid),
                     "vector_test": int(args.vector_test),
+                    "feature_angle_scale": float({
+                        "z": args.fm_z_alpha,
+                        "zz": args.fm_zz_alpha,
+                        "pauli": args.fm_pauli_alpha,
+                        "eff_su2": args.fm_eff_alpha,
+                    }[args.fm_kind]),
+                    "dataset_provenance": dataset_provenance,
                 },
                 "stats": {
                     "loss": torch.cat([loss_tr, loss_te], dim=0).float(),

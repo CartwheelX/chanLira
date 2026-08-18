@@ -1,0 +1,6 @@
+# Additional dependencies for the SaTML experimental pipeline.
+# Install the base project requirements first.
+joblib>=1.2
+pandas>=1.5
+scikit-learn>=1.2
+xlrd>=2.0.1,<3

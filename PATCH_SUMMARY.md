@@ -27,7 +27,7 @@ The patch makes the following changes:
    - the supplied architecture-control table sets a common Adam learning rate of `0.01` for QNN, HQNN, QCNN, and MLP-QNN.
 
 4. **Concurrency safety**
-   - fixed-name operation-list debug exports are disabled when `QURIFT_DISABLE_DEBUG_EXPORTS=1`;
+   - fixed-name operation-list debug exports require explicit opt-in with `QURIFT_ENABLE_DEBUG_EXPORTS=1`;
    - circuit-image exports are disabled when `QURIFT_DISABLE_CIRCUIT_EXPORTS=1`;
    - when enabled, circuit filenames include target ID, model seed, and data seed;
    - every reviewer target writes to a unique directory.

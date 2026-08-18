@@ -16,7 +16,7 @@ HERE = Path(__file__).resolve().parent
 if str(HERE) not in sys.path:
     sys.path.insert(0, str(HERE))
 
-from qurift_qiskit_bridge import load_backend_noise_context
+from qurift_qiskit_bridge import load_backend_noise_context, write_backend_snapshot
 
 
 def main() -> None:
@@ -26,6 +26,12 @@ def main() -> None:
     parser.add_argument("--ibm-account-name", default=None)
     parser.add_argument("--require-noise", action="store_true")
     parser.add_argument("--allow-backend-mismatch", action="store_true")
+    parser.add_argument(
+        "--snapshot-dir",
+        type=Path,
+        default=None,
+        help="Optional directory for full backend properties and Aer NoiseModel serialization.",
+    )
     parser.add_argument(
         "--out",
         type=Path,
@@ -43,6 +49,9 @@ def main() -> None:
     output = asdict(context.metadata)
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(output, indent=2), encoding="utf-8")
+    if args.snapshot_dir is not None:
+        hashes = write_backend_snapshot(context, args.snapshot_dir)
+        print(f"[OK] Snapshot files={len(hashes)} -> {args.snapshot_dir.resolve()}")
 
     print(json.dumps(output, indent=2))
     print(f"[OK] Wrote: {args.out.resolve()}")

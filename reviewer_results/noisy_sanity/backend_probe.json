@@ -9,7 +9,7 @@
   "gate_error_enabled": true,
   "readout_error_enabled": true,
   "thermal_relaxation_enabled": true,
-  "calibration_timestamp": "2026-07-30T16:47:50+08:00",
+  "calibration_timestamp": "2026-08-17T19:56:15+08:00",
   "basis_gates": [
     "cz",
     "delay",

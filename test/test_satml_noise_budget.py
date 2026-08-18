@@ -1,0 +1,110 @@
+from __future__ import annotations
+
+import unittest
+import tempfile
+from pathlib import Path
+from types import SimpleNamespace
+
+import pandas as pd
+
+from reviewer_tools.qurift_noisy_eval import merge_counts, parse_query_shot_pairs
+from reviewer_tools.reviewer_common import stratified_bootstrap_tpr_at_fpr
+from reviewer_tools.qurift_qiskit_bridge import BackendNoiseMetadata, write_backend_snapshot
+from satml_tools.analyze_noise_budget import analyze_noise, analyze_utility
+
+
+class NoiseBudgetTests(unittest.TestCase):
+    def test_query_shot_pairs_preserve_declared_budget(self) -> None:
+        pairs = parse_query_shot_pairs("1x2560,20x128")
+        self.assertEqual(pairs, [(1, 2560), (20, 128)])
+        self.assertEqual({queries * shots for queries, shots in pairs}, {2560})
+
+    def test_repeated_query_counts_are_aggregated_per_circuit(self) -> None:
+        merged = merge_counts([[{"0": 3, "1": 1}], [{"0": 2, "1": 2}]])
+        self.assertEqual(merged, [{"0": 5, "1": 3}])
+
+    def test_low_fpr_bootstrap_respects_bounds(self) -> None:
+        y = [1] * 20 + [0] * 200
+        scores = list(range(220, 200, -1)) + list(range(200, 0, -1))
+        low, high, valid = stratified_bootstrap_tpr_at_fpr(
+            y, scores, requested_fpr=0.01, n_boot=250, seed=3, chunk_size=64
+        )
+        self.assertEqual(valid, 250)
+        self.assertGreaterEqual(low, 0.0)
+        self.assertLessEqual(high, 1.0)
+
+    def test_backend_snapshot_excludes_credentials(self) -> None:
+        class Serializable:
+            def to_dict(self):
+                return {"value": 1}
+
+        class Backend:
+            def properties(self):
+                return Serializable()
+
+            def configuration(self):
+                return Serializable()
+
+        metadata = BackendNoiseMetadata(
+            requested_backend_name="fake", requested_noise_backend_name="fake",
+            resolved_backend_name="fake", resolved_noise_backend_name="fake",
+            authentication_mode="environment_credentials", noise_model_loaded=True,
+            noise_load_error=None, gate_error_enabled=True, readout_error_enabled=True,
+            thermal_relaxation_enabled=True, calibration_timestamp="2026-01-01T00:00:00Z",
+            basis_gates=["x"], noise_basis_gates=["x"], coupling_map=[], backend_num_qubits=1,
+            noise_instructions=["x"], noise_qubits=[[0]], backend_mismatch=False,
+        )
+        context = SimpleNamespace(
+            metadata=metadata, backend=Backend(), noise_backend=None, noise_model=Serializable()
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            write_backend_snapshot(context, Path(directory))
+            combined = "".join(path.read_text() for path in Path(directory).glob("*.json"))
+        self.assertNotIn("token", combined.lower())
+        self.assertIn("credentials_recorded", combined)
+
+    def test_noise_analysis_does_not_pool_calibration_profiles(self) -> None:
+        rows = []
+        for calibration, offset in (("cal-a", 0.0), ("cal-b", 0.1)):
+            for target_index in range(3):
+                target = f"t{target_index}"
+                rows.append(
+                    {"target_id": target, "calibration_profile": calibration, "mode": "exact",
+                     "queries": 0, "shots": 0, "total_shots": 0, "backend_name": "none",
+                     "noise_model_loaded": False, "simulator_seed": -1,
+                     "metric_scope": "membership", "metric_name": "loss_auc",
+                     "value": 0.55 + 0.05 * target_index}
+                )
+                for simulator_seed in range(2):
+                    for queries, shots in ((1, 2560), (20, 128)):
+                        rows.append(
+                            {"target_id": target, "calibration_profile": calibration,
+                             "mode": "noisy_shot", "queries": queries, "shots": shots,
+                             "total_shots": 2560, "backend_name": "fake",
+                             "noise_model_loaded": True, "simulator_seed": simulator_seed,
+                             "metric_scope": "membership", "metric_name": "loss_auc",
+                             "value": 0.54 + 0.05 * target_index + offset + queries * 0.0001}
+                        )
+        summary, query, ordering = analyze_noise(pd.DataFrame(rows))
+        self.assertEqual(set(summary.calibration_profile), {"cal-a", "cal-b"})
+        self.assertEqual(set(query.calibration_profile), {"cal-a", "cal-b"})
+        self.assertEqual(set(ordering.calibration_profile), {"cal-a", "cal-b"})
+        self.assertTrue((query.n_simulator_seeds == 2).all())
+
+    def test_noise_utility_keeps_query_budget_keys(self) -> None:
+        rows = []
+        for seed in range(3):
+            rows.append(
+                {"target_id": "t", "calibration_profile": "cal", "mode": "noisy_shot",
+                 "queries": 20, "shots": 128, "total_shots": 2560, "backend_name": "fake",
+                 "noise_model_loaded": True, "simulator_seed": seed, "metric_scope": "test",
+                 "metric_name": "target_accuracy", "value": 0.7 + seed * 0.01}
+            )
+        utility = analyze_utility(pd.DataFrame(rows))
+        self.assertEqual(len(utility), 1)
+        self.assertEqual(int(utility.iloc[0].n_simulator_replicates), 3)
+        self.assertEqual(int(utility.iloc[0].total_shots), 2560)
+
+
+if __name__ == "__main__":
+    unittest.main()

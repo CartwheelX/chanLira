@@ -38,11 +38,15 @@ def parse_gpus(value: str, *, dry_run: bool) -> list[int]:
 
 def structural_cell(row: pd.Series) -> str:
     explicit = str(row.get("structural_cell_id", "")).strip()
+    weight_decay = float(row.get("weight_decay", 0.0) or 0.0)
+    block = str(row.get("block_id", "")).strip()
+    block_suffix = "" if block.lower() in {"", "nan", "none"} else f"_block{block}"
     if explicit and explicit.lower() not in {"nan", "none"}:
-        return explicit.split("|", 1)[0]
+        return f"{explicit.split('|', 1)[0]}_wd{weight_decay:g}{block_suffix}"
     return (
         f"{row.get('architecture', 'qnn')}_{row.get('fm_kind', 'unknown')}"
         f"_r{int(float(row.get('reps', 0)))}_d{int(float(row.get('depth', 0)))}"
+        f"_wd{weight_decay:g}{block_suffix}"
     )
 
 

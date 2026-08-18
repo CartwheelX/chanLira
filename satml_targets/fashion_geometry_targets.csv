@@ -1,0 +1,7 @@
+experiment,dataset,architecture,source_run_id,n_wires,pad_mode,fm_ent,ql_ent,ql_op,ql_rev,batch_size,epochs,extra_feats,learning_rate,weight_decay,seed,model_seed,init_seed,data_seed,split_seed,block_id,vector_train,vector_valid,vector_test,target_id,role,structural_cell_id,fm_kind,fm_op,reps,depth,feature_angle_scale
+satml_fashion_geometry,fashion_mnist,qnn,-1,6,wrap,linear,linear,crz,False,16,100,False,0.05,0.0,70261,70261,70261,60261,60261,fashion_b01,200,200,2000,GEOM_FASHION_z_r1,z_r1_d2,z_r1_d2,z,NA,1,2,1.0
+satml_fashion_geometry,fashion_mnist,qnn,-1,6,wrap,linear,linear,crz,False,16,100,False,0.05,0.0,70261,70261,70261,60261,60261,fashion_b01,200,200,2000,GEOM_FASHION_z_r5,z_r5_d2,z_r5_d2,z,NA,5,2,1.0
+satml_fashion_geometry,fashion_mnist,qnn,-1,6,wrap,linear,linear,crz,False,16,100,False,0.05,0.0,70261,70261,70261,60261,60261,fashion_b01,200,200,2000,GEOM_FASHION_zz_r1,zz_r1_d2,zz_r1_d2,zz,NA,1,2,1.0
+satml_fashion_geometry,fashion_mnist,qnn,-1,6,wrap,linear,linear,crz,False,16,100,False,0.05,0.0,70261,70261,70261,60261,60261,fashion_b01,200,200,2000,GEOM_FASHION_zz_r5,zz_r5_d2,zz_r5_d2,zz,NA,5,2,1.0
+satml_fashion_geometry,fashion_mnist,qnn,-1,6,wrap,linear,linear,crz,False,16,100,False,0.05,0.0,70261,70261,70261,60261,60261,fashion_b01,200,200,2000,GEOM_FASHION_eff_su2_r1,eff_su2_r1_d2,eff_su2_r1_d2,eff_su2,cx,1,2,1.0
+satml_fashion_geometry,fashion_mnist,qnn,-1,6,wrap,linear,linear,crz,False,16,100,False,0.05,0.0,70261,70261,70261,60261,60261,fashion_b01,200,200,2000,GEOM_FASHION_eff_su2_r5,eff_su2_r5_d2,eff_su2_r5_d2,eff_su2,cx,5,2,1.0

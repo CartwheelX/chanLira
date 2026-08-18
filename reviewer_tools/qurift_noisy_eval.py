@@ -42,6 +42,7 @@ from qurift_qiskit_bridge import (  # noqa: E402
     load_backend_noise_context,
     run_aer_counts,
     transpile_for_backend,
+    write_backend_snapshot,
 )
 from qurift_target_loader import (  # noqa: E402
     apply_classical_head,
@@ -84,6 +85,41 @@ def parse_modes(text: str) -> List[str]:
             if token not in values:
                 values.append(token)
     return values
+
+
+def parse_query_shot_pairs(text: str) -> List[Tuple[int, int]]:
+    """Parse QUERYxSHOTS pairs, where shots are per query."""
+    output: List[Tuple[int, int]] = []
+    for token in str(text).split(","):
+        token = token.strip().lower()
+        if not token:
+            continue
+        pieces = token.split("x")
+        if len(pieces) != 2:
+            raise ValueError(f"Invalid query-shot pair {token!r}; expected QUERYxSHOTS")
+        queries, shots = map(int, pieces)
+        if queries <= 0 or shots <= 0:
+            raise ValueError("Queries and shots per query must be positive")
+        pair = (queries, shots)
+        if pair not in output:
+            output.append(pair)
+    return output
+
+
+def merge_counts(replicates: Sequence[Sequence[Mapping[Any, int]]]) -> List[Dict[Any, int]]:
+    if not replicates:
+        raise ValueError("No count replicates to merge")
+    width = len(replicates[0])
+    if any(len(run) != width for run in replicates):
+        raise ValueError("Repeated-query count runs have inconsistent circuit counts")
+    merged: List[Dict[Any, int]] = []
+    for circuit_index in range(width):
+        total: Dict[Any, int] = {}
+        for run in replicates:
+            for key, value in run[circuit_index].items():
+                total[key] = total.get(key, 0) + int(value)
+        merged.append(total)
+    return merged
 
 
 def atomic_csv(frame: pd.DataFrame, path: Path) -> None:
@@ -276,6 +312,8 @@ def summarize_metrics(raw: pd.DataFrame, bootstrap: int, seed: int) -> pd.DataFr
         "target_id",
         "mode",
         "shots",
+        "queries",
+        "total_shots",
         "metric_scope",
         "metric_name",
         "backend_name",
@@ -306,8 +344,8 @@ def summarize_metrics(raw: pd.DataFrame, bootstrap: int, seed: int) -> pd.DataFr
     return pd.DataFrame(rows)
 
 
-def condition_key(mode: str, shots: int, simulator_seed: int) -> str:
-    return f"{mode}_shots{int(shots)}_sim{int(simulator_seed)}"
+def condition_key(mode: str, shots: int, queries: int, simulator_seed: int) -> str:
+    return f"{mode}_q{int(queries)}_shots{int(shots)}_total{int(shots) * int(queries)}_sim{int(simulator_seed)}"
 
 
 def load_existing_payload(path: Path) -> torch.Tensor:
@@ -329,6 +367,12 @@ def main() -> None:
     parser.add_argument("--out-dir", type=Path, default=Path("reviewer_results/noisy_eval"))
     parser.add_argument("--modes", default="exact,ideal_shot,noisy_shot")
     parser.add_argument("--shots", default="128,512,1024")
+    parser.add_argument("--queries", default="1", help="Legacy Cartesian query-count grid.")
+    parser.add_argument(
+        "--query-shot-pairs",
+        default="",
+        help="Comma-separated QUERYxSHOTS_PER_QUERY conditions, e.g. 1x2560,20x128. Overrides --shots/--queries.",
+    )
     parser.add_argument("--simulator-seeds", default="0,1,2,3,4,5,6,7,8,9")
     parser.add_argument("--transpiler-seed", type=int, default=0)
     parser.add_argument("--optimization-level", type=int, choices=[0, 1, 2, 3], default=1)
@@ -352,9 +396,15 @@ def main() -> None:
     start_time = time.time()
     modes = parse_modes(args.modes)
     shots_grid = parse_int_list(args.shots)
+    query_grid = parse_int_list(args.queries)
+    query_shot_pairs = parse_query_shot_pairs(args.query_shot_pairs)
+    if not query_shot_pairs:
+        query_shot_pairs = [(queries, shots) for queries in query_grid for shots in shots_grid]
     simulator_seeds = parse_int_list(args.simulator_seeds)
     if any(value <= 0 for value in shots_grid):
         raise ValueError("All shot counts must be positive")
+    if any(value <= 0 for value in query_grid):
+        raise ValueError("All query counts must be positive")
     if not simulator_seeds and any(mode.endswith("shot") for mode in modes):
         raise ValueError("At least one simulator seed is required for finite-shot modes")
     if args.require_noise and "noisy_shot" not in modes:
@@ -435,6 +485,8 @@ def main() -> None:
                     "target_id": args.target_id,
                     "mode": "exact",
                     "shots": 0,
+                    "queries": 0,
+                    "total_shots": 0,
                     "simulator_seed": -1,
                 },
                 metadata={"quantum_execution_scope": "exact_full_model"},
@@ -445,6 +497,8 @@ def main() -> None:
                 "target_id": args.target_id,
                 "mode": "exact",
                 "shots": 0,
+                "queries": 0,
+                "total_shots": 0,
                 "simulator_seed": -1,
                 "transpiler_seed": int(args.transpiler_seed),
                 "backend_name": "none",
@@ -507,6 +561,7 @@ def main() -> None:
             )
             raise
         atomic_json(asdict(backend_context.metadata), target_out / "backend_noise_metadata.json")
+        write_backend_snapshot(backend_context, target_out / "backend_snapshot")
 
         try:
             circuits, quantum_scope = build_qiskit_circuits(
@@ -573,14 +628,16 @@ def main() -> None:
                 continue
 
             noise_model = backend_context.noise_model if mode == "noisy_shot" else None
-            for shots in shots_grid:
+            for queries, shots in query_shot_pairs:
                 for simulator_seed in simulator_seeds:
-                    key = condition_key(mode, shots, simulator_seed)
+                    key = condition_key(mode, shots, queries, simulator_seed)
                     payload_path = payload_dir / f"{key}.pt"
                     base = {
                         "target_id": args.target_id,
                         "mode": mode,
                         "shots": int(shots),
+                        "queries": int(queries),
+                        "total_shots": int(shots * queries),
                         "simulator_seed": int(simulator_seed),
                         "transpiler_seed": int(args.transpiler_seed),
                         "backend_name": backend_context.metadata.resolved_backend_name or args.backend_name,
@@ -593,12 +650,16 @@ def main() -> None:
                             probabilities = load_existing_payload(payload_path)
                             status = "resumed"
                         else:
-                            counts = run_aer_counts(
-                                transpiled,
-                                shots=shots,
-                                seed_simulator=simulator_seed,
-                                noise_model=noise_model,
-                            )
+                            count_runs = [
+                                run_aer_counts(
+                                    transpiled,
+                                    shots=shots,
+                                    seed_simulator=(int(simulator_seed) * 1_000_003 + query_index),
+                                    noise_model=noise_model,
+                                )
+                                for query_index in range(int(queries))
+                            ]
+                            counts = merge_counts(count_runs)
                             expectations = np.stack(
                                 [counts_to_z_expectations(item, int(cfg.n_wires)) for item in counts],
                                 axis=0,
@@ -684,6 +745,11 @@ def main() -> None:
         "attack_payload_verification": verification,
         "modes": modes,
         "shots": shots_grid,
+        "queries": query_grid,
+        "query_shot_pairs": [
+            {"queries": queries, "shots_per_query": shots, "total_shots": queries * shots}
+            for queries, shots in query_shot_pairs
+        ],
         "simulator_seeds": simulator_seeds,
         "transpiler_seed": int(args.transpiler_seed),
         "optimization_level": int(args.optimization_level),
@@ -692,6 +758,7 @@ def main() -> None:
         "n_nonmember": int((samples.membership == 0).sum().item()),
         "membership_convention": "1=member,0=nonmember",
         "backend": asdict(backend_context.metadata) if backend_context is not None else None,
+        "backend_snapshot_dir": str((target_out / "backend_snapshot").resolve()) if backend_context is not None else None,
         "quantum_execution_scope": quantum_scope,
         "architecture_scope_note": (
             "For QCNN, the quanvolutional front-end remains exact TorchQuantum and backend noise is applied "

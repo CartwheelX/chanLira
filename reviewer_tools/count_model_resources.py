@@ -170,8 +170,12 @@ def payload_resource_counts(payload: Mapping[str, Any]) -> dict[str, Any] | None
 
 def feature_dimension(row: Mapping[str, Any]) -> int:
     dataset = clean_text(row.get("dataset"), "mnist").lower()
-    if dataset in {"mnist", "cifar10"}:
+    if dataset in {"mnist", "fashion_mnist", "cifar10"}:
         return 16
+    if dataset == "credit_default":
+        return int(row.get("credit_pca_components", row.get("n_wires", 6)))
+    if dataset == "breast_cancer_wdbc":
+        return int(row.get("wdbc_pca_components", row.get("n_wires", 6)))
     if dataset == "blobs":
         return int(row.get("blobs_n_features", 4))
     if dataset == "moons" and bool(row.get("extra_feats", False)):
@@ -211,7 +215,7 @@ def build_model_from_target(qmain: Any, row: Mapping[str, Any]):
         raise ValueError(f"Unsupported feature map: {feature_map}")
 
     dataset = clean_text(row.get("dataset"), "mnist").lower()
-    number_classes = 4 if dataset == "mnist" else 2
+    number_classes = 4 if dataset in {"mnist", "fashion_mnist"} else 2
     config = qmain.QFCConfig(
         n_wires=int(row.get("n_wires", 4)),
         depth=int(row.get("depth", 2)),
@@ -219,7 +223,7 @@ def build_model_from_target(qmain: Any, row: Mapping[str, Any]):
         batch_size=int(row.get("batch_size", 16)),
         device="cpu",
         feature_dim=feature_dimension(row),
-        pool_hw=4 if dataset in {"mnist", "cifar10"} else 1,
+        pool_hw=4 if dataset in {"mnist", "fashion_mnist", "cifar10"} else 1,
         num_classes=number_classes,
         qlayer_ent_kind=clean_text(row.get("ql_ent"), "linear"),
         qlayer_twoq_op=clean_text(row.get("ql_op"), "crz"),

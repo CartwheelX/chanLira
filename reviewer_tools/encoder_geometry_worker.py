@@ -75,22 +75,81 @@ def build_dataset(
     n_train: int,
     n_test: int,
     data_seed: int,
+    repo_root: Path = Path("."),
 ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, int, int]:
     dataset_name = str(row["dataset"]).strip().lower()
     seed_everything(data_seed)
 
     if dataset_name == "mnist":
-        dataset = qmain.MNIST(
-            root="./data",
-            train_valid_split_ratio=[0.9, 0.1],
-            digits_of_interest=[0, 1, 3, 8],
-            n_train_samples=n_train,
-            n_valid_samples=max(40, n_test // 2),
-            n_test_samples=n_test,
-            same_n_samples_each_class=True,
+        import inspect
+
+        mnist_kwargs = {
+            "root": "./data",
+            "train_valid_split_ratio": [0.9, 0.1],
+            "digits_of_interest": [0, 1, 3, 8],
+            "n_train_samples": n_train,
+            "n_valid_samples": max(40, n_test // 2),
+            "n_test_samples": n_test,
+        }
+        signature = inspect.signature(qmain.MNIST)
+        if "same_n_samples_each_class" in signature.parameters or any(
+            parameter.kind == inspect.Parameter.VAR_KEYWORD
+            for parameter in signature.parameters.values()
+        ):
+            mnist_kwargs["same_n_samples_each_class"] = True
+        dataset = qmain.MNIST(**mnist_kwargs)
+        feature_dim = 16
+        pool_hw = 4
+    elif dataset_name == "fashion_mnist":
+        from qurift.satml_fashion import build_fashion_mnist
+
+        dataset, _ = build_fashion_mnist(
+            qmain.MNIST,
+            root=repo_root / "data",
+            n_train=n_train,
+            n_valid=max(40, n_test // 2),
+            n_test=n_test,
+            data_seed=data_seed,
         )
         feature_dim = 16
         pool_hw = 4
+    elif dataset_name == "credit_default":
+        from qurift.satml_data import prepare_credit_default
+
+        prepared = prepare_credit_default(
+            Path(str(row.get("credit_data_path", "data/credit_default/credit_default.csv.gz"))),
+            n_train=int(row.get("vector_train", 200)),
+            n_valid=int(row.get("vector_valid", 200)),
+            n_test=int(row.get("vector_test", 2000)),
+            data_seed=data_seed,
+            n_components=int(row.get("credit_pca_components", row.get("n_wires", 6))),
+        )
+        dataset = {
+            split: qmain.VectorDataset(prepared.features[split], prepared.labels[split])
+            for split in ("train", "valid", "test")
+        }
+        feature_dim = int(row.get("credit_pca_components", row.get("n_wires", 6)))
+        pool_hw = 1
+    elif dataset_name == "breast_cancer_wdbc":
+        from qurift.satml_wdbc import prepare_wdbc
+
+        data_path = Path(str(row.get("wdbc_data_path", "data/wdbc/wdbc.csv.gz")))
+        if not data_path.is_absolute():
+            data_path = repo_root / data_path
+        prepared = prepare_wdbc(
+            data_path,
+            n_train=int(row.get("vector_train", 160)),
+            n_valid=int(row.get("vector_valid", 80)),
+            n_test=int(row.get("vector_test", 329)),
+            data_seed=data_seed,
+            n_components=int(row.get("wdbc_pca_components", row.get("n_wires", 6))),
+        )
+        dataset = {
+            split: qmain.VectorDataset(prepared.features[split], prepared.labels[split])
+            for split in ("train", "valid", "test")
+        }
+        feature_dim = int(row.get("wdbc_pca_components", row.get("n_wires", 6)))
+        pool_hw = 1
     else:
         kwargs: dict[str, Any] = {
             "kind": dataset_name,
@@ -115,6 +174,8 @@ def build_dataset(
 
     train_x, train_y = collect_split(dataset, "train")
     test_x, test_y = collect_split(dataset, "test")
+    train_x, train_y = train_x[:n_train], train_y[:n_train]
+    test_x, test_y = test_x[:n_test], test_y[:n_test]
     return train_x, train_y, test_x, test_y, feature_dim, pool_hw
 
 
@@ -143,14 +204,16 @@ def build_config(
     pad_mode = clean_text(row.get("pad_mode"), "wrap")
     fm_entanglement = clean_text(row.get("fm_ent"), "linear")
     fm_operation = clean_text(row.get("fm_op"), "cx")
+    angle_scale = float(row.get("feature_angle_scale", 1.0))
 
     if feature_map == "z":
-        mapper.update(fm_z_reps=repetitions, fm_z_pad_mode=pad_mode)
+        mapper.update(fm_z_reps=repetitions, fm_z_pad_mode=pad_mode, fm_z_alpha=angle_scale)
     elif feature_map == "zz":
         mapper.update(
             fm_zz_reps=repetitions,
             fm_zz_pad_mode=pad_mode,
             fm_zz_entanglement=fm_entanglement,
+            fm_zz_alpha=angle_scale,
         )
     elif feature_map == "eff_su2":
         mapper.update(
@@ -158,6 +221,7 @@ def build_config(
             fm_eff_pad_mod=pad_mode,
             fm_eff_ent_kind=fm_entanglement,
             fm_eff_twoq_op=fm_operation,
+            fm_eff_alpha=angle_scale,
         )
     else:
         raise ValueError(f"Unsupported feature map for geometry: {feature_map}")
@@ -246,6 +310,7 @@ def main() -> None:
         args.n_train,
         args.n_test,
         data_seed,
+        args.repo_root.resolve(),
     )
     num_classes = int(torch.cat([train_y, test_y]).max().item()) + 1
     config = build_config(

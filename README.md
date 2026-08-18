@@ -3,6 +3,13 @@
   <img src="qurift_logo_1.png" alt="QuRiFT logo" width="420"/>
 </p>
 
+> **SaTML development branch.** This repository now contains the frozen
+> cross-domain, low-FPR, geometry, noise-budget, and fresh privacy-selector
+> study. Start with [the SaTML protocol](docs/SATML_PROTOCOL.md) and
+> [the executable runbook](docs/SATML_RUNBOOK.md). The completed NeurIPS
+> rebuttal outputs remain as legacy evidence and are not silently mixed with
+> new SaTML results; new outputs use the `satml_*` directories.
+
 **QuRiFT** (**Quantum Risk and Inference Fault-line Tracer**) is a controlled audit framework for studying **structural privacy leakage in quantum machine learning (QML)**.
 
 QuRiFT is designed to answer a specific question: **how much of membership-inference risk in QML is induced by circuit structure, especially the non-trainable classical-to-quantum encoder?**
@@ -22,6 +29,13 @@ QuRiFT provides an end-to-end experimental pipeline for:
 - selecting stress, baseline, and hard target configurations,
 - training black-box membership-inference attacks,
 - generating CSV summaries for paper tables and analysis.
+
+The frozen SaTML extension adds paired cross-domain studies on Credit-default,
+Fashion-MNIST, and Breast Cancer Wisconsin Diagnostic (WDBC), with
+training-only tabular preprocessing, seeded image partitions, direct
+post-encoder geometry, dataset-specific low-FPR reporting, and generated
+Markdown/LaTeX tables plus publication figures. Exact commands and monitoring
+instructions are maintained in [docs/SATML_RUNBOOK.md](docs/SATML_RUNBOOK.md).
 
 The framework is intended for controlled privacy auditing, not for claiming hardware-level leakage. The original sweep uses noiseless simulation to isolate representation effects. The NeurIPS rebuttal additionally includes a targeted finite-shot check using local Aer simulation with an IBM-backend-derived noise model; it is not execution on quantum hardware.
 
@@ -64,9 +78,10 @@ QuRiFT/
 │       ├── run_selected_configs_for_mia.py
 │       ├── train_mia_attack.py
 │       └── run_train_mia_attack_cvholdout_multigpu.py
-├── data/
-│   └── MNIST/raw/
-├── commands/                       # Rebuttal workflow wrappers
+├── data/                           # Downloaded datasets (ignored; checksums are validated)
+├── satml_targets/                  # Frozen Credit, Fashion-MNIST, and WDBC manifests
+├── satml_tools/                    # Acquisition, validation, inference, and artifact tools
+├── commands/                       # SaTML and retained rebuttal workflow wrappers
 ├── reviewer_targets/               # Prespecified confirmatory target tables
 ├── reviewer_tools/                 # Training, attack, geometry, noise, and analysis tools
 ├── reviewer_runs/                  # Exported target runs and attack payloads
@@ -103,8 +118,8 @@ Most sweep scripts in `experiments/` are wrappers around `experiments/qurift_mai
 Clone the repository and install it in editable mode:
 
 ```bash
-git clone https://github.com/CartwheelX/QuRiFT.git
-cd QuRiFT
+git clone https://github.com/CartwheelX/qurift_satML.git
+cd qurift_satML
 pip install --editable .
 ```
 

@@ -11,6 +11,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import hashlib
+import inspect
 import importlib.util
 import json
 import math
@@ -130,16 +131,72 @@ def build_dataset(qmain: Any, row: Mapping[str, Any], repo_root: Path):
     n_test = int_value(row, "vector_test", 200)
 
     if dataset_name == "mnist":
-        dataset = qmain.MNIST(
-            root=str(repo_root / "data"),
-            train_valid_split_ratio=[0.9, 0.1],
-            digits_of_interest=[0, 1, 3, 8],
-            n_test_samples=n_test,
-            n_valid_samples=n_valid,
-            n_train_samples=n_train,
-            same_n_samples_each_class=True,
+        mnist_kwargs = {
+            "root": str(repo_root / "data"),
+            "train_valid_split_ratio": [0.9, 0.1],
+            "digits_of_interest": [0, 1, 3, 8],
+            "n_test_samples": n_test,
+            "n_valid_samples": n_valid,
+            "n_train_samples": n_train,
+        }
+        signature = inspect.signature(qmain.MNIST)
+        if "same_n_samples_each_class" in signature.parameters or any(
+            parameter.kind == inspect.Parameter.VAR_KEYWORD
+            for parameter in signature.parameters.values()
+        ):
+            mnist_kwargs["same_n_samples_each_class"] = True
+        dataset = qmain.MNIST(**mnist_kwargs)
+        feature_dim = int_value(row, "pool_hw", 4) ** 2
+    elif dataset_name == "fashion_mnist":
+        from qurift.satml_fashion import build_fashion_mnist
+
+        dataset, _ = build_fashion_mnist(
+            qmain.MNIST,
+            root=repo_root / "data",
+            n_train=n_train,
+            n_valid=n_valid,
+            n_test=n_test,
+            data_seed=data_seed,
         )
         feature_dim = int_value(row, "pool_hw", 4) ** 2
+    elif dataset_name == "credit_default":
+        from qurift.satml_data import prepare_credit_default
+
+        data_path = Path(clean_text(row.get("credit_data_path"), "data/credit_default/credit_default.csv.gz"))
+        if not data_path.is_absolute():
+            data_path = repo_root / data_path
+        prepared = prepare_credit_default(
+            data_path,
+            n_train=n_train,
+            n_valid=n_valid,
+            n_test=n_test,
+            data_seed=data_seed,
+            n_components=int_value(row, "credit_pca_components", int_value(row, "n_wires", 6)),
+        )
+        dataset = {
+            split: qmain.VectorDataset(prepared.features[split], prepared.labels[split])
+            for split in ("train", "valid", "test")
+        }
+        feature_dim = int_value(row, "credit_pca_components", int_value(row, "n_wires", 6))
+    elif dataset_name == "breast_cancer_wdbc":
+        from qurift.satml_wdbc import prepare_wdbc
+
+        data_path = Path(clean_text(row.get("wdbc_data_path"), "data/wdbc/wdbc.csv.gz"))
+        if not data_path.is_absolute():
+            data_path = repo_root / data_path
+        prepared = prepare_wdbc(
+            data_path,
+            n_train=n_train,
+            n_valid=n_valid,
+            n_test=n_test,
+            data_seed=data_seed,
+            n_components=int_value(row, "wdbc_pca_components", int_value(row, "n_wires", 6)),
+        )
+        dataset = {
+            split: qmain.VectorDataset(prepared.features[split], prepared.labels[split])
+            for split in ("train", "valid", "test")
+        }
+        feature_dim = int_value(row, "wdbc_pca_components", int_value(row, "n_wires", 6))
     elif dataset_name in {"moons", "circles", "blobs"}:
         kwargs = dict(
             kind=dataset_name,
@@ -170,7 +227,8 @@ def build_dataset(qmain: Any, row: Mapping[str, Any], repo_root: Path):
         feature_dim = int(dataset["train"].feature_dim)
     else:
         raise NotImplementedError(
-            f"Checkpoint 4 evaluator supports MNIST, Moons, Circles and Blobs; got {dataset_name!r}"
+            "Target loader supports MNIST, Fashion-MNIST, Credit-default, WDBC, "
+            f"Moons, Circles and Blobs; got {dataset_name!r}"
         )
     return {split: dataset[split] for split in dataset}, feature_dim
 
@@ -181,13 +239,14 @@ def build_config(qmain: Any, row: Mapping[str, Any], feature_dim: int, device: t
     pad = clean_text(row.get("pad_mode"), "wrap").lower()
     fm_ent = clean_text(row.get("fm_ent"), "linear").lower()
     fm_op = clean_text(row.get("fm_op"), "cx").lower()
+    angle_scale = numeric_value(row, "feature_angle_scale", 1.0)
     mapper: Dict[str, Any] = {"fm_kind": fm}
     if fm == "z":
-        mapper.update(fm_z_reps=reps, fm_z_alpha=1.0, fm_z_pad_mode=pad)
+        mapper.update(fm_z_reps=reps, fm_z_alpha=angle_scale, fm_z_pad_mode=pad)
     elif fm == "zz":
         mapper.update(
             fm_zz_reps=reps,
-            fm_zz_alpha=1.0,
+            fm_zz_alpha=angle_scale,
             fm_zz_entanglement=fm_ent or "linear",
             fm_zz_phi="pi_minus",
             fm_zz_pad_mode=pad,
@@ -199,7 +258,7 @@ def build_config(qmain: Any, row: Mapping[str, Any], feature_dim: int, device: t
             )
         mapper.update(
             fm_eff_reps=reps,
-            fm_eff_alpha=1.0,
+            fm_eff_alpha=angle_scale,
             fm_eff_ent_kind=fm_ent or "linear",
             fm_eff_twoq_op=fm_op or "cx",
             fm_eff_pad_mod=pad,
@@ -207,7 +266,7 @@ def build_config(qmain: Any, row: Mapping[str, Any], feature_dim: int, device: t
     elif fm == "pauli":
         mapper.update(
             fm_pauli_reps=reps,
-            fm_pauli_alpha=1.0,
+            fm_pauli_alpha=angle_scale,
             fm_pauli_entanglement=fm_ent or "linear",
             fm_pauli_terms=("Z", "ZZ"),
             fm_pali_pad=pad,
@@ -216,7 +275,7 @@ def build_config(qmain: Any, row: Mapping[str, Any], feature_dim: int, device: t
         raise NotImplementedError(f"Unsupported feature map: {fm}")
 
     dataset_name = clean_text(row.get("dataset")).lower()
-    num_classes = 4 if dataset_name == "mnist" else 2
+    num_classes = 4 if dataset_name in {"mnist", "fashion_mnist"} else 2
     cfg = qmain.QFCConfig(
         n_wires=int_value(row, "n_wires", 4),
         depth=int_value(row, "depth", 2),
@@ -230,7 +289,7 @@ def build_config(qmain: Any, row: Mapping[str, Any], feature_dim: int, device: t
         qlayer_ent_wire_reverse=bool_value(row.get("ql_rev", False)),
         pool_pairs=False,
         pair_topology="ring",
-        pool_hw=4 if dataset_name == "mnist" else 1,
+        pool_hw=4 if dataset_name in {"mnist", "fashion_mnist"} else 1,
         feature_dim=int(feature_dim),
         measure_ops=None,
         **mapper,

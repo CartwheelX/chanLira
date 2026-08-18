@@ -389,6 +389,54 @@ def stratified_bootstrap_auc(
     )
 
 
+def stratified_bootstrap_tpr_at_fpr(
+    y: np.ndarray,
+    score: np.ndarray,
+    requested_fpr: float,
+    n_boot: int,
+    seed: int,
+    chunk_size: int = 1024,
+) -> Tuple[float, float, int]:
+    """Efficient exact stratified bootstrap for empirical TPR at bounded FPR.
+
+    Multinomial score-bin counts are equivalent to resampling records with
+    replacement. Tied scores remain in one bin, matching ROC threshold
+    semantics rather than splitting ties to hit an artificial exact FPR.
+    """
+    y = np.asarray(y, dtype=int).reshape(-1)
+    score = np.asarray(score, dtype=float).reshape(-1)
+    if len(y) != len(score):
+        raise ValueError("membership and score lengths differ")
+    if not 0.0 <= requested_fpr <= 1.0:
+        raise ValueError("requested_fpr must be in [0, 1]")
+    members = score[y == 1]
+    nonmembers = score[y == 0]
+    if not len(members) or not len(nonmembers) or n_boot <= 0:
+        return float("nan"), float("nan"), 0
+    score_values = np.unique(np.concatenate((members, nonmembers)))
+    member_frequency = np.bincount(
+        np.searchsorted(score_values, members), minlength=len(score_values)
+    )
+    nonmember_frequency = np.bincount(
+        np.searchsorted(score_values, nonmembers), minlength=len(score_values)
+    )
+    member_probability = member_frequency / float(len(members))
+    nonmember_probability = nonmember_frequency / float(len(nonmembers))
+    rng = np.random.default_rng(seed)
+    output = np.empty(n_boot, dtype=float)
+    for start in range(0, n_boot, chunk_size):
+        stop = min(start + chunk_size, n_boot)
+        size = stop - start
+        sampled_members = rng.multinomial(len(members), member_probability, size=size)
+        sampled_nonmembers = rng.multinomial(len(nonmembers), nonmember_probability, size=size)
+        true_positive = np.cumsum(sampled_members[:, ::-1], axis=1)
+        false_positive = np.cumsum(sampled_nonmembers[:, ::-1], axis=1)
+        eligible = false_positive <= requested_fpr * len(nonmembers) + 1e-12
+        eligible_tpr = np.where(eligible, true_positive / float(len(members)), 0.0)
+        output[start:stop] = eligible_tpr.max(axis=1)
+    return float(np.quantile(output, 0.025)), float(np.quantile(output, 0.975)), n_boot
+
+
 def tpr_at_resolvable_fpr(
     y: np.ndarray, score: np.ndarray, requested_fpr: float
 ) -> Tuple[float, float]:
