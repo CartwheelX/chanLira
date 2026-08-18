@@ -147,6 +147,11 @@ def main() -> None:
         "--out-dir", type=Path, default=Path("reviewer_results/lira_reference_mia")
     )
     parser.add_argument("--num-references", type=int, default=16)
+    parser.add_argument(
+        "--save-reference-checkpoints",
+        action="store_true",
+        help="Retain reference weights so the same banks can be evaluated under noise.",
+    )
     parser.add_argument("--epochs", type=int, default=None)
     parser.add_argument("--bootstrap", type=int, default=5000)
     parser.add_argument("--seed", type=int, default=2026)
@@ -231,6 +236,8 @@ def main() -> None:
                 ]
                 if args.epochs is not None:
                     command.extend(["--epochs", str(args.epochs)])
+                if args.save_reference_checkpoints:
+                    command.append("--save-checkpoint")
                 if args.resume:
                     command.append("--resume")
                 train_tasks.append(

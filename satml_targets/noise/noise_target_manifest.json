@@ -1,0 +1,42 @@
+{
+  "factors": {
+    "depths": [
+      2,
+      6
+    ],
+    "feature_maps": [
+      "eff_su2",
+      "z",
+      "zz"
+    ],
+    "model_seeds": [
+      43,
+      44,
+      45
+    ],
+    "repetitions": [
+      1,
+      5
+    ]
+  },
+  "note": "N1 is the primary 36-checkpoint structural factorial. N2 and N3 are targeted robustness studies and are not additional model-seed replication.",
+  "outputs": {
+    "n1": {
+      "path": "satml_targets/noise/mnist_noise_n1_structural_targets.csv",
+      "targets": 36
+    },
+    "n2": {
+      "path": "satml_targets/noise/mnist_noise_n2_query_targets.csv",
+      "targets": 6
+    },
+    "n3": {
+      "path": "satml_targets/noise/mnist_noise_n3_lira_targets.csv",
+      "targets": 6
+    },
+    "n3_label": {
+      "path": "satml_targets/noise/mnist_noise_n3_label_targets.csv",
+      "targets": 2
+    }
+  },
+  "source": "reviewer_targets/multiseed_factorial_targets.csv"
+}

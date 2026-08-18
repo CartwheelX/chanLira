@@ -6,10 +6,19 @@ from pathlib import Path
 from types import SimpleNamespace
 
 import pandas as pd
+import torch
 
-from reviewer_tools.qurift_noisy_eval import merge_counts, parse_query_shot_pairs
+from reviewer_tools.qurift_noisy_eval import (
+    evaluate_query_count_runs,
+    merge_counts,
+    parse_query_shot_pairs,
+)
 from reviewer_tools.reviewer_common import stratified_bootstrap_tpr_at_fpr
-from reviewer_tools.qurift_qiskit_bridge import BackendNoiseMetadata, write_backend_snapshot
+from reviewer_tools.qurift_qiskit_bridge import (
+    BackendNoiseMetadata,
+    load_backend_noise_snapshot,
+    write_backend_snapshot,
+)
 from satml_tools.analyze_noise_budget import analyze_noise, analyze_utility
 
 
@@ -19,9 +28,28 @@ class NoiseBudgetTests(unittest.TestCase):
         self.assertEqual(pairs, [(1, 2560), (20, 128)])
         self.assertEqual({queries * shots for queries, shots in pairs}, {2560})
 
-    def test_repeated_query_counts_are_aggregated_per_circuit(self) -> None:
+    def test_pooled_count_diagnostic_is_aggregated_per_circuit(self) -> None:
         merged = merge_counts([[{"0": 3, "1": 1}], [{"0": 2, "1": 2}]])
         self.assertEqual(merged, [{"0": 5, "1": 3}])
+
+    def test_api_queries_pass_through_nonlinear_head_before_averaging(self) -> None:
+        class Model(torch.nn.Module):
+            def __init__(self) -> None:
+                super().__init__()
+                self.linear = torch.nn.Linear(1, 2, bias=False)
+                with torch.no_grad():
+                    self.linear.weight.copy_(torch.tensor([[2.0], [0.0]]))
+
+        expectations, query_pv, mean_pv, pooled_pv = evaluate_query_count_runs(
+            Model(),
+            [[{"0": 10}], [{"0": 5, "1": 5}]],
+            n_wires=1,
+            device=torch.device("cpu"),
+        )
+        self.assertEqual(tuple(expectations.shape), (2, 1, 1))
+        self.assertEqual(tuple(query_pv.shape), (2, 1, 2))
+        torch.testing.assert_close(mean_pv, query_pv.mean(dim=0))
+        self.assertFalse(torch.allclose(mean_pv, pooled_pv))
 
     def test_low_fpr_bootstrap_respects_bounds(self) -> None:
         y = [1] * 20 + [0] * 200
@@ -62,6 +90,42 @@ class NoiseBudgetTests(unittest.TestCase):
             combined = "".join(path.read_text() for path in Path(directory).glob("*.json"))
         self.assertNotIn("token", combined.lower())
         self.assertIn("credentials_recorded", combined)
+
+    def test_frozen_snapshot_round_trip_and_hash_guard(self) -> None:
+        try:
+            from qiskit_aer.noise import NoiseModel
+        except ImportError:
+            self.skipTest("qiskit-aer is unavailable")
+
+        class Backend:
+            def properties(self):
+                return None
+
+            def configuration(self):
+                return None
+
+        metadata = BackendNoiseMetadata(
+            requested_backend_name="fake", requested_noise_backend_name="fake",
+            resolved_backend_name="fake", resolved_noise_backend_name="fake",
+            authentication_mode="environment_credentials", noise_model_loaded=True,
+            noise_load_error=None, gate_error_enabled=True, readout_error_enabled=True,
+            thermal_relaxation_enabled=True, calibration_timestamp="2026-01-01T00:00:00Z",
+            basis_gates=["x"], noise_basis_gates=[], coupling_map=[], backend_num_qubits=1,
+            noise_instructions=[], noise_qubits=[], backend_mismatch=False,
+        )
+        context = SimpleNamespace(
+            metadata=metadata, backend=Backend(), noise_backend=None, noise_model=NoiseModel()
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            write_backend_snapshot(context, root)
+            loaded = load_backend_noise_snapshot(root, require_noise=True)
+            self.assertEqual(loaded.metadata.authentication_mode, "frozen_local_snapshot")
+            self.assertIsNotNone(loaded.noise_model)
+            metadata_path = root / "metadata.json"
+            metadata_path.write_text(metadata_path.read_text() + "\n", encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "hash mismatch"):
+                load_backend_noise_snapshot(root, require_noise=True)
 
     def test_noise_analysis_does_not_pool_calibration_profiles(self) -> None:
         rows = []

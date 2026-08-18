@@ -40,6 +40,7 @@ from qurift_qiskit_bridge import (  # noqa: E402
     circuit_resource_counts,
     counts_to_z_expectations,
     load_backend_noise_context,
+    load_backend_noise_snapshot,
     run_aer_counts,
     transpile_for_backend,
     write_backend_snapshot,
@@ -63,6 +64,9 @@ from qurift_target_loader import (  # noqa: E402
 
 CI_SIMULATOR = "95% paired/percentile bootstrap over finite-shot simulator seeds"
 CI_NONE = "not applicable: deterministic exact evaluation or one simulator seed"
+PAYLOAD_SCHEMA_VERSION = 2
+API_AGGREGATION = "mean_api_probabilities"
+POOLED_COUNT_AGGREGATION = "pooled_counts_before_head"
 
 
 def parse_int_list(text: str) -> List[int]:
@@ -120,6 +124,59 @@ def merge_counts(replicates: Sequence[Sequence[Mapping[Any, int]]]) -> List[Dict
                 total[key] = total.get(key, 0) + int(value)
         merged.append(total)
     return merged
+
+
+def evaluate_query_count_runs(
+    model: torch.nn.Module,
+    count_runs: Sequence[Sequence[Mapping[Any, int]]],
+    *,
+    n_wires: int,
+    device: torch.device,
+) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+    """Apply the post-measurement API separately to every count run.
+
+    Returns ``(query_expectations, query_probabilities, mean_probabilities,
+    pooled_count_probabilities)``.  The first two tensors retain a leading
+    query axis.  The pooled-count output is a diagnostic for a count-returning
+    interface; it is never substituted for the attacker-facing mean API
+    response.
+    """
+    if not count_runs:
+        raise ValueError("At least one query count run is required")
+    query_expectations: List[torch.Tensor] = []
+    query_probabilities: List[torch.Tensor] = []
+    with torch.no_grad():
+        for run in count_runs:
+            expectations = np.stack(
+                [counts_to_z_expectations(item, int(n_wires)) for item in run],
+                axis=0,
+            )
+            measured = torch.tensor(expectations, dtype=torch.float32, device=device)
+            probabilities = apply_classical_head(model, measured).detach().cpu()
+            query_expectations.append(measured.detach().cpu())
+            query_probabilities.append(probabilities)
+
+        pooled_counts = merge_counts(count_runs)
+        pooled_expectations = np.stack(
+            [counts_to_z_expectations(item, int(n_wires)) for item in pooled_counts],
+            axis=0,
+        )
+        pooled_measured = torch.tensor(
+            pooled_expectations, dtype=torch.float32, device=device
+        )
+        pooled_probabilities = apply_classical_head(
+            model, pooled_measured
+        ).detach().cpu()
+
+    expectation_tensor = torch.stack(query_expectations, dim=0)
+    probability_tensor = torch.stack(query_probabilities, dim=0)
+    mean_probabilities = probability_tensor.mean(dim=0)
+    return (
+        expectation_tensor,
+        probability_tensor,
+        mean_probabilities,
+        pooled_probabilities,
+    )
 
 
 def atomic_csv(frame: pd.DataFrame, path: Path) -> None:
@@ -270,16 +327,34 @@ def save_condition_payload(
     samples: Any,
     base: Mapping[str, Any],
     metadata: Mapping[str, Any],
+    query_expectations: Optional[torch.Tensor] = None,
+    query_probabilities: Optional[torch.Tensor] = None,
+    pooled_count_probabilities: Optional[torch.Tensor] = None,
 ) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     stats = probability_statistics(probabilities, samples.labels)
+    features = torch.cat(
+        [
+            probabilities.cpu().float(),
+            stats["loss"].reshape(-1, 1),
+            stats["entropy"].reshape(-1, 1),
+            stats["confidence"].reshape(-1, 1),
+            stats["margin"].reshape(-1, 1),
+            stats["correctness"].reshape(-1, 1),
+        ],
+        dim=1,
+    )
     payload = {
+        "payload_schema_version": PAYLOAD_SCHEMA_VERSION,
+        "X": features.cpu().float(),
         "pv": probabilities.cpu().float(),
+        "pv_dim": int(probabilities.shape[1]),
         "y_true": samples.labels.cpu().long(),
         "y_pred": stats["prediction"].cpu().long(),
         "correct": stats["correctness"].cpu().long(),
         "membership": samples.membership.cpu().long(),
         "split": samples.split_codes.cpu().long(),
+        "sample_ids": list(samples.sample_ids),
         "stats": {
             "loss": stats["loss"].cpu().float(),
             "entropy": stats["entropy"].cpu().float(),
@@ -290,8 +365,16 @@ def save_condition_payload(
             **dict(base),
             **dict(metadata),
             "membership_convention": "1=member",
+            "api_aggregation": str(base.get("aggregation", API_AGGREGATION)),
+            "query_axis_retained": query_probabilities is not None,
         },
     }
+    if query_expectations is not None:
+        payload["query_expectations"] = query_expectations.cpu().float()
+    if query_probabilities is not None:
+        payload["query_pv"] = query_probabilities.cpu().float()
+    if pooled_count_probabilities is not None:
+        payload["pooled_count_pv"] = pooled_count_probabilities.cpu().float()
     torch.save(payload, path)
 
 
@@ -310,10 +393,19 @@ def simulator_seed_bootstrap(values: np.ndarray, n_boot: int, seed: int) -> Tupl
 def summarize_metrics(raw: pd.DataFrame, bootstrap: int, seed: int) -> pd.DataFrame:
     group_columns = [
         "target_id",
+        "structural_cell_id",
+        "fm_kind",
+        "reps",
+        "depth",
+        "model_seed",
+        "data_seed",
         "mode",
         "shots",
         "queries",
         "total_shots",
+        "aggregation",
+        "calibration_timestamp",
+        "snapshot_manifest_sha256",
         "metric_scope",
         "metric_name",
         "backend_name",
@@ -348,12 +440,40 @@ def condition_key(mode: str, shots: int, queries: int, simulator_seed: int) -> s
     return f"{mode}_q{int(queries)}_shots{int(shots)}_total{int(shots) * int(queries)}_sim{int(simulator_seed)}"
 
 
-def load_existing_payload(path: Path) -> torch.Tensor:
-    payload = torch.load(path, map_location="cpu")
+def load_existing_payload(path: Path) -> Dict[str, Any]:
+    try:
+        payload = torch.load(path, map_location="cpu", weights_only=False)
+    except TypeError:
+        payload = torch.load(path, map_location="cpu")
+    version = int(payload.get("payload_schema_version", 0))
+    if version != PAYLOAD_SCHEMA_VERSION:
+        raise RuntimeError(
+            f"Cannot resume incompatible noisy payload schema {version} at {path}; "
+            "use a new output directory or remove only this incomplete condition"
+        )
     probabilities = payload.get("pv", payload.get("probabilities"))
     if probabilities is None:
         raise KeyError(f"Existing payload has no probability vectors: {path}")
-    return torch.as_tensor(probabilities).float().cpu()
+    payload["pv"] = torch.as_tensor(probabilities).float().cpu()
+    return payload
+
+
+def structural_base(row: Mapping[str, Any]) -> Dict[str, Any]:
+    def integer(name: str, fallback: int = 0) -> int:
+        value = row.get(name, fallback)
+        try:
+            return int(float(value))
+        except Exception:
+            return int(fallback)
+
+    return {
+        "structural_cell_id": str(row.get("structural_cell_id", "")),
+        "fm_kind": str(row.get("fm_kind", "")),
+        "reps": integer("reps"),
+        "depth": integer("depth"),
+        "model_seed": integer("model_seed", integer("seed")),
+        "data_seed": integer("data_seed"),
+    }
 
 
 def main() -> None:
@@ -379,6 +499,15 @@ def main() -> None:
     parser.add_argument("--backend-name", default="ibm_kingston")
     parser.add_argument("--noise-backend-name", default=None)
     parser.add_argument("--ibm-account-name", default=None)
+    parser.add_argument(
+        "--backend-snapshot",
+        type=Path,
+        default=None,
+        help=(
+            "Credential-free frozen snapshot directory produced by "
+            "probe_ibm_backend_noise.py. When set, no IBM service is contacted."
+        ),
+    )
     parser.add_argument("--require-noise", action="store_true")
     parser.add_argument("--allow-backend-mismatch", action="store_true")
     parser.add_argument("--n-member", type=int, default=0, help="0 means all training/member samples")
@@ -415,6 +544,14 @@ def main() -> None:
 
     repo_root = args.repo_root.resolve()
     row = read_target_row(args.targets, args.target_id)
+    target_structure = structural_base(row)
+    snapshot_manifest_sha256 = None
+    if args.backend_snapshot is not None:
+        snapshot_manifest_path = args.backend_snapshot.resolve() / "snapshot_manifest.json"
+        if snapshot_manifest_path.is_file():
+            snapshot_manifest_sha256 = hashlib.sha256(
+                snapshot_manifest_path.read_bytes()
+            ).hexdigest()
     default_model, default_attack = resolve_target_paths(row, args.run_root)
     model_path = (args.model_path or default_model).resolve()
     attack_path = (args.attack_data_path or default_attack).resolve()
@@ -468,7 +605,12 @@ def main() -> None:
     if "exact" in modes or args.verify_attack_payload:
         exact_path = payload_dir / "exact.pt"
         if args.resume and exact_path.exists():
-            exact_probs = load_existing_payload(exact_path)
+            exact_payload = load_existing_payload(exact_path)
+            if list(exact_payload.get("sample_ids", [])) != list(samples.sample_ids):
+                raise RuntimeError(
+                    f"Exact resume sample manifest mismatch at {exact_path}"
+                )
+            exact_probs = exact_payload["pv"]
             status = "resumed"
         else:
             exact_probs = exact_probabilities(
@@ -483,11 +625,15 @@ def main() -> None:
                 samples=samples,
                 base={
                     "target_id": args.target_id,
+                    **target_structure,
                     "mode": "exact",
                     "shots": 0,
                     "queries": 0,
                     "total_shots": 0,
                     "simulator_seed": -1,
+                    "aggregation": "exact",
+                    "snapshot_manifest_sha256": snapshot_manifest_sha256,
+                    "calibration_timestamp": None,
                 },
                 metadata={"quantum_execution_scope": "exact_full_model"},
             )
@@ -495,11 +641,15 @@ def main() -> None:
         if "exact" in modes:
             base = {
                 "target_id": args.target_id,
+                **target_structure,
                 "mode": "exact",
                 "shots": 0,
                 "queries": 0,
                 "total_shots": 0,
                 "simulator_seed": -1,
+                "aggregation": "exact",
+                "snapshot_manifest_sha256": snapshot_manifest_sha256,
+                "calibration_timestamp": None,
                 "transpiler_seed": int(args.transpiler_seed),
                 "backend_name": "none",
                 "noise_model_loaded": False,
@@ -532,13 +682,19 @@ def main() -> None:
     if shot_modes:
         needs_noise = "noisy_shot" in shot_modes
         try:
-            backend_context = load_backend_noise_context(
-                args.backend_name,
-                args.noise_backend_name,
-                account_name=args.ibm_account_name,
-                require_noise=bool(args.require_noise),
-                allow_backend_mismatch=bool(args.allow_backend_mismatch),
-            )
+            if args.backend_snapshot is not None:
+                backend_context = load_backend_noise_snapshot(
+                    args.backend_snapshot,
+                    require_noise=bool(needs_noise or args.require_noise),
+                )
+            else:
+                backend_context = load_backend_noise_context(
+                    args.backend_name,
+                    args.noise_backend_name,
+                    account_name=args.ibm_account_name,
+                    require_noise=bool(args.require_noise),
+                    allow_backend_mismatch=bool(args.allow_backend_mismatch),
+                )
         except Exception as exc:
             failure = {
                 "target_id": args.target_id,
@@ -561,7 +717,8 @@ def main() -> None:
             )
             raise
         atomic_json(asdict(backend_context.metadata), target_out / "backend_noise_metadata.json")
-        write_backend_snapshot(backend_context, target_out / "backend_snapshot")
+        if args.backend_snapshot is None:
+            write_backend_snapshot(backend_context, target_out / "backend_snapshot")
 
         try:
             circuits, quantum_scope = build_qiskit_circuits(
@@ -589,6 +746,7 @@ def main() -> None:
                 transpile_rows.append(
                     {
                         "target_id": args.target_id,
+                        **target_structure,
                         "sample_id": samples.sample_ids[index],
                         "source_split": samples.split_names[index],
                         "source_index": samples.source_indices[index],
@@ -634,11 +792,15 @@ def main() -> None:
                     payload_path = payload_dir / f"{key}.pt"
                     base = {
                         "target_id": args.target_id,
+                        **target_structure,
                         "mode": mode,
                         "shots": int(shots),
                         "queries": int(queries),
                         "total_shots": int(shots * queries),
                         "simulator_seed": int(simulator_seed),
+                        "aggregation": API_AGGREGATION,
+                        "calibration_timestamp": backend_context.metadata.calibration_timestamp,
+                        "snapshot_manifest_sha256": snapshot_manifest_sha256,
                         "transpiler_seed": int(args.transpiler_seed),
                         "backend_name": backend_context.metadata.resolved_backend_name or args.backend_name,
                         "noise_model_loaded": bool(mode == "noisy_shot" and backend_context.noise_model is not None),
@@ -647,7 +809,34 @@ def main() -> None:
                     t0 = time.time()
                     try:
                         if args.resume and payload_path.exists():
-                            probabilities = load_existing_payload(payload_path)
+                            saved_payload = load_existing_payload(payload_path)
+                            saved_meta = dict(saved_payload.get("meta", {}) or {})
+                            expected_resume = {
+                                "target_id": args.target_id,
+                                "mode": mode,
+                                "queries": int(queries),
+                                "shots": int(shots),
+                                "simulator_seed": int(simulator_seed),
+                                "snapshot_manifest_sha256": snapshot_manifest_sha256,
+                                "api_aggregation": API_AGGREGATION,
+                            }
+                            mismatches = {
+                                key_: (saved_meta.get(key_), expected_)
+                                for key_, expected_ in expected_resume.items()
+                                if saved_meta.get(key_) != expected_
+                            }
+                            if mismatches:
+                                raise RuntimeError(
+                                    f"Resume metadata mismatch for {payload_path}: {mismatches}"
+                                )
+                            if list(saved_payload.get("sample_ids", [])) != list(samples.sample_ids):
+                                raise RuntimeError(
+                                    f"Resume sample manifest mismatch at {payload_path}"
+                                )
+                            probabilities = saved_payload["pv"]
+                            query_expectations = saved_payload.get("query_expectations")
+                            query_probabilities = saved_payload.get("query_pv")
+                            pooled_probabilities = saved_payload.get("pooled_count_pv")
                             status = "resumed"
                         else:
                             count_runs = [
@@ -659,14 +848,17 @@ def main() -> None:
                                 )
                                 for query_index in range(int(queries))
                             ]
-                            counts = merge_counts(count_runs)
-                            expectations = np.stack(
-                                [counts_to_z_expectations(item, int(cfg.n_wires)) for item in counts],
-                                axis=0,
+                            (
+                                query_expectations,
+                                query_probabilities,
+                                probabilities,
+                                pooled_probabilities,
+                            ) = evaluate_query_count_runs(
+                                model,
+                                count_runs,
+                                n_wires=int(cfg.n_wires),
+                                device=device,
                             )
-                            measured = torch.tensor(expectations, dtype=torch.float32, device=device)
-                            with torch.no_grad():
-                                probabilities = apply_classical_head(model, measured).detach().cpu()
                             save_condition_payload(
                                 payload_path,
                                 probabilities=probabilities,
@@ -676,7 +868,15 @@ def main() -> None:
                                     "backend_metadata": asdict(backend_context.metadata),
                                     "optimization_level": int(args.optimization_level),
                                     "calibration_timestamp": backend_context.metadata.calibration_timestamp,
+                                    "backend_snapshot_source": (
+                                        str(args.backend_snapshot.resolve())
+                                        if args.backend_snapshot is not None
+                                        else None
+                                    ),
                                 },
+                                query_expectations=query_expectations,
+                                query_probabilities=query_probabilities,
+                                pooled_count_probabilities=pooled_probabilities,
                             )
                             status = "ok"
 
@@ -697,6 +897,28 @@ def main() -> None:
                                 base,
                             )
                         )
+                        if int(queries) > 1 and pooled_probabilities is not None:
+                            pooled_base = {
+                                **base,
+                                "aggregation": POOLED_COUNT_AGGREGATION,
+                            }
+                            sample_rows.extend(
+                                sample_prediction_rows(
+                                    torch.as_tensor(pooled_probabilities).float().cpu(),
+                                    samples,
+                                    pooled_base,
+                                    circuit_metrics=circuit_metrics,
+                                )
+                            )
+                            metric_rows.extend(
+                                condition_metric_rows(
+                                    torch.as_tensor(pooled_probabilities).float().cpu(),
+                                    samples.labels,
+                                    samples.membership,
+                                    samples.split_codes,
+                                    pooled_base,
+                                )
+                            )
                         condition_status.append(
                             {
                                 **base,
@@ -717,16 +939,14 @@ def main() -> None:
                         condition_status.append(failure)
 
                     atomic_csv(pd.DataFrame(condition_status), target_out / "condition_status.csv")
-                    if sample_rows:
-                        atomic_csv(pd.DataFrame(sample_rows), target_out / "per_sample_predictions.csv")
-                    if metric_rows:
-                        raw_frame = pd.DataFrame(metric_rows)
-                        atomic_csv(raw_frame, target_out / "condition_metrics_raw.csv")
-                        atomic_csv(
-                            summarize_metrics(raw_frame, args.bootstrap, args.bootstrap_seed),
-                            target_out / "condition_metrics_summary.csv",
-                        )
                     atomic_csv(pd.DataFrame(failures), target_out / "failures.csv")
+                    latest = condition_status[-1]
+                    print(
+                        f"[{args.target_id}] mode={mode} q={queries} shots={shots} "
+                        f"sim={simulator_seed} status={latest.get('status')} "
+                        f"sec={latest.get('seconds', 0):.1f}",
+                        flush=True,
+                    )
 
     if sample_rows:
         atomic_csv(pd.DataFrame(sample_rows), target_out / "per_sample_predictions.csv")
@@ -758,7 +978,19 @@ def main() -> None:
         "n_nonmember": int((samples.membership == 0).sum().item()),
         "membership_convention": "1=member,0=nonmember",
         "backend": asdict(backend_context.metadata) if backend_context is not None else None,
-        "backend_snapshot_dir": str((target_out / "backend_snapshot").resolve()) if backend_context is not None else None,
+        "backend_snapshot_dir": (
+            str(args.backend_snapshot.resolve())
+            if args.backend_snapshot is not None
+            else (
+                str((target_out / "backend_snapshot").resolve())
+                if backend_context is not None
+                else None
+            )
+        ),
+        "backend_snapshot_frozen": bool(args.backend_snapshot is not None),
+        "payload_schema_version": PAYLOAD_SCHEMA_VERSION,
+        "attacker_facing_aggregation": API_AGGREGATION,
+        "pooled_count_aggregation_retained_as_diagnostic": True,
         "quantum_execution_scope": quantum_scope,
         "architecture_scope_note": (
             "For QCNN, the quanvolutional front-end remains exact TorchQuantum and backend noise is applied "
@@ -781,6 +1013,11 @@ def main() -> None:
                 "Simulator seeds are repeated measurements of one fixed target checkpoint, not independent target-model seeds."
             ),
             "low_fpr_policy": "No fixed-FPR claim is generated here; Checkpoint 5/6 uses 10% primary and 5% secondary.",
+            "query_protocol": (
+                "Each API query is passed through the nonlinear classical head separately; "
+                "the attacker-facing response is the mean of returned probability vectors. "
+                "Raw per-query expectations/probabilities and a pooled-count diagnostic are retained."
+            ),
         },
         target_out / "analysis_metadata.json",
     )

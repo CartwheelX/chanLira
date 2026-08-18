@@ -208,6 +208,12 @@ def reference_path(out_dir: Path, structural_cell: str, reference_id: int) -> Pa
     )
 
 
+def reference_checkpoint_path(
+    out_dir: Path, structural_cell: str, reference_id: int
+) -> Path:
+    return reference_path(out_dir, structural_cell, reference_id).with_suffix(".pt")
+
+
 class CandidateDataset(torch.utils.data.Dataset):
     """Dataset view whose indices exactly match the recorded LiRA candidates."""
 
@@ -255,16 +261,24 @@ def train_reference(args: argparse.Namespace) -> None:
     )
     structural_cell = cell_id(row)
     output = reference_path(args.out_dir, structural_cell, args.reference_id)
+    checkpoint_output = reference_checkpoint_path(
+        args.out_dir, structural_cell, args.reference_id
+    )
     if args.resume and output.exists():
         try:
             with np.load(output, allow_pickle=False) as saved:
-                if (
+                score_complete = (
                     int(saved["num_references"]) == args.num_references
                     and int(saved["reference_id"]) == args.reference_id
                     and int(saved["epochs"]) == (
                         args.epochs if args.epochs is not None else int(float(row["epochs"]))
                     )
-                ):
+                )
+                checkpoint_complete = (
+                    not args.save_checkpoint
+                    or (checkpoint_output.exists() and checkpoint_output.stat().st_size > 0)
+                )
+                if score_complete and checkpoint_complete:
                     print(f"[SKIP] complete reference exists: {output.resolve()}")
                     return
         except Exception:
@@ -365,6 +379,26 @@ def train_reference(args: argparse.Namespace) -> None:
             final_valid_acc=np.asarray(final_valid_acc),
         )
     temporary.replace(output)
+    if args.save_checkpoint:
+        checkpoint_output.parent.mkdir(parents=True, exist_ok=True)
+        checkpoint_temporary = checkpoint_output.with_suffix(".pt.tmp")
+        torch.save(
+            {
+                "state_dict": {
+                    key: value.detach().cpu().clone()
+                    for key, value in model.state_dict().items()
+                },
+                "reference_id": int(args.reference_id),
+                "num_references": int(args.num_references),
+                "reference_seed": int(reference_seed),
+                "structural_cell": structural_cell,
+                "target_template": args.target_id,
+                "candidate_fingerprint": tensor_fingerprint(samples.inputs, samples.labels),
+                "epochs": int(epochs),
+            },
+            checkpoint_temporary,
+        )
+        checkpoint_temporary.replace(checkpoint_output)
     print(f"[OK] reference -> {output.resolve()}")
 
 
@@ -622,6 +656,11 @@ def build_parser() -> argparse.ArgumentParser:
         type=int,
         default=None,
         help="Override target-table epochs; omit for the matched full protocol.",
+    )
+    train.add_argument(
+        "--save-checkpoint",
+        action="store_true",
+        help="Retain the trained reference weights for matched noisy inference.",
     )
     train.set_defaults(function=train_reference)
 

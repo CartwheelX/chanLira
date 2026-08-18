@@ -67,7 +67,11 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--source-repo", type=Path, required=True)
     parser.add_argument("--destination-repo", type=Path, default=Path("."))
-    parser.add_argument("--targets", type=Path, default=Path("reviewer_targets/noisy_sanity_targets_core.csv"))
+    parser.add_argument(
+        "--targets",
+        type=Path,
+        default=Path("satml_targets/noise/mnist_noise_n1_structural_targets.csv"),
+    )
     parser.add_argument("--out", type=Path, default=Path("satml_results/imported_mnist_manifest.json"))
     parser.add_argument("--force", action="store_true")
     args = parser.parse_args()

@@ -29,6 +29,8 @@ fi
 "${PYTHON_BIN}" satml_tools/build_added_dataset_targets.py \
   --out-dir satml_targets
 
+"${PYTHON_BIN}" satml_tools/build_noise_study_targets.py
+
 "${PYTHON_BIN}" satml_tools/validate_satml_study.py \
   --targets satml_targets/credit_factorial_targets.csv \
   --expected-blocks 8 \

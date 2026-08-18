@@ -24,8 +24,8 @@ independent of generalization, or that the reported associations are causal.
    mechanism before the trainable circuit.
 5. Threshold, learned/posterior, LiRA reference-model, and label-only attacks
    cover distinct adversary access assumptions.
-6. Finite-shot, backend-derived noise and fixed query-budget conditions test
-   operational robustness.
+6. Three finite-shot studies separate structural robustness, API query policy,
+   and attack breadth under one frozen backend-derived calibration.
 7. A structural privacy selector is developed on the factorial targets and
    evaluated once on entirely fresh split/initialization blocks.
 
@@ -186,29 +186,79 @@ policies are trained on five new split/initialization blocks: 15 targets. Their
 utility, gap, and leakage differences are evaluated as fresh paired contrasts.
 The fresh seeds do not overlap development seeds.
 
-## Noise and query budget
+## Frozen noise, query policy, and noisy attacks
 
-The noise study uses local Aer simulation with a noise model derived from a
-named IBM backend calibration. It is not described as hardware execution. Each
-run serializes the full Aer noise model, backend properties/configuration,
-calibration timestamp, and SHA-256 manifest without credentials.
+All three noise studies use local Aer simulation. IBM access is used once to
+capture a credential-free reconstruction snapshot containing the complete Aer
+noise-model dictionary, backend configuration/properties, calibration
+timestamp, and SHA-256 manifest. Subsequent target evaluations load that same
+snapshot from disk and make no IBM request. The results are therefore described
+as backend-calibration-derived simulation, not hardware execution. A result
+directory is fail-closed to one snapshot hash.
 
-The fixed total budget is 2,560 shots per record, compared as:
+The externally visible repeated-query semantics are fixed before evaluation.
+For each API query, shot counts are converted to expectation values and passed
+through the trained classical head independently. The returned attack feature
+is the arithmetic mean of the resulting class-probability vectors. Pooling all
+counts before the nonlinear head is retained only as a named diagnostic and is
+never substituted for the primary API aggregation.
 
-- 1 query × 2,560 shots;
-- 5 queries × 512 shots;
-- 20 queries × 128 shots.
+### N1: structural robustness
 
-Counts from independent repeated calls are aggregated before the classical
-head. Ideal-shot and noisy-shot conditions use identical circuits, samples,
-transpilation controls, total budgets, and ten simulator seeds. Simulator seeds
-are repeated measurements of a checkpoint, not independent target models.
-Five prespecified representative MNIST checkpoints cover feature-map and
-repetition extremes. Distinct backend calibration timestamps remain separate
-profiles; two or three profiles are collected when IBM access permits and are
-never pooled as independent target-model replication.
-Loss-MIA AUC is reported beside sampled train/test accuracy, loss, and accuracy
-gap for every query/shot condition.
+N1 evaluates the full retained MNIST QNN `3 × 2 × 2 × 3` design: three
+feature-map families, repetitions 1 and 5, depths 2 and 6, and three trained
+model seeds (`36` checkpoints). The same 200 members and 200 nonmembers are
+evaluated by exact inference, ideal Aer at one query of 512 shots, and frozen
+backend-derived noisy Aer at one query of 512 shots. Finite-shot conditions use
+ten simulator seeds. Scalar threshold attacks and a fixed, five-fold
+cross-fitted learned prediction-vector-plus-statistics attack are reported.
+
+Repetition effects are calculated separately at depth 2 and depth 6; depth
+effects are calculated separately at repetition 1 and repetition 5. The
+interaction is
+
+`(AUC[r5,d6] - AUC[r1,d6]) - (AUC[r5,d2] - AUC[r1,d2])`.
+
+The analysis also reports repetition and depth main effects and the paired
+feature-map contrasts `Z - EfficientSU2`, `ZZ - EfficientSU2`, and `ZZ - Z`,
+averaging over repetition and depth inside each trained model-seed block.
+
+Simulator seeds are averaged inside a trained checkpoint before paired
+structural inference. The three trained model seeds, not simulator seeds, are
+the inferential units. Noise moderation is the noisy structural effect minus
+the matching exact structural effect. Rank correlation with exact structural
+means is explicitly descriptive.
+
+### N2: API query policy
+
+N2 is a targeted policy experiment, not another factorial. It fixes depth 6
+and model seed 43 and evaluates all three feature maps at repetitions 1 and 5
+(`6` checkpoints). Six policies distinguish added shots from repeated API
+calls: `1×128`, `1×512`, `1×2560`, `5×128`, `5×512`, and `20×128`.
+Ideal and frozen-noisy Aer each use ten simulator seeds. Prespecified contrasts
+include single-query shot increases, repeated-query increases at fixed shots
+per query, and the equal-total-shot comparisons `5×512` versus `1×2560` and
+`20×128` versus `1×2560`. In addition to the mean returned probability vector,
+the learned attacker may use across-query probability standard deviations.
+Because N2 contains one trained seed per structural cell, its uncertainty is a
+bootstrap over the six targeted checkpoints and is labeled policy robustness,
+not confirmatory structural inference.
+
+### N3: attack breadth under noise
+
+N3 selects two preregistered structural endpoints, EfficientSU2 repetition 1
+depth 6 and ZZ repetition 5 depth 6, across the three model seeds. Each target
+uses 16 matched reference models. The target and every reference are evaluated
+under the same exact, ideal-shot, or frozen-noisy oracle, and LiRA reports the
+paired high-minus-low endpoint contrast after averaging five simulator seeds
+inside each checkpoint. Reference checkpoints and their candidate fingerprints
+are saved and checked; exact scores cannot be silently reused as noisy
+reference outputs.
+
+Noisy label-only boundary scoring is an optional, explicitly query-accounted
+pilot on two endpoints. Each label is one independent shot-based API query;
+there is no hidden probability access or majority vote in the attack output.
+Its small selected design is not used as factorial evidence.
 
 ## Exclusions and interpretation
 
@@ -220,7 +270,8 @@ gap for every query/shot condition.
   dataset-specific FPR claims must pass their fail-closed validator.
 - Results from the old NeurIPS folders and new `satml_*` folders are never
   automatically pooled.
-- Scaling and noise-query analyses remain targeted robustness checks.
+- Scaling, N2 query-policy, and N3 selected-attack analyses remain targeted
+  robustness checks; only N1 contains the complete retained noise factorial.
 - Real-device execution and broader architectures remain future extensions;
   the cross-domain evidence now spans MNIST, Fashion-MNIST, Credit-default,
   WDBC, and the retained synthetic tasks.

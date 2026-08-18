@@ -200,6 +200,92 @@ class BackendNoiseContext:
     metadata: BackendNoiseMetadata
 
 
+def _sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def load_backend_noise_snapshot(
+    snapshot_dir: Path,
+    *,
+    require_noise: bool = True,
+) -> BackendNoiseContext:
+    """Reconstruct a credential-free Aer context from one frozen snapshot.
+
+    Every file listed in ``snapshot_manifest.json`` is hash-checked before it
+    is used.  The returned context deliberately has no live IBM service or
+    backend object; transpilation must use the recorded basis gates and
+    coupling map from ``metadata.json``.  This prevents a long multi-target
+    study from crossing backend calibration updates.
+    """
+    snapshot_dir = Path(snapshot_dir).resolve()
+    manifest_path = snapshot_dir / "snapshot_manifest.json"
+    metadata_path = snapshot_dir / "metadata.json"
+    if not manifest_path.is_file() or not metadata_path.is_file():
+        raise FileNotFoundError(
+            f"Incomplete backend snapshot at {snapshot_dir}; expected "
+            "snapshot_manifest.json and metadata.json"
+        )
+
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    expected_hashes = manifest.get("files_sha256", {})
+    if not isinstance(expected_hashes, Mapping) or not expected_hashes:
+        raise ValueError(f"Snapshot manifest has no file hashes: {manifest_path}")
+    for filename, expected in expected_hashes.items():
+        path = snapshot_dir / str(filename)
+        if not path.is_file():
+            raise FileNotFoundError(f"Snapshot file listed in manifest is missing: {path}")
+        observed = _sha256_file(path)
+        if observed != str(expected):
+            raise ValueError(
+                f"Snapshot hash mismatch for {path}: observed {observed}, expected {expected}"
+            )
+
+    raw_metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    field_names = set(BackendNoiseMetadata.__dataclass_fields__)
+    missing = field_names - set(raw_metadata)
+    if missing:
+        raise ValueError(
+            f"Snapshot metadata is missing required fields: {sorted(missing)}"
+        )
+    metadata = BackendNoiseMetadata(
+        **{name: raw_metadata[name] for name in field_names}
+    )
+
+    noise_model = None
+    noise_path = snapshot_dir / "aer_noise_model.json"
+    if noise_path.is_file():
+        from qiskit_aer.noise import NoiseModel
+
+        noise_model = NoiseModel.from_dict(
+            json.loads(noise_path.read_text(encoding="utf-8"))
+        )
+    if require_noise and noise_model is None:
+        raise RuntimeError(
+            f"Frozen snapshot {snapshot_dir} does not contain aer_noise_model.json"
+        )
+    if require_noise and not metadata.noise_model_loaded:
+        raise RuntimeError(
+            f"Frozen snapshot {snapshot_dir} declares that no noise model was loaded"
+        )
+
+    # Make the offline authentication mode explicit in result metadata while
+    # retaining all backend/calibration fields from acquisition time.
+    metadata.authentication_mode = "frozen_local_snapshot"
+    metadata.noise_model_loaded = noise_model is not None
+    metadata.noise_load_error = None if noise_model is not None else metadata.noise_load_error
+    return BackendNoiseContext(
+        service=None,
+        backend=None,
+        noise_backend=None,
+        noise_model=noise_model,
+        metadata=metadata,
+    )
+
+
 def load_backend_noise_context(
     backend_name: str,
     noise_backend_name: Optional[str] = None,

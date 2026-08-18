@@ -4,7 +4,7 @@
 </p>
 
 > **SaTML development branch.** This repository now contains the frozen
-> cross-domain, low-FPR, geometry, noise-budget, and fresh privacy-selector
+> cross-domain, low-FPR, geometry, frozen-noise, and fresh privacy-selector
 > study. Start with [the SaTML protocol](docs/SATML_PROTOCOL.md) and
 > [the executable runbook](docs/SATML_RUNBOOK.md). The completed NeurIPS
 > rebuttal outputs remain as legacy evidence and are not silently mixed with
@@ -36,6 +36,14 @@ training-only tabular preprocessing, seeded image partitions, direct
 post-encoder geometry, dataset-specific low-FPR reporting, and generated
 Markdown/LaTeX tables plus publication figures. Exact commands and monitoring
 instructions are maintained in [docs/SATML_RUNBOOK.md](docs/SATML_RUNBOOK.md).
+
+The noise extension is split into three auditable studies under one frozen IBM
+backend-calibration snapshot: N1 evaluates all 36 retained MNIST structural
+checkpoints; N2 isolates API query count from shots per query; and N3 evaluates
+matched LiRA reference models through the same ideal/noisy oracle. Repeated
+queries are processed by the trained nonlinear head individually before the
+returned probability vectors are averaged. See the frozen definitions in
+[docs/SATML_PROTOCOL.md](docs/SATML_PROTOCOL.md).
 
 The framework is intended for controlled privacy auditing, not for claiming hardware-level leakage. The original sweep uses noiseless simulation to isolate representation effects. The NeurIPS rebuttal additionally includes a targeted finite-shot check using local Aer simulation with an IBM-backend-derived noise model; it is not execution on quantum hardware.
 

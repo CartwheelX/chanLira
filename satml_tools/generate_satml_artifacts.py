@@ -36,10 +36,11 @@ DEFAULT_INPUTS = {
     "wdbc_geometry": Path("satml_results/wdbc_geometry/geometry_repetition_effects.csv"),
     "wdbc_pathway": Path("satml_results/wdbc_mechanism/pathway_correlations.csv"),
     "wdbc_capacity": Path("satml_results/wdbc_targeted/capacity_controls/structural_resource_summary.csv"),
-    "noise_auc": Path("satml_results/noise_budget/combined/noise_budget_auc_summary.csv"),
-    "noise_queries": Path("satml_results/noise_budget/combined/equal_total_budget_query_contrasts.csv"),
-    "noise_ordering": Path("satml_results/noise_budget/combined/structural_ordering_vs_exact.csv"),
-    "noise_utility": Path("satml_results/noise_budget/combined/noise_budget_utility_summary.csv"),
+    "noise_n1_cells": Path("satml_results/noise/n1_structural/analysis/n1_cell_summary.csv"),
+    "noise_n1_effects": Path("satml_results/noise/n1_structural/analysis/n1_factorial_effects_summary.csv"),
+    "noise_n1_moderation": Path("satml_results/noise/n1_structural/analysis/n1_noise_moderation_summary.csv"),
+    "noise_n2_queries": Path("satml_results/noise/n2_query_policy/analysis/n2_query_contrasts_summary.csv"),
+    "noise_n3_lira": Path("satml_results/noise/n3_attack_breadth/analysis/n3_endpoint_contrasts.csv"),
 }
 
 
@@ -140,40 +141,105 @@ def selector_table(summary: pd.DataFrame) -> pd.DataFrame:
     )[["Outcome", "Attack", "Policy", "Mean ± SD", "Fresh blocks"]]
 
 
-def noise_table(frame: pd.DataFrame) -> pd.DataFrame:
-    required = {"target_id", "mode", "queries", "shots", "total_shots", "mean_auc", "sd_across_simulator_seeds",
-                "n_simulator_replicates", "calibration_profile"}
+def noise_n1_cells_table(frame: pd.DataFrame) -> pd.DataFrame:
+    required = {
+        "fm_kind", "reps", "depth", "mode", "queries", "shots", "attack",
+        "n_trained_checkpoints", "mean_auc", "sd_across_trained_checkpoints",
+    }
     if not required.issubset(frame.columns):
-        raise ValueError(f"noise table lacks {sorted(required - set(frame.columns))}")
-    selected = frame.copy()
-    selected["AUC mean ± simulator-seed SD"] = selected.apply(
-        lambda row: f"{row.mean_auc:.3f} ± {row.sd_across_simulator_seeds:.3f}", axis=1
+        raise ValueError(f"N1 cell table lacks {sorted(required - set(frame.columns))}")
+    preferred = {"loss", "learned_mlp_pv_plus_stats"}
+    selected = frame[frame.attack.astype(str).isin(preferred)].copy()
+    if selected.empty:
+        selected = frame.copy()
+    selected["AUC mean ± checkpoint SD"] = selected.apply(
+        lambda row: f"{row.mean_auc:.3f} ± {row.sd_across_trained_checkpoints:.3f}",
+        axis=1,
     )
     return selected.rename(
-        columns={"mode": "Mode", "queries": "Queries", "shots": "Shots/query",
-                 "total_shots": "Total shots", "n_simulator_replicates": "Simulator seeds",
-                 "calibration_profile": "Calibration"}
-    )[["Mode", "Queries", "Shots/query", "Total shots", "AUC mean ± simulator-seed SD", "Simulator seeds", "Calibration"]]
+        columns={
+            "fm_kind": "Feature map", "reps": "Reps", "depth": "Depth",
+            "mode": "Mode", "queries": "Queries", "shots": "Shots/query",
+            "attack": "Attack", "n_trained_checkpoints": "Checkpoints",
+        }
+    )[["Feature map", "Reps", "Depth", "Mode", "Queries", "Shots/query",
+       "Attack", "AUC mean ± checkpoint SD", "Checkpoints"]]
 
 
-def noise_utility_table(frame: pd.DataFrame) -> pd.DataFrame:
-    required = {"mode", "queries", "shots", "total_shots", "metric_scope", "metric_name",
-                "mean_value", "sd_across_simulator_seeds", "n_simulator_replicates", "calibration_profile"}
+def noise_n1_effect_table(frame: pd.DataFrame, *, moderation: bool = False) -> pd.DataFrame:
+    required = {
+        "attack", "mode", "queries", "shots", "effect", "fm_kind", "scope",
+        "n_paired_units", "n_model_seed_blocks", "mean", "sd", "ci95_low", "ci95_high",
+    }
     if not required.issubset(frame.columns):
-        raise ValueError(f"noise utility table lacks {sorted(required - set(frame.columns))}")
-    selected = frame.copy()
-    selected["Mean ± simulator-seed SD"] = selected.apply(
+        raise ValueError(f"N1 effect table lacks {sorted(required - set(frame.columns))}")
+    selected = frame[~frame.scope.eq("pooled_across_encoders")].copy()
+    selected["Effect ± SD [95% CI]"] = selected.apply(
         lambda row: (
-            f"{row.mean_value:.3f}" if pd.isna(row.sd_across_simulator_seeds)
-            else f"{row.mean_value:.3f} ± {row.sd_across_simulator_seeds:.3f}"
-        ), axis=1
+            f"{row['mean']:.3f} ± {row.sd:.3f} "
+            f"[{row.ci95_low:.3f}, {row.ci95_high:.3f}]"
+        ),
+        axis=1,
+    )
+    effect_label = "Noise change in AUC effect" if moderation else "AUC effect"
+    selected = selected.rename(
+        columns={
+            "attack": "Attack", "mode": "Mode", "queries": "Queries",
+            "shots": "Shots/query", "effect": "Contrast", "fm_kind": "Feature map",
+            "n_model_seed_blocks": "Model-seed blocks",
+            "Effect ± SD [95% CI]": f"{effect_label} ± SD [95% CI]",
+        }
+    )
+    return selected[["Attack", "Mode", "Queries", "Shots/query", "Contrast",
+                     "Feature map", f"{effect_label} ± SD [95% CI]", "Model-seed blocks"]]
+
+
+def noise_n2_table(frame: pd.DataFrame) -> pd.DataFrame:
+    required = {
+        "mode", "aggregation", "attack", "contrast", "n_target_checkpoints",
+        "mean_auc_difference", "sd_across_target_checkpoints", "ci95_low", "ci95_high",
+    }
+    if not required.issubset(frame.columns):
+        raise ValueError(f"N2 query table lacks {sorted(required - set(frame.columns))}")
+    selected = frame.copy()
+    selected["AUC difference ± SD [95% CI]"] = selected.apply(
+        lambda row: (
+            f"{row.mean_auc_difference:.3f} ± {row.sd_across_target_checkpoints:.3f} "
+            f"[{row.ci95_low:.3f}, {row.ci95_high:.3f}]"
+        ),
+        axis=1,
     )
     return selected.rename(
-        columns={"mode": "Mode", "queries": "Queries", "shots": "Shots/query",
-                 "total_shots": "Total shots", "metric_scope": "Split", "metric_name": "Utility metric",
-                 "n_simulator_replicates": "Simulator seeds", "calibration_profile": "Calibration"}
-    )[["Mode", "Queries", "Shots/query", "Total shots", "Split", "Utility metric",
-       "Mean ± simulator-seed SD", "Simulator seeds", "Calibration"]]
+        columns={
+            "mode": "Mode", "aggregation": "Aggregation", "attack": "Attack",
+            "contrast": "Query-policy contrast", "n_target_checkpoints": "Checkpoints",
+        }
+    )[["Mode", "Aggregation", "Attack", "Query-policy contrast",
+       "AUC difference ± SD [95% CI]", "Checkpoints"]]
+
+
+def noise_n3_table(frame: pd.DataFrame) -> pd.DataFrame:
+    required = {
+        "mode", "shots", "attack", "contrast", "n_paired_model_seeds",
+        "mean_auc_difference", "sd_across_model_seeds", "ci95_low", "ci95_high",
+    }
+    if not required.issubset(frame.columns):
+        raise ValueError(f"N3 LiRA table lacks {sorted(required - set(frame.columns))}")
+    selected = frame.copy()
+    selected["AUC difference ± SD [95% CI]"] = selected.apply(
+        lambda row: (
+            f"{row.mean_auc_difference:.3f} ± {row.sd_across_model_seeds:.3f} "
+            f"[{row.ci95_low:.3f}, {row.ci95_high:.3f}]"
+        ),
+        axis=1,
+    )
+    return selected.rename(
+        columns={
+            "mode": "Mode", "shots": "Shots/query", "attack": "LiRA variant",
+            "contrast": "Endpoint contrast", "n_paired_model_seeds": "Paired model seeds",
+        }
+    )[["Mode", "Shots/query", "LiRA variant", "Endpoint contrast",
+       "AUC difference ± SD [95% CI]", "Paired model seeds"]]
 
 
 def pathway_table(frame: pd.DataFrame) -> pd.DataFrame:
@@ -260,24 +326,67 @@ def _selector_plot(summary: pd.DataFrame, output_stem: Path) -> None:
     plt.close(figure)
 
 
-def _noise_plot(frame: pd.DataFrame, output_stem: Path) -> None:
-    plot = frame[frame["mode"].isin(["ideal_shot", "noisy_shot"])].copy()
+def _interval_forest(
+    frame: pd.DataFrame,
+    *,
+    mean_column: str,
+    label_columns: Iterable[str],
+    title: str,
+    x_label: str,
+    output_stem: Path,
+) -> None:
+    required = {mean_column, "ci95_low", "ci95_high", *label_columns}
+    if not required.issubset(frame.columns):
+        return
+    plot = frame.dropna(subset=[mean_column, "ci95_low", "ci95_high"]).copy()
     if plot.empty:
         return
-    aggregate = plot.groupby(["mode", "queries", "shots", "total_shots"], as_index=False).agg(
-        mean_auc=("mean_auc", "mean"), target_sd=("mean_auc", "std"), n_targets=("target_id", "nunique")
+    plot["label"] = plot[list(label_columns)].astype(str).agg(" · ".join, axis=1)
+    height = max(3.2, 0.34 * len(plot) + 1.4)
+    figure, axis = plt.subplots(figsize=(9.0, height))
+    y = np.arange(len(plot))
+    means = plot[mean_column].to_numpy(float)
+    errors = np.vstack(
+        [means - plot.ci95_low.to_numpy(float), plot.ci95_high.to_numpy(float) - means]
     )
-    figure, axis = plt.subplots(figsize=(7.0, 4.4))
-    for mode, group in aggregate.groupby("mode"):
-        group = group.sort_values("queries")
-        label = mode.replace("_", " ")
-        axis.errorbar(group.queries, group.mean_auc, yerr=group.target_sd.fillna(0), marker="o", capsize=3, label=label)
-    axis.set_xscale("log")
-    axis.set_xlabel("Independent queries (equal total-shot budget)")
-    axis.set_ylabel("Mean loss-MIA AUC across target checkpoints")
-    axis.set_title("Noise and query-budget robustness")
+    axis.errorbar(means, y, xerr=errors, fmt="o", color="#1f4e79", ecolor="#527da3", capsize=3)
+    axis.axvline(0.0, color="black", linewidth=0.8, linestyle="--")
+    axis.set_yticks(y, labels=plot.label)
+    axis.invert_yaxis()
+    axis.set_xlabel(x_label)
+    axis.set_title(title)
+    axis.grid(axis="x", alpha=0.2)
+    figure.tight_layout()
+    for suffix in ("png", "pdf"):
+        figure.savefig(output_stem.with_suffix(f".{suffix}"), dpi=300, bbox_inches="tight")
+    plt.close(figure)
+
+
+def _noise_n1_cell_plot(frame: pd.DataFrame, output_stem: Path) -> None:
+    plot = frame[frame.attack.astype(str).eq("loss")].copy()
+    if plot.empty:
+        return
+    plot["configuration"] = plot.apply(
+        lambda row: f"{row.fm_kind}\nr{int(row.reps)} d{int(row.depth)}", axis=1
+    )
+    configurations = list(dict.fromkeys(plot.configuration))
+    figure, axis = plt.subplots(figsize=(11.0, 4.8))
+    x = np.arange(len(configurations))
+    for mode, group in plot.groupby("mode"):
+        indexed = group.set_index("configuration")
+        means = np.array([indexed.mean_auc.get(item, np.nan) for item in configurations], dtype=float)
+        errors = np.array(
+            [indexed.sd_across_trained_checkpoints.get(item, np.nan) for item in configurations],
+            dtype=float,
+        )
+        axis.errorbar(x, means, yerr=np.nan_to_num(errors), marker="o", capsize=2,
+                      label=str(mode).replace("_", " "))
+    axis.axhline(0.5, color="black", linewidth=0.8, linestyle="--")
+    axis.set_xticks(x, labels=configurations)
+    axis.set_ylabel("Loss-threshold MIA AUC")
+    axis.set_title("N1 structural ordering under frozen finite-shot noise")
     axis.legend(frameon=False)
-    axis.grid(alpha=0.2)
+    axis.grid(axis="y", alpha=0.2)
     figure.tight_layout()
     for suffix in ("png", "pdf"):
         figure.savefig(output_stem.with_suffix(f".{suffix}"), dpi=300, bbox_inches="tight")
@@ -306,7 +415,14 @@ def generate(inputs: dict[str, Path], out_dir: Path) -> dict[str, object]:
         "geometry": ("Direct post-encoder geometry effects", geometry_table),
         "scaling": ("Encoder-angle scale sensitivity", scaling_table),
         "selector_summary": ("Fresh-block selector outcomes", selector_table),
-        "noise_auc": ("IBM-calibrated noise and query-budget outcomes", noise_table),
+        "noise_n1_cells": ("N1 structural leakage under a frozen calibration", noise_n1_cells_table),
+        "noise_n1_effects": ("N1 repetition, depth, and interaction effects", noise_n1_effect_table),
+        "noise_n1_moderation": (
+            "N1 noise moderation of structural effects",
+            lambda frame: noise_n1_effect_table(frame, moderation=True),
+        ),
+        "noise_n2_queries": ("N2 API-query policy contrasts", noise_n2_table),
+        "noise_n3_lira": ("N3 noisy LiRA endpoint contrasts", noise_n3_table),
         "pathway": ("Descriptive mechanistic-pathway associations", pathway_table),
         "capacity": ("Capacity and circuit-resource controls", capacity_table),
         "fashion_factorial": ("Paired Fashion-MNIST structural effects", factorial_table),
@@ -317,7 +433,6 @@ def generate(inputs: dict[str, Path], out_dir: Path) -> dict[str, object]:
         "wdbc_geometry": ("WDBC post-encoder geometry effects", geometry_table),
         "wdbc_pathway": ("WDBC mechanistic-pathway associations", pathway_table),
         "wdbc_capacity": ("WDBC capacity controls", capacity_table),
-        "noise_utility": ("Prediction utility under noise and query budgets", noise_utility_table),
     }
     for name, (title, builder) in builders.items():
         if name not in loaded:
@@ -353,8 +468,54 @@ def generate(inputs: dict[str, Path], out_dir: Path) -> dict[str, object]:
                 output_stem=figure_dir / "encoding_scale_effects")
     if "selector_summary" in loaded:
         _selector_plot(loaded["selector_summary"], figure_dir / "selector_fresh_auc")
-    if "noise_auc" in loaded:
-        _noise_plot(loaded["noise_auc"], figure_dir / "noise_query_budget")
+    if "noise_n1_cells" in loaded:
+        _noise_n1_cell_plot(loaded["noise_n1_cells"], figure_dir / "noise_n1_structural_ordering")
+    if "noise_n1_effects" in loaded:
+        effects = loaded["noise_n1_effects"]
+        effects = effects[
+            ~effects.scope.eq("pooled_across_encoders")
+            & effects.attack.astype(str).eq("loss")
+            & effects.effect.astype(str).isin(
+                [
+                    "repetition_5_minus_1_at_depth2",
+                    "repetition_5_minus_1_at_depth6",
+                    "feature_z_minus_eff_su2",
+                    "feature_zz_minus_eff_su2",
+                    "repetition_by_depth_interaction",
+                ]
+            )
+        ]
+        _interval_forest(
+            effects,
+            mean_column="mean",
+            label_columns=("attack", "mode", "fm_kind", "effect"),
+            title="N1 structural effects under exact and finite-shot inference",
+            x_label="AUC effect",
+            output_stem=figure_dir / "noise_n1_factorial_effects",
+        )
+    if "noise_n2_queries" in loaded:
+        queries = loaded["noise_n2_queries"]
+        queries = queries[
+            queries.attack.astype(str).eq("loss")
+            & queries.aggregation.astype(str).eq("mean_api_probabilities")
+        ]
+        _interval_forest(
+            queries,
+            mean_column="mean_auc_difference",
+            label_columns=("attack", "mode", "aggregation", "contrast"),
+            title="N2 repeated-query and shot-allocation contrasts",
+            x_label="AUC difference",
+            output_stem=figure_dir / "noise_n2_query_policy",
+        )
+    if "noise_n3_lira" in loaded:
+        _interval_forest(
+            loaded["noise_n3_lira"],
+            mean_column="mean_auc_difference",
+            label_columns=("attack", "mode", "contrast"),
+            title="N3 LiRA structural endpoint contrast",
+            x_label="High-leakage minus low-leakage endpoint AUC",
+            output_stem=figure_dir / "noise_n3_lira",
+        )
     for prefix in ("fashion", "wdbc"):
         factorial_name = f"{prefix}_factorial"
         geometry_name = f"{prefix}_geometry"
