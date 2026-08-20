@@ -1,0 +1,2 @@
+# Minimal dependencies for the ChannelLiRA feasibility pilot.
+numpy>=1.24

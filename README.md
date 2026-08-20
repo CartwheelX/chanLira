@@ -10,6 +10,12 @@
 > rebuttal outputs remain as legacy evidence and are not silently mixed with
 > new SaTML results; new outputs use the `satml_*` directories.
 
+> **ChannelLiRA feasibility project.** A new, isolated pilot tests membership
+> inference through stochastic and mismatched serving channels using the retained
+> balanced LiRA banks. See the [pilot protocol](docs/CHANNEL_LIRA_PILOT.md) and
+> [completed feasibility report](channel_lira_results/pilot/REPORT.md). The pilot
+> uses a synthetic binary-output channel; it is not yet a quantum-hardware result.
+
 **QuRiFT** (**Quantum Risk and Inference Fault-line Tracer**) is a controlled audit framework for studying **structural privacy leakage in quantum machine learning (QML)**.
 
 QuRiFT is designed to answer a specific question: **how much of membership-inference risk in QML is induced by circuit structure, especially the non-trainable classical-to-quantum encoder?**
@@ -92,6 +98,8 @@ QuRiFT/
 ├── data/                           # Downloaded datasets (ignored; checksums are validated)
 ├── satml_targets/                  # Frozen Credit, Fashion-MNIST, and WDBC manifests
 ├── satml_tools/                    # Acquisition, validation, inference, and artifact tools
+├── channel_lira/                   # Stochastic-channel likelihood implementation
+├── channel_lira_results/pilot/     # Completed first-stage feasibility evidence
 ├── commands/                       # SaTML and retained rebuttal workflow wrappers
 ├── reviewer_targets/               # Prespecified confirmatory target tables
 ├── reviewer_tools/                 # Training, attack, geometry, noise, and analysis tools

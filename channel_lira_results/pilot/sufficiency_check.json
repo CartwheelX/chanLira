@@ -1,0 +1,9 @@
+{
+  "aggregation": "sum of binary success counts",
+  "interpretation": "For a stationary conditionally independent binomial channel, the total success count is sufficient; splitting a fixed shot budget adds no information.",
+  "max_abs_log_kernel_difference": 1.1368683772161603e-13,
+  "max_abs_score_difference": 0.0,
+  "queries": 8,
+  "shots_per_query": 32,
+  "total_shots": 256
+}
