@@ -111,7 +111,7 @@
 <text class="legend" x="882.00" y="164.00" font-size="12" text-anchor="start">Loss MIA</text>
 <line x1="844.00" y1="188.00" x2="872.00" y2="188.00" stroke="#7c3aed" stroke-width="3" opacity="1.0"/>
 <circle cx="858.00" cy="188.00" r="3.50" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5"/>
-<text class="legend" x="882.00" y="192.00" font-size="12" text-anchor="start">Learned logistic MIA</text>
+<text class="legend" x="882.00" y="192.00" font-size="12" text-anchor="start">Target-cross-fitted learned MIA</text>
 <line x1="844.00" y1="216.00" x2="872.00" y2="216.00" stroke="#2563eb" stroke-width="3" opacity="1.0"/>
 <circle cx="858.00" cy="216.00" r="3.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5"/>
 <text class="legend" x="882.00" y="220.00" font-size="12" text-anchor="start">Noise-augmented LiRA</text>

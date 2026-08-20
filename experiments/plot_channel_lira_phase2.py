@@ -16,7 +16,7 @@ COLORS = {
     "affine_channel_lira": "#047857",
     "latent_lira_mismatched": "#dc2626",
     "loss_mia": "#d97706",
-    "learned_logistic_pv_stats_target_crossfit_upper_bound": "#7c3aed",
+    "target_crossfit_learned_mia": "#7c3aed",
     "empirical_channel_lira": "#0891b2",
     "noise_augmented_lira": "#2563eb",
     "exact_output_fitted_lira": "#111827",
@@ -26,7 +26,7 @@ LABELS = {
     "affine_channel_lira": "Affine ChannelLiRA",
     "latent_lira_mismatched": "Mismatched LiRA",
     "loss_mia": "Loss MIA",
-    "learned_logistic_pv_stats_target_crossfit_upper_bound": "Learned logistic MIA",
+    "target_crossfit_learned_mia": "Target-cross-fitted learned MIA",
     "empirical_channel_lira": "Empirical ChannelLiRA",
     "noise_augmented_lira": "Noise-augmented LiRA",
     "exact_output_fitted_lira": "Exact-output fitted LiRA",
@@ -210,7 +210,7 @@ def attack_auc_plot(out_dir: Path, metrics: list[dict[str, str]]) -> None:
         ("affine_channel_lira", 16),
         ("latent_lira_mismatched", 16),
         ("loss_mia", 0),
-        ("learned_logistic_pv_stats_target_crossfit_upper_bound", 0),
+        ("target_crossfit_learned_mia", 0),
         ("noise_augmented_lira", 16),
         ("exact_output_fitted_lira", 16),
     )
@@ -247,7 +247,9 @@ def attack_auc_plot(out_dir: Path, metrics: list[dict[str, str]]) -> None:
 def contrast_plot(out_dir: Path, rows: list[dict[str, str]]) -> None:
     selected = {
         "affine_minus_loss": ("vs loss MIA", "#d97706"),
-        "affine_minus_learned_logistic": ("vs learned logistic", "#7c3aed"),
+        "affine_minus_target_crossfit_learned_mia": (
+            "vs target-cross-fitted learned MIA", "#7c3aed"
+        ),
         "affine_minus_mismatched_lira": ("vs mismatched LiRA", "#dc2626"),
     }
     shots = [128, 512, 1024]
@@ -457,8 +459,9 @@ increases and stays above the loss and learned baselines in the pooled result.
 
 ![Paired AUC improvements](plots/paired_auc_improvement.svg)
 
-The 1024-shot intervals against loss, learned logistic, and mismatched LiRA are all
-above zero. At 128 shots, the interval against loss crosses zero.
+The 1024-shot intervals against loss, target-cross-fitted learned MIA, and
+mismatched LiRA are all above zero. At 128 shots, the interval against loss crosses
+zero.
 
 ## Reference-count sensitivity
 

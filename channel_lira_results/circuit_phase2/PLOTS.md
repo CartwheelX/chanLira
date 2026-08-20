@@ -11,8 +11,9 @@ increases and stays above the loss and learned baselines in the pooled result.
 
 ![Paired AUC improvements](plots/paired_auc_improvement.svg)
 
-The 1024-shot intervals against loss, learned logistic, and mismatched LiRA are all
-above zero. At 128 shots, the interval against loss crosses zero.
+The 1024-shot intervals against loss, target-cross-fitted learned MIA, and
+mismatched LiRA are all above zero. At 128 shots, the interval against loss crosses
+zero.
 
 ## Reference-count sensitivity
 

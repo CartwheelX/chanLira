@@ -29,4 +29,4 @@ jobs:
           python setup.py --version
           python -m compileall -q qurift experiments setup.py
       - name: Run ChannelLiRA numerical tests
-        run: python -W error::DeprecationWarning -m unittest test.test_channel_lira test.test_channel_lira_continuous -v
+        run: python -W error::DeprecationWarning -m unittest test.test_channel_lira test.test_channel_lira_continuous test.test_channel_lira_transfer -v

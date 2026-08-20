@@ -16,8 +16,11 @@
 > [completed proxy-channel report](channel_lira_results/pilot/REPORT.md). The
 > [circuit-level phase](docs/CHANNEL_LIRA_PHASE2.md) now evaluates the same idea on
 > retained ideal-shot and IBM-Kingston-noise Aer QNN outputs, with a
-> [completed report](channel_lira_results/circuit_phase2/REPORT.md). Neither phase
-> is a real quantum-hardware execution.
+> [completed report](channel_lira_results/circuit_phase2/REPORT.md). The subsequent
+> [strict-transfer phase](docs/CHANNEL_LIRA_TRANSFER.md) holds out complete targets
+> and circuit cells, with its own [report](channel_lira_results/transfer_phase3/REPORT.md)
+> and [plots](channel_lira_results/transfer_phase3/PLOTS.md). None of these phases is
+> a real quantum-hardware execution.
 
 **QuRiFT** (**Quantum Risk and Inference Fault-line Tracer**) is a controlled audit framework for studying **structural privacy leakage in quantum machine learning (QML)**.
 
@@ -104,6 +107,7 @@ QuRiFT/
 ├── channel_lira/                   # Stochastic-channel likelihood implementation
 ├── channel_lira_results/pilot/     # Completed first-stage feasibility evidence
 ├── channel_lira_results/circuit_phase2/ # Circuit-level Aer feasibility evidence
+├── channel_lira_results/transfer_phase3/ # Strict target/cell transfer evidence
 ├── commands/                       # SaTML and retained rebuttal workflow wrappers
 ├── reviewer_targets/               # Prespecified confirmatory target tables
 ├── reviewer_tools/                 # Training, attack, geometry, noise, and analysis tools

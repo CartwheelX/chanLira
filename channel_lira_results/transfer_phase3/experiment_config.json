@@ -1,0 +1,52 @@
+{
+  "candidate_exclusion": "attacked sample-ID fold excluded from every auxiliary target/cell channel fit and threshold",
+  "cells": [
+    "eff_su2_r1_d2",
+    "eff_su2_r5_d2",
+    "z_r1_d6",
+    "zz_r1_d6",
+    "zz_r5_d6"
+  ],
+  "created_utc": "2026-08-20T14:30:29.486756+00:00",
+  "folds": 5,
+  "heldout_exact_output_usage": "diagnostics only; absent from attack scores and thresholds",
+  "modes": [
+    "noisy_shot"
+  ],
+  "n_cells": 5,
+  "n_targets": 15,
+  "noise_augmentation_draws": 32,
+  "reference_counts": [
+    16
+  ],
+  "schemes": [
+    "leave_target_out",
+    "leave_cell_out"
+  ],
+  "seed": 20260820,
+  "shots": [
+    128,
+    512,
+    1024
+  ],
+  "source_phase2_config": "/home/najeeb/chanLira/channel_lira_results/circuit_phase2/experiment_config.json",
+  "source_phase2_config_sha256": "cd73dd1c04506d74411c46fcdc6b069b81ebe243522e5badc115cc7f17d932b4",
+  "target_ids": [
+    "MNIST_QNN_eff_su2_r1_d2_s43",
+    "MNIST_QNN_eff_su2_r1_d2_s44",
+    "MNIST_QNN_eff_su2_r1_d2_s45",
+    "MNIST_QNN_eff_su2_r5_d2_s43",
+    "MNIST_QNN_eff_su2_r5_d2_s44",
+    "MNIST_QNN_eff_su2_r5_d2_s45",
+    "MNIST_QNN_z_r1_d6_s43",
+    "MNIST_QNN_z_r1_d6_s44",
+    "MNIST_QNN_z_r1_d6_s45",
+    "MNIST_QNN_zz_r1_d6_s43",
+    "MNIST_QNN_zz_r1_d6_s44",
+    "MNIST_QNN_zz_r1_d6_s45",
+    "MNIST_QNN_zz_r5_d6_s43",
+    "MNIST_QNN_zz_r5_d6_s44",
+    "MNIST_QNN_zz_r5_d6_s45"
+  ],
+  "variance_shrinkage": 0.15
+}

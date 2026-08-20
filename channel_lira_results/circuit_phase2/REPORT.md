@@ -11,7 +11,7 @@ full main quantum stack was simulated before the trained classical head.
 
 Under `noisy_shot` at 1024 shots, affine ChannelLiRA has AUC 0.6013, the empirical
 channel mixture has 0.5958, mismatched LiRA has 0.5966,
-loss MIA has 0.5775, and the target-labeled learned logistic upper bound has
+loss MIA has 0.5775, and the target-cross-fitted learned MIA has
 0.5645. The affine endpoint changes from 0.5742 at 128 shots
 to 0.6013 at 1024 shots; this is an endpoint comparison, not a claim
 that every intermediate point is monotone. The effect is structurally heterogeneous:
@@ -25,7 +25,7 @@ an extended study; it does not establish uniform superiority.
 | Attack | AUC | TPR @ 1% FPR | TPR @ 5% FPR |
 |---|---:|---:|---:|
 | loss_mia | 0.5923 | 0.0093 | 0.0473 |
-| learned_logistic_pv_stats_target_crossfit_upper_bound | 0.5803 | 0.0187 | 0.0847 |
+| target_crossfit_learned_mia | 0.5803 | 0.0187 | 0.0847 |
 | exact_output_fitted_lira | 0.6146 | 0.0247 | 0.0860 |
 
 ## Same-output-channel attack comparison
@@ -35,42 +35,42 @@ Intervals are the 5th–95th percentiles across the 10 retained simulator seeds.
 | Mode | Shots | Attack | AUC [5%, 95%] | TPR @ 1% FPR | TPR @ 5% FPR |
 |---|---:|---|---:|---:|---:|
 | ideal_shot | 128 | loss_mia | 0.5797 [0.5690, 0.5852] | 0.0093 | 0.0477 |
-| ideal_shot | 128 | learned_logistic_pv_stats_target_crossfit_upper_bound | 0.5645 [0.5560, 0.5823] | 0.0137 | 0.0733 |
+| ideal_shot | 128 | target_crossfit_learned_mia | 0.5645 [0.5560, 0.5823] | 0.0137 | 0.0733 |
 | ideal_shot | 128 | latent_lira_mismatched | 0.5790 [0.5665, 0.5904] | 0.0103 | 0.0610 |
 | ideal_shot | 128 | deconvolved_lira | 0.5750 [0.5622, 0.5889] | 0.0107 | 0.0603 |
 | ideal_shot | 128 | affine_channel_lira | 0.5940 [0.5820, 0.6068] | 0.0310 | 0.1063 |
 | ideal_shot | 128 | empirical_channel_lira | 0.5918 [0.5835, 0.6045] | 0.0313 | 0.1023 |
 | ideal_shot | 128 | noise_augmented_lira | 0.5968 [0.5862, 0.6082] | 0.0327 | 0.1077 |
 | ideal_shot | 512 | loss_mia | 0.5884 [0.5832, 0.5900] | 0.0083 | 0.0483 |
-| ideal_shot | 512 | learned_logistic_pv_stats_target_crossfit_upper_bound | 0.5850 [0.5730, 0.6019] | 0.0137 | 0.0830 |
+| ideal_shot | 512 | target_crossfit_learned_mia | 0.5850 [0.5730, 0.6019] | 0.0137 | 0.0830 |
 | ideal_shot | 512 | latent_lira_mismatched | 0.6008 [0.5946, 0.6038] | 0.0130 | 0.0773 |
 | ideal_shot | 512 | deconvolved_lira | 0.5998 [0.5936, 0.6036] | 0.0130 | 0.0823 |
 | ideal_shot | 512 | affine_channel_lira | 0.6121 [0.6052, 0.6142] | 0.0317 | 0.1017 |
 | ideal_shot | 512 | empirical_channel_lira | 0.6065 [0.5997, 0.6093] | 0.0307 | 0.1057 |
 | ideal_shot | 512 | noise_augmented_lira | 0.6138 [0.6055, 0.6157] | 0.0363 | 0.1067 |
 | ideal_shot | 1024 | loss_mia | 0.5902 [0.5867, 0.5929] | 0.0080 | 0.0447 |
-| ideal_shot | 1024 | learned_logistic_pv_stats_target_crossfit_upper_bound | 0.5845 [0.5752, 0.5892] | 0.0140 | 0.0790 |
+| ideal_shot | 1024 | target_crossfit_learned_mia | 0.5845 [0.5752, 0.5892] | 0.0140 | 0.0790 |
 | ideal_shot | 1024 | latent_lira_mismatched | 0.6026 [0.5997, 0.6130] | 0.0170 | 0.0850 |
 | ideal_shot | 1024 | deconvolved_lira | 0.6022 [0.5992, 0.6125] | 0.0187 | 0.0867 |
 | ideal_shot | 1024 | affine_channel_lira | 0.6120 [0.6083, 0.6185] | 0.0307 | 0.0993 |
 | ideal_shot | 1024 | empirical_channel_lira | 0.6022 [0.5987, 0.6124] | 0.0320 | 0.1063 |
 | ideal_shot | 1024 | noise_augmented_lira | 0.6124 [0.6080, 0.6178] | 0.0293 | 0.1047 |
 | noisy_shot | 128 | loss_mia | 0.5650 [0.5493, 0.5750] | 0.0097 | 0.0470 |
-| noisy_shot | 128 | learned_logistic_pv_stats_target_crossfit_upper_bound | 0.5503 [0.5368, 0.5601] | 0.0100 | 0.0640 |
+| noisy_shot | 128 | target_crossfit_learned_mia | 0.5503 [0.5368, 0.5601] | 0.0100 | 0.0640 |
 | noisy_shot | 128 | latent_lira_mismatched | 0.5681 [0.5575, 0.5703] | 0.0100 | 0.0590 |
 | noisy_shot | 128 | deconvolved_lira | 0.5585 [0.5480, 0.5710] | 0.0093 | 0.0620 |
 | noisy_shot | 128 | affine_channel_lira | 0.5742 [0.5635, 0.5896] | 0.0250 | 0.0873 |
 | noisy_shot | 128 | empirical_channel_lira | 0.5739 [0.5654, 0.5920] | 0.0250 | 0.0897 |
 | noisy_shot | 128 | noise_augmented_lira | 0.5726 [0.5618, 0.5857] | 0.0220 | 0.0863 |
 | noisy_shot | 512 | loss_mia | 0.5757 [0.5701, 0.5771] | 0.0073 | 0.0430 |
-| noisy_shot | 512 | learned_logistic_pv_stats_target_crossfit_upper_bound | 0.5731 [0.5491, 0.5787] | 0.0113 | 0.0623 |
+| noisy_shot | 512 | target_crossfit_learned_mia | 0.5731 [0.5491, 0.5787] | 0.0113 | 0.0623 |
 | noisy_shot | 512 | latent_lira_mismatched | 0.5889 [0.5784, 0.5977] | 0.0143 | 0.0723 |
 | noisy_shot | 512 | deconvolved_lira | 0.5820 [0.5685, 0.5943] | 0.0167 | 0.0733 |
 | noisy_shot | 512 | affine_channel_lira | 0.5937 [0.5851, 0.6037] | 0.0293 | 0.0950 |
 | noisy_shot | 512 | empirical_channel_lira | 0.5904 [0.5836, 0.6021] | 0.0260 | 0.0957 |
 | noisy_shot | 512 | noise_augmented_lira | 0.5946 [0.5850, 0.6049] | 0.0310 | 0.0960 |
 | noisy_shot | 1024 | loss_mia | 0.5775 [0.5738, 0.5806] | 0.0080 | 0.0403 |
-| noisy_shot | 1024 | learned_logistic_pv_stats_target_crossfit_upper_bound | 0.5645 [0.5573, 0.5678] | 0.0107 | 0.0600 |
+| noisy_shot | 1024 | target_crossfit_learned_mia | 0.5645 [0.5573, 0.5678] | 0.0107 | 0.0600 |
 | noisy_shot | 1024 | latent_lira_mismatched | 0.5966 [0.5884, 0.6038] | 0.0147 | 0.0727 |
 | noisy_shot | 1024 | deconvolved_lira | 0.5898 [0.5785, 0.5973] | 0.0203 | 0.0800 |
 | noisy_shot | 1024 | affine_channel_lira | 0.6013 [0.5943, 0.6069] | 0.0310 | 0.0997 |
@@ -79,7 +79,7 @@ Intervals are the 5th–95th percentiles across the 10 retained simulator seeds.
 
 The learned baseline is a five-fold, target-specific logistic classifier over the
 same nine `pv+stats` features used by the repository's learned MIA. It has labeled
-target-output auxiliary access, so it is an explicitly marked upper-knowledge
+target-output auxiliary access, so it is explicitly a stronger-access learned-MIA
 baseline, not the same shadow-model threat model as LiRA.
 
 ## Paired AUC contrasts on the primary noisy condition
@@ -88,16 +88,16 @@ baseline, not the same shadow-model threat model as LiRA.
 |---:|---|---:|
 | 1024 | affine_minus_deconvolved_lira | +0.0117 [+0.0086, +0.0171] |
 | 1024 | affine_minus_empirical_channel | +0.0046 [+0.0010, +0.0070] |
-| 1024 | affine_minus_learned_logistic | +0.0365 [+0.0308, +0.0439] |
 | 1024 | affine_minus_loss | +0.0236 [+0.0145, +0.0297] |
 | 1024 | affine_minus_mismatched_lira | +0.0050 [+0.0009, +0.0096] |
 | 1024 | affine_minus_noise_augmented | +0.0020 [-0.0004, +0.0038] |
+| 1024 | affine_minus_target_crossfit_learned_mia | +0.0365 [+0.0308, +0.0439] |
 | 128 | affine_minus_deconvolved_lira | +0.0166 [+0.0092, +0.0216] |
 | 128 | affine_minus_empirical_channel | -0.0010 [-0.0035, +0.0020] |
-| 128 | affine_minus_learned_logistic | +0.0296 [+0.0036, +0.0419] |
 | 128 | affine_minus_loss | +0.0144 [-0.0076, +0.0260] |
 | 128 | affine_minus_mismatched_lira | +0.0069 [+0.0020, +0.0209] |
 | 128 | affine_minus_noise_augmented | +0.0016 [-0.0017, +0.0074] |
+| 128 | affine_minus_target_crossfit_learned_mia | +0.0296 [+0.0036, +0.0419] |
 
 Each difference pairs attacks within the same retained simulator seed. The automatic
 continuation verdict requires the 5th percentile of both `affine_minus_loss` and

@@ -54,7 +54,7 @@ REFERENCE_ATTACKS = (
 )
 REFERENCE_FREE_ATTACKS = (
     "loss_mia",
-    "learned_logistic_pv_stats_target_crossfit_upper_bound",
+    "target_crossfit_learned_mia",
 )
 FEATURE_COLUMNS = (
     "p_0", "p_1", "p_2", "p_3", "loss", "entropy", "confidence", "margin", "correctness"
@@ -425,7 +425,7 @@ def evaluate_condition(
     assignment = sample_id_folds(cell.sample_ids, folds, seed)
     scores: dict[tuple[str, int], np.ndarray] = {
         ("loss_mia", 0): np.full(shape, np.nan, dtype=np.float64),
-        ("learned_logistic_pv_stats_target_crossfit_upper_bound", 0): np.empty(shape),
+        ("target_crossfit_learned_mia", 0): np.empty(shape),
     }
     decisions: dict[tuple[str, int, float], np.ndarray] = {
         ("loss_mia", 0, nominal): np.zeros(shape, dtype=bool)
@@ -443,7 +443,7 @@ def evaluate_condition(
             learned_seed = seed + stable_int(
                 f"{cell.target_ids[target]}|{mode}|{shots}|{condition.simulator_seeds[simulator]}"
             ) % 1_000_000
-            scores[("learned_logistic_pv_stats_target_crossfit_upper_bound", 0)][target, simulator] = (
+            scores[("target_crossfit_learned_mia", 0)][target, simulator] = (
                 learned_crossfit_scores(
                     condition.features[target, simulator],
                     cell.memberships[target],
@@ -557,10 +557,10 @@ def evaluate_exact(
     shape = (len(cell.target_ids), 1, len(cell.sample_ids))
     scores: dict[tuple[str, int], np.ndarray] = {
         ("loss_mia", 0): (-cell.exact_losses)[:, None, :],
-        ("learned_logistic_pv_stats_target_crossfit_upper_bound", 0): np.empty(shape),
+        ("target_crossfit_learned_mia", 0): np.empty(shape),
     }
     for target in range(shape[0]):
-        scores[("learned_logistic_pv_stats_target_crossfit_upper_bound", 0)][target, 0] = (
+        scores[("target_crossfit_learned_mia", 0)][target, 0] = (
             learned_crossfit_scores(
                 cell.exact_features[target],
                 cell.memberships[target],
@@ -714,8 +714,8 @@ def build_contrast_rows(
     }
     comparators = {
         "affine_minus_loss": ("loss_mia", 0),
-        "affine_minus_learned_logistic": (
-            "learned_logistic_pv_stats_target_crossfit_upper_bound", 0
+        "affine_minus_target_crossfit_learned_mia": (
+            "target_crossfit_learned_mia", 0
         ),
         "affine_minus_mismatched_lira": ("latent_lira_mismatched", maximum_references),
         "affine_minus_deconvolved_lira": ("deconvolved_lira", maximum_references),
@@ -802,7 +802,7 @@ def build_report(
     exact_lines = []
     for attack, count in (
         ("loss_mia", 0),
-        ("learned_logistic_pv_stats_target_crossfit_upper_bound", 0),
+        ("target_crossfit_learned_mia", 0),
         ("exact_output_fitted_lira", maximum_references),
     ):
         row = lookup_auc(metric_summary, "exact", 0, attack, count)
@@ -875,7 +875,7 @@ def build_report(
     matched_low = float(lookup_auc(metric_summary, primary_mode, low, "affine_channel_lira", maximum_references)["auc_median"])
     matched_high = float(lookup_auc(metric_summary, primary_mode, high, "affine_channel_lira", maximum_references)["auc_median"])
     loss_high = float(lookup_auc(metric_summary, primary_mode, high, "loss_mia", 0)["auc_median"])
-    learned_high = float(lookup_auc(metric_summary, primary_mode, high, "learned_logistic_pv_stats_target_crossfit_upper_bound", 0)["auc_median"])
+    learned_high = float(lookup_auc(metric_summary, primary_mode, high, "target_crossfit_learned_mia", 0)["auc_median"])
     mismatch_high = float(lookup_auc(metric_summary, primary_mode, high, "latent_lira_mismatched", maximum_references)["auc_median"])
     empirical_high = float(lookup_auc(metric_summary, primary_mode, high, "empirical_channel_lira", maximum_references)["auc_median"])
     decisive_contrasts = {
@@ -924,7 +924,7 @@ full main quantum stack was simulated before the trained classical head.
 
 Under `{primary_mode}` at {high} shots, affine ChannelLiRA has AUC {matched_high:.4f}, the empirical
 channel mixture has {empirical_high:.4f}, mismatched LiRA has {mismatch_high:.4f},
-loss MIA has {loss_high:.4f}, and the target-labeled learned logistic upper bound has
+loss MIA has {loss_high:.4f}, and the target-cross-fitted learned MIA has
 {learned_high:.4f}. The affine endpoint changes from {matched_low:.4f} at {low} shots
 to {matched_high:.4f} at {high} shots; this is an endpoint comparison, not a claim
 that every intermediate point is monotone. The effect is structurally heterogeneous:
@@ -949,7 +949,7 @@ Intervals are the 5th–95th percentiles across the {len(config['simulator_seeds
 
 The learned baseline is a five-fold, target-specific logistic classifier over the
 same nine `pv+stats` features used by the repository's learned MIA. It has labeled
-target-output auxiliary access, so it is an explicitly marked upper-knowledge
+target-output auxiliary access, so it is explicitly a stronger-access learned-MIA
 baseline, not the same shadow-model threat model as LiRA.
 
 ## Paired AUC contrasts on the primary noisy condition

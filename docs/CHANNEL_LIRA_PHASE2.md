@@ -33,7 +33,8 @@ Run the numerical tests:
 
 ```bash
 python3 -W error::DeprecationWarning -m unittest \
-  test.test_channel_lira test.test_channel_lira_continuous -v
+  test.test_channel_lira test.test_channel_lira_continuous \
+  test.test_channel_lira_transfer -v
 ```
 
 The result is in `channel_lira_results/circuit_phase2/REPORT.md`.
@@ -57,14 +58,14 @@ checkpoints and simulator seeds.
 The learned baseline is intentionally separate: a target-specific five-fold
 logistic classifier is trained on labeled target outputs using the same nine
 probability-vector-plus-statistics features as the repository's learned MIA. It is a
-higher-knowledge baseline; every reported record is out of fold for that classifier.
-Its scores are not used for the empirical-null calibration table because that would
-require a nested labeled-target split.
+stronger-access learned-MIA baseline; every reported record is out of fold for that
+classifier. Its scores are not used for the empirical-null calibration table because
+that would require a nested labeled-target split.
 
 ## Attacks compared on the same stochastic outputs
 
 - `loss_mia`: negative observed cross-entropy loss.
-- `learned_logistic_pv_stats_target_crossfit_upper_bound`: learned target-output
+- `target_crossfit_learned_mia`: learned target-output
   baseline with labeled auxiliary access.
 - `latent_lira_mismatched`: ordinary exact-reference LiRA applied directly to noisy
   log odds.
@@ -82,8 +83,8 @@ fitted reference-model attack, not an oracle.
 ## Main feasibility result
 
 At 1024 shots under the IBM-derived noisy condition, affine ChannelLiRA reaches AUC
-0.6013, versus 0.5775 for loss MIA, 0.5645 for learned logistic MIA, and 0.5966 for
-mismatched LiRA. Simulator-seed-paired AUC differences are respectively +0.0236
+0.6013, versus 0.5775 for loss MIA, 0.5645 for the target-cross-fitted learned MIA,
+and 0.5966 for mismatched LiRA. Simulator-seed-paired AUC differences are respectively +0.0236
 [+0.0145, +0.0297], +0.0365 [+0.0308, +0.0439], and +0.0050
 [+0.0009, +0.0096] over the 5th–95th percentiles.
 
@@ -106,8 +107,8 @@ records and checkpoints.
 
 1. Evaluate noisy reference checkpoints directly, rather than approximating their
    serving outputs from an exact bank and a fitted target-side channel.
-2. Hold out complete target models for channel and FPR calibration, and propagate
-   channel-parameter uncertainty.
+2. Propagate channel-parameter uncertainty. Complete target and structural-cell
+   holdouts are now evaluated in the [strict-transfer phase](CHANNEL_LIRA_TRANSFER.md).
 3. Add heteroskedastic or nonparametric channels where residual diagnostics reject
    the affine-Gaussian approximation.
 4. Collect multiple real-hardware calibration snapshots and test temporal drift and

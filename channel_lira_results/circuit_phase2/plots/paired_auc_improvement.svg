@@ -68,7 +68,7 @@
 <text class="legend" x="882.00" y="108.00" font-size="12" text-anchor="start">Affine ChannelLiRA vs loss MIA</text>
 <line x1="844.00" y1="132.00" x2="872.00" y2="132.00" stroke="#7c3aed" stroke-width="3" opacity="1.0"/>
 <circle cx="858.00" cy="132.00" r="3.50" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5"/>
-<text class="legend" x="882.00" y="136.00" font-size="12" text-anchor="start">Affine ChannelLiRA vs learned logistic</text>
+<text class="legend" x="882.00" y="136.00" font-size="12" text-anchor="start">Affine ChannelLiRA vs target-cross-fitted learned MIA</text>
 <line x1="844.00" y1="160.00" x2="872.00" y2="160.00" stroke="#dc2626" stroke-width="3" opacity="1.0"/>
 <circle cx="858.00" cy="160.00" r="3.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5"/>
 <text class="legend" x="882.00" y="164.00" font-size="12" text-anchor="start">Affine ChannelLiRA vs mismatched LiRA</text>
