@@ -39,6 +39,62 @@ tail -f satml_runs/satml_credit_factorial/CREDIT_QNN_z_r1_d2_b01/train.log
 The launcher is resumable. Re-running the same command with `--resume` skips
 complete model-plus-attack exports.
 
+### Unattended continuation after Credit
+
+After the Credit progress command reports `96/96`, the remaining required
+stages can be run sequentially by one fail-closed wrapper. It checks the Credit
+artifacts, imports all 36 retained MNIST checkpoints, captures or validates the
+frozen IBM calibration before starting long work, preserves that snapshot
+across resumed invocations, and then executes Sections 3--12 in dependency
+order. A stage receives a completion marker only after a zero exit status.
+
+First confirm the planned stages without launching work:
+
+```bash
+QURIFT_GPUS=0,1,2,3,4,5,6,7 \
+PYTHON_BIN="$(command -v python)" \
+bash commands/satml_run_all_remaining.sh --dry-run
+```
+
+If no frozen snapshot already exists, provide a current IBM backend and either
+a working saved account or environment credentials. Launch under `nohup` so a
+terminal disconnect does not terminate the pipeline:
+
+```bash
+export PYTHON_BIN="$(command -v python)"
+export QURIFT_GPUS=0,1,2,3,4,5,6,7
+export QURIFT_JOBS_PER_GPU=1
+export QURIFT_NOISE_JOBS_PER_GPU=1
+export QURIFT_LEGACY_REPO='/home/najeeb/quarift_neurips_rebutal_2'
+export QURIFT_NOISE_BACKEND='ibm_kingston'
+export QISKIT_IBM_TOKEN='YOUR_VALID_TOKEN'
+export QISKIT_IBM_INSTANCE='YOUR_INSTANCE_CRN'
+
+nohup bash commands/satml_run_all_remaining.sh \
+  > satml_logs/satml_all_launcher.log 2>&1 &
+echo $!
+```
+
+Alternatively, set `QURIFT_NOISE_SNAPSHOT` to an already verified snapshot and
+omit IBM credentials. The wrapper unsets credentials immediately after the
+snapshot preflight. The optional noisy label-only pilot is excluded by default;
+set `QURIFT_INCLUDE_OPTIONAL_NOISY_LABEL=1` before launch to include it.
+
+Monitor the detached run with:
+
+```bash
+cat satml_results/unattended_pipeline/current_stage.txt
+tail -f satml_logs/satml_all_remaining_latest.log
+cat "$(cat satml_results/unattended_pipeline/latest_status_path.txt)" | column -ts $'\t'
+```
+
+If a stage fails, correct the reported cause and launch the same wrapper again.
+Completed stages are skipped using durable markers, incomplete training
+launchers retain their normal `--resume` behavior, and the originally frozen
+snapshot is reused. Do not set `QURIFT_MASTER_FORCE=1` unless intentionally
+rerunning completed stages; in particular, do not regenerate a selector after
+fresh outcomes have been inspected.
+
 ## 3. Primary metrics, threshold attacks, and paired inference
 
 ```bash

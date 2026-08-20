@@ -23,6 +23,8 @@ import numpy as np
 
 TOKEN_ENV_NAMES = ("QISKIT_IBM_TOKEN", "IBM_QUANTUM_TOKEN")
 INSTANCE_ENV_NAMES = ("QISKIT_IBM_INSTANCE", "IBM_QUANTUM_INSTANCE")
+SNAPSHOT_SCHEMA_VERSION = 2
+SNAPSHOT_TYPE_KEY = "__qurift_snapshot_type__"
 
 
 def _first_nonempty_env(names: Sequence[str]) -> Optional[str]:
@@ -208,6 +210,63 @@ def _sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def _snapshot_encode(value: Any, *, strict: bool = False) -> Any:
+    """Convert NumPy/complex noise payloads to lossless JSON-compatible data."""
+    if value is None or isinstance(value, (str, int, float, bool)):
+        return value
+    if isinstance(value, complex):
+        return {
+            SNAPSHOT_TYPE_KEY: "complex",
+            "real": float(value.real),
+            "imag": float(value.imag),
+        }
+    if isinstance(value, np.ndarray):
+        return {
+            SNAPSHOT_TYPE_KEY: "ndarray",
+            "dtype": str(value.dtype),
+            "shape": list(value.shape),
+            "data": _snapshot_encode(value.tolist(), strict=strict),
+        }
+    if isinstance(value, np.generic):
+        return _snapshot_encode(value.item(), strict=strict)
+    if isinstance(value, Mapping):
+        return {
+            str(key): _snapshot_encode(item, strict=strict)
+            for key, item in value.items()
+        }
+    if isinstance(value, tuple):
+        return {
+            SNAPSHOT_TYPE_KEY: "tuple",
+            "data": [_snapshot_encode(item, strict=strict) for item in value],
+        }
+    if isinstance(value, (list, set)):
+        items = sorted(value, key=repr) if isinstance(value, set) else list(value)
+        return [_snapshot_encode(item, strict=strict) for item in items]
+    if strict:
+        raise TypeError(
+            f"Unsupported value in lossless backend-noise snapshot: {type(value).__name__}"
+        )
+    return str(value)
+
+
+def _snapshot_decode(value: Any) -> Any:
+    """Reverse :func:`_snapshot_encode` for NoiseModel reconstruction."""
+    if isinstance(value, list):
+        return [_snapshot_decode(item) for item in value]
+    if not isinstance(value, dict):
+        return value
+    kind = value.get(SNAPSHOT_TYPE_KEY)
+    if kind == "complex":
+        return complex(float(value["real"]), float(value["imag"]))
+    if kind == "ndarray":
+        data = _snapshot_decode(value["data"])
+        array = np.asarray(data, dtype=np.dtype(str(value["dtype"])))
+        return array.reshape(tuple(int(item) for item in value["shape"]))
+    if kind == "tuple":
+        return tuple(_snapshot_decode(item) for item in value["data"])
+    return {key: _snapshot_decode(item) for key, item in value.items()}
+
+
 def load_backend_noise_snapshot(
     snapshot_dir: Path,
     *,
@@ -231,6 +290,11 @@ def load_backend_noise_snapshot(
         )
 
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    schema_version = int(manifest.get("snapshot_schema_version", 1))
+    if schema_version not in {1, SNAPSHOT_SCHEMA_VERSION}:
+        raise ValueError(
+            f"Unsupported backend snapshot schema {schema_version}: {manifest_path}"
+        )
     expected_hashes = manifest.get("files_sha256", {})
     if not isinstance(expected_hashes, Mapping) or not expected_hashes:
         raise ValueError(f"Snapshot manifest has no file hashes: {manifest_path}")
@@ -260,9 +324,21 @@ def load_backend_noise_snapshot(
     if noise_path.is_file():
         from qiskit_aer.noise import NoiseModel
 
-        noise_model = NoiseModel.from_dict(
-            json.loads(noise_path.read_text(encoding="utf-8"))
+        serialized_noise = json.loads(noise_path.read_text(encoding="utf-8"))
+        noise_dictionary = (
+            _snapshot_decode(serialized_noise)
+            if schema_version >= SNAPSHOT_SCHEMA_VERSION
+            else serialized_noise
         )
+        try:
+            noise_model = NoiseModel.from_dict(noise_dictionary)
+        except (TypeError, ValueError) as error:
+            if schema_version == 1:
+                raise RuntimeError(
+                    f"Legacy snapshot {snapshot_dir} contains a lossily serialized "
+                    "Qiskit noise model. Recapture it with the current snapshot writer."
+                ) from error
+            raise
     if require_noise and noise_model is None:
         raise RuntimeError(
             f"Frozen snapshot {snapshot_dir} does not contain aer_noise_model.json"
@@ -563,13 +639,22 @@ def write_backend_snapshot(context: BackendNoiseContext, output_dir: Path) -> Di
     hashes: Dict[str, str] = {}
     for filename, payload in payloads.items():
         path = output_dir / filename
-        encoded = json.dumps(payload, indent=2, sort_keys=True, default=str).encode("utf-8")
+        encoded_payload = _snapshot_encode(
+            payload,
+            strict=filename == "aer_noise_model.json",
+        )
+        encoded = json.dumps(encoded_payload, indent=2, sort_keys=True).encode("utf-8")
         path.write_bytes(encoded)
         hashes[filename] = hashlib.sha256(encoded).hexdigest()
     manifest = {
+        "snapshot_schema_version": SNAPSHOT_SCHEMA_VERSION,
+        "noise_model_codec": "qurift_typed_json_v1",
         "files_sha256": hashes,
         "credentials_recorded": False,
-        "reconstruction": "qiskit_aer.noise.NoiseModel.from_dict(aer_noise_model.json)",
+        "reconstruction": (
+            "qurift typed-JSON decode followed by "
+            "qiskit_aer.noise.NoiseModel.from_dict(aer_noise_model.json)"
+        ),
     }
     manifest_path = output_dir / "snapshot_manifest.json"
     manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8")

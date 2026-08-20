@@ -36,6 +36,9 @@ training-only tabular preprocessing, seeded image partitions, direct
 post-encoder geometry, dataset-specific low-FPR reporting, and generated
 Markdown/LaTeX tables plus publication figures. Exact commands and monitoring
 instructions are maintained in [docs/SATML_RUNBOOK.md](docs/SATML_RUNBOOK.md).
+After the 96-target Credit factorial completes, the resumable unattended
+wrapper `commands/satml_run_all_remaining.sh` executes every remaining required
+stage, final artifact generation, and repository verification in order.
 
 The noise extension is split into three auditable studies under one frozen IBM
 backend-calibration snapshot: N1 evaluates all 36 retained MNIST structural

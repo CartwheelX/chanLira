@@ -93,7 +93,7 @@ class NoiseBudgetTests(unittest.TestCase):
 
     def test_frozen_snapshot_round_trip_and_hash_guard(self) -> None:
         try:
-            from qiskit_aer.noise import NoiseModel
+            from qiskit_aer.noise import NoiseModel, thermal_relaxation_error
         except ImportError:
             self.skipTest("qiskit-aer is unavailable")
 
@@ -113,8 +113,16 @@ class NoiseBudgetTests(unittest.TestCase):
             basis_gates=["x"], noise_basis_gates=[], coupling_map=[], backend_num_qubits=1,
             noise_instructions=[], noise_qubits=[], backend_mismatch=False,
         )
+        noise_model = NoiseModel()
+        # Thermal relaxation serializes Kraus matrices as complex NumPy arrays.
+        # This catches lossy ``default=str`` JSON serialization, which an empty
+        # NoiseModel round trip cannot detect.
+        noise_model.add_all_qubit_quantum_error(
+            thermal_relaxation_error(50_000.0, 70_000.0, 100.0), ["x"]
+        )
         context = SimpleNamespace(
-            metadata=metadata, backend=Backend(), noise_backend=None, noise_model=NoiseModel()
+            metadata=metadata, backend=Backend(), noise_backend=None,
+            noise_model=noise_model,
         )
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -122,6 +130,7 @@ class NoiseBudgetTests(unittest.TestCase):
             loaded = load_backend_noise_snapshot(root, require_noise=True)
             self.assertEqual(loaded.metadata.authentication_mode, "frozen_local_snapshot")
             self.assertIsNotNone(loaded.noise_model)
+            self.assertIn("x", loaded.noise_model.noise_instructions)
             metadata_path = root / "metadata.json"
             metadata_path.write_text(metadata_path.read_text() + "\n", encoding="utf-8")
             with self.assertRaisesRegex(ValueError, "hash mismatch"):

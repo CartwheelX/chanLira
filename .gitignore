@@ -369,3 +369,4 @@ tmp_qurift_sweep*/
 *.ckpt
 *.onnx
 wandb/
+tq39_vv2.tar.gz
