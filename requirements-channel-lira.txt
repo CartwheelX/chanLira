@@ -1,2 +1,2 @@
-# Minimal dependencies for the ChannelLiRA feasibility pilot.
+# Minimal dependencies for both ChannelLiRA feasibility phases.
 numpy>=1.24

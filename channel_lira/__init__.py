@@ -11,6 +11,15 @@ from .core import (
     naive_lira_score,
     sigmoid,
 )
+from .continuous import (
+    AffineGaussianChannel,
+    affine_channel_lira_score,
+    balanced_reference_subset,
+    channel_diagnostics,
+    deconvolved_continuous_lira_score,
+    empirical_channel_lira_score,
+    fit_noise_augmented_distributions,
+)
 
 __all__ = [
     "BinaryChannel",
@@ -22,4 +31,11 @@ __all__ = [
     "logit",
     "naive_lira_score",
     "sigmoid",
+    "AffineGaussianChannel",
+    "affine_channel_lira_score",
+    "balanced_reference_subset",
+    "channel_diagnostics",
+    "deconvolved_continuous_lira_score",
+    "empirical_channel_lira_score",
+    "fit_noise_augmented_distributions",
 ]

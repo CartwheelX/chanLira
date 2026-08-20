@@ -36,6 +36,10 @@ python3 -m unittest test.test_channel_lira -v
 
 The result report is at `channel_lira_results/pilot/REPORT.md`.
 
+The circuit-level follow-up has also been completed. Its frozen protocol and command
+are in [CHANNEL_LIRA_PHASE2.md](CHANNEL_LIRA_PHASE2.md), and its results are in
+`channel_lira_results/circuit_phase2/REPORT.md`.
+
 ## Threat model represented by this pilot
 
 For each candidate, exact reference-model true-class log odds define Gaussian latent
@@ -52,15 +56,16 @@ spending compute or hardware quota.
 
 ## Gates for the next study
 
-1. Fix low-FPR reference-to-target calibration using held-out targets or conformal/
-   empirical null calibration. Do not claim calibrated attack operation until nominal
-   and realized FPR align with uncertainty intervals.
+1. The second stage adds sample-ID-cross-fitted empirical-null calibration. A
+   publication study must still move calibration to entirely held-out target models.
 2. Add time-varying and drifting channels. A stationary binomial channel has aggregate
    counts as a sufficient statistic, so repeated query splits cannot add information at
    a fixed total shot budget.
-3. Estimate channel parameters from a disjoint public calibration set and propagate
-   parameter uncertainty.
-4. Reproduce simulator-to-hardware transfer on a small set of fixed QNN checkpoints.
+3. The second stage estimates channel parameters from disjoint public calibration
+   records. The extended study must propagate estimator uncertainty and reduce the
+   assumed paired exact/noisy access.
+4. The second stage uses IBM-derived noisy Aer outputs. Real-hardware transfer remains
+   untested.
 5. Add at least one classical stochastic predictor before framing the work as a general
    serving-channel contribution.
 6. Use record/model-clustered uncertainty; the current pooled target-record units are

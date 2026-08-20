@@ -19,14 +19,14 @@ stochastic models.
 | Balanced reference models per cell | 16 |
 | Target proxy channel | Bernoulli serving + symmetric readout error 0.120 |
 | Reference/assumed channel | symmetric readout error 0.000 |
-| Latent-oracle AUC | 0.6028 |
+| Exact-output fitted LiRA AUC | 0.6028 |
 | Matched ChannelLiRA AUC, 32 shots | 0.5995 |
 | Matched ChannelLiRA AUC, 1024 shots | 0.6053 |
 | Mismatched ChannelLiRA AUC, 1024 shots | 0.5790 |
 | Deconvolved-mean LiRA AUC, 1024 shots | 0.5968 |
 | Matched channel transfer advantage, 1024 shots | +0.0262 AUC [+0.0241, +0.0279] |
 | Cells with positive transfer advantage | 10/12 |
-| Latent leakage recovered, 1024 shots | 102.4% |
+| Relative exact-output AUC signal recovered, 1024 shots | 102.4% |
 | Equal-total-shot log-kernel discrepancy | 1.14e-13 |
 | Equal-total-shot aggregation discrepancy | 0 |
 
@@ -65,11 +65,11 @@ helps, while the latent reference-to-target model remains materially miscalibrat
 
 The automatic **YES** requires (a) at least a 0.005 AUC advantage over the mismatched
 hierarchical attack at the largest budget, (b) at least 50% recovery of
-the latent-oracle AUC advantage, (c) non-decreasing matched AUC from the smallest to
-largest budget, and (d) lower FPR error than the mismatched attack. This advances the
+the exact-output fitted-LiRA AUC advantage, (c) no endpoint degradation from the
+smallest to largest budget, and (d) lower FPR error than the mismatched attack. This advances the
 idea to a next-stage calibration/drift study; it is not a hardware or publication claim.
 
-Leakage recovery can slightly exceed 100% because the attack model is estimated and
+Relative AUC-signal recovery can slightly exceed 100% because the attack model is estimated and
 evaluation is finite: serving noise may regularize a misspecified score, but cannot
 create membership information under the stated Markov channel.
 
@@ -80,6 +80,6 @@ create membership information under the stated Markov channel.
 - `calibration_raw.csv` and `calibration_summary.csv`: assumed-null threshold checks.
 - `paired_contrasts_summary.csv`: paired matched-minus-baseline effects.
 - `calibration_contrasts_summary.csv`: paired calibration improvements.
-- `leakage_recovery.svg`: overall attack curves.
+- `attack_auc.svg`: overall attack curves.
 - `pilot_config.json`: complete intervention parameters and source inventory.
 - `sufficiency_check.json`: equal-total-shot aggregation audit.

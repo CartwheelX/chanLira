@@ -40,7 +40,7 @@ from channel_lira.core import (
 
 
 ATTACKS = (
-    "oracle_latent_lira",
+    "exact_output_fitted_lira",
     "naive_mean_lira",
     "deconvolved_mean_lira",
     "channel_lira_mismatched",
@@ -168,7 +168,7 @@ def score_attacks(
     quadrature_order: int,
 ) -> dict[str, np.ndarray]:
     return {
-        "oracle_latent_lira": latent_lira_score(target_scores, model),
+        "exact_output_fitted_lira": latent_lira_score(target_scores, model),
         "naive_mean_lira": naive_lira_score(counts, shots, model),
         "deconvolved_mean_lira": deconvolved_lira_score(
             counts, shots, model, target_channel
@@ -250,14 +250,14 @@ def calibration_scores(
 
 
 def add_recovery(summary: list[dict[str, object]]) -> None:
-    oracle = {
+    exact_output = {
         str(row["scope"]): float(row["auc_median"])
         for row in summary
-        if row["attack"] == "oracle_latent_lira"
+        if row["attack"] == "exact_output_fitted_lira"
     }
     for row in summary:
-        denominator = oracle[str(row["scope"])] - 0.5
-        row["auc_leakage_recovery"] = (
+        denominator = exact_output[str(row["scope"])] - 0.5
+        row["relative_auc_signal_recovery"] = (
             (float(row["auc_median"]) - 0.5) / denominator
             if abs(denominator) > 1e-12
             else float("nan")
@@ -365,14 +365,14 @@ def write_svg(path: Path, summary: list[dict[str, object]], shots: list[int]) ->
         return top + (y_max - value) / (y_max - y_min) * plot_h
 
     colors = {
-        "oracle_latent_lira": "#111827",
+        "exact_output_fitted_lira": "#111827",
         "naive_mean_lira": "#d97706",
         "deconvolved_mean_lira": "#7c3aed",
         "channel_lira_mismatched": "#dc2626",
         "channel_lira_matched": "#059669",
     }
     labels = {
-        "oracle_latent_lira": "Latent oracle",
+        "exact_output_fitted_lira": "Exact-output fitted LiRA",
         "naive_mean_lira": "Naive mean LiRA",
         "deconvolved_mean_lira": "Deconvolved mean LiRA",
         "channel_lira_mismatched": "ChannelLiRA (mismatched)",
@@ -428,12 +428,12 @@ def build_report(
 ) -> str:
     shots = list(config["shots"])
     minimum, maximum = min(shots), max(shots)
-    oracle_auc = lookup(summary, "oracle_latent_lira", maximum, "auc_median")
+    exact_output_auc = lookup(summary, "exact_output_fitted_lira", maximum, "auc_median")
     matched_low = lookup(summary, "channel_lira_matched", minimum, "auc_median")
     matched_high = lookup(summary, "channel_lira_matched", maximum, "auc_median")
     mismatched_high = lookup(summary, "channel_lira_mismatched", maximum, "auc_median")
     deconvolved_high = lookup(summary, "deconvolved_mean_lira", maximum, "auc_median")
-    recovery = lookup(summary, "channel_lira_matched", maximum, "auc_leakage_recovery")
+    recovery = lookup(summary, "channel_lira_matched", maximum, "relative_auc_signal_recovery")
     transfer_gap = matched_high - mismatched_high
 
     transfer_row = next(
@@ -482,11 +482,11 @@ def build_report(
     # In a stationary known channel, deconvolution can legitimately be strong; the
     # proposal's decisive comparison is transfer under reference/target mismatch.
     channel_signal = transfer_gap
-    monotone_recovery = matched_high >= matched_low
+    endpoint_non_degradation = matched_high >= matched_low
     decision = (
         channel_signal >= 0.005
         and recovery >= 0.5
-        and monotone_recovery
+        and endpoint_non_degradation
         and calibration_error_gain > 0.0
     )
     verdict = (
@@ -515,14 +515,14 @@ stochastic models.
 | Balanced reference models per cell | {config['references_per_cell']} |
 | Target proxy channel | Bernoulli serving + symmetric readout error {config['target_readout_error']:.3f} |
 | Reference/assumed channel | symmetric readout error {config['reference_readout_error']:.3f} |
-| Latent-oracle AUC | {oracle_auc:.4f} |
+| Exact-output fitted LiRA AUC | {exact_output_auc:.4f} |
 | Matched ChannelLiRA AUC, {minimum} shots | {matched_low:.4f} |
 | Matched ChannelLiRA AUC, {maximum} shots | {matched_high:.4f} |
 | Mismatched ChannelLiRA AUC, {maximum} shots | {mismatched_high:.4f} |
 | Deconvolved-mean LiRA AUC, {maximum} shots | {deconvolved_high:.4f} |
 | Matched channel transfer advantage, {maximum} shots | {transfer_gap:+.4f} AUC [{float(transfer_row['auc_difference_q05']):+.4f}, {float(transfer_row['auc_difference_q95']):+.4f}] |
 | Cells with positive transfer advantage | {positive_cells}/{total_cells} |
-| Latent leakage recovered, {maximum} shots | {recovery:.1%} |
+| Relative exact-output AUC signal recovered, {maximum} shots | {recovery:.1%} |
 | Equal-total-shot log-kernel discrepancy | {float(sufficiency['max_abs_log_kernel_difference']):.3g} |
 | Equal-total-shot aggregation discrepancy | {float(sufficiency['max_abs_score_difference']):.3g} |
 
@@ -558,11 +558,11 @@ helps, while the latent reference-to-target model remains materially miscalibrat
 
 The automatic **YES** requires (a) at least a 0.005 AUC advantage over the mismatched
 hierarchical attack at the largest budget, (b) at least 50% recovery of
-the latent-oracle AUC advantage, (c) non-decreasing matched AUC from the smallest to
-largest budget, and (d) lower FPR error than the mismatched attack. This advances the
+the exact-output fitted-LiRA AUC advantage, (c) no endpoint degradation from the
+smallest to largest budget, and (d) lower FPR error than the mismatched attack. This advances the
 idea to a next-stage calibration/drift study; it is not a hardware or publication claim.
 
-Leakage recovery can slightly exceed 100% because the attack model is estimated and
+Relative AUC-signal recovery can slightly exceed 100% because the attack model is estimated and
 evaluation is finite: serving noise may regularize a misspecified score, but cannot
 create membership information under the stated Markov channel.
 
@@ -573,7 +573,7 @@ create membership information under the stated Markov channel.
 - `calibration_raw.csv` and `calibration_summary.csv`: assumed-null threshold checks.
 - `paired_contrasts_summary.csv`: paired matched-minus-baseline effects.
 - `calibration_contrasts_summary.csv`: paired calibration improvements.
-- `leakage_recovery.svg`: overall attack curves.
+- `attack_auc.svg`: overall attack curves.
 - `pilot_config.json`: complete intervention parameters and source inventory.
 - `sufficiency_check.json`: equal-total-shot aggregation audit.
 """
@@ -796,7 +796,7 @@ def main() -> None:
     (out_dir / "sufficiency_check.json").write_text(
         json.dumps(sufficiency, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )
-    write_svg(out_dir / "leakage_recovery.svg", metric_summary, shots)
+    write_svg(out_dir / "attack_auc.svg", metric_summary, shots)
     report = build_report(
         config=config,
         summary=metric_summary,

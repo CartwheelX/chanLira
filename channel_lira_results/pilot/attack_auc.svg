@@ -59,7 +59,7 @@
 <circle cx="684.40" cy="245.55" r="3" fill="#059669"/>
 <circle cx="835.00" cy="246.76" r="3" fill="#059669"/>
 <line x1="94" y1="45" x2="120" y2="45" stroke="#111827" stroke-width="3"/>
-<text x="128" y="49" font-size="12">Latent oracle</text>
+<text x="128" y="49" font-size="12">Exact-output fitted LiRA</text>
 <line x1="94" y1="67" x2="120" y2="67" stroke="#d97706" stroke-width="3"/>
 <text x="128" y="71" font-size="12">Naive mean LiRA</text>
 <line x1="94" y1="89" x2="120" y2="89" stroke="#7c3aed" stroke-width="3"/>

@@ -101,6 +101,21 @@ class ChannelLiRACoreTests(unittest.TestCase):
         self.assertAlmostEqual(perfect["auc"], 1.0)
         self.assertAlmostEqual(tied["auc"], 0.5)
 
+    def test_boundary_counts_and_large_shot_budgets_are_finite(self) -> None:
+        model = LatentDistributions(
+            mean_in=np.array([1.2, -0.7, 0.1, 2.0]),
+            std_in=np.array([0.4, 0.8, 0.5, 0.3]),
+            mean_out=np.array([-0.2, 0.4, -0.6, 0.8]),
+            std_out=np.array([0.7, 0.6, 0.4, 0.9]),
+        )
+        channel = BinaryChannel(false_positive=0.17, false_negative=0.06)
+        for shots, counts in (
+            (1, np.array([0, 1, 0, 1])),
+            (4096, np.array([0, 4096, 1, 4095])),
+        ):
+            score = channel_lira_score(counts, shots, model, channel, quadrature_order=48)
+            self.assertTrue(np.isfinite(score).all())
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -13,8 +13,11 @@
 > **ChannelLiRA feasibility project.** A new, isolated pilot tests membership
 > inference through stochastic and mismatched serving channels using the retained
 > balanced LiRA banks. See the [pilot protocol](docs/CHANNEL_LIRA_PILOT.md) and
-> [completed feasibility report](channel_lira_results/pilot/REPORT.md). The pilot
-> uses a synthetic binary-output channel; it is not yet a quantum-hardware result.
+> [completed proxy-channel report](channel_lira_results/pilot/REPORT.md). The
+> [circuit-level phase](docs/CHANNEL_LIRA_PHASE2.md) now evaluates the same idea on
+> retained ideal-shot and IBM-Kingston-noise Aer QNN outputs, with a
+> [completed report](channel_lira_results/circuit_phase2/REPORT.md). Neither phase
+> is a real quantum-hardware execution.
 
 **QuRiFT** (**Quantum Risk and Inference Fault-line Tracer**) is a controlled audit framework for studying **structural privacy leakage in quantum machine learning (QML)**.
 
@@ -100,6 +103,7 @@ QuRiFT/
 ├── satml_tools/                    # Acquisition, validation, inference, and artifact tools
 ├── channel_lira/                   # Stochastic-channel likelihood implementation
 ├── channel_lira_results/pilot/     # Completed first-stage feasibility evidence
+├── channel_lira_results/circuit_phase2/ # Circuit-level Aer feasibility evidence
 ├── commands/                       # SaTML and retained rebuttal workflow wrappers
 ├── reviewer_targets/               # Prespecified confirmatory target tables
 ├── reviewer_tools/                 # Training, attack, geometry, noise, and analysis tools

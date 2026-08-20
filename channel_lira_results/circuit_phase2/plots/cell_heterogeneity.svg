@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="570" viewBox="0 0 1080 570">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<style>text{font-family:Inter,system-ui,-apple-system,sans-serif;fill:#1f2937}.grid{stroke:#e5e7eb;stroke-width:1}.axis{stroke:#374151;stroke-width:1.2}.tick{font-size:12px;fill:#4b5563}.title{font-size:22px;font-weight:700}.subtitle{font-size:12px;fill:#6b7280}.legend{font-size:12px}</style>
+<text class="title" x="185.00" y="34.00" font-size="12" text-anchor="start">Structural heterogeneity at 1024 noisy shots</text>
+<text class="subtitle" x="185.00" y="57.00" font-size="12" text-anchor="start">Cell-level median AUC differences; positive bars favor affine ChannelLiRA</text>
+<line class="grid" x1="185.00" y1="95.00" x2="185.00" y2="500.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="185.00" y="524.00" font-size="12" text-anchor="middle">-0.05</text>
+<line class="grid" x1="286.25" y1="95.00" x2="286.25" y2="500.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="286.25" y="524.00" font-size="12" text-anchor="middle">-0.03</text>
+<line class="grid" x1="387.50" y1="95.00" x2="387.50" y2="500.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="387.50" y="524.00" font-size="12" text-anchor="middle">-0.01</text>
+<line class="grid" x1="488.75" y1="95.00" x2="488.75" y2="500.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="488.75" y="524.00" font-size="12" text-anchor="middle">+0.01</text>
+<line class="grid" x1="590.00" y1="95.00" x2="590.00" y2="500.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="590.00" y="524.00" font-size="12" text-anchor="middle">+0.03</text>
+<line class="grid" x1="691.25" y1="95.00" x2="691.25" y2="500.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="691.25" y="524.00" font-size="12" text-anchor="middle">+0.05</text>
+<line class="grid" x1="792.50" y1="95.00" x2="792.50" y2="500.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="792.50" y="524.00" font-size="12" text-anchor="middle">+0.07</text>
+<line class="grid" x1="893.75" y1="95.00" x2="893.75" y2="500.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="893.75" y="524.00" font-size="12" text-anchor="middle">+0.09</text>
+<line class="grid" x1="995.00" y1="95.00" x2="995.00" y2="500.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="995.00" y="524.00" font-size="12" text-anchor="middle">+0.11</text>
+<line x1="438.12" y1="95.00" x2="438.12" y2="500.00" stroke="#374151" stroke-width="1.8" opacity="1.0"/>
+<text x="171.00" y="139.50" font-size="12" text-anchor="end">eff_su2_r1_d2</text>
+<rect x="438.12" y="117.50" width="66.18" height="14.00" fill="#d97706" opacity="0.86"/>
+<text x="511.30" y="128.50" font-size="10" text-anchor="start">+0.013</text>
+<rect x="435.51" y="139.50" width="2.62" height="14.00" fill="#dc2626" opacity="0.86"/>
+<text x="428.51" y="150.50" font-size="10" text-anchor="end">-0.001</text>
+<text x="171.00" y="220.50" font-size="12" text-anchor="end">eff_su2_r5_d2</text>
+<rect x="390.73" y="198.50" width="47.39" height="14.00" fill="#d97706" opacity="0.86"/>
+<text x="383.73" y="209.50" font-size="10" text-anchor="end">-0.009</text>
+<rect x="438.12" y="220.50" width="40.50" height="14.00" fill="#dc2626" opacity="0.86"/>
+<text x="485.63" y="231.50" font-size="10" text-anchor="start">+0.008</text>
+<text x="171.00" y="301.50" font-size="12" text-anchor="end">z_r1_d6</text>
+<rect x="438.12" y="279.50" width="211.87" height="14.00" fill="#d97706" opacity="0.86"/>
+<text x="656.99" y="290.50" font-size="10" text-anchor="start">+0.042</text>
+<rect x="438.12" y="301.50" width="95.88" height="14.00" fill="#dc2626" opacity="0.86"/>
+<text x="541.00" y="312.50" font-size="10" text-anchor="start">+0.019</text>
+<text x="171.00" y="382.50" font-size="12" text-anchor="end">zz_r1_d6</text>
+<rect x="438.12" y="360.50" width="505.38" height="14.00" fill="#d97706" opacity="0.86"/>
+<text x="950.50" y="371.50" font-size="10" text-anchor="start">+0.100</text>
+<rect x="403.28" y="382.50" width="34.85" height="14.00" fill="#dc2626" opacity="0.86"/>
+<text x="396.28" y="393.50" font-size="10" text-anchor="end">-0.007</text>
+<text x="171.00" y="463.50" font-size="12" text-anchor="end">zz_r5_d6</text>
+<rect x="247.77" y="441.50" width="190.35" height="14.00" fill="#d97706" opacity="0.86"/>
+<text x="240.77" y="452.50" font-size="10" text-anchor="end">-0.038</text>
+<rect x="371.55" y="463.50" width="66.57" height="14.00" fill="#dc2626" opacity="0.86"/>
+<text x="364.55" y="474.50" font-size="10" text-anchor="end">-0.013</text>
+<text x="590.00" y="552.00" font-size="13" text-anchor="middle">Affine ChannelLiRA AUC minus comparator AUC</text>
+<rect x="775.00" y="72.00" width="15.00" height="10.00" fill="#d97706" opacity="1.0"/>
+<text x="797.00" y="81.00" font-size="11" text-anchor="start">versus loss MIA</text>
+<rect x="895.00" y="72.00" width="15.00" height="10.00" fill="#dc2626" opacity="1.0"/>
+<text x="917.00" y="81.00" font-size="11" text-anchor="start">versus mismatched LiRA</text>
+</svg>

@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="650" viewBox="0 0 1120 650">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<style>text{font-family:Inter,system-ui,-apple-system,sans-serif;fill:#1f2937}.grid{stroke:#e5e7eb;stroke-width:1}.axis{stroke:#374151;stroke-width:1.2}.tick{font-size:12px;fill:#4b5563}.title{font-size:22px;font-weight:700}.subtitle{font-size:12px;fill:#6b7280}.legend{font-size:12px}</style>
+<text class="title" x="90.00" y="34.00" font-size="12" text-anchor="start">Paired AUC improvement of affine ChannelLiRA</text>
+<text class="subtitle" x="90.00" y="57.00" font-size="12" text-anchor="start">Within-simulator-seed differences; positive values favor ChannelLiRA</text>
+<line class="grid" x1="90.00" y1="572.00" x2="810.00" y2="572.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="78.00" y="576.00" font-size="12" text-anchor="end">-0.015</text>
+<line class="grid" x1="90.00" y1="476.00" x2="810.00" y2="476.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="78.00" y="480.00" font-size="12" text-anchor="end">-0.002</text>
+<line class="grid" x1="90.00" y1="380.00" x2="810.00" y2="380.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="78.00" y="384.00" font-size="12" text-anchor="end">+0.011</text>
+<line class="grid" x1="90.00" y1="284.00" x2="810.00" y2="284.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="78.00" y="288.00" font-size="12" text-anchor="end">+0.024</text>
+<line class="grid" x1="90.00" y1="188.00" x2="810.00" y2="188.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="78.00" y="192.00" font-size="12" text-anchor="end">+0.037</text>
+<line class="grid" x1="90.00" y1="92.00" x2="810.00" y2="92.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="78.00" y="96.00" font-size="12" text-anchor="end">+0.050</text>
+<line class="axis" x1="90.00" y1="92.00" x2="90.00" y2="572.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<line class="axis" x1="90.00" y1="572.00" x2="810.00" y2="572.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="90.00" y="596.00" font-size="12" text-anchor="middle">128</text>
+<text class="tick" x="450.00" y="596.00" font-size="12" text-anchor="middle">512</text>
+<text class="tick" x="810.00" y="596.00" font-size="12" text-anchor="middle">1024</text>
+<text x="450.00" y="632.00" font-size="13" text-anchor="middle">Shots</text>
+<text x="22.00" y="332.00" font-size="13" text-anchor="middle" transform="rotate(-90.0 22.00 332.00)">Paired AUC difference</text>
+<line x1="90.00" y1="461.23" x2="810.00" y2="461.23" stroke="#6b7280" stroke-width="1.5" opacity="1.0" stroke-dasharray="6 5"/>
+<text x="807.00" y="454.23" font-size="11" text-anchor="end" fill="#6b7280">no difference</text>
+<line x1="90.00" y1="517.60" x2="90.00" y2="269.01" stroke="#d97706" stroke-width="1.5" opacity="0.42"/>
+<line x1="86.00" y1="517.60" x2="94.00" y2="517.60" stroke="#d97706" stroke-width="1.5" opacity="0.42"/>
+<line x1="86.00" y1="269.01" x2="94.00" y2="269.01" stroke="#d97706" stroke-width="1.5" opacity="0.42"/>
+<line x1="450.00" y1="367.70" x2="450.00" y2="258.58" stroke="#d97706" stroke-width="1.5" opacity="0.42"/>
+<line x1="446.00" y1="367.70" x2="454.00" y2="367.70" stroke="#d97706" stroke-width="1.5" opacity="0.42"/>
+<line x1="446.00" y1="258.58" x2="454.00" y2="258.58" stroke="#d97706" stroke-width="1.5" opacity="0.42"/>
+<line x1="810.00" y1="354.03" x2="810.00" y2="242.01" stroke="#d97706" stroke-width="1.5" opacity="0.42"/>
+<line x1="806.00" y1="354.03" x2="814.00" y2="354.03" stroke="#d97706" stroke-width="1.5" opacity="0.42"/>
+<line x1="806.00" y1="242.01" x2="814.00" y2="242.01" stroke="#d97706" stroke-width="1.5" opacity="0.42"/>
+<polyline points="90.00,355.22 450.00,324.02 810.00,286.71" fill="none" stroke="#d97706" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="90.00" cy="355.22" r="4.50" fill="#d97706" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="450.00" cy="324.02" r="4.50" fill="#d97706" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="810.00" cy="286.71" r="4.50" fill="#d97706" stroke="#ffffff" stroke-width="1.5"/>
+<line x1="90.00" y1="434.33" x2="90.00" y2="152.01" stroke="#7c3aed" stroke-width="1.5" opacity="0.42"/>
+<line x1="86.00" y1="434.33" x2="94.00" y2="434.33" stroke="#7c3aed" stroke-width="1.5" opacity="0.42"/>
+<line x1="86.00" y1="152.01" x2="94.00" y2="152.01" stroke="#7c3aed" stroke-width="1.5" opacity="0.42"/>
+<line x1="450.00" y1="374.73" x2="450.00" y2="133.10" stroke="#7c3aed" stroke-width="1.5" opacity="0.42"/>
+<line x1="446.00" y1="374.73" x2="454.00" y2="374.73" stroke="#7c3aed" stroke-width="1.5" opacity="0.42"/>
+<line x1="446.00" y1="133.10" x2="454.00" y2="133.10" stroke="#7c3aed" stroke-width="1.5" opacity="0.42"/>
+<line x1="810.00" y1="233.78" x2="810.00" y2="137.26" stroke="#7c3aed" stroke-width="1.5" opacity="0.42"/>
+<line x1="806.00" y1="233.78" x2="814.00" y2="233.78" stroke="#7c3aed" stroke-width="1.5" opacity="0.42"/>
+<line x1="806.00" y1="137.26" x2="814.00" y2="137.26" stroke="#7c3aed" stroke-width="1.5" opacity="0.42"/>
+<polyline points="90.00,242.99 450.00,259.21 810.00,191.49" fill="none" stroke="#7c3aed" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="90.00" cy="242.99" r="4.50" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="450.00" cy="259.21" r="4.50" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="810.00" cy="191.49" r="4.50" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5"/>
+<line x1="90.00" y1="446.68" x2="90.00" y2="306.65" stroke="#dc2626" stroke-width="1.5" opacity="0.42"/>
+<line x1="86.00" y1="446.68" x2="94.00" y2="446.68" stroke="#dc2626" stroke-width="1.5" opacity="0.42"/>
+<line x1="86.00" y1="306.65" x2="94.00" y2="306.65" stroke="#dc2626" stroke-width="1.5" opacity="0.42"/>
+<line x1="450.00" y1="463.00" x2="450.00" y2="364.83" stroke="#dc2626" stroke-width="1.5" opacity="0.42"/>
+<line x1="446.00" y1="463.00" x2="454.00" y2="463.00" stroke="#dc2626" stroke-width="1.5" opacity="0.42"/>
+<line x1="446.00" y1="364.83" x2="454.00" y2="364.83" stroke="#dc2626" stroke-width="1.5" opacity="0.42"/>
+<line x1="810.00" y1="454.30" x2="810.00" y2="390.56" stroke="#dc2626" stroke-width="1.5" opacity="0.42"/>
+<line x1="806.00" y1="454.30" x2="814.00" y2="454.30" stroke="#dc2626" stroke-width="1.5" opacity="0.42"/>
+<line x1="806.00" y1="390.56" x2="814.00" y2="390.56" stroke="#dc2626" stroke-width="1.5" opacity="0.42"/>
+<polyline points="90.00,410.40 450.00,421.15 810.00,424.42" fill="none" stroke="#dc2626" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="90.00" cy="410.40" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="450.00" cy="421.15" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="810.00" cy="424.42" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5"/>
+<line x1="844.00" y1="104.00" x2="872.00" y2="104.00" stroke="#d97706" stroke-width="3" opacity="1.0"/>
+<circle cx="858.00" cy="104.00" r="3.50" fill="#d97706" stroke="#ffffff" stroke-width="1.5"/>
+<text class="legend" x="882.00" y="108.00" font-size="12" text-anchor="start">Affine ChannelLiRA vs loss MIA</text>
+<line x1="844.00" y1="132.00" x2="872.00" y2="132.00" stroke="#7c3aed" stroke-width="3" opacity="1.0"/>
+<circle cx="858.00" cy="132.00" r="3.50" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5"/>
+<text class="legend" x="882.00" y="136.00" font-size="12" text-anchor="start">Affine ChannelLiRA vs learned logistic</text>
+<line x1="844.00" y1="160.00" x2="872.00" y2="160.00" stroke="#dc2626" stroke-width="3" opacity="1.0"/>
+<circle cx="858.00" cy="160.00" r="3.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5"/>
+<text class="legend" x="882.00" y="164.00" font-size="12" text-anchor="start">Affine ChannelLiRA vs mismatched LiRA</text>
+</svg>
