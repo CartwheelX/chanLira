@@ -1,0 +1,19 @@
+{
+  "bootstrap_replicates": 20000,
+  "created_utc": "2026-08-20T15:17:14.626064+00:00",
+  "metrics_source": "/home/najeeb/chanLira/channel_lira_results/transfer_phase3/metrics_raw.csv",
+  "metrics_source_sha256": "2e4657709172e1b941838e668e16582cf133b82d3eaf555d6fed64177ef624b7",
+  "n_cells": 5,
+  "n_simulator_seeds": 10,
+  "n_targets": 15,
+  "schemes": [
+    "leave_cell_out",
+    "leave_target_out"
+  ],
+  "seed": 20260820,
+  "shots": [
+    128,
+    512,
+    1024
+  ]
+}

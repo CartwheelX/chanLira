@@ -1,0 +1,1388 @@
+{
+  "available_reference_checkpoints": 0,
+  "backend_snapshot": "/home/najeeb/chanLira/reviewer_results/noisy_reference_phase5/backend_snapshot",
+  "backend_snapshot_manifest": "/home/najeeb/chanLira/reviewer_results/noisy_reference_phase5/backend_snapshot/snapshot_manifest.json",
+  "backend_snapshot_ready": false,
+  "candidate_counts": [
+    400
+  ],
+  "candidate_fingerprints": [
+    "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6"
+  ],
+  "cells": [
+    "eff_su2_r1_d2",
+    "eff_su2_r5_d2",
+    "z_r1_d6",
+    "zz_r1_d6",
+    "zz_r5_d6"
+  ],
+  "created_utc": "2026-08-20T15:21:24.380575+00:00",
+  "expected_reference_checkpoints": 80,
+  "missing_reference_checkpoints": 80,
+  "num_references_per_cell": 16,
+  "ready": false,
+  "references": [
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_000.npz"
+      ],
+      "cell": "eff_su2_r1_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_000.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 0,
+      "reference_seed": 1912253111,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_000.npz",
+      "target_template": "MNIST_QNN_eff_su2_r1_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_001.npz"
+      ],
+      "cell": "eff_su2_r1_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_001.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 1,
+      "reference_seed": 483244903,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_001.npz",
+      "target_template": "MNIST_QNN_eff_su2_r1_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_002.npz"
+      ],
+      "cell": "eff_su2_r1_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_002.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 2,
+      "reference_seed": 1779205379,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_002.npz",
+      "target_template": "MNIST_QNN_eff_su2_r1_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_003.npz"
+      ],
+      "cell": "eff_su2_r1_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_003.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 3,
+      "reference_seed": 1760209343,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_003.npz",
+      "target_template": "MNIST_QNN_eff_su2_r1_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_004.npz"
+      ],
+      "cell": "eff_su2_r1_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_004.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 4,
+      "reference_seed": 1534679513,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_004.npz",
+      "target_template": "MNIST_QNN_eff_su2_r1_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_005.npz"
+      ],
+      "cell": "eff_su2_r1_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_005.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 5,
+      "reference_seed": 1431719985,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_005.npz",
+      "target_template": "MNIST_QNN_eff_su2_r1_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_006.npz"
+      ],
+      "cell": "eff_su2_r1_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_006.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 6,
+      "reference_seed": 964646022,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_006.npz",
+      "target_template": "MNIST_QNN_eff_su2_r1_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_007.npz"
+      ],
+      "cell": "eff_su2_r1_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_007.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 7,
+      "reference_seed": 1025911507,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_007.npz",
+      "target_template": "MNIST_QNN_eff_su2_r1_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_008.npz"
+      ],
+      "cell": "eff_su2_r1_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_008.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 8,
+      "reference_seed": 1329887278,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_008.npz",
+      "target_template": "MNIST_QNN_eff_su2_r1_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_009.npz"
+      ],
+      "cell": "eff_su2_r1_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_009.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 9,
+      "reference_seed": 615845162,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_009.npz",
+      "target_template": "MNIST_QNN_eff_su2_r1_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_010.npz"
+      ],
+      "cell": "eff_su2_r1_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_010.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 10,
+      "reference_seed": 564333152,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_010.npz",
+      "target_template": "MNIST_QNN_eff_su2_r1_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_011.npz"
+      ],
+      "cell": "eff_su2_r1_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_011.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 11,
+      "reference_seed": 1252027502,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_011.npz",
+      "target_template": "MNIST_QNN_eff_su2_r1_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_012.npz"
+      ],
+      "cell": "eff_su2_r1_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_012.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 12,
+      "reference_seed": 2010526314,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_012.npz",
+      "target_template": "MNIST_QNN_eff_su2_r1_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_013.npz"
+      ],
+      "cell": "eff_su2_r1_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_013.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 13,
+      "reference_seed": 2134929932,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_013.npz",
+      "target_template": "MNIST_QNN_eff_su2_r1_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_014.npz"
+      ],
+      "cell": "eff_su2_r1_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_014.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 14,
+      "reference_seed": 2116666755,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_014.npz",
+      "target_template": "MNIST_QNN_eff_su2_r1_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_015.npz"
+      ],
+      "cell": "eff_su2_r1_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_015.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 15,
+      "reference_seed": 891256325,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r1_d2/reference_015.npz",
+      "target_template": "MNIST_QNN_eff_su2_r1_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_000.npz"
+      ],
+      "cell": "eff_su2_r5_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_000.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 0,
+      "reference_seed": 855592392,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_000.npz",
+      "target_template": "MNIST_QNN_eff_su2_r5_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_001.npz"
+      ],
+      "cell": "eff_su2_r5_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_001.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 1,
+      "reference_seed": 723529514,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_001.npz",
+      "target_template": "MNIST_QNN_eff_su2_r5_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_002.npz"
+      ],
+      "cell": "eff_su2_r5_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_002.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 2,
+      "reference_seed": 898806302,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_002.npz",
+      "target_template": "MNIST_QNN_eff_su2_r5_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_003.npz"
+      ],
+      "cell": "eff_su2_r5_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_003.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 3,
+      "reference_seed": 124457978,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_003.npz",
+      "target_template": "MNIST_QNN_eff_su2_r5_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_004.npz"
+      ],
+      "cell": "eff_su2_r5_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_004.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 4,
+      "reference_seed": 2103491264,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_004.npz",
+      "target_template": "MNIST_QNN_eff_su2_r5_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_005.npz"
+      ],
+      "cell": "eff_su2_r5_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_005.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 5,
+      "reference_seed": 1325208488,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_005.npz",
+      "target_template": "MNIST_QNN_eff_su2_r5_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_006.npz"
+      ],
+      "cell": "eff_su2_r5_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_006.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 6,
+      "reference_seed": 617173225,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_006.npz",
+      "target_template": "MNIST_QNN_eff_su2_r5_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_007.npz"
+      ],
+      "cell": "eff_su2_r5_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_007.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 7,
+      "reference_seed": 1520539209,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_007.npz",
+      "target_template": "MNIST_QNN_eff_su2_r5_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_008.npz"
+      ],
+      "cell": "eff_su2_r5_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_008.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 8,
+      "reference_seed": 249475701,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_008.npz",
+      "target_template": "MNIST_QNN_eff_su2_r5_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_009.npz"
+      ],
+      "cell": "eff_su2_r5_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_009.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 9,
+      "reference_seed": 408394533,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_009.npz",
+      "target_template": "MNIST_QNN_eff_su2_r5_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_010.npz"
+      ],
+      "cell": "eff_su2_r5_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_010.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 10,
+      "reference_seed": 911705025,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_010.npz",
+      "target_template": "MNIST_QNN_eff_su2_r5_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_011.npz"
+      ],
+      "cell": "eff_su2_r5_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_011.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 11,
+      "reference_seed": 1122476903,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_011.npz",
+      "target_template": "MNIST_QNN_eff_su2_r5_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_012.npz"
+      ],
+      "cell": "eff_su2_r5_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_012.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 12,
+      "reference_seed": 1962053226,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_012.npz",
+      "target_template": "MNIST_QNN_eff_su2_r5_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_013.npz"
+      ],
+      "cell": "eff_su2_r5_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_013.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 13,
+      "reference_seed": 1192094979,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_013.npz",
+      "target_template": "MNIST_QNN_eff_su2_r5_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_014.npz"
+      ],
+      "cell": "eff_su2_r5_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_014.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 14,
+      "reference_seed": 416094250,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_014.npz",
+      "target_template": "MNIST_QNN_eff_su2_r5_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_015.npz"
+      ],
+      "cell": "eff_su2_r5_d2",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_015.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 15,
+      "reference_seed": 1939893757,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/eff_su2_r5_d2/reference_015.npz",
+      "target_template": "MNIST_QNN_eff_su2_r5_d2_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_000.npz"
+      ],
+      "cell": "z_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_000.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 0,
+      "reference_seed": 1954014302,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_000.npz",
+      "target_template": "MNIST_QNN_z_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_001.npz"
+      ],
+      "cell": "z_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_001.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 1,
+      "reference_seed": 2127881035,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_001.npz",
+      "target_template": "MNIST_QNN_z_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_002.npz"
+      ],
+      "cell": "z_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_002.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 2,
+      "reference_seed": 55101908,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_002.npz",
+      "target_template": "MNIST_QNN_z_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_003.npz"
+      ],
+      "cell": "z_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_003.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 3,
+      "reference_seed": 2037056491,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_003.npz",
+      "target_template": "MNIST_QNN_z_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_004.npz"
+      ],
+      "cell": "z_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_004.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 4,
+      "reference_seed": 645940628,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_004.npz",
+      "target_template": "MNIST_QNN_z_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_005.npz"
+      ],
+      "cell": "z_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_005.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 5,
+      "reference_seed": 956520353,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_005.npz",
+      "target_template": "MNIST_QNN_z_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_006.npz"
+      ],
+      "cell": "z_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_006.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 6,
+      "reference_seed": 1323080358,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_006.npz",
+      "target_template": "MNIST_QNN_z_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_007.npz"
+      ],
+      "cell": "z_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_007.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 7,
+      "reference_seed": 607431012,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_007.npz",
+      "target_template": "MNIST_QNN_z_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_008.npz"
+      ],
+      "cell": "z_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_008.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 8,
+      "reference_seed": 336794809,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_008.npz",
+      "target_template": "MNIST_QNN_z_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_009.npz"
+      ],
+      "cell": "z_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_009.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 9,
+      "reference_seed": 222117103,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_009.npz",
+      "target_template": "MNIST_QNN_z_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_010.npz"
+      ],
+      "cell": "z_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_010.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 10,
+      "reference_seed": 1182929436,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_010.npz",
+      "target_template": "MNIST_QNN_z_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_011.npz"
+      ],
+      "cell": "z_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_011.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 11,
+      "reference_seed": 817131101,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_011.npz",
+      "target_template": "MNIST_QNN_z_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_012.npz"
+      ],
+      "cell": "z_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_012.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 12,
+      "reference_seed": 1205118862,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_012.npz",
+      "target_template": "MNIST_QNN_z_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_013.npz"
+      ],
+      "cell": "z_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_013.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 13,
+      "reference_seed": 1829907881,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_013.npz",
+      "target_template": "MNIST_QNN_z_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_014.npz"
+      ],
+      "cell": "z_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_014.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 14,
+      "reference_seed": 315566533,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_014.npz",
+      "target_template": "MNIST_QNN_z_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_015.npz"
+      ],
+      "cell": "z_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_015.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 15,
+      "reference_seed": 1356178322,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/z_r1_d6/reference_015.npz",
+      "target_template": "MNIST_QNN_z_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_000.npz"
+      ],
+      "cell": "zz_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_000.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 0,
+      "reference_seed": 1707516861,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_000.npz",
+      "target_template": "MNIST_QNN_zz_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_001.npz"
+      ],
+      "cell": "zz_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_001.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 1,
+      "reference_seed": 1130495104,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_001.npz",
+      "target_template": "MNIST_QNN_zz_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_002.npz"
+      ],
+      "cell": "zz_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_002.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 2,
+      "reference_seed": 1080432494,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_002.npz",
+      "target_template": "MNIST_QNN_zz_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_003.npz"
+      ],
+      "cell": "zz_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_003.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 3,
+      "reference_seed": 15923304,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_003.npz",
+      "target_template": "MNIST_QNN_zz_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_004.npz"
+      ],
+      "cell": "zz_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_004.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 4,
+      "reference_seed": 350467509,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_004.npz",
+      "target_template": "MNIST_QNN_zz_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_005.npz"
+      ],
+      "cell": "zz_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_005.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 5,
+      "reference_seed": 2006604548,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_005.npz",
+      "target_template": "MNIST_QNN_zz_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_006.npz"
+      ],
+      "cell": "zz_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_006.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 6,
+      "reference_seed": 1631096950,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_006.npz",
+      "target_template": "MNIST_QNN_zz_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_007.npz"
+      ],
+      "cell": "zz_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_007.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 7,
+      "reference_seed": 887893452,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_007.npz",
+      "target_template": "MNIST_QNN_zz_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_008.npz"
+      ],
+      "cell": "zz_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_008.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 8,
+      "reference_seed": 1434752919,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_008.npz",
+      "target_template": "MNIST_QNN_zz_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_009.npz"
+      ],
+      "cell": "zz_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_009.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 9,
+      "reference_seed": 1102422718,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_009.npz",
+      "target_template": "MNIST_QNN_zz_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_010.npz"
+      ],
+      "cell": "zz_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_010.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 10,
+      "reference_seed": 747763747,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_010.npz",
+      "target_template": "MNIST_QNN_zz_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_011.npz"
+      ],
+      "cell": "zz_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_011.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 11,
+      "reference_seed": 4212536,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_011.npz",
+      "target_template": "MNIST_QNN_zz_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_012.npz"
+      ],
+      "cell": "zz_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_012.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 12,
+      "reference_seed": 1276912106,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_012.npz",
+      "target_template": "MNIST_QNN_zz_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_013.npz"
+      ],
+      "cell": "zz_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_013.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 13,
+      "reference_seed": 1530877648,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_013.npz",
+      "target_template": "MNIST_QNN_zz_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_014.npz"
+      ],
+      "cell": "zz_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_014.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 14,
+      "reference_seed": 1413913924,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_014.npz",
+      "target_template": "MNIST_QNN_zz_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_015.npz"
+      ],
+      "cell": "zz_r1_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_015.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 15,
+      "reference_seed": 1592343048,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r1_d6/reference_015.npz",
+      "target_template": "MNIST_QNN_zz_r1_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_000.npz"
+      ],
+      "cell": "zz_r5_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_000.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 0,
+      "reference_seed": 1982223030,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_000.npz",
+      "target_template": "MNIST_QNN_zz_r5_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_001.npz"
+      ],
+      "cell": "zz_r5_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_001.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 1,
+      "reference_seed": 726557877,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_001.npz",
+      "target_template": "MNIST_QNN_zz_r5_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_002.npz"
+      ],
+      "cell": "zz_r5_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_002.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 2,
+      "reference_seed": 908468499,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_002.npz",
+      "target_template": "MNIST_QNN_zz_r5_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_003.npz"
+      ],
+      "cell": "zz_r5_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_003.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 3,
+      "reference_seed": 1398245224,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_003.npz",
+      "target_template": "MNIST_QNN_zz_r5_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_004.npz"
+      ],
+      "cell": "zz_r5_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_004.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 4,
+      "reference_seed": 980291248,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_004.npz",
+      "target_template": "MNIST_QNN_zz_r5_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_005.npz"
+      ],
+      "cell": "zz_r5_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_005.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 5,
+      "reference_seed": 928857565,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_005.npz",
+      "target_template": "MNIST_QNN_zz_r5_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_006.npz"
+      ],
+      "cell": "zz_r5_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_006.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 6,
+      "reference_seed": 622467032,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_006.npz",
+      "target_template": "MNIST_QNN_zz_r5_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_007.npz"
+      ],
+      "cell": "zz_r5_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_007.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 7,
+      "reference_seed": 1527386370,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_007.npz",
+      "target_template": "MNIST_QNN_zz_r5_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_008.npz"
+      ],
+      "cell": "zz_r5_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_008.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 8,
+      "reference_seed": 696331930,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_008.npz",
+      "target_template": "MNIST_QNN_zz_r5_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_009.npz"
+      ],
+      "cell": "zz_r5_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_009.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 9,
+      "reference_seed": 151734412,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_009.npz",
+      "target_template": "MNIST_QNN_zz_r5_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_010.npz"
+      ],
+      "cell": "zz_r5_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_010.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 10,
+      "reference_seed": 1682624148,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_010.npz",
+      "target_template": "MNIST_QNN_zz_r5_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_011.npz"
+      ],
+      "cell": "zz_r5_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_011.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 11,
+      "reference_seed": 1267662067,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_011.npz",
+      "target_template": "MNIST_QNN_zz_r5_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_012.npz"
+      ],
+      "cell": "zz_r5_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_012.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 12,
+      "reference_seed": 1965031195,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_012.npz",
+      "target_template": "MNIST_QNN_zz_r5_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_013.npz"
+      ],
+      "cell": "zz_r5_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_013.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 13,
+      "reference_seed": 948233102,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_013.npz",
+      "target_template": "MNIST_QNN_zz_r5_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_014.npz"
+      ],
+      "cell": "zz_r5_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_014.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 14,
+      "reference_seed": 991290259,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_014.npz",
+      "target_template": "MNIST_QNN_zz_r5_d6_s43"
+    },
+    {
+      "candidate_count": 400,
+      "candidate_fingerprint": "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6",
+      "candidate_score_paths": [
+        "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_015.npz"
+      ],
+      "cell": "zz_r5_d6",
+      "checkpoint_exists": false,
+      "checkpoint_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_015.pt",
+      "error": "",
+      "metadata_valid": true,
+      "reference_id": 15,
+      "reference_seed": 10004004,
+      "score_exists": true,
+      "score_path": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/reference_models/zz_r5_d6/reference_015.npz",
+      "target_template": "MNIST_QNN_zz_r5_d6_s43"
+    }
+  ],
+  "retrain_command": "python3 reviewer_tools/run_lira_reference_multigpu.py --targets reviewer_targets/multiseed_factorial_targets.csv --out-dir reviewer_results/lira_reference_mia --cells eff_su2_r1_d2,eff_su2_r5_d2,z_r1_d6,zz_r1_d6,zz_r5_d6 --num-references 16 --save-reference-checkpoints --phase train --resume",
+  "valid_exact_reference_files": 80
+}

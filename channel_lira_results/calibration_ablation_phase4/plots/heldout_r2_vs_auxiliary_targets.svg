@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="650" viewBox="0 0 1120 650">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<style>text{font-family:Inter,system-ui,-apple-system,sans-serif;fill:#1f2937}.grid{stroke:#e5e7eb;stroke-width:1}.axis{stroke:#374151;stroke-width:1.2}.tick{font-size:12px;fill:#4b5563}.title{font-size:22px;font-weight:700}.subtitle{font-size:12px;fill:#6b7280}.legend{font-size:12px}</style>
+<text class="title" x="90.00" y="34.00" font-size="12" text-anchor="start">Held-cell channel fit versus calibration size</text>
+<text class="subtitle" x="90.00" y="57.00" font-size="12" text-anchor="start">Whiskers combine held cells, folds, and frozen subset sensitivity; they are not confidence intervals</text>
+<line class="grid" x1="90.00" y1="572.00" x2="810.00" y2="572.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="78.00" y="576.00" font-size="12" text-anchor="end">0.45</text>
+<line class="grid" x1="90.00" y1="476.00" x2="810.00" y2="476.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="78.00" y="480.00" font-size="12" text-anchor="end">0.56</text>
+<line class="grid" x1="90.00" y1="380.00" x2="810.00" y2="380.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="78.00" y="384.00" font-size="12" text-anchor="end">0.67</text>
+<line class="grid" x1="90.00" y1="284.00" x2="810.00" y2="284.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="78.00" y="288.00" font-size="12" text-anchor="end">0.78</text>
+<line class="grid" x1="90.00" y1="188.00" x2="810.00" y2="188.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="78.00" y="192.00" font-size="12" text-anchor="end">0.89</text>
+<line class="grid" x1="90.00" y1="92.00" x2="810.00" y2="92.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="78.00" y="96.00" font-size="12" text-anchor="end">1.00</text>
+<line class="axis" x1="90.00" y1="92.00" x2="90.00" y2="572.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<line class="axis" x1="90.00" y1="572.00" x2="810.00" y2="572.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="90.00" y="596.00" font-size="12" text-anchor="middle">2</text>
+<text class="tick" x="330.00" y="596.00" font-size="12" text-anchor="middle">4</text>
+<text class="tick" x="570.00" y="596.00" font-size="12" text-anchor="middle">8</text>
+<text class="tick" x="810.00" y="596.00" font-size="12" text-anchor="middle">12</text>
+<text x="450.00" y="632.00" font-size="13" text-anchor="middle">Auxiliary targets from other cells</text>
+<text x="22.00" y="332.00" font-size="13" text-anchor="middle" transform="rotate(-90.0 22.00 332.00)">Held-out R²</text>
+<line x1="90.00" y1="498.81" x2="90.00" y2="151.82" stroke="#2563eb" stroke-width="1.5" opacity="0.42"/>
+<line x1="86.00" y1="498.81" x2="94.00" y2="498.81" stroke="#2563eb" stroke-width="1.5" opacity="0.42"/>
+<line x1="86.00" y1="151.82" x2="94.00" y2="151.82" stroke="#2563eb" stroke-width="1.5" opacity="0.42"/>
+<line x1="330.00" y1="488.32" x2="330.00" y2="147.36" stroke="#2563eb" stroke-width="1.5" opacity="0.42"/>
+<line x1="326.00" y1="488.32" x2="334.00" y2="488.32" stroke="#2563eb" stroke-width="1.5" opacity="0.42"/>
+<line x1="326.00" y1="147.36" x2="334.00" y2="147.36" stroke="#2563eb" stroke-width="1.5" opacity="0.42"/>
+<line x1="570.00" y1="470.59" x2="570.00" y2="144.65" stroke="#2563eb" stroke-width="1.5" opacity="0.42"/>
+<line x1="566.00" y1="470.59" x2="574.00" y2="470.59" stroke="#2563eb" stroke-width="1.5" opacity="0.42"/>
+<line x1="566.00" y1="144.65" x2="574.00" y2="144.65" stroke="#2563eb" stroke-width="1.5" opacity="0.42"/>
+<line x1="810.00" y1="446.12" x2="810.00" y2="144.15" stroke="#2563eb" stroke-width="1.5" opacity="0.42"/>
+<line x1="806.00" y1="446.12" x2="814.00" y2="446.12" stroke="#2563eb" stroke-width="1.5" opacity="0.42"/>
+<line x1="806.00" y1="144.15" x2="814.00" y2="144.15" stroke="#2563eb" stroke-width="1.5" opacity="0.42"/>
+<polyline points="90.00,220.92 330.00,218.75 570.00,212.72 810.00,208.34" fill="none" stroke="#2563eb" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="90.00" cy="220.92" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="330.00" cy="218.75" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="570.00" cy="212.72" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="810.00" cy="208.34" r="4.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5"/>
+<line x1="844.00" y1="104.00" x2="872.00" y2="104.00" stroke="#2563eb" stroke-width="3" opacity="1.0"/>
+<circle cx="858.00" cy="104.00" r="3.50" fill="#2563eb" stroke="#ffffff" stroke-width="1.5"/>
+<text class="legend" x="882.00" y="108.00" font-size="12" text-anchor="start">Held-cell affine-channel R²</text>
+</svg>

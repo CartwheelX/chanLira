@@ -78,16 +78,22 @@ in only 3/5 cells for each transfer protocol.
 
 ## What remains before a publication claim
 
+Phase 4 now addresses calibration-set size/source and adds a target/cell clustered
+sensitivity analysis. See [the Phase-4 protocol and results](CHANNEL_LIRA_PHASE4.md).
+The clustered ranges cross zero, so the following publication gates remain:
+
 1. Retain or retrain noisy reference checkpoints and evaluate their serving outputs
-   directly instead of channel-augmenting an exact reference bank.
+   directly instead of channel-augmenting an exact reference bank. The readiness
+   audit currently finds 0/80 checkpoints and no reconstructable noise snapshot.
 2. Repeat across multiple calibration dates and real quantum-hardware snapshots to
    test temporal drift and simulator-to-hardware transfer.
 3. Add heteroskedastic and nonparametric channel models, especially for the circuit
    cells where affine-Gaussian transfer is weak.
 4. Add classical stochastic-serving controls and stronger shadow-model learned-MIA
    baselines under matched auxiliary knowledge.
-5. Propagate channel-parameter uncertainty and use record- and model-clustered
-   resampling for inferential intervals.
+5. Propagate channel-parameter uncertainty and collect enough independent targets,
+   cells, reference ensembles, and records for nested inferential intervals. The
+   current hierarchical resampling is a sensitivity analysis over only five cells.
 
 ## Generated artifacts
 

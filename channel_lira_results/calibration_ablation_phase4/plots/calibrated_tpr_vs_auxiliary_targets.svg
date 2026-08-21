@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="650" viewBox="0 0 1120 650">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<style>text{font-family:Inter,system-ui,-apple-system,sans-serif;fill:#1f2937}.grid{stroke:#e5e7eb;stroke-width:1}.axis{stroke:#374151;stroke-width:1.2}.tick{font-size:12px;fill:#4b5563}.title{font-size:22px;font-weight:700}.subtitle{font-size:12px;fill:#6b7280}.legend{font-size:12px}</style>
+<text class="title" x="90.00" y="34.00" font-size="12" text-anchor="start">Operational TPR versus calibration size</text>
+<text class="subtitle" x="90.00" y="57.00" font-size="12" text-anchor="start">Thresholds use only the selected auxiliary targets; nominal FPR is 1%</text>
+<line class="grid" x1="90.00" y1="572.00" x2="810.00" y2="572.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="78.00" y="576.00" font-size="12" text-anchor="end">0.4%</text>
+<line class="grid" x1="90.00" y1="476.00" x2="810.00" y2="476.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="78.00" y="480.00" font-size="12" text-anchor="end">1.0%</text>
+<line class="grid" x1="90.00" y1="380.00" x2="810.00" y2="380.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="78.00" y="384.00" font-size="12" text-anchor="end">1.6%</text>
+<line class="grid" x1="90.00" y1="284.00" x2="810.00" y2="284.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="78.00" y="288.00" font-size="12" text-anchor="end">2.2%</text>
+<line class="grid" x1="90.00" y1="188.00" x2="810.00" y2="188.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="78.00" y="192.00" font-size="12" text-anchor="end">2.8%</text>
+<line class="grid" x1="90.00" y1="92.00" x2="810.00" y2="92.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="78.00" y="96.00" font-size="12" text-anchor="end">3.4%</text>
+<line class="axis" x1="90.00" y1="92.00" x2="90.00" y2="572.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<line class="axis" x1="90.00" y1="572.00" x2="810.00" y2="572.00" stroke="#374151" stroke-width="1.0" opacity="1.0"/>
+<text class="tick" x="90.00" y="596.00" font-size="12" text-anchor="middle">2</text>
+<text class="tick" x="330.00" y="596.00" font-size="12" text-anchor="middle">4</text>
+<text class="tick" x="570.00" y="596.00" font-size="12" text-anchor="middle">8</text>
+<text class="tick" x="810.00" y="596.00" font-size="12" text-anchor="middle">12</text>
+<text x="450.00" y="632.00" font-size="13" text-anchor="middle">Auxiliary targets from other cells</text>
+<text x="22.00" y="332.00" font-size="13" text-anchor="middle" transform="rotate(-90.0 22.00 332.00)">Calibrated true-positive rate</text>
+<line x1="90.00" y1="194.93" x2="90.00" y2="153.07" stroke="#047857" stroke-width="1.5" opacity="0.42"/>
+<line x1="86.00" y1="194.93" x2="94.00" y2="194.93" stroke="#047857" stroke-width="1.5" opacity="0.42"/>
+<line x1="86.00" y1="153.07" x2="94.00" y2="153.07" stroke="#047857" stroke-width="1.5" opacity="0.42"/>
+<line x1="330.00" y1="228.80" x2="330.00" y2="163.73" stroke="#047857" stroke-width="1.5" opacity="0.42"/>
+<line x1="326.00" y1="228.80" x2="334.00" y2="228.80" stroke="#047857" stroke-width="1.5" opacity="0.42"/>
+<line x1="326.00" y1="163.73" x2="334.00" y2="163.73" stroke="#047857" stroke-width="1.5" opacity="0.42"/>
+<line x1="570.00" y1="254.93" x2="570.00" y2="181.07" stroke="#047857" stroke-width="1.5" opacity="0.42"/>
+<line x1="566.00" y1="254.93" x2="574.00" y2="254.93" stroke="#047857" stroke-width="1.5" opacity="0.42"/>
+<line x1="566.00" y1="181.07" x2="574.00" y2="181.07" stroke="#047857" stroke-width="1.5" opacity="0.42"/>
+<line x1="810.00" y1="263.73" x2="810.00" y2="186.93" stroke="#047857" stroke-width="1.5" opacity="0.42"/>
+<line x1="806.00" y1="263.73" x2="814.00" y2="263.73" stroke="#047857" stroke-width="1.5" opacity="0.42"/>
+<line x1="806.00" y1="186.93" x2="814.00" y2="186.93" stroke="#047857" stroke-width="1.5" opacity="0.42"/>
+<polyline points="90.00,164.00 330.00,185.33 570.00,214.67 810.00,209.33" fill="none" stroke="#047857" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="90.00" cy="164.00" r="4.50" fill="#047857" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="330.00" cy="185.33" r="4.50" fill="#047857" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="570.00" cy="214.67" r="4.50" fill="#047857" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="810.00" cy="209.33" r="4.50" fill="#047857" stroke="#ffffff" stroke-width="1.5"/>
+<line x1="90.00" y1="350.93" x2="90.00" y2="273.33" stroke="#dc2626" stroke-width="1.5" opacity="0.42"/>
+<line x1="86.00" y1="350.93" x2="94.00" y2="350.93" stroke="#dc2626" stroke-width="1.5" opacity="0.42"/>
+<line x1="86.00" y1="273.33" x2="94.00" y2="273.33" stroke="#dc2626" stroke-width="1.5" opacity="0.42"/>
+<line x1="330.00" y1="405.33" x2="330.00" y2="316.00" stroke="#dc2626" stroke-width="1.5" opacity="0.42"/>
+<line x1="326.00" y1="405.33" x2="334.00" y2="405.33" stroke="#dc2626" stroke-width="1.5" opacity="0.42"/>
+<line x1="326.00" y1="316.00" x2="334.00" y2="316.00" stroke="#dc2626" stroke-width="1.5" opacity="0.42"/>
+<line x1="570.00" y1="418.93" x2="570.00" y2="310.13" stroke="#dc2626" stroke-width="1.5" opacity="0.42"/>
+<line x1="566.00" y1="418.93" x2="574.00" y2="418.93" stroke="#dc2626" stroke-width="1.5" opacity="0.42"/>
+<line x1="566.00" y1="310.13" x2="574.00" y2="310.13" stroke="#dc2626" stroke-width="1.5" opacity="0.42"/>
+<line x1="810.00" y1="418.93" x2="810.00" y2="316.00" stroke="#dc2626" stroke-width="1.5" opacity="0.42"/>
+<line x1="806.00" y1="418.93" x2="814.00" y2="418.93" stroke="#dc2626" stroke-width="1.5" opacity="0.42"/>
+<line x1="806.00" y1="316.00" x2="814.00" y2="316.00" stroke="#dc2626" stroke-width="1.5" opacity="0.42"/>
+<polyline points="90.00,292.00 330.00,334.67 570.00,340.00 810.00,348.00" fill="none" stroke="#dc2626" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="7 5"/>
+<circle cx="90.00" cy="292.00" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="330.00" cy="334.67" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="570.00" cy="340.00" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="810.00" cy="348.00" r="4.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5"/>
+<line x1="90.00" y1="318.93" x2="90.00" y2="272.80" stroke="#d97706" stroke-width="1.5" opacity="0.42"/>
+<line x1="86.00" y1="318.93" x2="94.00" y2="318.93" stroke="#d97706" stroke-width="1.5" opacity="0.42"/>
+<line x1="86.00" y1="272.80" x2="94.00" y2="272.80" stroke="#d97706" stroke-width="1.5" opacity="0.42"/>
+<line x1="330.00" y1="500.80" x2="330.00" y2="446.40" stroke="#d97706" stroke-width="1.5" opacity="0.42"/>
+<line x1="326.00" y1="500.80" x2="334.00" y2="500.80" stroke="#d97706" stroke-width="1.5" opacity="0.42"/>
+<line x1="326.00" y1="446.40" x2="334.00" y2="446.40" stroke="#d97706" stroke-width="1.5" opacity="0.42"/>
+<line x1="570.00" y1="506.13" x2="570.00" y2="465.33" stroke="#d97706" stroke-width="1.5" opacity="0.42"/>
+<line x1="566.00" y1="506.13" x2="574.00" y2="506.13" stroke="#d97706" stroke-width="1.5" opacity="0.42"/>
+<line x1="566.00" y1="465.33" x2="574.00" y2="465.33" stroke="#d97706" stroke-width="1.5" opacity="0.42"/>
+<line x1="810.00" y1="513.87" x2="810.00" y2="476.00" stroke="#d97706" stroke-width="1.5" opacity="0.42"/>
+<line x1="806.00" y1="513.87" x2="814.00" y2="513.87" stroke="#d97706" stroke-width="1.5" opacity="0.42"/>
+<line x1="806.00" y1="476.00" x2="814.00" y2="476.00" stroke="#d97706" stroke-width="1.5" opacity="0.42"/>
+<polyline points="90.00,289.33 330.00,462.67 570.00,476.00 810.00,497.33" fill="none" stroke="#d97706" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="90.00" cy="289.33" r="4.50" fill="#d97706" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="330.00" cy="462.67" r="4.50" fill="#d97706" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="570.00" cy="476.00" r="4.50" fill="#d97706" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="810.00" cy="497.33" r="4.50" fill="#d97706" stroke="#ffffff" stroke-width="1.5"/>
+<line x1="844.00" y1="104.00" x2="872.00" y2="104.00" stroke="#047857" stroke-width="3" opacity="1.0"/>
+<circle cx="858.00" cy="104.00" r="3.50" fill="#047857" stroke="#ffffff" stroke-width="1.5"/>
+<text class="legend" x="882.00" y="108.00" font-size="12" text-anchor="start">Affine ChannelLiRA</text>
+<line x1="844.00" y1="132.00" x2="872.00" y2="132.00" stroke="#dc2626" stroke-width="3" opacity="1.0" stroke-dasharray="7 5"/>
+<circle cx="858.00" cy="132.00" r="3.50" fill="#dc2626" stroke="#ffffff" stroke-width="1.5"/>
+<text class="legend" x="882.00" y="136.00" font-size="12" text-anchor="start">Mismatched LiRA</text>
+<line x1="844.00" y1="160.00" x2="872.00" y2="160.00" stroke="#d97706" stroke-width="3" opacity="1.0"/>
+<circle cx="858.00" cy="160.00" r="3.50" fill="#d97706" stroke="#ffffff" stroke-width="1.5"/>
+<text class="legend" x="882.00" y="164.00" font-size="12" text-anchor="start">Loss MIA</text>
+</svg>

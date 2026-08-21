@@ -50,6 +50,17 @@ def structural_cell(row: pd.Series) -> str:
     )
 
 
+def structural_cell_alias(row: pd.Series) -> str:
+    """Return the pre-weight-decay cell name used by retained reference banks."""
+    explicit = str(row.get("structural_cell_id", "")).strip()
+    if explicit and explicit.lower() not in {"nan", "none"}:
+        return explicit.split("|", 1)[0]
+    return (
+        f"{row.get('architecture', 'qnn')}_{row.get('fm_kind', 'unknown')}"
+        f"_r{int(float(row.get('reps', 0)))}_d{int(float(row.get('depth', 0)))}"
+    )
+
+
 def run_commands(
     tasks: list[dict[str, Any]],
     *,
@@ -148,6 +159,11 @@ def main() -> None:
     )
     parser.add_argument("--num-references", type=int, default=16)
     parser.add_argument(
+        "--cells",
+        default="all",
+        help="Comma-separated structural cells to train, or 'all'.",
+    )
+    parser.add_argument(
         "--save-reference-checkpoints",
         action="store_true",
         help="Retain reference weights so the same banks can be evaluated under noise.",
@@ -187,7 +203,26 @@ def main() -> None:
     if targets.empty:
         raise SystemExit("No QNN targets found")
     targets["_cell"] = targets.apply(structural_cell, axis=1)
+    targets["_cell_alias"] = targets.apply(structural_cell_alias, axis=1)
     representatives = targets.drop_duplicates("_cell", keep="first")
+    if args.cells.strip().lower() != "all":
+        selected_cells = {
+            value.strip() for value in args.cells.split(",") if value.strip()
+        }
+        if not selected_cells:
+            raise SystemExit("--cells must contain at least one structural cell")
+        available_cells = set(representatives["_cell"].astype(str)) | set(
+            representatives["_cell_alias"].astype(str)
+        )
+        missing_cells = sorted(selected_cells - available_cells)
+        if missing_cells:
+            raise SystemExit(f"Requested structural cells are absent: {missing_cells}")
+        target_mask = (
+            targets["_cell"].astype(str).isin(selected_cells)
+            | targets["_cell_alias"].astype(str).isin(selected_cells)
+        )
+        targets = targets[target_mask].copy()
+        representatives = targets.drop_duplicates("_cell", keep="first")
 
     gpus = parse_gpus(args.gpus, dry_run=args.dry_run)
     concurrency = len(gpus) * args.jobs_per_gpu

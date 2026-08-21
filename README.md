@@ -19,8 +19,11 @@
 > [completed report](channel_lira_results/circuit_phase2/REPORT.md). The subsequent
 > [strict-transfer phase](docs/CHANNEL_LIRA_TRANSFER.md) holds out complete targets
 > and circuit cells, with its own [report](channel_lira_results/transfer_phase3/REPORT.md)
-> and [plots](channel_lira_results/transfer_phase3/PLOTS.md). None of these phases is
-> a real quantum-hardware execution.
+> and [plots](channel_lira_results/transfer_phase3/PLOTS.md). The subsequent
+> [calibration and inference stress tests](docs/CHANNEL_LIRA_PHASE4.md) separate
+> auxiliary-source from auxiliary-count effects, add clustered sensitivity, and
+> audit readiness for true circuit-executed noisy references. None of these phases
+> is a real quantum-hardware execution.
 
 **QuRiFT** (**Quantum Risk and Inference Fault-line Tracer**) is a controlled audit framework for studying **structural privacy leakage in quantum machine learning (QML)**.
 
@@ -108,6 +111,9 @@ QuRiFT/
 ├── channel_lira_results/pilot/     # Completed first-stage feasibility evidence
 ├── channel_lira_results/circuit_phase2/ # Circuit-level Aer feasibility evidence
 ├── channel_lira_results/transfer_phase3/ # Strict target/cell transfer evidence
+├── channel_lira_results/calibration_ablation_phase4/ # Calibration source/count study
+├── channel_lira_results/clustered_sensitivity_phase4/ # Target/cell sensitivity
+├── channel_lira_results/noisy_reference_phase5/ # Noisy-reference readiness audit
 ├── commands/                       # SaTML and retained rebuttal workflow wrappers
 ├── reviewer_targets/               # Prespecified confirmatory target tables
 ├── reviewer_tools/                 # Training, attack, geometry, noise, and analysis tools

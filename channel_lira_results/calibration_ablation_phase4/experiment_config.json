@@ -1,0 +1,39 @@
+{
+  "actual_subset_replicates": {
+    "2": 66,
+    "4": 32,
+    "8": 32,
+    "12": 1
+  },
+  "cells": [
+    "eff_su2_r1_d2",
+    "eff_su2_r5_d2",
+    "z_r1_d6",
+    "zz_r1_d6",
+    "zz_r5_d6"
+  ],
+  "created_utc": "2026-08-20T15:23:19.707104+00:00",
+  "cross_cell_counts": [
+    2,
+    4,
+    8,
+    12
+  ],
+  "folds": 5,
+  "interval_semantics": "main: median over subsets within seed, then descriptive 5th-95th percentiles over seeds; subset sensitivity: median over seeds, then descriptive 5th-95th percentiles over subsets",
+  "larger_subset_policy": "deterministic unique subsets per held cell",
+  "nominal_fpr": 0.01,
+  "pooled_n_member": 1500,
+  "pooled_n_nonmember": 1500,
+  "reference_count": 16,
+  "seed": 20260820,
+  "shots": [
+    128,
+    512,
+    1024
+  ],
+  "source_transfer_config": "/home/najeeb/chanLira/channel_lira_results/transfer_phase3/experiment_config.json",
+  "source_transfer_config_sha256": "d19cfd6024015d758c3319f6e7a07cc056d7ebe5828ea163a6b033be397d478c",
+  "subset_replicates": 32,
+  "two_target_subset_policy": "exhaustive all C(12,2)=66 pairs per held cell"
+}
