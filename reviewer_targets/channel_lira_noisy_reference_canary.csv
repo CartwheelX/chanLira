@@ -1,0 +1,2 @@
+target_id,experiment,role,seed,dataset,architecture,source_run_id,fm_kind,n_wires,reps,pad_mode,fm_ent,fm_op,depth,ql_ent,ql_op,ql_rev,original_acc_train,original_acc_test,original_gap,vector_train,vector_valid,vector_test,batch_size,epochs,extra_feats,model_seed,data_seed,structural_cell_id,learning_rate
+MNIST_QNN_eff_su2_r1_d2_s43,multiseed_factorial,eff_su2_r1_d2,43,MNIST,QNN,1622,eff_su2,6,1,wrap,linear,cx,2,linear,crz,False,0.865,0.71,0.155,200,200,200,16,100,False,43,43,eff_su2_r1_d2,0.05

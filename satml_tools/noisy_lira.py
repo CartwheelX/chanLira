@@ -61,6 +61,14 @@ def torch_load(path: Path) -> Any:
         return torch.load(path, map_location="cpu")
 
 
+def file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
 def parse_ints(text: str) -> list[int]:
     return [int(value.strip()) for value in text.split(",") if value.strip()]
 
@@ -88,6 +96,7 @@ def model_probabilities(
     optimization_level: int,
     batch_size: int,
     seed_namespace: int,
+    aer_max_parallel_threads: int | None,
 ) -> dict[str, np.ndarray]:
     circuits, _ = build_qiskit_circuits(
         qmain,
@@ -118,6 +127,7 @@ def model_probabilities(
                     int(simulator_seed) * 1_000_003 + int(seed_namespace) * 1_009
                 ),
                 noise_model=noise_model,
+                max_parallel_threads=aer_max_parallel_threads,
             )
             expectations = np.stack(
                 [counts_to_z_expectations(item, int(config.n_wires)) for item in counts]
@@ -160,6 +170,81 @@ def load_reference_metadata(
     return inclusion, checkpoints
 
 
+def reference_cache_key(protocol: dict[str, Any]) -> str:
+    encoded = json.dumps(protocol, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()[:20]
+
+
+def load_reference_cache(
+    cache_path: Path,
+    metadata_path: Path,
+    *,
+    expected: dict[str, Any],
+    modes: list[str],
+    simulator_seeds: list[int],
+    num_references: int,
+    candidate_count: int,
+) -> dict[str, np.ndarray] | None:
+    if not cache_path.is_file() or not metadata_path.is_file():
+        return None
+    metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    mismatches = {
+        key: (metadata.get(key), value)
+        for key, value in expected.items()
+        if metadata.get(key) != value
+    }
+    if mismatches:
+        raise RuntimeError(f"Reference-oracle cache protocol mismatch: {mismatches}")
+    with np.load(cache_path, allow_pickle=False) as saved:
+        output = {}
+        expected_shape = (len(simulator_seeds), num_references, candidate_count)
+        for mode in modes:
+            key = f"scores_{mode}"
+            if key not in saved.files or saved[key].shape != expected_shape:
+                raise ValueError(
+                    f"Invalid reference-oracle cache array {key}: "
+                    f"expected {expected_shape}"
+                )
+            output[mode] = saved[key].astype(np.float32)
+    observed_hash = hashlib.sha256(cache_path.read_bytes()).hexdigest()
+    if observed_hash != metadata.get("cache_sha256"):
+        raise ValueError(
+            f"Reference-oracle cache hash mismatch: {cache_path.resolve()}"
+        )
+    return output
+
+
+def save_reference_cache(
+    cache_path: Path,
+    metadata_path: Path,
+    *,
+    scores: dict[str, np.ndarray],
+    sample_ids: list[str],
+    metadata: dict[str, Any],
+) -> None:
+    cache_path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = cache_path.with_suffix(cache_path.suffix + ".tmp")
+    with temporary.open("wb") as handle:
+        np.savez_compressed(
+            handle,
+            sample_ids=np.asarray(sample_ids),
+            **{f"scores_{mode}": values for mode, values in scores.items()},
+        )
+    temporary.replace(cache_path)
+    cache_metadata = {
+        **metadata,
+        "cache": str(cache_path.resolve()),
+        "cache_sha256": hashlib.sha256(cache_path.read_bytes()).hexdigest(),
+        "real_hardware_execution": False,
+    }
+    temporary_metadata = metadata_path.with_suffix(metadata_path.suffix + ".tmp")
+    temporary_metadata.write_text(
+        json.dumps(cache_metadata, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    temporary_metadata.replace(metadata_path)
+
+
 def score_target(args: argparse.Namespace) -> None:
     output = args.out_dir / "target_scores" / f"{args.target_id}.csv"
     metadata_path = args.out_dir / "metadata" / f"{args.target_id}.json"
@@ -177,6 +262,7 @@ def score_target(args: argparse.Namespace) -> None:
         "num_reference_models": int(args.num_references),
         "transpiler_seed": int(args.transpiler_seed),
         "optimization_level": int(args.optimization_level),
+        "aer_max_parallel_threads": int(args.aer_max_parallel_threads),
     }
     if args.resume and output.is_file() and output.stat().st_size > 0:
         if not metadata_path.is_file():
@@ -191,8 +277,35 @@ def score_target(args: argparse.Namespace) -> None:
             raise RuntimeError(
                 f"Noisy LiRA resume protocol mismatch for {args.target_id}: {mismatches}"
             )
-        print(f"[SKIP] noisy LiRA target exists: {output.resolve()}")
-        return
+        sample_payloads_ready = True
+        for mode in modes:
+            for simulator_seed in simulator_seeds:
+                sample_path = args.out_dir / "sample_scores" / (
+                    f"{args.target_id}_{mode}_sim{simulator_seed}.npz"
+                )
+                if not sample_path.is_file() or sample_path.stat().st_size == 0:
+                    sample_payloads_ready = False
+                    break
+                try:
+                    with np.load(sample_path, allow_pickle=False) as saved:
+                        if not {
+                            "sample_ids", "membership", "labels", "probabilities",
+                            "observed_log_odds",
+                        }.issubset(saved.files):
+                            sample_payloads_ready = False
+                            break
+                except (OSError, ValueError):
+                    sample_payloads_ready = False
+                    break
+            if not sample_payloads_ready:
+                break
+        if sample_payloads_ready:
+            print(f"[SKIP] noisy LiRA target exists: {output.resolve()}")
+            return
+        print(
+            f"[REBUILD] noisy LiRA payloads use an older/incomplete schema: "
+            f"{args.target_id}"
+        )
     device = torch.device(args.device if torch.cuda.is_available() else "cpu")
     qmain, row, _, config, samples = load_context(
         args.repo_root.resolve(), args.targets, args.target_id, device
@@ -222,45 +335,95 @@ def score_target(args: argparse.Namespace) -> None:
         optimization_level=args.optimization_level,
         batch_size=args.qiskit_batch_size,
         seed_namespace=900_000,
+        aer_max_parallel_threads=args.aer_max_parallel_threads,
     )
     labels = samples.labels.numpy().astype(int)
     membership = samples.membership.numpy().astype(int)
-    reference_scores = {
-        mode: np.empty(
-            (len(simulator_seeds), args.num_references, len(labels)), dtype=np.float32
-        )
-        for mode in modes
+    cache_protocol = {
+        "schema_version": 1,
+        "structural_cell": structural_cell,
+        "candidate_fingerprint": fingerprint,
+        "snapshot_manifest_sha256": snapshot_manifest_sha256,
+        "modes": modes,
+        "simulator_seeds": simulator_seeds,
+        "shots": int(args.shots),
+        "num_reference_models": int(args.num_references),
+        "transpiler_seed": int(args.transpiler_seed),
+        "optimization_level": int(args.optimization_level),
+        "aer_max_parallel_threads": int(args.aer_max_parallel_threads),
     }
-    for reference_id, checkpoint_path in enumerate(reference_checkpoints):
-        model, _ = instantiate_model(qmain, row, config, device)
-        saved = torch_load(checkpoint_path)
-        model.load_state_dict(saved["state_dict"], strict=True)
-        model.to(device).eval()
-        probabilities = model_probabilities(
-            model,
-            qmain=qmain,
-            row=row,
-            config=config,
-            samples=samples,
-            device=device,
-            snapshot=snapshot,
-            modes=modes,
-            simulator_seeds=simulator_seeds,
-            shots=args.shots,
-            transpiler_seed=args.transpiler_seed,
-            optimization_level=args.optimization_level,
-            batch_size=args.qiskit_batch_size,
-            seed_namespace=reference_id,
+    reference_checkpoint_sha256 = [
+        file_sha256(path) for path in reference_checkpoints
+    ]
+    cache_validation = {
+        **cache_protocol,
+        "reference_checkpoint_sha256": reference_checkpoint_sha256,
+    }
+    cache_token = reference_cache_key(cache_protocol)
+    cache_path = args.out_dir / "reference_cache" / (
+        f"{structural_cell}_{cache_token}.npz"
+    )
+    cache_metadata_path = cache_path.with_suffix(".json")
+    reference_scores = load_reference_cache(
+        cache_path,
+        cache_metadata_path,
+        expected=cache_validation,
+        modes=modes,
+        simulator_seeds=simulator_seeds,
+        num_references=args.num_references,
+        candidate_count=len(labels),
+    )
+    reference_cache_reused = reference_scores is not None
+    if reference_scores is not None:
+        print(f"[CACHE] noisy reference oracle -> {cache_path.resolve()}", flush=True)
+    else:
+        reference_scores = {
+            mode: np.empty(
+                (len(simulator_seeds), args.num_references, len(labels)),
+                dtype=np.float32,
+            )
+            for mode in modes
+        }
+        for reference_id, checkpoint_path in enumerate(reference_checkpoints):
+            model, _ = instantiate_model(qmain, row, config, device)
+            saved = torch_load(checkpoint_path)
+            model.load_state_dict(saved["state_dict"], strict=True)
+            model.to(device).eval()
+            probabilities = model_probabilities(
+                model,
+                qmain=qmain,
+                row=row,
+                config=config,
+                samples=samples,
+                device=device,
+                snapshot=snapshot,
+                modes=modes,
+                simulator_seeds=simulator_seeds,
+                shots=args.shots,
+                transpiler_seed=args.transpiler_seed,
+                optimization_level=args.optimization_level,
+                batch_size=args.qiskit_batch_size,
+                seed_namespace=reference_id,
+                aer_max_parallel_threads=args.aer_max_parallel_threads,
+            )
+            for mode in modes:
+                for seed_index in range(len(simulator_seeds)):
+                    reference_scores[mode][seed_index, reference_id] = true_class_log_odds(
+                        probabilities[mode][seed_index], labels
+                    )
+            print(
+                f"[{args.target_id}] noisy reference "
+                f"{reference_id + 1}/{args.num_references}",
+                flush=True,
+            )
+        save_reference_cache(
+            cache_path,
+            cache_metadata_path,
+            scores=reference_scores,
+            sample_ids=samples.sample_ids,
+            metadata=cache_validation,
         )
-        for mode in modes:
-            for seed_index in range(len(simulator_seeds)):
-                reference_scores[mode][seed_index, reference_id] = true_class_log_odds(
-                    probabilities[mode][seed_index], labels
-                )
-        print(
-            f"[{args.target_id}] noisy reference {reference_id + 1}/{args.num_references}",
-            flush=True,
-        )
+        print(f"[CACHE] saved noisy reference oracle -> {cache_path.resolve()}")
 
     rows = []
     sample_dir = args.out_dir / "sample_scores"
@@ -282,6 +445,10 @@ def score_target(args: argparse.Namespace) -> None:
                     handle,
                     membership=membership.astype(np.uint8),
                     labels=labels,
+                    sample_ids=np.asarray(samples.sample_ids),
+                    probabilities=target_probabilities[mode][seed_index].astype(
+                        np.float32
+                    ),
                     observed_log_odds=observed.astype(np.float32),
                     **{name: score.astype(np.float32) for name, score in attacks.items()},
                 )
@@ -323,6 +490,8 @@ def score_target(args: argparse.Namespace) -> None:
                     "reference_calibration_circuit_shots": int(
                         args.num_references * len(labels) * args.shots
                     ),
+                    "reference_execution_reused": bool(reference_cache_reused),
+                    "reference_cache": str(cache_path.resolve()),
                     "target_attack_circuit_shots": int(len(labels) * args.shots),
                     "calibration_timestamp": snapshot.metadata.calibration_timestamp,
                     "backend_name": snapshot.metadata.resolved_backend_name,
@@ -346,6 +515,10 @@ def score_target(args: argparse.Namespace) -> None:
             **expected_resume,
             "backend": asdict(snapshot.metadata),
             "reference_protocol": "same frozen finite-shot/noise oracle as target",
+            "reference_cache": str(cache_path.resolve()),
+            "reference_cache_sha256": hashlib.sha256(cache_path.read_bytes()).hexdigest(),
+            "reference_checkpoint_sha256": reference_checkpoint_sha256,
+            "reference_execution_reused": bool(reference_cache_reused),
             "real_hardware_execution": False,
         },
         metadata_path,
@@ -367,6 +540,37 @@ def aggregate(args: argparse.Namespace) -> None:
         .rename(columns={"count": "n_simulator_seeds", "mean": "mean_auc", "std": "sd_simulator"})
     )
     atomic_write_csv(summary, args.out_dir / "noisy_lira_summary.csv")
+    targets = pd.read_csv(args.targets)
+    for metadata_path in sorted((args.out_dir / "metadata").glob("*.json")):
+        metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+        target_id = str(metadata.get("target_id", metadata_path.stem))
+        matched_rows = targets[targets["target_id"].astype(str).eq(target_id)]
+        if len(matched_rows) != 1:
+            raise ValueError(f"Cannot resolve target metadata row for {target_id}")
+        structural_cell = cell_id(matched_rows.iloc[0].to_dict())
+        checkpoints = [
+            reference_checkpoint_path(args.reference_dir, structural_cell, reference_id)
+            for reference_id in range(int(metadata["num_reference_models"]))
+        ]
+        if any(not path.is_file() for path in checkpoints):
+            raise FileNotFoundError(
+                f"Cannot bind cache provenance; reference checkpoint missing for {target_id}"
+            )
+        checkpoint_hashes = [file_sha256(path) for path in checkpoints]
+        cache_path = Path(str(metadata["reference_cache"]))
+        cache_metadata_path = cache_path.with_suffix(".json")
+        if not cache_path.is_file() or not cache_metadata_path.is_file():
+            raise FileNotFoundError(f"Missing reference cache provenance for {target_id}")
+        cache_metadata = json.loads(cache_metadata_path.read_text(encoding="utf-8"))
+        if file_sha256(cache_path) != cache_metadata.get("cache_sha256"):
+            raise ValueError(f"Reference cache hash mismatch for {target_id}")
+        existing_hashes = cache_metadata.get("reference_checkpoint_sha256")
+        if existing_hashes not in (None, checkpoint_hashes):
+            raise ValueError(f"Reference checkpoint hash mismatch for {target_id}")
+        cache_metadata["reference_checkpoint_sha256"] = checkpoint_hashes
+        atomic_write_json(cache_metadata, cache_metadata_path)
+        metadata["reference_checkpoint_sha256"] = checkpoint_hashes
+        atomic_write_json(metadata, metadata_path)
     print(f"[OK] noisy LiRA targets={len(paths)} rows={len(raw)}")
 
 
@@ -387,6 +591,7 @@ def main() -> None:
     parser.add_argument("--transpiler-seed", type=int, default=2026)
     parser.add_argument("--optimization-level", type=int, default=1)
     parser.add_argument("--qiskit-batch-size", type=int, default=16)
+    parser.add_argument("--aer-max-parallel-threads", type=int, default=128)
     parser.add_argument("--bootstrap", type=int, default=1000)
     parser.add_argument("--seed", type=int, default=2026)
     parser.add_argument("--device", default="cuda")
@@ -398,6 +603,8 @@ def main() -> None:
     args.reference_dir = args.reference_dir.resolve()
     args.out_dir = args.out_dir.resolve()
     args.snapshot = args.snapshot.resolve()
+    if args.aer_max_parallel_threads < 1:
+        raise SystemExit("--aer-max-parallel-threads must be positive")
     if args.aggregate:
         aggregate(args)
     elif args.target_id:

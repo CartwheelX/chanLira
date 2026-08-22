@@ -76,6 +76,11 @@ The retraining runner accepts both the retained base cell names and the current
 canonical `*_wd0` names; the audit recognizes either layout but only counts a
 paired score file and checkpoint as checkpoint-ready.
 
+The subsequent [Phase-5 canary](CHANNEL_LIRA_PHASE5_CANARY.md) completed target and
+four-reference reconstruction, captured a complete hash-validated `ibm_kingston`
+snapshot, and finished matched ideal/noisy target/reference execution. The next
+prespecified gate is the [Phase-6 three-target/16-reference scale-up](CHANNEL_LIRA_PHASE6_SCALEUP.md).
+
 ## Reproduce
 
 ```bash

@@ -1,0 +1,36 @@
+{
+  "cell": "eff_su2_r1_d2",
+  "channel_scheme": "leave_target_out plus sample-ID cross-fitting",
+  "created_utc": "2026-08-21T15:58:50.701614+00:00",
+  "folds": 5,
+  "learned_mia_access": "labeled attacked-target outputs; stronger auxiliary access",
+  "modes": [
+    "ideal_shot",
+    "noisy_shot"
+  ],
+  "noise_augmentation_draws": 32,
+  "num_references": 16,
+  "protocol": {
+    "backend_names": [
+      "ibm_kingston"
+    ],
+    "calibration_timestamps": [
+      "2026-08-21T21:16:41+08:00"
+    ],
+    "snapshot_manifest_sha256": "7af4abc6763339615cc42bd00fafb532e3c44a31c14bc574c88456a496136a2f"
+  },
+  "real_hardware_execution": false,
+  "seed": 20260821,
+  "shots": 128,
+  "simulator_seeds": [
+    0,
+    1
+  ],
+  "statistical_scope": "one-cell scale gate; descriptive target-level variation",
+  "targets": [
+    "MNIST_QNN_eff_su2_r1_d2_s43",
+    "MNIST_QNN_eff_su2_r1_d2_s44",
+    "MNIST_QNN_eff_su2_r1_d2_s45"
+  ],
+  "variance_shrinkage": 0.15
+}

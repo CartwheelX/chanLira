@@ -1,8 +1,16 @@
 {
   "available_reference_checkpoints": 0,
-  "backend_snapshot": "/home/najeeb/chanLira/reviewer_results/noisy_reference_phase5/backend_snapshot",
-  "backend_snapshot_manifest": "/home/najeeb/chanLira/reviewer_results/noisy_reference_phase5/backend_snapshot/snapshot_manifest.json",
-  "backend_snapshot_ready": false,
+  "available_target_attack_payloads": 0,
+  "available_target_checkpoints": 0,
+  "backend_snapshot": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_canary_phase5/backend_snapshot",
+  "backend_snapshot_error": "",
+  "backend_snapshot_manifest": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_canary_phase5/backend_snapshot/snapshot_manifest.json",
+  "backend_snapshot_metadata": {
+    "backend_name": "ibm_kingston",
+    "calibration_timestamp": "2026-08-21T21:16:41+08:00",
+    "manifest_sha256": "7af4abc6763339615cc42bd00fafb532e3c44a31c14bc574c88456a496136a2f"
+  },
+  "backend_snapshot_ready": true,
   "candidate_counts": [
     400
   ],
@@ -16,8 +24,9 @@
     "zz_r1_d6",
     "zz_r5_d6"
   ],
-  "created_utc": "2026-08-20T15:21:24.380575+00:00",
+  "created_utc": "2026-08-21T14:38:07.626782+00:00",
   "expected_reference_checkpoints": 80,
+  "expected_target_checkpoints": 15,
   "missing_reference_checkpoints": 80,
   "num_references_per_cell": 16,
   "ready": false,
@@ -1384,5 +1393,112 @@
     }
   ],
   "retrain_command": "python3 reviewer_tools/run_lira_reference_multigpu.py --targets reviewer_targets/multiseed_factorial_targets.csv --out-dir reviewer_results/lira_reference_mia --cells eff_su2_r1_d2,eff_su2_r5_d2,z_r1_d6,zz_r1_d6,zz_r5_d6 --num-references 16 --save-reference-checkpoints --phase train --resume",
+  "targets": [
+    {
+      "attack_data_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_eff_su2_r1_d2_s43/target_attack_data.pt",
+      "attack_data_ready": false,
+      "model_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_eff_su2_r1_d2_s43/target_model.pt",
+      "model_ready": false,
+      "target_id": "MNIST_QNN_eff_su2_r1_d2_s43"
+    },
+    {
+      "attack_data_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_eff_su2_r1_d2_s44/target_attack_data.pt",
+      "attack_data_ready": false,
+      "model_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_eff_su2_r1_d2_s44/target_model.pt",
+      "model_ready": false,
+      "target_id": "MNIST_QNN_eff_su2_r1_d2_s44"
+    },
+    {
+      "attack_data_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_eff_su2_r1_d2_s45/target_attack_data.pt",
+      "attack_data_ready": false,
+      "model_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_eff_su2_r1_d2_s45/target_model.pt",
+      "model_ready": false,
+      "target_id": "MNIST_QNN_eff_su2_r1_d2_s45"
+    },
+    {
+      "attack_data_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_eff_su2_r5_d2_s43/target_attack_data.pt",
+      "attack_data_ready": false,
+      "model_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_eff_su2_r5_d2_s43/target_model.pt",
+      "model_ready": false,
+      "target_id": "MNIST_QNN_eff_su2_r5_d2_s43"
+    },
+    {
+      "attack_data_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_eff_su2_r5_d2_s44/target_attack_data.pt",
+      "attack_data_ready": false,
+      "model_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_eff_su2_r5_d2_s44/target_model.pt",
+      "model_ready": false,
+      "target_id": "MNIST_QNN_eff_su2_r5_d2_s44"
+    },
+    {
+      "attack_data_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_eff_su2_r5_d2_s45/target_attack_data.pt",
+      "attack_data_ready": false,
+      "model_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_eff_su2_r5_d2_s45/target_model.pt",
+      "model_ready": false,
+      "target_id": "MNIST_QNN_eff_su2_r5_d2_s45"
+    },
+    {
+      "attack_data_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_z_r1_d6_s43/target_attack_data.pt",
+      "attack_data_ready": false,
+      "model_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_z_r1_d6_s43/target_model.pt",
+      "model_ready": false,
+      "target_id": "MNIST_QNN_z_r1_d6_s43"
+    },
+    {
+      "attack_data_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_z_r1_d6_s44/target_attack_data.pt",
+      "attack_data_ready": false,
+      "model_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_z_r1_d6_s44/target_model.pt",
+      "model_ready": false,
+      "target_id": "MNIST_QNN_z_r1_d6_s44"
+    },
+    {
+      "attack_data_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_z_r1_d6_s45/target_attack_data.pt",
+      "attack_data_ready": false,
+      "model_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_z_r1_d6_s45/target_model.pt",
+      "model_ready": false,
+      "target_id": "MNIST_QNN_z_r1_d6_s45"
+    },
+    {
+      "attack_data_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_zz_r1_d6_s43/target_attack_data.pt",
+      "attack_data_ready": false,
+      "model_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_zz_r1_d6_s43/target_model.pt",
+      "model_ready": false,
+      "target_id": "MNIST_QNN_zz_r1_d6_s43"
+    },
+    {
+      "attack_data_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_zz_r1_d6_s44/target_attack_data.pt",
+      "attack_data_ready": false,
+      "model_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_zz_r1_d6_s44/target_model.pt",
+      "model_ready": false,
+      "target_id": "MNIST_QNN_zz_r1_d6_s44"
+    },
+    {
+      "attack_data_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_zz_r1_d6_s45/target_attack_data.pt",
+      "attack_data_ready": false,
+      "model_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_zz_r1_d6_s45/target_model.pt",
+      "model_ready": false,
+      "target_id": "MNIST_QNN_zz_r1_d6_s45"
+    },
+    {
+      "attack_data_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_zz_r5_d6_s43/target_attack_data.pt",
+      "attack_data_ready": false,
+      "model_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_zz_r5_d6_s43/target_model.pt",
+      "model_ready": false,
+      "target_id": "MNIST_QNN_zz_r5_d6_s43"
+    },
+    {
+      "attack_data_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_zz_r5_d6_s44/target_attack_data.pt",
+      "attack_data_ready": false,
+      "model_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_zz_r5_d6_s44/target_model.pt",
+      "model_ready": false,
+      "target_id": "MNIST_QNN_zz_r5_d6_s44"
+    },
+    {
+      "attack_data_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_zz_r5_d6_s45/target_attack_data.pt",
+      "attack_data_ready": false,
+      "model_path": "/home/najeeb/chanLira/reviewer_runs/multiseed_factorial/MNIST_QNN_zz_r5_d6_s45/target_model.pt",
+      "model_ready": false,
+      "target_id": "MNIST_QNN_zz_r5_d6_s45"
+    }
+  ],
   "valid_exact_reference_files": 80
 }

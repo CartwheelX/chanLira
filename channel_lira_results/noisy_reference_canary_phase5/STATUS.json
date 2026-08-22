@@ -1,0 +1,278 @@
+{
+  "auc_summary": [
+    {
+      "attack": "global_true_class_log_odds",
+      "mean_auc": 0.53305,
+      "mode": "ideal_shot",
+      "n_simulator_seeds": 2
+    },
+    {
+      "attack": "lira_offline",
+      "mean_auc": 0.48303749999999995,
+      "mode": "ideal_shot",
+      "n_simulator_seeds": 2
+    },
+    {
+      "attack": "lira_offline_fixed_variance",
+      "mean_auc": 0.48755,
+      "mode": "ideal_shot",
+      "n_simulator_seeds": 2
+    },
+    {
+      "attack": "lira_online",
+      "mean_auc": 0.49488750000000004,
+      "mode": "ideal_shot",
+      "n_simulator_seeds": 2
+    },
+    {
+      "attack": "lira_online_fixed_variance",
+      "mean_auc": 0.508525,
+      "mode": "ideal_shot",
+      "n_simulator_seeds": 2
+    },
+    {
+      "attack": "global_true_class_log_odds",
+      "mean_auc": 0.529325,
+      "mode": "noisy_shot",
+      "n_simulator_seeds": 2
+    },
+    {
+      "attack": "lira_offline",
+      "mean_auc": 0.5016375,
+      "mode": "noisy_shot",
+      "n_simulator_seeds": 2
+    },
+    {
+      "attack": "lira_offline_fixed_variance",
+      "mean_auc": 0.504675,
+      "mode": "noisy_shot",
+      "n_simulator_seeds": 2
+    },
+    {
+      "attack": "lira_online",
+      "mean_auc": 0.5245875,
+      "mode": "noisy_shot",
+      "n_simulator_seeds": 2
+    },
+    {
+      "attack": "lira_online_fixed_variance",
+      "mean_auc": 0.5251375,
+      "mode": "noisy_shot",
+      "n_simulator_seeds": 2
+    }
+  ],
+  "blockers": [],
+  "complete": true,
+  "created_utc": "2026-08-21T14:17:19.447912+00:00",
+  "credentials": {
+    "environment_token_present": true,
+    "saved_account_count": 0,
+    "saved_account_probe": "ok"
+  },
+  "exact_auc_summary": [
+    {
+      "attack": "lira_online",
+      "auc": 0.469225
+    },
+    {
+      "attack": "lira_online_fixed_variance",
+      "auc": 0.523025
+    },
+    {
+      "attack": "lira_offline",
+      "auc": 0.5162500000000001
+    },
+    {
+      "attack": "lira_offline_fixed_variance",
+      "auc": 0.52605
+    },
+    {
+      "attack": "global_true_class_log_odds",
+      "auc": 0.539175
+    }
+  ],
+  "modules": {
+    "numpy": true,
+    "pandas": true,
+    "qiskit": true,
+    "qiskit_aer": true,
+    "qiskit_ibm_runtime": true,
+    "sklearn": true,
+    "torch": true,
+    "torchquantum": true
+  },
+  "num_references": 4,
+  "protocol": "one target; one compute-minimal Phase-3 cell; four balanced references",
+  "python_executable": "/home/najeeb/miniconda3/envs/tq39_vv2/bin/python",
+  "python_version": "3.9.23",
+  "ready_for_exact_scoring": true,
+  "ready_to_score": true,
+  "reconstruction_diagnostic": {
+    "available": true,
+    "candidate_count": 400,
+    "current": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_canary_phase5/references/sample_scores/MNIST_QNN_eff_su2_r1_d2_s43.npz",
+    "labels_equal": true,
+    "membership_equal": true,
+    "observed_log_odds_allclose_1e_6": true,
+    "observed_log_odds_correlation": 0.9999999999999998,
+    "observed_log_odds_exact_match": true,
+    "observed_log_odds_mae": 0.0,
+    "observed_log_odds_max_abs": 0.0,
+    "retained_phase3": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/sample_scores/MNIST_QNN_eff_su2_r1_d2_s43.npz",
+    "sample_ids_equal": true
+  },
+  "reference_bank": {
+    "balanced_inclusion": true,
+    "candidate_fingerprints": [
+      "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6"
+    ],
+    "cell": "eff_su2_r1_d2_wd0",
+    "checkpoint_metadata_valid": 4,
+    "checkpoints_ready": 4,
+    "directory": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_canary_phase5/references/reference_models/eff_su2_r1_d2_wd0",
+    "errors": [],
+    "expected": 4,
+    "metadata_valid": 4,
+    "ready": true,
+    "references": [
+      {
+        "candidate_count": 400,
+        "checkpoint": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_canary_phase5/references/reference_models/eff_su2_r1_d2_wd0/reference_000.pt",
+        "checkpoint_metadata_valid": true,
+        "checkpoint_ready": true,
+        "checkpoint_sha256": "8245d4424ec1aefda04a3910abaf0dfa6c9b928c87cd6c9739f2d5bb6a4558bb",
+        "metadata_valid": true,
+        "reference_id": 0,
+        "reference_seed": 1642769922,
+        "score": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_canary_phase5/references/reference_models/eff_su2_r1_d2_wd0/reference_000.npz",
+        "score_ready": true,
+        "score_sha256": "9676d5114c7be6aef615831bab5df68c225ba34acf59786a81f63fb279e53f8e"
+      },
+      {
+        "candidate_count": 400,
+        "checkpoint": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_canary_phase5/references/reference_models/eff_su2_r1_d2_wd0/reference_001.pt",
+        "checkpoint_metadata_valid": true,
+        "checkpoint_ready": true,
+        "checkpoint_sha256": "9bf41ed4250cd56c903a2f82ec862711b4f8271f71396b0facfd257ecc9d34d2",
+        "metadata_valid": true,
+        "reference_id": 1,
+        "reference_seed": 1369739522,
+        "score": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_canary_phase5/references/reference_models/eff_su2_r1_d2_wd0/reference_001.npz",
+        "score_ready": true,
+        "score_sha256": "5e4dc5a157b8972dbbf0878f07085295a02d0a5fdc5a0c108d429949e6d3d213"
+      },
+      {
+        "candidate_count": 400,
+        "checkpoint": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_canary_phase5/references/reference_models/eff_su2_r1_d2_wd0/reference_002.pt",
+        "checkpoint_metadata_valid": true,
+        "checkpoint_ready": true,
+        "checkpoint_sha256": "217970d1432ed194148361557cb0316ee3efeba1dc7d32da3195da28470eb85c",
+        "metadata_valid": true,
+        "reference_id": 2,
+        "reference_seed": 548054749,
+        "score": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_canary_phase5/references/reference_models/eff_su2_r1_d2_wd0/reference_002.npz",
+        "score_ready": true,
+        "score_sha256": "17ab902826a17c0f7a0af82d461d38682b372a358e39d6c1b0b1815d61c4a170"
+      },
+      {
+        "candidate_count": 400,
+        "checkpoint": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_canary_phase5/references/reference_models/eff_su2_r1_d2_wd0/reference_003.pt",
+        "checkpoint_metadata_valid": true,
+        "checkpoint_ready": true,
+        "checkpoint_sha256": "5d968134190f8f5be9d8cf9e557cd885889b14cccd4ac5af3184bda864b12262",
+        "metadata_valid": true,
+        "reference_id": 3,
+        "reference_seed": 1128257994,
+        "score": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_canary_phase5/references/reference_models/eff_su2_r1_d2_wd0/reference_003.npz",
+        "score_ready": true,
+        "score_sha256": "8ec81c690b1b6b4aa3389ceb4d52501013537eb67febb2ea7754257229827ec1"
+      }
+    ],
+    "scores_ready": 4
+  },
+  "scores": {
+    "exact_ready": true,
+    "noisy_ready": true,
+    "paths": {
+      "exact": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_canary_phase5/references/lira_reference_mia_raw.csv",
+      "metadata": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_canary_phase5/noisy_lira/metadata/MNIST_QNN_eff_su2_r1_d2_s43.json",
+      "noisy": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_canary_phase5/noisy_lira/noisy_lira_raw.csv",
+      "target_score": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_canary_phase5/noisy_lira/target_scores/MNIST_QNN_eff_su2_r1_d2_s43.csv"
+    },
+    "present": {
+      "exact": true,
+      "metadata": true,
+      "noisy": true,
+      "target_score": true
+    },
+    "ready": true
+  },
+  "shots": 128,
+  "simulator_seeds": "0,1",
+  "snapshot": {
+    "backend_name": "ibm_kingston",
+    "basis_gate_count": 10,
+    "calibration_timestamp": "2026-08-21T21:16:41+08:00",
+    "coupling_edge_count": 352,
+    "directory": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_canary_phase5/backend_snapshot",
+    "manifest": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_canary_phase5/backend_snapshot/snapshot_manifest.json",
+    "manifest_exists": true,
+    "manifest_sha256": "7af4abc6763339615cc42bd00fafb532e3c44a31c14bc574c88456a496136a2f",
+    "noise_model_loaded": true,
+    "ready": true
+  },
+  "statistical_scope": "execution/reconstruction canary only; not inferential evidence",
+  "target": {
+    "architecture": "QNN",
+    "batch_size": "16",
+    "data_seed": "43",
+    "dataset": "MNIST",
+    "depth": "2",
+    "epochs": "100",
+    "experiment": "multiseed_factorial",
+    "extra_feats": "False",
+    "fm_ent": "linear",
+    "fm_kind": "eff_su2",
+    "fm_op": "cx",
+    "learning_rate": "0.05",
+    "model_seed": "43",
+    "n_wires": "6",
+    "original_acc_test": "0.71",
+    "original_acc_train": "0.865",
+    "original_gap": "0.155",
+    "pad_mode": "wrap",
+    "ql_ent": "linear",
+    "ql_op": "crz",
+    "ql_rev": "False",
+    "reps": "1",
+    "role": "eff_su2_r1_d2",
+    "seed": "43",
+    "source_run_id": "1622",
+    "structural_cell_id": "eff_su2_r1_d2",
+    "target_id": "MNIST_QNN_eff_su2_r1_d2_s43",
+    "vector_test": "200",
+    "vector_train": "200",
+    "vector_valid": "200"
+  },
+  "target_artifacts": {
+    "directory": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_canary_phase5/runs/multiseed_factorial/MNIST_QNN_eff_su2_r1_d2_s43",
+    "paths": {
+      "attack_data": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_canary_phase5/runs/multiseed_factorial/MNIST_QNN_eff_su2_r1_d2_s43/target_attack_data.pt",
+      "model": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_canary_phase5/runs/multiseed_factorial/MNIST_QNN_eff_su2_r1_d2_s43/target_model.pt",
+      "summary": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_canary_phase5/runs/multiseed_factorial/MNIST_QNN_eff_su2_r1_d2_s43/target_export_summary.json"
+    },
+    "present": {
+      "attack_data": true,
+      "model": true,
+      "summary": true
+    },
+    "ready": true,
+    "sha256": {
+      "attack_data": "a09e8cf95507bd61e15edfcbcc16ece5ba2301c6385fbc7e9f97b59688113871",
+      "model": "e1360450113c378f7393b1f15d9f6b5ebe66ef1679482a885c3ea40da06cdd70",
+      "summary": "443125156d956ada507a746c9ad50945896edfa72994de3fc62797ff4566957b"
+    }
+  },
+  "target_manifest": "/home/najeeb/chanLira/reviewer_targets/channel_lira_noisy_reference_canary.csv",
+  "target_manifest_sha256": "b9903f5b1c07a179ef84a456f73a52dde80e7a6c4849459d3b4799e79d44b2a2"
+}

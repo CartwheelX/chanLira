@@ -9,20 +9,23 @@ satisfy this requirement.
 
 | Item | Available | Required |
 |---|---:|---:|
+| Target checkpoints | 0 | 15 |
+| Target attack payloads | 0 | 15 |
 | Valid exact reference files | 80 | 80 |
 | Trained reference checkpoints | 0 | 80 |
-| Frozen backend snapshot manifest | 0 | 1 |
+| Frozen backend snapshot manifest | 1 | 1 |
 
 ## Blockers
 
+- 15/15 target checkpoints are missing
+- 15/15 target attack payloads are missing
 - 80/80 trained reference checkpoints are missing
-- a reconstructable frozen backend snapshot is missing
 
-The Phase-3 target outputs were generated from an IBM calibration dated
-2026-07-30, but their summary metadata is insufficient to reconstruct the full
-noise model. For a controlled comparison, capture a new frozen snapshot and rerun
-both targets and reference checkpoints under that same snapshot, or recover the
-original complete snapshot.
+The completed Phase-5 canary supplies a hash-validated, credential-free
+`ibm_kingston` snapshot. The remaining full-study work is to reconstruct and retain
+all target/reference checkpoints, then execute both sides under that same frozen
+snapshot. The older Phase-3 served outputs remain a separate July-30 calibration
+block and are not silently mixed with the new snapshot.
 
 ## New reference-ensemble retraining command
 
@@ -35,3 +38,10 @@ weights. The runner accepts the retained base cell names even though newly train
 banks use the canonical `*_wd0` layout. The readiness audit prefers a complete
 score/checkpoint pair and will detect that layout on its next run. The command does
 not start automatically from this readiness audit.
+
+## Staged scale-up first
+
+The guarded one-cell/four-reference canary is complete. Before any 80-reference
+launch, run `experiments/run_channel_lira_noisy_reference_scaleup.py` to test three
+target checkpoints against a complete 16-reference bank. Its leave-target-out
+analysis is the final compute and comparison gate before the five-cell study.

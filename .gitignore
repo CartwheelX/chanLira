@@ -370,3 +370,13 @@ tmp_qurift_sweep*/
 *.onnx
 wandb/
 tq39_vv2.tar.gz
+
+# Curated Phase-5 canary checkpoints are small, hash-audited evidence. Keep bulk
+# target/reference checkpoints ignored; retain only this frozen reconstruction gate.
+!channel_lira_results/noisy_reference_canary_phase5/runs/
+!channel_lira_results/noisy_reference_canary_phase5/runs/multiseed_factorial/
+!channel_lira_results/noisy_reference_canary_phase5/runs/multiseed_factorial/MNIST_QNN_eff_su2_r1_d2_s43/
+!channel_lira_results/noisy_reference_canary_phase5/runs/multiseed_factorial/MNIST_QNN_eff_su2_r1_d2_s43/target_model.pt
+!channel_lira_results/noisy_reference_canary_phase5/runs/multiseed_factorial/MNIST_QNN_eff_su2_r1_d2_s43/target_attack_data.pt
+!channel_lira_results/noisy_reference_canary_phase5/runs/multiseed_factorial/MNIST_QNN_eff_su2_r1_d2_s43/target_export_summary.json
+!channel_lira_results/noisy_reference_canary_phase5/references/reference_models/eff_su2_r1_d2_wd0/*.pt

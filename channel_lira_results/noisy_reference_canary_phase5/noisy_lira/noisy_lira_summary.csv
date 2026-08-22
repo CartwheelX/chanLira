@@ -1,0 +1,11 @@
+target_id,structural_cell_id,fm_kind,reps,depth,model_seed,mode,shots,attack,n_simulator_seeds,mean_auc,sd_simulator
+MNIST_QNN_eff_su2_r1_d2_s43,eff_su2_r1_d2,eff_su2,1,2,43,ideal_shot,128,global_true_class_log_odds,2,0.53305,0.01619274528917192
+MNIST_QNN_eff_su2_r1_d2_s43,eff_su2_r1_d2,eff_su2,1,2,43,ideal_shot,128,lira_offline,2,0.48303749999999995,0.005214912511250881
+MNIST_QNN_eff_su2_r1_d2_s43,eff_su2_r1_d2,eff_su2,1,2,43,ideal_shot,128,lira_offline_fixed_variance,2,0.48755,0.023475945135393382
+MNIST_QNN_eff_su2_r1_d2_s43,eff_su2_r1_d2,eff_su2,1,2,43,ideal_shot,128,lira_online,2,0.49488750000000004,0.008432248365649573
+MNIST_QNN_eff_su2_r1_d2_s43,eff_su2_r1_d2,eff_su2,1,2,43,ideal_shot,128,lira_online_fixed_variance,2,0.508525,0.026905413024148173
+MNIST_QNN_eff_su2_r1_d2_s43,eff_su2_r1_d2,eff_su2,1,2,43,noisy_shot,128,global_true_class_log_odds,2,0.529325,0.001378858223313812
+MNIST_QNN_eff_su2_r1_d2_s43,eff_su2_r1_d2,eff_su2,1,2,43,noisy_shot,128,lira_offline,2,0.5016375,0.008467603704708896
+MNIST_QNN_eff_su2_r1_d2_s43,eff_su2_r1_d2,eff_su2,1,2,43,noisy_shot,128,lira_offline_fixed_variance,2,0.504675,0.011242997820866144
+MNIST_QNN_eff_su2_r1_d2_s43,eff_su2_r1_d2,eff_su2,1,2,43,noisy_shot,128,lira_online,2,0.5245875,0.019887378220871617
+MNIST_QNN_eff_su2_r1_d2_s43,eff_su2_r1_d2,eff_su2,1,2,43,noisy_shot,128,lira_online_fixed_variance,2,0.5251375,0.009811106588963248

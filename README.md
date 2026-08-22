@@ -22,8 +22,13 @@
 > and [plots](channel_lira_results/transfer_phase3/PLOTS.md). The subsequent
 > [calibration and inference stress tests](docs/CHANNEL_LIRA_PHASE4.md) separate
 > auxiliary-source from auxiliary-count effects, add clustered sensitivity, and
-> audit readiness for true circuit-executed noisy references. None of these phases
-> is a real quantum-hardware execution.
+> audit readiness for true circuit-executed noisy references. The guarded
+> [Phase-5 canary](docs/CHANNEL_LIRA_PHASE5_CANARY.md) is complete using a frozen,
+> hash-validated `ibm_kingston` Aer noise model. The next prespecified
+> [Phase-6 scale-up](docs/CHANNEL_LIRA_PHASE6_SCALEUP.md) expands the compute-minimal
+> cell to three target checkpoints and sixteen retained references, with strict
+> leave-target-out ChannelLiRA, loss, and learned-MIA comparisons. None of these
+> phases is a real quantum-hardware execution.
 
 **QuRiFT** (**Quantum Risk and Inference Fault-line Tracer**) is a controlled audit framework for studying **structural privacy leakage in quantum machine learning (QML)**.
 
@@ -114,6 +119,7 @@ QuRiFT/
 ├── channel_lira_results/calibration_ablation_phase4/ # Calibration source/count study
 ├── channel_lira_results/clustered_sensitivity_phase4/ # Target/cell sensitivity
 ├── channel_lira_results/noisy_reference_phase5/ # Noisy-reference readiness audit
+├── channel_lira_results/noisy_reference_canary_phase5/ # One-cell execution gate
 ├── commands/                       # SaTML and retained rebuttal workflow wrappers
 ├── reviewer_targets/               # Prespecified confirmatory target tables
 ├── reviewer_tools/                 # Training, attack, geometry, noise, and analysis tools

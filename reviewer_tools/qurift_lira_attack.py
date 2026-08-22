@@ -455,9 +455,27 @@ def score_target(args: argparse.Namespace) -> None:
     )
     structural_cell = cell_id(row)
     output = args.out_dir / "target_scores" / f"{safe_name(args.target_id)}.csv"
+    sample_output = (
+        args.out_dir / "sample_scores" / f"{safe_name(args.target_id)}.npz"
+    )
     if args.resume and output.exists():
-        print(f"[SKIP] target score exists: {output.resolve()}")
-        return
+        payload_ready = False
+        if sample_output.is_file() and sample_output.stat().st_size > 0:
+            try:
+                with np.load(sample_output, allow_pickle=False) as saved:
+                    payload_ready = {
+                        "sample_ids", "membership", "labels", "probabilities",
+                        "observed_log_odds",
+                    }.issubset(saved.files)
+            except (OSError, ValueError):
+                payload_ready = False
+        if payload_ready:
+            print(f"[SKIP] target score exists: {output.resolve()}")
+            return
+        print(
+            f"[REBUILD] target score payload uses an older/incomplete schema: "
+            f"{sample_output.resolve()}"
+        )
 
     model, _ = instantiate_model(qmain, row, config, device)
     model_path, _ = resolve_target_paths(row, args.run_root)
@@ -481,9 +499,6 @@ def score_target(args: argparse.Namespace) -> None:
     distribution = reference_distribution(reference_scores, inclusion)
     scores_by_attack = attack_scores(observed, distribution)
 
-    sample_output = (
-        args.out_dir / "sample_scores" / f"{safe_name(args.target_id)}.npz"
-    )
     sample_output.parent.mkdir(parents=True, exist_ok=True)
     with sample_output.open("wb") as handle:
         np.savez_compressed(
@@ -491,6 +506,7 @@ def score_target(args: argparse.Namespace) -> None:
             membership=membership.astype(np.uint8),
             labels=labels.astype(np.int64),
             sample_ids=np.asarray(samples.sample_ids),
+            probabilities=target_probabilities.astype(np.float32),
             observed_log_odds=observed.astype(np.float32),
             **{
                 attack: values.astype(np.float32)

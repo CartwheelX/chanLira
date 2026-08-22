@@ -1,0 +1,457 @@
+{
+  "analysis": {
+    "directory": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/analysis",
+    "plot_present": {
+      "attack_auc_by_mode.svg": true,
+      "noisy_minus_ideal_auc.svg": true,
+      "noisy_paired_contrasts.svg": true,
+      "noisy_target_auc.svg": true
+    },
+    "plots_ready": true,
+    "present": {
+      "CONFIG.json": true,
+      "REPORT.md": true,
+      "SOURCE_MANIFEST.json": true,
+      "channel_diagnostics.csv": true,
+      "metrics_raw.csv": true,
+      "metrics_summary.csv": true,
+      "paired_contrasts_summary.csv": true,
+      "paired_contrasts_target.csv": true,
+      "target_mean_metrics.csv": true
+    },
+    "ready": true
+  },
+  "blockers": [],
+  "complete": true,
+  "exact_scores": {
+    "aggregate": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/lira_reference_mia_raw.csv",
+    "aggregate_ready": true,
+    "expected": 3,
+    "ready": true,
+    "targets": [
+      {
+        "candidate_count": 400,
+        "path": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/sample_scores/MNIST_QNN_eff_su2_r1_d2_s43.npz",
+        "ready": true,
+        "sha256": "e3339cda6ad8b866eeeb21ac975c25e4391e069e63b5e1e2d3ad457bd20cdaae",
+        "target_id": "MNIST_QNN_eff_su2_r1_d2_s43"
+      },
+      {
+        "candidate_count": 400,
+        "path": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/sample_scores/MNIST_QNN_eff_su2_r1_d2_s44.npz",
+        "ready": true,
+        "sha256": "cd26eb9cbbd1338a893cb7e3ba760b9d87fbd53bcee4cea5ea1b6ffa6df7b927",
+        "target_id": "MNIST_QNN_eff_su2_r1_d2_s44"
+      },
+      {
+        "candidate_count": 400,
+        "path": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/sample_scores/MNIST_QNN_eff_su2_r1_d2_s45.npz",
+        "ready": true,
+        "sha256": "9424b5eb9bdfd2dc39b33f41359a6bf09f92c721968e661a9466d917746308a8",
+        "target_id": "MNIST_QNN_eff_su2_r1_d2_s45"
+      }
+    ],
+    "targets_ready": 3
+  },
+  "modes": [
+    "ideal_shot",
+    "noisy_shot"
+  ],
+  "noisy_scores": {
+    "aggregate": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/noisy_lira/noisy_lira_raw.csv",
+    "aggregate_ready": true,
+    "expected": 3,
+    "ready": true,
+    "summary": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/noisy_lira/noisy_lira_summary.csv",
+    "targets": [
+      {
+        "errors": [],
+        "expected_payload_count": 4,
+        "metadata": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/noisy_lira/metadata/MNIST_QNN_eff_su2_r1_d2_s43.json",
+        "payload_count": 4,
+        "ready": true,
+        "score": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/noisy_lira/target_scores/MNIST_QNN_eff_su2_r1_d2_s43.csv",
+        "target_id": "MNIST_QNN_eff_su2_r1_d2_s43"
+      },
+      {
+        "errors": [],
+        "expected_payload_count": 4,
+        "metadata": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/noisy_lira/metadata/MNIST_QNN_eff_su2_r1_d2_s44.json",
+        "payload_count": 4,
+        "ready": true,
+        "score": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/noisy_lira/target_scores/MNIST_QNN_eff_su2_r1_d2_s44.csv",
+        "target_id": "MNIST_QNN_eff_su2_r1_d2_s44"
+      },
+      {
+        "errors": [],
+        "expected_payload_count": 4,
+        "metadata": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/noisy_lira/metadata/MNIST_QNN_eff_su2_r1_d2_s45.json",
+        "payload_count": 4,
+        "ready": true,
+        "score": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/noisy_lira/target_scores/MNIST_QNN_eff_su2_r1_d2_s45.csv",
+        "target_id": "MNIST_QNN_eff_su2_r1_d2_s45"
+      }
+    ],
+    "targets_ready": 3
+  },
+  "num_references": 16,
+  "protocol": "Phase-6 one-cell scale gate: 3 targets, 16 references, 128 shots, simulator seeds 0,1",
+  "ready_for_exact_scoring": true,
+  "ready_to_analyze": true,
+  "ready_to_score": true,
+  "reconstruction_diagnostics": [
+    {
+      "available": true,
+      "candidate_count": 400,
+      "current": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/sample_scores/MNIST_QNN_eff_su2_r1_d2_s43.npz",
+      "labels_equal": true,
+      "membership_equal": true,
+      "observed_log_odds_allclose_1e_6": true,
+      "observed_log_odds_correlation": 0.9999999999999998,
+      "observed_log_odds_exact_match": true,
+      "observed_log_odds_mae": 0.0,
+      "observed_log_odds_max_abs": 0.0,
+      "retained_phase3": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/sample_scores/MNIST_QNN_eff_su2_r1_d2_s43.npz",
+      "sample_ids_equal": true
+    },
+    {
+      "available": true,
+      "candidate_count": 400,
+      "current": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/sample_scores/MNIST_QNN_eff_su2_r1_d2_s44.npz",
+      "labels_equal": true,
+      "membership_equal": true,
+      "observed_log_odds_allclose_1e_6": true,
+      "observed_log_odds_correlation": 1.0,
+      "observed_log_odds_exact_match": true,
+      "observed_log_odds_mae": 0.0,
+      "observed_log_odds_max_abs": 0.0,
+      "retained_phase3": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/sample_scores/MNIST_QNN_eff_su2_r1_d2_s44.npz",
+      "sample_ids_equal": true
+    },
+    {
+      "available": true,
+      "candidate_count": 400,
+      "current": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/sample_scores/MNIST_QNN_eff_su2_r1_d2_s45.npz",
+      "labels_equal": true,
+      "membership_equal": true,
+      "observed_log_odds_allclose_1e_6": true,
+      "observed_log_odds_correlation": 1.0,
+      "observed_log_odds_exact_match": true,
+      "observed_log_odds_mae": 0.0,
+      "observed_log_odds_max_abs": 0.0,
+      "retained_phase3": "/home/najeeb/chanLira/reviewer_results/lira_reference_mia/sample_scores/MNIST_QNN_eff_su2_r1_d2_s45.npz",
+      "sample_ids_equal": true
+    }
+  ],
+  "reference_bank": {
+    "balanced_inclusion": true,
+    "candidate_fingerprints": [
+      "c04e1f3c73f97d3a00291267154be69f8cb866d4b1c5b62e7af0e18df004dca6"
+    ],
+    "cell": "eff_su2_r1_d2_wd0",
+    "checkpoint_metadata_valid": 16,
+    "checkpoints_ready": 16,
+    "directory": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0",
+    "errors": [],
+    "expected": 16,
+    "metadata_valid": 16,
+    "ready": true,
+    "references": [
+      {
+        "candidate_count": 400,
+        "checkpoint": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_000.pt",
+        "checkpoint_metadata_valid": true,
+        "checkpoint_ready": true,
+        "checkpoint_sha256": "090e8df33611a61145dcbf0e200733d98e6f8fd2531350514ff88afa195d2b6e",
+        "metadata_valid": true,
+        "reference_id": 0,
+        "reference_seed": 1642769922,
+        "score": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_000.npz",
+        "score_ready": true,
+        "score_sha256": "dd165e09cf4b39b8e5ac379efe0ab377a5118e24fdc4d7a40ecc7ce1df56f6ef"
+      },
+      {
+        "candidate_count": 400,
+        "checkpoint": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_001.pt",
+        "checkpoint_metadata_valid": true,
+        "checkpoint_ready": true,
+        "checkpoint_sha256": "6f12cb050afbf710e616fad0bb25e84e496a07281f4964b9fd53449e15c9750a",
+        "metadata_valid": true,
+        "reference_id": 1,
+        "reference_seed": 1369739522,
+        "score": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_001.npz",
+        "score_ready": true,
+        "score_sha256": "1f21e3197a107af9b644e174949bc101314d448224b70332451dcb4ff103f3d3"
+      },
+      {
+        "candidate_count": 400,
+        "checkpoint": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_002.pt",
+        "checkpoint_metadata_valid": true,
+        "checkpoint_ready": true,
+        "checkpoint_sha256": "c11f93a842f06e0491be7bdc147489856e09c83860123e5cb9af216625eb4a9e",
+        "metadata_valid": true,
+        "reference_id": 2,
+        "reference_seed": 548054749,
+        "score": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_002.npz",
+        "score_ready": true,
+        "score_sha256": "ff0370361ad908c54db2a0afc90f65468024c8dfed5c43744634ae1d31ca3e77"
+      },
+      {
+        "candidate_count": 400,
+        "checkpoint": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_003.pt",
+        "checkpoint_metadata_valid": true,
+        "checkpoint_ready": true,
+        "checkpoint_sha256": "81223d45e4d5d34d81db96b3a7f0b63036f16cb510aa3523a1fc14c869dbdb5c",
+        "metadata_valid": true,
+        "reference_id": 3,
+        "reference_seed": 1128257994,
+        "score": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_003.npz",
+        "score_ready": true,
+        "score_sha256": "53143f83881e9697760f87a592193e5941e9e939a2223fb1640b9982cff5f46f"
+      },
+      {
+        "candidate_count": 400,
+        "checkpoint": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_004.pt",
+        "checkpoint_metadata_valid": true,
+        "checkpoint_ready": true,
+        "checkpoint_sha256": "e3eb9e0190a7c433f37956f7406cfb354bd6fc084e69b0547cbbd117346ad0fc",
+        "metadata_valid": true,
+        "reference_id": 4,
+        "reference_seed": 503717938,
+        "score": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_004.npz",
+        "score_ready": true,
+        "score_sha256": "461c20d5ada4d94b0211ced1819281d046410187a4d793e8bdbe2de7136ae891"
+      },
+      {
+        "candidate_count": 400,
+        "checkpoint": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_005.pt",
+        "checkpoint_metadata_valid": true,
+        "checkpoint_ready": true,
+        "checkpoint_sha256": "1f3ca4cd1357447ccbe674db5cc4a059d543f6f4ef16c5bf9e763c18c33cad20",
+        "metadata_valid": true,
+        "reference_id": 5,
+        "reference_seed": 1065700273,
+        "score": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_005.npz",
+        "score_ready": true,
+        "score_sha256": "03229ef24daac20f0ec3bfea78dfe87063e239c0923c4f10045de9f49c408f99"
+      },
+      {
+        "candidate_count": 400,
+        "checkpoint": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_006.pt",
+        "checkpoint_metadata_valid": true,
+        "checkpoint_ready": true,
+        "checkpoint_sha256": "736dfc3b870b3ed81479131d5ecd1f9cbea6809ac8b347dc06ecb3273889f3f3",
+        "metadata_valid": true,
+        "reference_id": 6,
+        "reference_seed": 1080064266,
+        "score": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_006.npz",
+        "score_ready": true,
+        "score_sha256": "2de402382879bf7b44c288d6ba8909398370f16c5b9a3586a0315556a56cf207"
+      },
+      {
+        "candidate_count": 400,
+        "checkpoint": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_007.pt",
+        "checkpoint_metadata_valid": true,
+        "checkpoint_ready": true,
+        "checkpoint_sha256": "3a6d531c22f581c0245cd2d096783fc1ebdcc5ef6c3a05cd9a21ce3c9bd91069",
+        "metadata_valid": true,
+        "reference_id": 7,
+        "reference_seed": 677794430,
+        "score": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_007.npz",
+        "score_ready": true,
+        "score_sha256": "8a73ab0895940200a951b71a4f672f60a8f520eda633efc096da75fd4b5b6e6a"
+      },
+      {
+        "candidate_count": 400,
+        "checkpoint": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_008.pt",
+        "checkpoint_metadata_valid": true,
+        "checkpoint_ready": true,
+        "checkpoint_sha256": "776d39fd3791f60819e2fd9b4dd3bca413f204dbbaa6d0c5797b342181a658a3",
+        "metadata_valid": true,
+        "reference_id": 8,
+        "reference_seed": 2079744419,
+        "score": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_008.npz",
+        "score_ready": true,
+        "score_sha256": "4ca94de49d3533609ece5e5e8b1ec7883a8e4f9daa9b84147950af4696b145fd"
+      },
+      {
+        "candidate_count": 400,
+        "checkpoint": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_009.pt",
+        "checkpoint_metadata_valid": true,
+        "checkpoint_ready": true,
+        "checkpoint_sha256": "b4a5d26b0b75366777d746b1590f7631562bf1191485769caa089bb1253a4b22",
+        "metadata_valid": true,
+        "reference_id": 9,
+        "reference_seed": 822850454,
+        "score": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_009.npz",
+        "score_ready": true,
+        "score_sha256": "bb69a73c949b2576f1dcfd141239afdf27b03808114de6e6a0b67a0578c344b2"
+      },
+      {
+        "candidate_count": 400,
+        "checkpoint": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_010.pt",
+        "checkpoint_metadata_valid": true,
+        "checkpoint_ready": true,
+        "checkpoint_sha256": "68780f172939b562ded00409b4f72cb8dd277e28b20f65fd87c658b7fe7362a3",
+        "metadata_valid": true,
+        "reference_id": 10,
+        "reference_seed": 1630627977,
+        "score": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_010.npz",
+        "score_ready": true,
+        "score_sha256": "cd45f1661af6219f5d4f49135819705ed5f3b9a5837bb5d078cfca3dda2b90da"
+      },
+      {
+        "candidate_count": 400,
+        "checkpoint": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_011.pt",
+        "checkpoint_metadata_valid": true,
+        "checkpoint_ready": true,
+        "checkpoint_sha256": "7603a04dc504dd931154c0559afd60ad428fc539fcf8dbc7ad63b6ac01d47308",
+        "metadata_valid": true,
+        "reference_id": 11,
+        "reference_seed": 61762588,
+        "score": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_011.npz",
+        "score_ready": true,
+        "score_sha256": "6b24a138f4eb77c331f34083d63cb445cbb77f48a48da7c0a1cc3ba2966690e6"
+      },
+      {
+        "candidate_count": 400,
+        "checkpoint": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_012.pt",
+        "checkpoint_metadata_valid": true,
+        "checkpoint_ready": true,
+        "checkpoint_sha256": "097b5982482383975eff700d5b6e3a829d74fbaaf425a6dbd4f497e4816b4311",
+        "metadata_valid": true,
+        "reference_id": 12,
+        "reference_seed": 635932782,
+        "score": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_012.npz",
+        "score_ready": true,
+        "score_sha256": "cac69160a49cb6b1d767927f63890e5f10042fe53120b29ad5b07bcfe3b6027d"
+      },
+      {
+        "candidate_count": 400,
+        "checkpoint": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_013.pt",
+        "checkpoint_metadata_valid": true,
+        "checkpoint_ready": true,
+        "checkpoint_sha256": "c5a9434146d3c0562db93eae8a8fccac6f934b798d5db166334315f2bb386860",
+        "metadata_valid": true,
+        "reference_id": 13,
+        "reference_seed": 1229852576,
+        "score": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_013.npz",
+        "score_ready": true,
+        "score_sha256": "4292b9208deeb8573e4a81bc7015b3d30356bc4ef47547b8d657f730f8f8d841"
+      },
+      {
+        "candidate_count": 400,
+        "checkpoint": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_014.pt",
+        "checkpoint_metadata_valid": true,
+        "checkpoint_ready": true,
+        "checkpoint_sha256": "07304b961793f06b187f369025fb44dca1a1b4080e79c1c23979b9b6e68d3b77",
+        "metadata_valid": true,
+        "reference_id": 14,
+        "reference_seed": 1329770633,
+        "score": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_014.npz",
+        "score_ready": true,
+        "score_sha256": "0b50af87f3f27e8b31f99accd17184f6d39d92d11ec4167c59ae17449122eb97"
+      },
+      {
+        "candidate_count": 400,
+        "checkpoint": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_015.pt",
+        "checkpoint_metadata_valid": true,
+        "checkpoint_ready": true,
+        "checkpoint_sha256": "94fd404d7a5fd51ca5cfb9921ad808111e2ed6b2823ef7320ea0fc058d82c94c",
+        "metadata_valid": true,
+        "reference_id": 15,
+        "reference_seed": 1338202873,
+        "score": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/references/reference_models/eff_su2_r1_d2_wd0/reference_015.npz",
+        "score_ready": true,
+        "score_sha256": "a2460350cf5aa8fa6b0643bb524f61e8ea5c1c3dc02bd9c1ab6a437b8687402f"
+      }
+    ],
+    "scores_ready": 16
+  },
+  "shots": 128,
+  "simulator_seeds": [
+    0,
+    1
+  ],
+  "snapshot": {
+    "backend_name": "ibm_kingston",
+    "basis_gate_count": 10,
+    "calibration_timestamp": "2026-08-21T21:16:41+08:00",
+    "coupling_edge_count": 352,
+    "directory": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_canary_phase5/backend_snapshot",
+    "manifest": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_canary_phase5/backend_snapshot/snapshot_manifest.json",
+    "manifest_exists": true,
+    "manifest_sha256": "7af4abc6763339615cc42bd00fafb532e3c44a31c14bc574c88456a496136a2f",
+    "noise_model_loaded": true,
+    "ready": true
+  },
+  "statistical_scope": "scale/comparison gate; not cross-cell publication evidence",
+  "target_artifacts": [
+    {
+      "directory": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/runs/multiseed_factorial/MNIST_QNN_eff_su2_r1_d2_s43",
+      "paths": {
+        "attack_data": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/runs/multiseed_factorial/MNIST_QNN_eff_su2_r1_d2_s43/target_attack_data.pt",
+        "model": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/runs/multiseed_factorial/MNIST_QNN_eff_su2_r1_d2_s43/target_model.pt",
+        "summary": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/runs/multiseed_factorial/MNIST_QNN_eff_su2_r1_d2_s43/target_export_summary.json"
+      },
+      "present": {
+        "attack_data": true,
+        "model": true,
+        "summary": true
+      },
+      "ready": true,
+      "sha256": {
+        "attack_data": "a09e8cf95507bd61e15edfcbcc16ece5ba2301c6385fbc7e9f97b59688113871",
+        "model": "e1360450113c378f7393b1f15d9f6b5ebe66ef1679482a885c3ea40da06cdd70",
+        "summary": "443125156d956ada507a746c9ad50945896edfa72994de3fc62797ff4566957b"
+      }
+    },
+    {
+      "directory": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/runs/multiseed_factorial/MNIST_QNN_eff_su2_r1_d2_s44",
+      "paths": {
+        "attack_data": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/runs/multiseed_factorial/MNIST_QNN_eff_su2_r1_d2_s44/target_attack_data.pt",
+        "model": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/runs/multiseed_factorial/MNIST_QNN_eff_su2_r1_d2_s44/target_model.pt",
+        "summary": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/runs/multiseed_factorial/MNIST_QNN_eff_su2_r1_d2_s44/target_export_summary.json"
+      },
+      "present": {
+        "attack_data": true,
+        "model": true,
+        "summary": true
+      },
+      "ready": true,
+      "sha256": {
+        "attack_data": "2308ba71b3bfd1c8519f0ed338ec6a2a412c11b2b03a49fde545b748044dc732",
+        "model": "d9955c4355170f16a020d7898020a9340bea7d313344902927d9440a43ea1c26",
+        "summary": "7a7aa1b4adedd3e3dcf95f71048170687e79ea13bdf834f64de35dc9c077dba5"
+      }
+    },
+    {
+      "directory": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/runs/multiseed_factorial/MNIST_QNN_eff_su2_r1_d2_s45",
+      "paths": {
+        "attack_data": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/runs/multiseed_factorial/MNIST_QNN_eff_su2_r1_d2_s45/target_attack_data.pt",
+        "model": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/runs/multiseed_factorial/MNIST_QNN_eff_su2_r1_d2_s45/target_model.pt",
+        "summary": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_scaleup_phase6/runs/multiseed_factorial/MNIST_QNN_eff_su2_r1_d2_s45/target_export_summary.json"
+      },
+      "present": {
+        "attack_data": true,
+        "model": true,
+        "summary": true
+      },
+      "ready": true,
+      "sha256": {
+        "attack_data": "1e164b1ab9c77d644c139740b4376e41eec9781b7df1d685eada936bc86d07eb",
+        "model": "9469bf0cc42dc07719ddb55a3348c93fafefd5c541299d61ed9a1cee13be59dc",
+        "summary": "4a90bdd2443b151e0ffd76b7425d131d4ce5093c16990eb2ff54526a33626ce7"
+      }
+    }
+  ],
+  "target_bundles_ready": 3,
+  "target_ids": [
+    "MNIST_QNN_eff_su2_r1_d2_s43",
+    "MNIST_QNN_eff_su2_r1_d2_s44",
+    "MNIST_QNN_eff_su2_r1_d2_s45"
+  ],
+  "target_manifest": "/home/najeeb/chanLira/reviewer_targets/channel_lira_noisy_reference_scaleup.csv",
+  "target_manifest_sha256": "748a839983fcd647ce92747249879f7ed836e752ddab45858a5af40b13fd27e2",
+  "targets_expected": 3
+}

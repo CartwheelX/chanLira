@@ -591,6 +591,7 @@ def run_aer_counts(
     shots: int,
     seed_simulator: int,
     noise_model: Any = None,
+    max_parallel_threads: Optional[int] = None,
 ) -> List[Mapping[Any, int]]:
     """Run locally in Aer and return one counts dictionary per circuit."""
     from qiskit_aer import AerSimulator
@@ -598,6 +599,10 @@ def run_aer_counts(
     simulator_kwargs: Dict[str, Any] = {}
     if noise_model is not None:
         simulator_kwargs["noise_model"] = noise_model
+    if max_parallel_threads is not None:
+        if int(max_parallel_threads) < 1:
+            raise ValueError("max_parallel_threads must be positive when provided")
+        simulator_kwargs["max_parallel_threads"] = int(max_parallel_threads)
     simulator = AerSimulator(**simulator_kwargs)
     result = simulator.run(
         list(circuits),

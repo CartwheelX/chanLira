@@ -1,0 +1,12 @@
+{
+  "credentials_recorded": false,
+  "files_sha256": {
+    "aer_noise_model.json": "a00bd5cea12324ce7f7c50d6ec1a5d238a3625ffdc86467608d43b48d893cd23",
+    "backend_configuration.json": "345ae998736fdcbe50fdaadb123b5c536507a113d1d30ae525cbba983693d4da",
+    "backend_properties.json": "8fd91ddd9edb8b5fe5d117bbb027a467ceb85fa13a89e0c2962530a2046b4f5f",
+    "metadata.json": "718197d1658b29f9412e3887cab337aa0659500194284a9f30ff07ef6e71fe3e"
+  },
+  "noise_model_codec": "qurift_typed_json_v1",
+  "reconstruction": "qurift typed-JSON decode followed by qiskit_aer.noise.NoiseModel.from_dict(aer_noise_model.json)",
+  "snapshot_schema_version": 2
+}
