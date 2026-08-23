@@ -56,7 +56,7 @@ def save_figure(fig: plt.Figure, path: Path, png: bool) -> list[Path]:
 
 
 def attack_summary_plot(
-    summary: list[dict[str, str]], out_dir: Path, png: bool
+    summary: list[dict[str, str]], out_dir: Path, png: bool, title_prefix: str
 ) -> list[Path]:
     modes = ("ideal_shot", "noisy_shot")
     x = np.arange(len(PRIMARY_ATTACKS), dtype=float)
@@ -87,7 +87,7 @@ def attack_summary_plot(
     ax.axhline(0.5, color="black", linestyle="--", linewidth=1, label="chance")
     ax.set_xticks(x, [LABELS[value] for value in PRIMARY_ATTACKS], rotation=20, ha="right")
     ax.set_ylabel("Mean target AUC")
-    ax.set_title("Phase 6 attack comparison (mean ± SD across 3 targets)")
+    ax.set_title(f"{title_prefix} attack comparison (mean ± SD across 3 targets)")
     ax.set_ylim(0.35, 0.75)
     ax.legend(frameon=False, ncol=3)
     ax.grid(axis="y", alpha=0.2)
@@ -95,7 +95,7 @@ def attack_summary_plot(
 
 
 def noisy_target_plot(
-    target_rows: list[dict[str, str]], out_dir: Path, png: bool
+    target_rows: list[dict[str, str]], out_dir: Path, png: bool, title_prefix: str
 ) -> list[Path]:
     targets = sorted({row["target_id"] for row in target_rows})
     x = np.arange(len(targets))
@@ -122,7 +122,7 @@ def noisy_target_plot(
     ax.set_xticks(x, [target.rsplit("_s", 1)[-1] for target in targets])
     ax.set_xlabel("Target model seed")
     ax.set_ylabel("AUC averaged over simulator seeds")
-    ax.set_title("Noisy-shot target heterogeneity")
+    ax.set_title(f"{title_prefix}: noisy-shot target heterogeneity")
     ax.set_ylim(0.35, 0.75)
     ax.legend(frameon=False, ncol=2)
     ax.grid(alpha=0.2)
@@ -130,7 +130,7 @@ def noisy_target_plot(
 
 
 def contrast_plot(
-    rows: list[dict[str, str]], out_dir: Path, png: bool
+    rows: list[dict[str, str]], out_dir: Path, png: bool, title_prefix: str
 ) -> list[Path]:
     selected = [
         row for row in rows
@@ -160,13 +160,13 @@ def contrast_plot(
     ax.axhline(0.0, color="black", linewidth=1)
     ax.set_xticks(positions, labels)
     ax.set_ylabel("Paired target AUC difference")
-    ax.set_title("Noisy-shot paired contrasts (range across 3 targets)")
+    ax.set_title(f"{title_prefix}: noisy-shot paired contrasts (3-target range)")
     ax.grid(axis="y", alpha=0.2)
     return save_figure(fig, out_dir / "noisy_paired_contrasts", png)
 
 
 def mode_delta_plot(
-    target_rows: list[dict[str, str]], out_dir: Path, png: bool
+    target_rows: list[dict[str, str]], out_dir: Path, png: bool, title_prefix: str
 ) -> list[Path]:
     indexed = {
         (row["target_id"], row["mode"], row["attack"]): float(
@@ -194,7 +194,7 @@ def mode_delta_plot(
     ax.axhline(0.0, color="black", linewidth=1)
     ax.set_xticks(x, [LABELS[value] for value in PRIMARY_ATTACKS], rotation=20, ha="right")
     ax.set_ylabel("Noisy-shot AUC − ideal-shot AUC")
-    ax.set_title("Effect of the frozen IBM-derived serving channel")
+    ax.set_title(f"{title_prefix}: effect of the frozen IBM-derived serving channel")
     ax.legend(frameon=False)
     ax.grid(alpha=0.2)
     return save_figure(fig, out_dir / "noisy_minus_ideal_auc", png)
@@ -207,6 +207,8 @@ def main() -> None:
         default=ROOT / "channel_lira_results/noisy_reference_scaleup_phase6/analysis",
     )
     parser.add_argument("--png", action="store_true")
+    parser.add_argument("--title-prefix", default="Phase 6")
+    parser.add_argument("--index-title", default="Phase-6 plot index")
     args = parser.parse_args()
     analysis_dir = args.analysis_dir.resolve()
     summary = read_csv(analysis_dir / "metrics_summary.csv")
@@ -214,12 +216,12 @@ def main() -> None:
     contrasts = read_csv(analysis_dir / "paired_contrasts_summary.csv")
     plot_dir = analysis_dir / "plots"
     outputs = []
-    outputs.extend(attack_summary_plot(summary, plot_dir, args.png))
-    outputs.extend(noisy_target_plot(target_rows, plot_dir, args.png))
-    outputs.extend(contrast_plot(contrasts, plot_dir, args.png))
-    outputs.extend(mode_delta_plot(target_rows, plot_dir, args.png))
+    outputs.extend(attack_summary_plot(summary, plot_dir, args.png, args.title_prefix))
+    outputs.extend(noisy_target_plot(target_rows, plot_dir, args.png, args.title_prefix))
+    outputs.extend(contrast_plot(contrasts, plot_dir, args.png, args.title_prefix))
+    outputs.extend(mode_delta_plot(target_rows, plot_dir, args.png, args.title_prefix))
     lines = [
-        "# Phase-6 plot index",
+        f"# {args.index_title}",
         "",
         "Error bars in the attack summary are sample SD across three target checkpoints after averaging simulator seeds. Contrast bars show the observed target range; neither is a confidence interval.",
         "",

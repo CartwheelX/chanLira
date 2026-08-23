@@ -1,0 +1,40 @@
+{
+  "aer_max_parallel_threads": 128,
+  "cache": "/home/najeeb/chanLira/channel_lira_results/phase7/stage1_pilot/noisy_lira/reference_cache/eff_su2_r1_d2_wd0_2c21669778be892373bd.npz",
+  "cache_sha256": "69b6d746e837c87906d46fb7cfa059681d657dd3918561acc6abf1baea829e70",
+  "candidate_fingerprint": "1d2087428badd471be733025a059b3c0d597384cd6f91efba46e19dd87b02e64",
+  "modes": [
+    "ideal_shot",
+    "noisy_shot"
+  ],
+  "num_reference_models": 16,
+  "optimization_level": 1,
+  "real_hardware_execution": false,
+  "reference_checkpoint_sha256": [
+    "bb85d6726b48b41e5a9c3730e40d640e7466541143337c3fb19db448cbb40594",
+    "ba0a9bcbc91b0a1c43f85942507fb3baae26ec73a9cdafa968d26d85bc514630",
+    "f524683506868fdd867447d4aa46d27d4e7f9906f3b9d8b9c2c93c4e644a487c",
+    "91d9f365f42969de889b66662fc9240eed4f65a8e8cf857f93930c361b833ba4",
+    "7aca1829f1ad41be960eaded9527fe608f6063ea6af6cea30942a69d64a0683b",
+    "685a8eb52e0f58130aa59369234e03250a02a397c5bcc3b7df1fa98f24191319",
+    "b34e5e58ff2f07fb681f6029eabd9d183b321c38b216875d7da4b18099f3a346",
+    "480e42614a7320928428ac953de1df2c6bc6e0feddaa464e9951acfb2a7e7b45",
+    "14517b670857d884e68d32fef7e795c9dd92b0f5dc11590df0bf5dececc10122",
+    "76a19afacc686a933a0a76a4006e0a85f62f431f16594a4a1d468f11286fed5e",
+    "7d8c9c90d4d0698b83997e8a3639c9471173bd5fd6d50a24607307506ca4f2c4",
+    "47ea4603822a79eef76a9e7a8dc85ade6d17501fd246de19dd57ccb240e74871",
+    "93266d173527b2952e3c027f44bd222c1a6d087d7282f46b05ab36835618ae74",
+    "16f48a4991e1b435b5cb6de5d52f05cd72ab3fcdd26e1746c4781bf95c470d41",
+    "1cf0a3f4329ecdfbc302279f22d5d32fffaf73c576268cb91494d06e35b182b0",
+    "e16f1957761d1317d51e742dc7385f8c6185024422fed3409e0bcdc0f24d5085"
+  ],
+  "schema_version": 1,
+  "shots": 128,
+  "simulator_seeds": [
+    0,
+    1
+  ],
+  "snapshot_manifest_sha256": "7af4abc6763339615cc42bd00fafb532e3c44a31c14bc574c88456a496136a2f",
+  "structural_cell": "eff_su2_r1_d2_wd0",
+  "transpiler_seed": 20260822
+}

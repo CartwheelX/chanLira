@@ -1,0 +1,243 @@
+{
+  "schema_version": 1,
+  "protocol_id": "channel_lira_phase7_confirmatory_v1",
+  "frozen_utc": "2026-08-22T00:00:00Z",
+  "automatic_execution": false,
+  "purpose": "Confirm channel mismatch, efficient matched-LiRA recovery, and practical low-FPR utility without post-hoc regime selection.",
+  "provenance": {
+    "phase6_role": "pilot",
+    "phase6_status": "channel_lira_results/noisy_reference_scaleup_phase6/STATUS.json",
+    "phase6_status_sha256": "e4b8b947c68141cf3472fb4fd2aec006390a48a9b9ee5e2008467df05b5b502d",
+    "phase7_target_manifest": "reviewer_targets/channel_lira_phase7_targets.csv",
+    "phase7_target_manifest_sha256": "261a688b06e0bd2d1045c72fec5d77cc853003c551d000362fe921e0a4d36251",
+    "backend_snapshot": "channel_lira_results/noisy_reference_canary_phase5/backend_snapshot",
+    "snapshot_manifest_sha256": "7af4abc6763339615cc42bd00fafb532e3c44a31c14bc574c88456a496136a2f",
+    "backend_name": "ibm_kingston",
+    "hardware_execution": false,
+    "serving_description": "Local Qiskit Aer circuit execution under one frozen IBM-derived ibm_kingston noise snapshot."
+  },
+  "study_population": {
+    "pilot_cell": "eff_su2_r1_d2",
+    "pilot_replication_targets": 3,
+    "confirmatory_cells": [
+      "eff_su2_r5_d2",
+      "z_r1_d6",
+      "zz_r1_d6",
+      "zz_r5_d6"
+    ],
+    "confirmatory_targets_per_cell": 3,
+    "confirmatory_targets": 12,
+    "total_cells": 5,
+    "total_targets": 15,
+    "model_seeds": [143, 144, 145],
+    "shared_data_seed": 143,
+    "candidate_protocol": {
+      "members_per_target": 1000,
+      "nonmembers_per_target": 1000,
+      "candidates_per_target": 2000,
+      "minimum_members_for_primary_endpoint": 1000,
+      "minimum_nonmembers_for_primary_endpoint": 1000,
+      "primary_fpr": 0.01,
+      "minimum_false_positives_at_primary_fpr": 10,
+      "expected_false_positives_at_primary_fpr": 10,
+      "fpr_resolution": 0.001,
+      "tpr_resolution": 0.001,
+      "candidate_fingerprint": "1d2087428badd471be733025a059b3c0d597384cd6f91efba46e19dd87b02e64",
+      "sample_ids_sha256": "f35755960b436574ceca0fcf79ed71d48d4f1cde0bfdd48ebe486326f3447197",
+      "ultra_low_fpr_0_1pct_supported": false,
+      "rationale": "One thousand nonmembers place ten false positives at 1% FPR; one thousand members give 0.1 percentage-point TPR resolution. Simulator seeds are not counted as independent membership decisions."
+    }
+  },
+  "reference_protocol": {
+    "reference_design_seed": 20260822,
+    "references_per_cell": 16,
+    "total_reference_models": 80,
+    "in_references_per_candidate": 8,
+    "out_references_per_candidate": 8,
+    "reference_train_records": 1000,
+    "save_checkpoints": true,
+    "checkpoint_hashes_required": true,
+    "cache_key_must_bind": [
+      "candidate_fingerprint",
+      "snapshot_manifest_sha256",
+      "reference_checkpoint_sha256",
+      "mode",
+      "shots",
+      "simulator_seeds",
+      "transpiler_seed",
+      "optimization_level"
+    ]
+  },
+  "serving_protocol": {
+    "primary": {
+      "mode": "noisy_shot",
+      "shots": 128,
+      "simulator_seeds": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    },
+    "secondary_noisy": {
+      "mode": "noisy_shot",
+      "shots": [512, 1024],
+      "simulator_seeds": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    },
+    "ideal_diagnostic": {
+      "mode": "ideal_shot",
+      "shots": [128, 512, 1024],
+      "simulator_seeds": [0, 1]
+    },
+    "transpiler_seed": 20260822,
+    "optimization_level": 1,
+    "reference_oracle_cache_scope": "one cache per structural cell and complete serving protocol",
+    "target_outputs_reused_across_attacks": true
+  },
+  "attacks": {
+    "channel_lira": {
+      "implementation": "affine_channel_lira",
+      "channel_fit": "strict leave-target-out with attacked sample-ID fold excluded",
+      "reference_inputs": "exact 16-reference LiRA bank"
+    },
+    "matched_noisy_lira": {
+      "implementation": "matched_reference_lira_online_fixed_variance",
+      "role": "expensive oracle-style comparator"
+    },
+    "mismatched_lira": {
+      "implementation": "latent_lira_mismatched",
+      "role": "channel-mismatch comparator"
+    },
+    "loss_mia": {
+      "implementation": "loss_mia",
+      "role": "cheap practical baseline"
+    },
+    "learned_mia": {
+      "implementation": "target_crossfit_learned_mia",
+      "frozen_without_redesign": true,
+      "paper_label": "privileged victim-crossfit learned comparator",
+      "access": "membership-labeled cross-fitted outputs from the attacked target",
+      "claim_limit": "Does not support claims against learned MIAs in general."
+    }
+  },
+  "endpoint_hierarchy": {
+    "confirmatory_subset": "phase7_analysis_role=confirmatory only; the pilot cell is excluded",
+    "primary_endpoint": {
+      "mode": "noisy_shot",
+      "shots": 128,
+      "metric": "tpr_at_1pct_fpr",
+      "primary_comparison": "affine_channel_lira_minus_loss_mia",
+      "direction": "greater_than_zero",
+      "unit": "target checkpoint after averaging simulator seeds",
+      "uncertainty": "hierarchical bootstrap over structural cells and targets within cells",
+      "bootstrap_replicates": 20000,
+      "bootstrap_seed": 20260822
+    },
+    "mechanism_comparison": "matched_reference_lira_online_fixed_variance_minus_latent_lira_mismatched",
+    "efficient_recovery_comparison": "affine_channel_lira_minus_matched_reference_lira_online_fixed_variance",
+    "learned_stress_comparison": "affine_channel_lira_minus_target_crossfit_learned_mia",
+    "secondary_metrics": [
+      "auc",
+      "tpr_at_5pct_fpr"
+    ],
+    "secondary_conditions": [
+      "noisy_shot_512",
+      "noisy_shot_1024",
+      "ideal_shot_128",
+      "ideal_shot_512",
+      "ideal_shot_1024"
+    ],
+    "exploratory_covariates": [
+      "train_test_gap",
+      "channel_slope",
+      "channel_r_squared",
+      "exact_lira_auc",
+      "loss_mia_auc",
+      "structural_cell"
+    ],
+    "multiplicity_rule": "Only the frozen primary endpoint and comparison determine practical-attack success; secondary and exploratory results cannot replace a failed primary endpoint."
+  },
+  "success_criteria": {
+    "A_channel_mismatch": {
+      "comparison": "matched noisy LiRA minus mismatched LiRA",
+      "criterion": "confirmatory hierarchical 95% interval lower bound is greater than zero at the primary endpoint"
+    },
+    "B_efficient_recovery": {
+      "comparison": "ChannelLiRA minus matched noisy LiRA",
+      "primary_tpr_absolute_noninferiority_margin": 0.005,
+      "secondary_auc_absolute_noninferiority_margin": 0.01,
+      "criterion": "confirmatory hierarchical 95% interval lower bound exceeds the negative frozen margin and amortized noisy calibration-model cost is at most 25% of matched-reference cost"
+    },
+    "C_practical_attack": {
+      "comparison": "ChannelLiRA minus loss MIA",
+      "criterion": "confirmatory hierarchical 95% interval lower bound is greater than zero for noisy 128-shot TPR@1% FPR"
+    },
+    "paper_decision": {
+      "A+B+C": "strong specialized ChannelLiRA attack paper",
+      "A+B_only": "serving-channel mismatch and privacy-auditing paper",
+      "A_only": "revise the channel model before an attack claim",
+      "A_fails": "the core serving-mismatch motivation is not confirmed"
+    }
+  },
+  "cost_accounting": {
+    "report_fields": [
+      "trained_reference_models",
+      "noisy_reference_model_candidate_executions",
+      "noisy_reference_shots",
+      "auxiliary_calibration_model_candidate_executions",
+      "auxiliary_calibration_shots",
+      "target_query_shots",
+      "wall_clock_seconds",
+      "peak_gpu_memory_bytes",
+      "peak_host_memory_bytes",
+      "checkpoint_bytes",
+      "cache_bytes",
+      "cache_reuse_scope"
+    ],
+    "channel_calibration_models_per_attack": 2,
+    "channel_calibration_models_per_cell_amortized": 3,
+    "matched_reference_models_per_cell": 16,
+    "cost_interpretation": "ChannelLiRA has nonzero auxiliary calibration cost; it eliminates noisy reference-model serving, not all noisy-model execution."
+  },
+  "analysis_rules": {
+    "simulator_seed_handling": "Average simulator seeds within each target before target/cell inference.",
+    "pilot_handling": "Report the Phase-6 cell and Phase-7 pilot replication separately; never include them in the confirmatory primary interval.",
+    "candidate_dependence": "Do not treat repeated simulator realizations as independent records.",
+    "claim_scope": "No claim of real-hardware leakage, universal MIA superiority, stable 0.1% FPR, or superiority over learned MIAs generally.",
+    "method_changes_after_freeze": "Any method or endpoint change requires a new protocol version and makes the changed analysis exploratory."
+  },
+  "execution_stages": [
+    {
+      "stage": 0,
+      "name": "design_readiness",
+      "scientific_results_visible": false
+    },
+    {
+      "stage": 1,
+      "name": "pilot_replication_engineering_canary",
+      "subset": "pilot cell only",
+      "conditions": "ideal/noisy 128 shots, simulator seeds 0,1",
+      "modes": ["ideal_shot", "noisy_shot"],
+      "shots": [128],
+      "simulator_seeds": [0, 1],
+      "scientific_results_visible": true
+    },
+    {
+      "stage": 2,
+      "name": "confirmatory_primary",
+      "subset": "four confirmatory cells",
+      "conditions": "noisy 128 shots, simulator seeds 0-9",
+      "scientific_results_visible": false,
+      "rule": "Complete and hash all outputs before unblinding aggregate attack comparisons."
+    },
+    {
+      "stage": 3,
+      "name": "frozen_secondary_conditions",
+      "subset": "all five cells",
+      "conditions": "secondary noisy and ideal diagnostic conditions",
+      "scientific_results_visible": true
+    }
+  ],
+  "publication_artifacts": {
+    "immutable_checkpoint_archive_required": true,
+    "archive_uri": null,
+    "archive_sha256": null,
+    "deterministic_training_manifest_required": true,
+    "release_status": "required_before_artifact_submission_not_before_execution"
+  }
+}

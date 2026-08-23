@@ -270,12 +270,13 @@ banks use the canonical `*_wd0` layout. The readiness audit prefers a complete
 score/checkpoint pair and will detect that layout on its next run. The command does
 not start automatically from this readiness audit.
 
-## Staged scale-up first
+## Superseded full-study launch guidance
 
-The guarded one-cell/four-reference canary is complete. Before any 80-reference
-launch, run `experiments/run_channel_lira_noisy_reference_scaleup.py` to test three
-target checkpoints against a complete 16-reference bank. Its leave-target-out
-analysis is the final compute and comparison gate before the five-cell study.
+The guarded canary and the subsequent three-target/16-reference Phase-6 scale-up
+are complete. Do not launch the legacy 400-candidate full-study command from this
+audit. The low-FPR population and confirmatory split are now governed by
+`reviewer_targets/channel_lira_phase7_protocol.json`; validate them with
+`experiments/check_channel_lira_phase7_readiness.py` before any further compute.
 """
     (out_dir / "READINESS.md").write_text(report, encoding="utf-8")
     print(

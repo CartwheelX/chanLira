@@ -1,0 +1,42 @@
+{
+  "candidate_count": 2000,
+  "candidate_fingerprint": "1d2087428badd471be733025a059b3c0d597384cd6f91efba46e19dd87b02e64",
+  "circuit_execution_performed": false,
+  "created_utc": "2026-08-22T08:24:44.134137+00:00",
+  "dataset_sizes": {
+    "test": 1000,
+    "train": 1000,
+    "valid": 200
+  },
+  "membership_counts": {
+    "0": 1000,
+    "1": 1000
+  },
+  "per_candidate_in_counts": [
+    8
+  ],
+  "per_reference_train_counts": [
+    1000
+  ],
+  "protocol_id": "channel_lira_phase7_confirmatory_v1",
+  "protocol_sha256": "ab360b674c3843670cd4a2213924098a5a9ffef43607fd5ee6510f3c56a78d18",
+  "ready": true,
+  "reference_design_seed": 20260822,
+  "reference_design_shape": [
+    16,
+    2000
+  ],
+  "representative_target_id": "MNIST_QNN_eff_su2_r1_d2_p7_s143",
+  "sample_ids_sha256": "f35755960b436574ceca0fcf79ed71d48d4f1cde0bfdd48ebe486326f3447197",
+  "sample_ids_unique": true,
+  "shared_dataset_signature": [
+    "MNIST",
+    "143",
+    "1000",
+    "200",
+    "1000"
+  ],
+  "target_manifest": "/home/najeeb/chanLira/reviewer_targets/channel_lira_phase7_targets.csv",
+  "target_manifest_sha256": "261a688b06e0bd2d1045c72fec5d77cc853003c551d000362fe921e0a4d36251",
+  "training_performed": false
+}

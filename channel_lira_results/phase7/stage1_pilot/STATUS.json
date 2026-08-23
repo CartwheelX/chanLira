@@ -1,0 +1,296 @@
+{
+  "analysis": {
+    "directory": "/home/najeeb/chanLira/channel_lira_results/phase7/stage1_pilot/analysis",
+    "present": {
+      "CONFIG.json": true,
+      "REPORT.md": true,
+      "SOURCE_MANIFEST.json": true,
+      "channel_diagnostics.csv": true,
+      "metrics_raw.csv": true,
+      "metrics_summary.csv": true,
+      "paired_contrasts_summary.csv": true,
+      "paired_contrasts_target.csv": true,
+      "target_mean_metrics.csv": true
+    },
+    "ready": true
+  },
+  "analysis_role": "pilot_replication_engineering_canary",
+  "artifacts": {
+    "reference_banks_expected": 1,
+    "reference_banks_ready": 1,
+    "reference_cells": [
+      {
+        "balanced_inclusion": true,
+        "candidate_fingerprints": [
+          "1d2087428badd471be733025a059b3c0d597384cd6f91efba46e19dd87b02e64"
+        ],
+        "cell": "eff_su2_r1_d2",
+        "checkpoint_metadata_valid": 16,
+        "checkpoints_ready": 16,
+        "directory": "/home/najeeb/chanLira/channel_lira_results/phase7/references/reference_models/eff_su2_r1_d2_wd0",
+        "metadata_valid": 16,
+        "ready": true,
+        "references": [
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 0,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 1,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 2,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 3,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 4,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 5,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 6,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 7,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 8,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 9,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 10,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 11,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 12,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 13,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 14,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 15,
+            "score_ready": true
+          }
+        ],
+        "scores_ready": 16
+      }
+    ],
+    "reference_checkpoint_metadata_valid": 16,
+    "reference_checkpoints_ready": 16,
+    "reference_scores_ready": 16,
+    "references_expected": 16,
+    "target_bundles_ready": 3,
+    "targets": [
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_eff_su2_r1_d2_p7_s143",
+        "payload_error": "",
+        "payload_valid": true,
+        "present": {
+          "attack_data": true,
+          "model": true,
+          "summary": true
+        },
+        "ready": true,
+        "target_id": "MNIST_QNN_eff_su2_r1_d2_p7_s143"
+      },
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_eff_su2_r1_d2_p7_s144",
+        "payload_error": "",
+        "payload_valid": true,
+        "present": {
+          "attack_data": true,
+          "model": true,
+          "summary": true
+        },
+        "ready": true,
+        "target_id": "MNIST_QNN_eff_su2_r1_d2_p7_s144"
+      },
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_eff_su2_r1_d2_p7_s145",
+        "payload_error": "",
+        "payload_valid": true,
+        "present": {
+          "attack_data": true,
+          "model": true,
+          "summary": true
+        },
+        "ready": true,
+        "target_id": "MNIST_QNN_eff_su2_r1_d2_p7_s145"
+      }
+    ],
+    "targets_expected": 3
+  },
+  "blockers": [],
+  "candidate_count": 2000,
+  "complete": true,
+  "confirmatory_primary_included": false,
+  "created_utc": "2026-08-22T12:08:01.191502+00:00",
+  "exact_scores": {
+    "aggregate": "/home/najeeb/chanLira/channel_lira_results/phase7/references/lira_reference_mia_raw.csv",
+    "aggregate_ready": true,
+    "expected": 3,
+    "ready": true,
+    "targets": [
+      {
+        "path": "/home/najeeb/chanLira/channel_lira_results/phase7/references/sample_scores/MNIST_QNN_eff_su2_r1_d2_p7_s143.npz",
+        "ready": true,
+        "sha256": "85acc378187330f3f558830cc83528b68deeab6e0705e9daa693e611f6234586",
+        "target_id": "MNIST_QNN_eff_su2_r1_d2_p7_s143"
+      },
+      {
+        "path": "/home/najeeb/chanLira/channel_lira_results/phase7/references/sample_scores/MNIST_QNN_eff_su2_r1_d2_p7_s144.npz",
+        "ready": true,
+        "sha256": "898c9d43219272a36a37bb5312cd157a9e33bc0143cfada5ca73596a9dc3258f",
+        "target_id": "MNIST_QNN_eff_su2_r1_d2_p7_s144"
+      },
+      {
+        "path": "/home/najeeb/chanLira/channel_lira_results/phase7/references/sample_scores/MNIST_QNN_eff_su2_r1_d2_p7_s145.npz",
+        "ready": true,
+        "sha256": "783d982820ba0ce500186535c9ace67a5a1c756082e02b72151b7e81c9f642aa",
+        "target_id": "MNIST_QNN_eff_su2_r1_d2_p7_s145"
+      }
+    ],
+    "targets_ready": 3
+  },
+  "members": 1000,
+  "modes": [
+    "ideal_shot",
+    "noisy_shot"
+  ],
+  "noisy_scores": {
+    "aggregate_ready": true,
+    "expected": 3,
+    "ready": true,
+    "targets": [
+      {
+        "errors": [],
+        "metadata": "/home/najeeb/chanLira/channel_lira_results/phase7/stage1_pilot/noisy_lira/metadata/MNIST_QNN_eff_su2_r1_d2_p7_s143.json",
+        "payloads_expected": 4,
+        "payloads_ready": 4,
+        "ready": true,
+        "score": "/home/najeeb/chanLira/channel_lira_results/phase7/stage1_pilot/noisy_lira/target_scores/MNIST_QNN_eff_su2_r1_d2_p7_s143.csv",
+        "target_id": "MNIST_QNN_eff_su2_r1_d2_p7_s143"
+      },
+      {
+        "errors": [],
+        "metadata": "/home/najeeb/chanLira/channel_lira_results/phase7/stage1_pilot/noisy_lira/metadata/MNIST_QNN_eff_su2_r1_d2_p7_s144.json",
+        "payloads_expected": 4,
+        "payloads_ready": 4,
+        "ready": true,
+        "score": "/home/najeeb/chanLira/channel_lira_results/phase7/stage1_pilot/noisy_lira/target_scores/MNIST_QNN_eff_su2_r1_d2_p7_s144.csv",
+        "target_id": "MNIST_QNN_eff_su2_r1_d2_p7_s144"
+      },
+      {
+        "errors": [],
+        "metadata": "/home/najeeb/chanLira/channel_lira_results/phase7/stage1_pilot/noisy_lira/metadata/MNIST_QNN_eff_su2_r1_d2_p7_s145.json",
+        "payloads_expected": 4,
+        "payloads_ready": 4,
+        "ready": true,
+        "score": "/home/najeeb/chanLira/channel_lira_results/phase7/stage1_pilot/noisy_lira/target_scores/MNIST_QNN_eff_su2_r1_d2_p7_s145.csv",
+        "target_id": "MNIST_QNN_eff_su2_r1_d2_p7_s145"
+      }
+    ],
+    "targets_ready": 3
+  },
+  "nonmembers": 1000,
+  "num_references": 16,
+  "protocol_id": "channel_lira_phase7_confirmatory_v1",
+  "protocol_sha256": "ab360b674c3843670cd4a2213924098a5a9ffef43607fd5ee6510f3c56a78d18",
+  "ready_for_exact_scoring": true,
+  "ready_for_noisy_scoring": true,
+  "ready_to_analyze": true,
+  "real_hardware_execution": false,
+  "shots": 128,
+  "simulator_seeds": [
+    0,
+    1
+  ],
+  "snapshot": {
+    "backend_name": "ibm_kingston",
+    "calibration_timestamp": "2026-08-21T21:16:41+08:00",
+    "directory": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_canary_phase5/backend_snapshot",
+    "errors": [],
+    "manifest": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_canary_phase5/backend_snapshot/snapshot_manifest.json",
+    "manifest_sha256": "7af4abc6763339615cc42bd00fafb532e3c44a31c14bc574c88456a496136a2f",
+    "ready": true
+  },
+  "target_ids": [
+    "MNIST_QNN_eff_su2_r1_d2_p7_s143",
+    "MNIST_QNN_eff_su2_r1_d2_p7_s144",
+    "MNIST_QNN_eff_su2_r1_d2_p7_s145"
+  ],
+  "target_manifest": "/home/najeeb/chanLira/reviewer_targets/channel_lira_phase7_stage1_pilot.csv",
+  "target_manifest_sha256": "618af2634a6e5c397f2d163ea195036dbecec943e4b654681d2aa4313f301f79"
+}

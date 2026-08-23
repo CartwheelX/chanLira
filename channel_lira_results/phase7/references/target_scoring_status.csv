@@ -1,0 +1,4 @@
+name,kind,target_id,structural_cell_id,reference_id,gpu,status,returncode,seconds,log
+score_MNIST_QNN_eff_su2_r1_d2_p7_s143,score_target,MNIST_QNN_eff_su2_r1_d2_p7_s143,eff_su2_r1_d2_wd0,,0,ok,0,19.992148637771606,/home/najeeb/chanLira/channel_lira_results/phase7/references/logs/score_MNIST_QNN_eff_su2_r1_d2_p7_s143.log
+score_MNIST_QNN_eff_su2_r1_d2_p7_s144,score_target,MNIST_QNN_eff_su2_r1_d2_p7_s144,eff_su2_r1_d2_wd0,,0,ok,0,20.053179502487183,/home/najeeb/chanLira/channel_lira_results/phase7/references/logs/score_MNIST_QNN_eff_su2_r1_d2_p7_s144.log
+score_MNIST_QNN_eff_su2_r1_d2_p7_s145,score_target,MNIST_QNN_eff_su2_r1_d2_p7_s145,eff_su2_r1_d2_wd0,,0,ok,0,22.20617175102234,/home/najeeb/chanLira/channel_lira_results/phase7/references/logs/score_MNIST_QNN_eff_su2_r1_d2_p7_s145.log

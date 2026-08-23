@@ -1,0 +1,910 @@
+{
+  "artifacts": {
+    "reference_banks_expected": 5,
+    "reference_banks_ready": 0,
+    "reference_cells": [
+      {
+        "balanced_inclusion": false,
+        "candidate_fingerprints": [],
+        "cell": "eff_su2_r1_d2",
+        "checkpoint_metadata_valid": 0,
+        "checkpoints_ready": 0,
+        "directory": "/home/najeeb/chanLira/channel_lira_results/phase7/references/reference_models/eff_su2_r1_d2_wd0",
+        "metadata_valid": 0,
+        "ready": false,
+        "references": [
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 0,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 1,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 2,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 3,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 4,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 5,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 6,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 7,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 8,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 9,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 10,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 11,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 12,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 13,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 14,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 15,
+            "score_ready": false
+          }
+        ],
+        "scores_ready": 0
+      },
+      {
+        "balanced_inclusion": false,
+        "candidate_fingerprints": [],
+        "cell": "eff_su2_r5_d2",
+        "checkpoint_metadata_valid": 0,
+        "checkpoints_ready": 0,
+        "directory": "/home/najeeb/chanLira/channel_lira_results/phase7/references/reference_models/eff_su2_r5_d2_wd0",
+        "metadata_valid": 0,
+        "ready": false,
+        "references": [
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 0,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 1,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 2,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 3,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 4,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 5,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 6,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 7,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 8,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 9,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 10,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 11,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 12,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 13,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 14,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 15,
+            "score_ready": false
+          }
+        ],
+        "scores_ready": 0
+      },
+      {
+        "balanced_inclusion": false,
+        "candidate_fingerprints": [],
+        "cell": "z_r1_d6",
+        "checkpoint_metadata_valid": 0,
+        "checkpoints_ready": 0,
+        "directory": "/home/najeeb/chanLira/channel_lira_results/phase7/references/reference_models/z_r1_d6_wd0",
+        "metadata_valid": 0,
+        "ready": false,
+        "references": [
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 0,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 1,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 2,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 3,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 4,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 5,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 6,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 7,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 8,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 9,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 10,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 11,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 12,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 13,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 14,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 15,
+            "score_ready": false
+          }
+        ],
+        "scores_ready": 0
+      },
+      {
+        "balanced_inclusion": false,
+        "candidate_fingerprints": [],
+        "cell": "zz_r1_d6",
+        "checkpoint_metadata_valid": 0,
+        "checkpoints_ready": 0,
+        "directory": "/home/najeeb/chanLira/channel_lira_results/phase7/references/reference_models/zz_r1_d6_wd0",
+        "metadata_valid": 0,
+        "ready": false,
+        "references": [
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 0,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 1,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 2,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 3,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 4,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 5,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 6,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 7,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 8,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 9,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 10,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 11,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 12,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 13,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 14,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 15,
+            "score_ready": false
+          }
+        ],
+        "scores_ready": 0
+      },
+      {
+        "balanced_inclusion": false,
+        "candidate_fingerprints": [],
+        "cell": "zz_r5_d6",
+        "checkpoint_metadata_valid": 0,
+        "checkpoints_ready": 0,
+        "directory": "/home/najeeb/chanLira/channel_lira_results/phase7/references/reference_models/zz_r5_d6_wd0",
+        "metadata_valid": 0,
+        "ready": false,
+        "references": [
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 0,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 1,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 2,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 3,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 4,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 5,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 6,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 7,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 8,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 9,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 10,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 11,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 12,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 13,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 14,
+            "score_ready": false
+          },
+          {
+            "checkpoint_metadata_valid": false,
+            "checkpoint_ready": false,
+            "metadata_valid": false,
+            "reference_id": 15,
+            "score_ready": false
+          }
+        ],
+        "scores_ready": 0
+      }
+    ],
+    "reference_checkpoint_metadata_valid": 0,
+    "reference_checkpoints_ready": 0,
+    "reference_scores_ready": 0,
+    "references_expected": 80,
+    "target_bundles_ready": 0,
+    "targets": [
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_eff_su2_r1_d2_p7_s143",
+        "payload_error": "ModuleNotFoundError: No module named 'torch'",
+        "payload_valid": false,
+        "present": {
+          "attack_data": true,
+          "model": true,
+          "summary": true
+        },
+        "ready": false,
+        "target_id": "MNIST_QNN_eff_su2_r1_d2_p7_s143"
+      },
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_eff_su2_r1_d2_p7_s144",
+        "payload_error": "ModuleNotFoundError: No module named 'torch'",
+        "payload_valid": false,
+        "present": {
+          "attack_data": true,
+          "model": true,
+          "summary": true
+        },
+        "ready": false,
+        "target_id": "MNIST_QNN_eff_su2_r1_d2_p7_s144"
+      },
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_eff_su2_r1_d2_p7_s145",
+        "payload_error": "ModuleNotFoundError: No module named 'torch'",
+        "payload_valid": false,
+        "present": {
+          "attack_data": true,
+          "model": true,
+          "summary": true
+        },
+        "ready": false,
+        "target_id": "MNIST_QNN_eff_su2_r1_d2_p7_s145"
+      },
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_eff_su2_r5_d2_p7_s143",
+        "payload_error": "",
+        "payload_valid": false,
+        "present": {
+          "attack_data": false,
+          "model": false,
+          "summary": false
+        },
+        "ready": false,
+        "target_id": "MNIST_QNN_eff_su2_r5_d2_p7_s143"
+      },
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_eff_su2_r5_d2_p7_s144",
+        "payload_error": "",
+        "payload_valid": false,
+        "present": {
+          "attack_data": false,
+          "model": false,
+          "summary": false
+        },
+        "ready": false,
+        "target_id": "MNIST_QNN_eff_su2_r5_d2_p7_s144"
+      },
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_eff_su2_r5_d2_p7_s145",
+        "payload_error": "",
+        "payload_valid": false,
+        "present": {
+          "attack_data": false,
+          "model": false,
+          "summary": false
+        },
+        "ready": false,
+        "target_id": "MNIST_QNN_eff_su2_r5_d2_p7_s145"
+      },
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_z_r1_d6_p7_s143",
+        "payload_error": "",
+        "payload_valid": false,
+        "present": {
+          "attack_data": false,
+          "model": false,
+          "summary": false
+        },
+        "ready": false,
+        "target_id": "MNIST_QNN_z_r1_d6_p7_s143"
+      },
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_z_r1_d6_p7_s144",
+        "payload_error": "",
+        "payload_valid": false,
+        "present": {
+          "attack_data": false,
+          "model": false,
+          "summary": false
+        },
+        "ready": false,
+        "target_id": "MNIST_QNN_z_r1_d6_p7_s144"
+      },
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_z_r1_d6_p7_s145",
+        "payload_error": "",
+        "payload_valid": false,
+        "present": {
+          "attack_data": false,
+          "model": false,
+          "summary": false
+        },
+        "ready": false,
+        "target_id": "MNIST_QNN_z_r1_d6_p7_s145"
+      },
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_zz_r1_d6_p7_s143",
+        "payload_error": "",
+        "payload_valid": false,
+        "present": {
+          "attack_data": false,
+          "model": false,
+          "summary": false
+        },
+        "ready": false,
+        "target_id": "MNIST_QNN_zz_r1_d6_p7_s143"
+      },
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_zz_r1_d6_p7_s144",
+        "payload_error": "",
+        "payload_valid": false,
+        "present": {
+          "attack_data": false,
+          "model": false,
+          "summary": false
+        },
+        "ready": false,
+        "target_id": "MNIST_QNN_zz_r1_d6_p7_s144"
+      },
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_zz_r1_d6_p7_s145",
+        "payload_error": "",
+        "payload_valid": false,
+        "present": {
+          "attack_data": false,
+          "model": false,
+          "summary": false
+        },
+        "ready": false,
+        "target_id": "MNIST_QNN_zz_r1_d6_p7_s145"
+      },
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_zz_r5_d6_p7_s143",
+        "payload_error": "",
+        "payload_valid": false,
+        "present": {
+          "attack_data": false,
+          "model": false,
+          "summary": false
+        },
+        "ready": false,
+        "target_id": "MNIST_QNN_zz_r5_d6_p7_s143"
+      },
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_zz_r5_d6_p7_s144",
+        "payload_error": "",
+        "payload_valid": false,
+        "present": {
+          "attack_data": false,
+          "model": false,
+          "summary": false
+        },
+        "ready": false,
+        "target_id": "MNIST_QNN_zz_r5_d6_p7_s144"
+      },
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_zz_r5_d6_p7_s145",
+        "payload_error": "",
+        "payload_valid": false,
+        "present": {
+          "attack_data": false,
+          "model": false,
+          "summary": false
+        },
+        "ready": false,
+        "target_id": "MNIST_QNN_zz_r5_d6_p7_s145"
+      }
+    ],
+    "targets_expected": 15
+  },
+  "automatic_execution": false,
+  "candidate_probe": {
+    "candidate_count": 2000,
+    "candidate_fingerprint": "1d2087428badd471be733025a059b3c0d597384cd6f91efba46e19dd87b02e64",
+    "errors": [],
+    "membership_counts": {
+      "0": 1000,
+      "1": 1000
+    },
+    "path": "/home/najeeb/chanLira/channel_lira_results/phase7_readiness/CANDIDATE_PROBE.json",
+    "ready": true,
+    "sample_ids_sha256": "f35755960b436574ceca0fcf79ed71d48d4f1cde0bfdd48ebe486326f3447197"
+  },
+  "cost_projection": {
+    "full_frozen_matrix": {
+      "all_reference_shots": 3194880000,
+      "all_simulated_shots": 3793920000,
+      "all_target_shots": 599040000,
+      "ideal_reference_shots": 532480000,
+      "ideal_target_shots": 99840000,
+      "noisy_reference_shots": 2662400000,
+      "noisy_target_shots": 499200000
+    },
+    "primary_confirmatory": {
+      "combined_shots": 194560000,
+      "noisy_reference_shots": 163840000,
+      "target_query_shots": 30720000
+    },
+    "primary_per_attacked_target": {
+      "channel_lira_auxiliary_calibration_shots": 5120000,
+      "channel_to_matched_ratio": 0.125,
+      "matched_noisy_lira_reference_shots": 40960000
+    },
+    "primary_per_cell_amortized": {
+      "channel_lira_unique_calibration_shots": 7680000,
+      "channel_to_matched_ratio": 0.1875,
+      "matched_noisy_lira_reference_shots": 40960000
+    },
+    "units": "simulated circuit shots; circuit transpilation/runtime are reported separately after execution"
+  },
+  "created_utc": "2026-08-22T09:20:15.047527+00:00",
+  "design_errors": [],
+  "design_ready": true,
+  "low_fpr_gate": {
+    "candidate_fingerprint": "1d2087428badd471be733025a059b3c0d597384cd6f91efba46e19dd87b02e64",
+    "candidates_per_target": 2000,
+    "expected_false_positives_at_primary_fpr": 10,
+    "fpr_resolution": 0.001,
+    "members_per_target": 1000,
+    "minimum_false_positives_at_primary_fpr": 10,
+    "minimum_members_for_primary_endpoint": 1000,
+    "minimum_nonmembers_for_primary_endpoint": 1000,
+    "nonmembers_per_target": 1000,
+    "primary_fpr": 0.01,
+    "rationale": "One thousand nonmembers place ten false positives at 1% FPR; one thousand members give 0.1 percentage-point TPR resolution. Simulator seeds are not counted as independent membership decisions.",
+    "sample_ids_sha256": "f35755960b436574ceca0fcf79ed71d48d4f1cde0bfdd48ebe486326f3447197",
+    "tpr_resolution": 0.001,
+    "ultra_low_fpr_0_1pct_supported": false
+  },
+  "noisy_scoring_ready": false,
+  "protocol": "/home/najeeb/chanLira/reviewer_targets/channel_lira_phase7_protocol.json",
+  "protocol_id": "channel_lira_phase7_confirmatory_v1",
+  "protocol_lock": "/home/najeeb/chanLira/reviewer_targets/channel_lira_phase7_protocol.sha256",
+  "protocol_sha256": "ab360b674c3843670cd4a2213924098a5a9ffef43607fd5ee6510f3c56a78d18",
+  "publication_artifacts": {
+    "archive_sha256": null,
+    "archive_uri": null,
+    "blocks_artifact_submission": true,
+    "blocks_experiment_execution": false,
+    "immutable_checkpoint_archive_required": true,
+    "ready": false
+  },
+  "scoring_blockers": [
+    "15/15 Phase-7 target bundles are missing",
+    "80/80 Phase-7 reference checkpoints are missing"
+  ],
+  "snapshot": {
+    "backend_name": "ibm_kingston",
+    "calibration_timestamp": "2026-08-21T21:16:41+08:00",
+    "directory": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_canary_phase5/backend_snapshot",
+    "errors": [],
+    "manifest": "/home/najeeb/chanLira/channel_lira_results/noisy_reference_canary_phase5/backend_snapshot/snapshot_manifest.json",
+    "manifest_sha256": "7af4abc6763339615cc42bd00fafb532e3c44a31c14bc574c88456a496136a2f",
+    "ready": true
+  },
+  "target_manifest": "/home/najeeb/chanLira/reviewer_targets/channel_lira_phase7_targets.csv",
+  "target_manifest_sha256": "261a688b06e0bd2d1045c72fec5d77cc853003c551d000362fe921e0a4d36251",
+  "training_blockers": [],
+  "training_ready": true
+}

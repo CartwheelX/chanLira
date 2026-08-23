@@ -24,11 +24,22 @@
 > auxiliary-source from auxiliary-count effects, add clustered sensitivity, and
 > audit readiness for true circuit-executed noisy references. The guarded
 > [Phase-5 canary](docs/CHANNEL_LIRA_PHASE5_CANARY.md) is complete using a frozen,
-> hash-validated `ibm_kingston` Aer noise model. The next prespecified
-> [Phase-6 scale-up](docs/CHANNEL_LIRA_PHASE6_SCALEUP.md) expands the compute-minimal
-> cell to three target checkpoints and sixteen retained references, with strict
-> leave-target-out ChannelLiRA, loss, and learned-MIA comparisons. None of these
-> phases is a real quantum-hardware execution.
+> hash-validated `ibm_kingston` Aer noise model. The
+> [Phase-6 scale-up](docs/CHANNEL_LIRA_PHASE6_SCALEUP.md) completed the
+> compute-minimal cell with three target checkpoints, sixteen retained references,
+> and true circuit-executed matched noisy-reference LiRA. The subsequent
+> [frozen Phase-7 protocol](docs/CHANNEL_LIRA_PHASE7_CONFIRMATORY.md) treats that
+> result as pilot evidence, separates four confirmatory cells, enlarges each
+> membership population to 1,000/1,000 for the predefined TPR@1%-FPR endpoint,
+> retains the access-qualified victim-crossfit learned comparator, and makes
+> serving cost a first-class outcome. Its readiness audit launches no compute.
+> The protocol-hash-guarded Stage-1 pilot replication is now complete: all three
+> enlarged targets, sixteen balanced references, exact scores, frozen 128-shot
+> ideal/noisy scores, reports, cost receipts, and plots pass the artifact gate.
+> Its low-FPR direction supports the mismatch/recovery questions but does not beat
+> loss MIA; it remains excluded from confirmation. The runner cannot access the
+> four confirmatory cells.
+> None of these phases is a real quantum-hardware execution.
 
 **QuRiFT** (**Quantum Risk and Inference Fault-line Tracer**) is a controlled audit framework for studying **structural privacy leakage in quantum machine learning (QML)**.
 

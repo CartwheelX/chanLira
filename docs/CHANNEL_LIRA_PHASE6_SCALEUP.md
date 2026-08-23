@@ -98,7 +98,10 @@ snapshot, matched noisy outputs, comparison tables, and plots pass their validat
 Scientific superiority is not required for the pipeline go decision and must not be
 declared from this phase alone.
 
-After a clean execution, the next confirmatory phase expands to the five frozen
-cells, 15 targets, and 80 references at 128/512/1024 shots and simulator seeds 0–9.
-Publication-level low-FPR analysis additionally requires a much larger candidate
-population and more independent target structures/checkpoints.
+The scale gate completed cleanly. Its noisy 128-shot TPR@1%-FPR result is now
+treated as pilot evidence rather than prior confirmation. The
+[frozen Phase-7 protocol](CHANNEL_LIRA_PHASE7_CONFIRMATORY.md) uses the other four
+cells as the primary confirmatory subset, retains this cell as a separately
+reported replication, and replaces the inadequate 200/200 candidate pools with
+1,000 members and 1,000 nonmembers per new target. Phase 7 still excludes stable
+0.1%-FPR and universal cross-architecture claims.

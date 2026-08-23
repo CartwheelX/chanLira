@@ -90,19 +90,25 @@ def parse_int_list(text: str) -> list[int]:
     return values
 
 
-def read_targets(path: Path) -> list[dict[str, str]]:
+def read_targets(
+    path: Path,
+    *,
+    expected_targets: tuple[str, ...] = EXPECTED_TARGETS,
+    expected_cell: str = EXPECTED_CELL,
+    phase_label: str = "Phase-6",
+) -> list[dict[str, str]]:
     with path.open("r", encoding="utf-8", newline="") as handle:
         rows = list(csv.DictReader(handle))
     target_ids = tuple(row.get("target_id", "") for row in rows)
-    if target_ids != EXPECTED_TARGETS:
+    if target_ids != expected_targets:
         raise ValueError(
-            f"Phase-6 manifest must contain the frozen targets {EXPECTED_TARGETS}; "
+            f"{phase_label} manifest must contain the frozen targets {expected_targets}; "
             f"found {target_ids}"
         )
-    if any(row.get("structural_cell_id") != EXPECTED_CELL for row in rows):
-        raise ValueError(f"Every Phase-6 target must use cell {EXPECTED_CELL}")
+    if any(row.get("structural_cell_id") != expected_cell for row in rows):
+        raise ValueError(f"Every {phase_label} target must use cell {expected_cell}")
     if any(row.get("architecture", "").lower() != "qnn" for row in rows):
-        raise ValueError("Phase-6 scale-up is frozen to QNN targets")
+        raise ValueError(f"{phase_label} is frozen to QNN targets")
     return rows
 
 
@@ -151,13 +157,21 @@ def load_scaleup_cell(
     shots: int,
     simulator_seeds: list[int],
     num_references: int,
+    expected_targets: tuple[str, ...] = EXPECTED_TARGETS,
+    expected_cell: str = EXPECTED_CELL,
+    phase_label: str = "Phase-6",
 ) -> tuple[
     CellData,
     dict[tuple[str, int], dict[str, np.ndarray]],
     list[Path],
     dict[str, Any],
 ]:
-    rows = read_targets(targets_path)
+    rows = read_targets(
+        targets_path,
+        expected_targets=expected_targets,
+        expected_cell=expected_cell,
+        phase_label=phase_label,
+    )
     target_ids = tuple(row["target_id"] for row in rows)
     source_paths: list[Path] = [targets_path]
     sample_ids: np.ndarray | None = None
@@ -273,7 +287,7 @@ def load_scaleup_cell(
         )
         matched_by_condition[(mode, shots)] = matched
 
-    canonical_cell = f"{EXPECTED_CELL}_wd0"
+    canonical_cell = f"{expected_cell}_wd0"
     reference_root = reference_dir / "reference_models" / canonical_cell
     reference_scores = []
     inclusion = []
@@ -318,7 +332,7 @@ def load_scaleup_cell(
         ),
     }
     cell = CellData(
-        name=EXPECTED_CELL,
+        name=expected_cell,
         target_ids=target_ids,
         sample_ids=sample_ids,
         reference_scores=reference_score_array,
@@ -342,6 +356,7 @@ def add_scaleup_comparators(
     num_references: int,
     folds: int,
     seed: int,
+    seed_namespace: str = "phase6-learned",
 ) -> None:
     learned = np.empty_like(condition.observed_scores)
     for target_index, target_id in enumerate(cell.target_ids):
@@ -352,7 +367,7 @@ def add_scaleup_comparators(
                 cell.sample_ids,
                 folds=folds,
                 seed=seed + stable_int(
-                    f"phase6-learned|{target_id}|{block.mode}|{block.shots}|{simulator_seed}"
+                    f"{seed_namespace}|{target_id}|{block.mode}|{block.shots}|{simulator_seed}"
                 ) % 1_000_000,
             )
     block.scores[("target_crossfit_learned_mia", 0)] = learned
