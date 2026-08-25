@@ -85,6 +85,9 @@ class MNISTDataset:
         n_train_samples,
         same_n_samples_each_class=False,
         split_seed=1,
+        disjoint_partition_id=None,
+        disjoint_partition_count=None,
+        disjoint_partition_seed=1,
     ):
         self.root = root
         self.split = split
@@ -101,6 +104,13 @@ class MNISTDataset:
         self.n_train_samples = n_train_samples
         self.fashion = fashion
         self.split_seed = int(split_seed)
+        self.disjoint_partition_id = (
+            None if disjoint_partition_id is None else int(disjoint_partition_id)
+        )
+        self.disjoint_partition_count = (
+            None if disjoint_partition_count is None else int(disjoint_partition_count)
+        )
+        self.disjoint_partition_seed = int(disjoint_partition_seed)
 
         self.n_digits = len(digits_of_interest)
 
@@ -144,6 +154,10 @@ class MNISTDataset:
         # tran.append(QuantumScaleMinusPiToPi()) # just comment this part in case (-.pi, pi) is not desired
         # tran.append(QuantumScaleZeroToPi()) # use this line instead for (0, 2pi)
         transform = transforms.Compose(tran)
+
+        if self.disjoint_partition_id is not None:
+            self._load_disjoint_partition(transform)
+            return
         
 
         if self.split == "train" or self.split == "valid":
@@ -273,6 +287,89 @@ class MNISTDataset:
             else:
                 self.source_indices = torch.arange(len(self.data), dtype=torch.long)
 
+    def _balanced_quotas(self, total):
+        if total is None:
+            raise ValueError("Disjoint MNIST partitions require explicit split sizes")
+        base = int(total) // self.n_digits
+        quotas = [base] * self.n_digits
+        quotas[-1] += int(total) - base * self.n_digits
+        return quotas
+
+    def _load_disjoint_partition(self, transform):
+        """Materialize source-disjoint train/valid/test shards for audit targets.
+
+        This path is opt-in.  The default historical MNIST sampling behavior above
+        remains byte-for-byte reachable when ``disjoint_partition_id`` is absent.
+        """
+        if self.disjoint_partition_count is None or self.disjoint_partition_count < 1:
+            raise ValueError("disjoint_partition_count must be positive")
+        if not 0 <= self.disjoint_partition_id < self.disjoint_partition_count:
+            raise ValueError("disjoint_partition_id is outside the partition count")
+        dataset_class = datasets.FashionMNIST if self.fashion else datasets.MNIST
+        complete = dataset_class(
+            self.root,
+            train=True,
+            download=True,
+            transform=transform,
+        )
+        mask, _ = torch.stack(
+            [complete.targets == number for number in self.digits_of_interest]
+        ).max(dim=0)
+        complete.targets = complete.targets[mask]
+        complete.data = complete.data[mask]
+        quotas = {
+            "train": self._balanced_quotas(self.n_train_samples),
+            "valid": self._balanced_quotas(self.n_valid_samples),
+            "test": self._balanced_quotas(self.n_test_samples),
+        }
+        selected = []
+        for class_position, digit in enumerate(self.digits_of_interest):
+            class_indices = torch.nonzero(
+                complete.targets == digit, as_tuple=False
+            ).flatten()
+            generator = torch.Generator().manual_seed(
+                self.disjoint_partition_seed + class_position * 1_000_003
+            )
+            ordered = class_indices[
+                torch.randperm(len(class_indices), generator=generator)
+            ]
+            per_partition = sum(
+                quotas[name][class_position] for name in ("train", "valid", "test")
+            )
+            required = self.disjoint_partition_count * per_partition
+            if required > len(ordered):
+                raise ValueError(
+                    f"Disjoint MNIST partition requires {required} records for digit "
+                    f"{digit}, but only {len(ordered)} are available"
+                )
+            partition_start = self.disjoint_partition_id * per_partition
+            split_offset = {
+                "train": 0,
+                "valid": quotas["train"][class_position],
+                "test": (
+                    quotas["train"][class_position]
+                    + quotas["valid"][class_position]
+                ),
+            }[self.split]
+            count = quotas[self.split][class_position]
+            start = partition_start + split_offset
+            selected.extend(ordered[start : start + count].tolist())
+        shuffle = torch.randperm(
+            len(selected),
+            generator=torch.Generator().manual_seed(
+                self.disjoint_partition_seed
+                + self.disjoint_partition_id * 10_007
+                + {"train": 1, "valid": 2, "test": 3}[self.split]
+            ),
+        ).tolist()
+        selected = [selected[index] for index in shuffle]
+        self.source_indices = torch.as_tensor(selected, dtype=torch.long)
+        self.data = torch.utils.data.Subset(complete, selected)
+        logger.warning(
+            f"Use source-disjoint MNIST partition {self.disjoint_partition_id}/"
+            f"{self.disjoint_partition_count} with {len(selected)} {self.split.upper()} records."
+        )
+
     def __getitem__(self, index: int):
         img = self.data[index][0]
         if self.binarize:
@@ -305,6 +402,9 @@ class MNIST(Dataset):
         n_train_samples=None,
         same_n_samples_each_class=False,  # <-- ADD THIS LINE
         split_seed=1,
+        disjoint_partition_id=None,
+        disjoint_partition_count=None,
+        disjoint_partition_seed=1,
     ):
         self.root = root
 
@@ -327,6 +427,9 @@ class MNIST(Dataset):
                     # v-- AND ADD THIS LINE --v
                     same_n_samples_each_class=same_n_samples_each_class,
                     split_seed=split_seed,
+                    disjoint_partition_id=disjoint_partition_id,
+                    disjoint_partition_count=disjoint_partition_count,
+                    disjoint_partition_seed=disjoint_partition_seed,
                 )
                 for split in ["train", "valid", "test"]
             }

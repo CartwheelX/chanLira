@@ -1,0 +1,139 @@
+{
+  "circuit_execution_performed": false,
+  "content_overlap_policy": "Any duplicated pixel-identical content is blocked between attack-training and held victim/calibration targets during analysis.",
+  "created_utc": "2026-08-23T09:23:06.722474+00:00",
+  "cross_target_content_overlap_occurrences": 0,
+  "errors": [],
+  "expected_source_identities": 12000,
+  "partition_seed": 20260823,
+  "protocol_id": "channel_lira_q0_residual_quantum_leakage_v2_20260823",
+  "protocol_sha256": "5936a137b84ee6c175f76077c9a61e9227e6882066b855483a6b357d03aef050",
+  "ready": true,
+  "source_disjoint_across_targets": true,
+  "target_count": 6,
+  "target_manifest_sha256": "053c1efa0a079207faef0e99f8a64c9fb6b3cb6b74d58acb18d95cc7146709ab",
+  "targets": [
+    {
+      "candidate_count": 2000,
+      "class_counts": [
+        500,
+        500,
+        500,
+        500
+      ],
+      "content_ids_sha256": "ea26abcc62c6e260028ebd095ecceb44fa9940bf403caf7294a12f5791977d0b",
+      "content_overlap_with_earlier_targets": 0,
+      "membership_counts": [
+        1000,
+        1000
+      ],
+      "partition_id": 0,
+      "ready": true,
+      "source_ids_sha256": "3c7b014f4714adc653e6ad0a8cd84acaa0e3f54381e00f62f57a9f1aa65a2d94",
+      "source_overlap_with_earlier_targets": 0,
+      "target_id": "MNIST_QNN_eff_su2_r1_d2_q0_s246"
+    },
+    {
+      "candidate_count": 2000,
+      "class_counts": [
+        500,
+        500,
+        500,
+        500
+      ],
+      "content_ids_sha256": "6b83a12cf17a1bc2e46e4d746ef1fdc26f262d5d8eee91f204a07dcd47b3c35a",
+      "content_overlap_with_earlier_targets": 0,
+      "membership_counts": [
+        1000,
+        1000
+      ],
+      "partition_id": 1,
+      "ready": true,
+      "source_ids_sha256": "183b9bbce4e7832824c4a6cc337bf1a904c82ddb90d036e3b8930717dc62a5f2",
+      "source_overlap_with_earlier_targets": 0,
+      "target_id": "MNIST_QNN_eff_su2_r1_d2_q0_s247"
+    },
+    {
+      "candidate_count": 2000,
+      "class_counts": [
+        500,
+        500,
+        500,
+        500
+      ],
+      "content_ids_sha256": "25dbacdace38181b05bc58a62ffea162e03e01e7e84a5ca31935c78a36452157",
+      "content_overlap_with_earlier_targets": 0,
+      "membership_counts": [
+        1000,
+        1000
+      ],
+      "partition_id": 2,
+      "ready": true,
+      "source_ids_sha256": "6ff417723709828c416a7407e333f2ebf94438a31c84311daad84e8f5d7fe5df",
+      "source_overlap_with_earlier_targets": 0,
+      "target_id": "MNIST_QNN_eff_su2_r1_d2_q0_s248"
+    },
+    {
+      "candidate_count": 2000,
+      "class_counts": [
+        500,
+        500,
+        500,
+        500
+      ],
+      "content_ids_sha256": "cfae8011e7f71abc7f3499d6cc0e8e5594407c9d4bf97eb465cfdff72af61479",
+      "content_overlap_with_earlier_targets": 0,
+      "membership_counts": [
+        1000,
+        1000
+      ],
+      "partition_id": 3,
+      "ready": true,
+      "source_ids_sha256": "6b40459a2e96951ebb2d37520898128865aee776f13dab0a4a694c069fd5f732",
+      "source_overlap_with_earlier_targets": 0,
+      "target_id": "MNIST_QNN_zz_r5_d6_q0_s249"
+    },
+    {
+      "candidate_count": 2000,
+      "class_counts": [
+        500,
+        500,
+        500,
+        500
+      ],
+      "content_ids_sha256": "019bb4af8f05874a3990692526b46d97a36a9254502466a82c3288ef0251af22",
+      "content_overlap_with_earlier_targets": 0,
+      "membership_counts": [
+        1000,
+        1000
+      ],
+      "partition_id": 4,
+      "ready": true,
+      "source_ids_sha256": "ac11b9d8884ff2d3f7f2da1e8c920b5ae837294430dd3a93a5031ff85ed4f27e",
+      "source_overlap_with_earlier_targets": 0,
+      "target_id": "MNIST_QNN_zz_r5_d6_q0_s250"
+    },
+    {
+      "candidate_count": 2000,
+      "class_counts": [
+        500,
+        500,
+        500,
+        500
+      ],
+      "content_ids_sha256": "e2d2bdb254367cd3a2a68c3d63be6c21b1ec2a90abcef03c459a79751dec43f4",
+      "content_overlap_with_earlier_targets": 0,
+      "membership_counts": [
+        1000,
+        1000
+      ],
+      "partition_id": 5,
+      "ready": true,
+      "source_ids_sha256": "3f4534cf9f5f4e90b17f23589d3c5bde4275efbc34a5cd9e969fa238e6378b17",
+      "source_overlap_with_earlier_targets": 0,
+      "target_id": "MNIST_QNN_zz_r5_d6_q0_s251"
+    }
+  ],
+  "total_source_identities": 12000,
+  "training_performed": false
+}

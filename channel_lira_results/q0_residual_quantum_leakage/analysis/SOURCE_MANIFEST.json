@@ -1,0 +1,80 @@
+{
+  "created_utc": "2026-08-23T14:57:45.996916+00:00",
+  "protocol_sha256": "5936a137b84ee6c175f76077c9a61e9227e6882066b855483a6b357d03aef050",
+  "snapshot_manifest_sha256": "7af4abc6763339615cc42bd00fafb532e3c44a31c14bc574c88456a496136a2f",
+  "sources": [
+    {
+      "kind": "payload",
+      "path": "/home/najeeb/chanLira/channel_lira_results/q0_residual_quantum_leakage/raw/MNIST_QNN_eff_su2_r1_d2_q0_s246.npz",
+      "sha256": "bff697b9c4e9702bf28adc7ddbb2b4b935bebd3cf9e7fe78c41a84b11b802c56",
+      "target_id": "MNIST_QNN_eff_su2_r1_d2_q0_s246"
+    },
+    {
+      "kind": "metadata",
+      "path": "/home/najeeb/chanLira/channel_lira_results/q0_residual_quantum_leakage/metadata/MNIST_QNN_eff_su2_r1_d2_q0_s246.json",
+      "sha256": "24dadfca269654eee166a8b32900d012ca4e8b3349ddd2ce6b9e2568e2f199e7",
+      "target_id": "MNIST_QNN_eff_su2_r1_d2_q0_s246"
+    },
+    {
+      "kind": "payload",
+      "path": "/home/najeeb/chanLira/channel_lira_results/q0_residual_quantum_leakage/raw/MNIST_QNN_eff_su2_r1_d2_q0_s247.npz",
+      "sha256": "37589fd0e77273f3be9a7433e570e6eb2e81d123d872f49cf721cacf39e398be",
+      "target_id": "MNIST_QNN_eff_su2_r1_d2_q0_s247"
+    },
+    {
+      "kind": "metadata",
+      "path": "/home/najeeb/chanLira/channel_lira_results/q0_residual_quantum_leakage/metadata/MNIST_QNN_eff_su2_r1_d2_q0_s247.json",
+      "sha256": "cfbf5ced36bedf8696422d03fa91ece702f2abb58de7e3b84c29c7f647e9163d",
+      "target_id": "MNIST_QNN_eff_su2_r1_d2_q0_s247"
+    },
+    {
+      "kind": "payload",
+      "path": "/home/najeeb/chanLira/channel_lira_results/q0_residual_quantum_leakage/raw/MNIST_QNN_eff_su2_r1_d2_q0_s248.npz",
+      "sha256": "25aea0c900f5209fc1cbedda8315a747d0c2709c7e47406572767baac7a49988",
+      "target_id": "MNIST_QNN_eff_su2_r1_d2_q0_s248"
+    },
+    {
+      "kind": "metadata",
+      "path": "/home/najeeb/chanLira/channel_lira_results/q0_residual_quantum_leakage/metadata/MNIST_QNN_eff_su2_r1_d2_q0_s248.json",
+      "sha256": "aaf7d7f1bc2994002dc8aff6b4ca5d473861a2732b8834f81207b0cd290393aa",
+      "target_id": "MNIST_QNN_eff_su2_r1_d2_q0_s248"
+    },
+    {
+      "kind": "payload",
+      "path": "/home/najeeb/chanLira/channel_lira_results/q0_residual_quantum_leakage/raw/MNIST_QNN_zz_r5_d6_q0_s249.npz",
+      "sha256": "2df9365691a1f1d35bda799ecc7325780cc0dee07f193799baa23fc3dacc3af6",
+      "target_id": "MNIST_QNN_zz_r5_d6_q0_s249"
+    },
+    {
+      "kind": "metadata",
+      "path": "/home/najeeb/chanLira/channel_lira_results/q0_residual_quantum_leakage/metadata/MNIST_QNN_zz_r5_d6_q0_s249.json",
+      "sha256": "5883b199b1ac13f7f42165ef56efebe3713a59ed3c988b8c0fcee0f107f70d29",
+      "target_id": "MNIST_QNN_zz_r5_d6_q0_s249"
+    },
+    {
+      "kind": "payload",
+      "path": "/home/najeeb/chanLira/channel_lira_results/q0_residual_quantum_leakage/raw/MNIST_QNN_zz_r5_d6_q0_s250.npz",
+      "sha256": "569b5ac926d48e9561c6959bb958fdcbfccd8636749aca33972ae9ac75032732",
+      "target_id": "MNIST_QNN_zz_r5_d6_q0_s250"
+    },
+    {
+      "kind": "metadata",
+      "path": "/home/najeeb/chanLira/channel_lira_results/q0_residual_quantum_leakage/metadata/MNIST_QNN_zz_r5_d6_q0_s250.json",
+      "sha256": "8518fb1d0d59dd422d23b72a8b18685cd2f170b3f6bb3abaee59a9dbe1f4ddba",
+      "target_id": "MNIST_QNN_zz_r5_d6_q0_s250"
+    },
+    {
+      "kind": "payload",
+      "path": "/home/najeeb/chanLira/channel_lira_results/q0_residual_quantum_leakage/raw/MNIST_QNN_zz_r5_d6_q0_s251.npz",
+      "sha256": "653695af177348e8d6733978d166c17e13601afa12e0395973bda37f41474c7a",
+      "target_id": "MNIST_QNN_zz_r5_d6_q0_s251"
+    },
+    {
+      "kind": "metadata",
+      "path": "/home/najeeb/chanLira/channel_lira_results/q0_residual_quantum_leakage/metadata/MNIST_QNN_zz_r5_d6_q0_s251.json",
+      "sha256": "78f0ea6631d75e027fa2b59f463df7e04997460c39fe62568976928fab80523e",
+      "target_id": "MNIST_QNN_zz_r5_d6_q0_s251"
+    }
+  ],
+  "target_manifest_sha256": "053c1efa0a079207faef0e99f8a64c9fb6b3cb6b74d58acb18d95cc7146709ab"
+}

@@ -145,6 +145,32 @@ def build_dataset(qmain: Any, row: Mapping[str, Any], repo_root: Path):
             for parameter in signature.parameters.values()
         ):
             mnist_kwargs["same_n_samples_each_class"] = True
+        partition_id = row.get("mnist_disjoint_partition_id")
+        try:
+            partition_requested = partition_id is not None and not pd.isna(partition_id)
+        except Exception:
+            partition_requested = partition_id is not None
+        if partition_requested:
+            required = {
+                "disjoint_partition_id",
+                "disjoint_partition_count",
+                "disjoint_partition_seed",
+            }
+            if not required.issubset(signature.parameters):
+                raise RuntimeError(
+                    "TorchQuantum MNIST does not support the Q0 source-disjoint partition protocol"
+                )
+            mnist_kwargs.update(
+                disjoint_partition_id=int_value(
+                    row, "mnist_disjoint_partition_id", 0
+                ),
+                disjoint_partition_count=int_value(
+                    row, "mnist_disjoint_partition_count", 1
+                ),
+                disjoint_partition_seed=int_value(
+                    row, "mnist_disjoint_partition_seed", 1
+                ),
+            )
         dataset = qmain.MNIST(**mnist_kwargs)
         feature_dim = int_value(row, "pool_hw", 4) ** 2
     elif dataset_name == "fashion_mnist":

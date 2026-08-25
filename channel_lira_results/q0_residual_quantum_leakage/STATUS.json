@@ -1,0 +1,201 @@
+{
+  "acquisitions": [
+    {
+      "errors": [],
+      "metadata": "/home/najeeb/chanLira/channel_lira_results/q0_residual_quantum_leakage/metadata/MNIST_QNN_eff_su2_r1_d2_q0_s246.json",
+      "payload": "/home/najeeb/chanLira/channel_lira_results/q0_residual_quantum_leakage/raw/MNIST_QNN_eff_su2_r1_d2_q0_s246.npz",
+      "ready": true,
+      "target_id": "MNIST_QNN_eff_su2_r1_d2_q0_s246"
+    },
+    {
+      "errors": [],
+      "metadata": "/home/najeeb/chanLira/channel_lira_results/q0_residual_quantum_leakage/metadata/MNIST_QNN_eff_su2_r1_d2_q0_s247.json",
+      "payload": "/home/najeeb/chanLira/channel_lira_results/q0_residual_quantum_leakage/raw/MNIST_QNN_eff_su2_r1_d2_q0_s247.npz",
+      "ready": true,
+      "target_id": "MNIST_QNN_eff_su2_r1_d2_q0_s247"
+    },
+    {
+      "errors": [],
+      "metadata": "/home/najeeb/chanLira/channel_lira_results/q0_residual_quantum_leakage/metadata/MNIST_QNN_eff_su2_r1_d2_q0_s248.json",
+      "payload": "/home/najeeb/chanLira/channel_lira_results/q0_residual_quantum_leakage/raw/MNIST_QNN_eff_su2_r1_d2_q0_s248.npz",
+      "ready": true,
+      "target_id": "MNIST_QNN_eff_su2_r1_d2_q0_s248"
+    },
+    {
+      "errors": [],
+      "metadata": "/home/najeeb/chanLira/channel_lira_results/q0_residual_quantum_leakage/metadata/MNIST_QNN_zz_r5_d6_q0_s249.json",
+      "payload": "/home/najeeb/chanLira/channel_lira_results/q0_residual_quantum_leakage/raw/MNIST_QNN_zz_r5_d6_q0_s249.npz",
+      "ready": true,
+      "target_id": "MNIST_QNN_zz_r5_d6_q0_s249"
+    },
+    {
+      "errors": [],
+      "metadata": "/home/najeeb/chanLira/channel_lira_results/q0_residual_quantum_leakage/metadata/MNIST_QNN_zz_r5_d6_q0_s250.json",
+      "payload": "/home/najeeb/chanLira/channel_lira_results/q0_residual_quantum_leakage/raw/MNIST_QNN_zz_r5_d6_q0_s250.npz",
+      "ready": true,
+      "target_id": "MNIST_QNN_zz_r5_d6_q0_s250"
+    },
+    {
+      "errors": [],
+      "metadata": "/home/najeeb/chanLira/channel_lira_results/q0_residual_quantum_leakage/metadata/MNIST_QNN_zz_r5_d6_q0_s251.json",
+      "payload": "/home/najeeb/chanLira/channel_lira_results/q0_residual_quantum_leakage/raw/MNIST_QNN_zz_r5_d6_q0_s251.npz",
+      "ready": true,
+      "target_id": "MNIST_QNN_zz_r5_d6_q0_s251"
+    }
+  ],
+  "acquisitions_expected": 6,
+  "acquisitions_ready": 6,
+  "analysis": {
+    "directory": "/home/najeeb/chanLira/channel_lira_results/q0_residual_quantum_leakage/analysis",
+    "present": {
+      "FEATURES.json": true,
+      "REPORT.md": true,
+      "SCREENING_DECISION.json": true,
+      "SOURCE_MANIFEST.json": true,
+      "contrasts_summary.csv": true,
+      "contrasts_target.csv": true,
+      "metrics_summary.csv": true,
+      "metrics_target.csv": true,
+      "plots/attack_auc.png": true,
+      "plots/attack_tpr_at_1pct.png": true,
+      "plots/loss_conditioned_auc.png": true,
+      "plots/paired_joint_target_differences.png": true
+    },
+    "ready": true
+  },
+  "analysis_ready": true,
+  "candidate_probe": {
+    "content_overlap_occurrences": 0,
+    "errors": [],
+    "path": "/home/najeeb/chanLira/channel_lira_results/q0_readiness/CANDIDATE_PARTITION_PROBE.json",
+    "ready": true,
+    "sha256": "2358ca9b230a653a79d439e0660e3534a75375565cd7a6b1647cdfb27c524db5"
+  },
+  "complete": true,
+  "created_utc": "2026-08-23T14:58:54.823580+00:00",
+  "phase7_confirmatory_included": false,
+  "protocol_id": "channel_lira_q0_residual_quantum_leakage_v2_20260823",
+  "protocol_sha256": "5936a137b84ee6c175f76077c9a61e9227e6882066b855483a6b357d03aef050",
+  "real_hardware_execution": false,
+  "snapshot_manifest_sha256": "7af4abc6763339615cc42bd00fafb532e3c44a31c14bc574c88456a496136a2f",
+  "study_role": "bounded_exploratory_falsification_screen",
+  "target_manifest_sha256": "053c1efa0a079207faef0e99f8a64c9fb6b3cb6b74d58acb18d95cc7146709ab",
+  "targets": [
+    {
+      "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_q0/MNIST_QNN_eff_su2_r1_d2_q0_s246",
+      "files": {
+        "target_attack_data.pt": {
+          "bytes": 221274,
+          "sha256": "4f86d2db4fac3b4a0effbe518cde3871bf349c7d51327453352844adbfcaa4f1"
+        },
+        "target_export_summary.json": {
+          "bytes": 1579,
+          "sha256": "2470e193bb6dddc6cadb951f0dccb33a30dc46d692493a0b6a41982d7b350c54"
+        },
+        "target_model.pt": {
+          "bytes": 15946,
+          "sha256": "d9a77054638cbe20a9ec3435919ebef87d42677a34e85cd61ead77ba3e10fdfd"
+        }
+      },
+      "ready": true,
+      "target_id": "MNIST_QNN_eff_su2_r1_d2_q0_s246"
+    },
+    {
+      "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_q0/MNIST_QNN_eff_su2_r1_d2_q0_s247",
+      "files": {
+        "target_attack_data.pt": {
+          "bytes": 221274,
+          "sha256": "789ab38c9bcabfac1ebe022f9efcb3b16455252a1d15bd8d6a0fe5ddc5f8210d"
+        },
+        "target_export_summary.json": {
+          "bytes": 1577,
+          "sha256": "cb7d3ec29ea3211517e0d76ffc644a6ec1238b7b4ef6776f26ef5c0203313751"
+        },
+        "target_model.pt": {
+          "bytes": 15946,
+          "sha256": "3a54afbec4d56381f81a5a0b71e7baa7438f08f4cdf459955366465288b7e491"
+        }
+      },
+      "ready": true,
+      "target_id": "MNIST_QNN_eff_su2_r1_d2_q0_s247"
+    },
+    {
+      "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_q0/MNIST_QNN_eff_su2_r1_d2_q0_s248",
+      "files": {
+        "target_attack_data.pt": {
+          "bytes": 221274,
+          "sha256": "a41e17354183eaf94d1c180d3ebedd8ff8eaad7c25e9db63f6cd4d09ecf371de"
+        },
+        "target_export_summary.json": {
+          "bytes": 1578,
+          "sha256": "b9805796e210e6c6bba6b8d0373015be094bacdf29c24b635c89a27605880524"
+        },
+        "target_model.pt": {
+          "bytes": 15946,
+          "sha256": "9b4cb5971b0ab929f9414e3ddc3609c36badbd94b4a6abaf6791a46048d35719"
+        }
+      },
+      "ready": true,
+      "target_id": "MNIST_QNN_eff_su2_r1_d2_q0_s248"
+    },
+    {
+      "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_q0/MNIST_QNN_zz_r5_d6_q0_s249",
+      "files": {
+        "target_attack_data.pt": {
+          "bytes": 221274,
+          "sha256": "7e838ac71ad6edda012316e45b10b4538c86ab33bfb23d706035771ec0e1d4c6"
+        },
+        "target_export_summary.json": {
+          "bytes": 1608,
+          "sha256": "f361af55dded58a26074f8ecbdbca0a5568af5f4a64b484165b54bd0ed4cfab0"
+        },
+        "target_model.pt": {
+          "bytes": 46250,
+          "sha256": "e4d6ad6e7e38df71fde28a1491ca40f2d010a60da1062c2503cc4e154c598e0d"
+        }
+      },
+      "ready": true,
+      "target_id": "MNIST_QNN_zz_r5_d6_q0_s249"
+    },
+    {
+      "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_q0/MNIST_QNN_zz_r5_d6_q0_s250",
+      "files": {
+        "target_attack_data.pt": {
+          "bytes": 221274,
+          "sha256": "520bf26446456e53fec4dcb2b3715d98973a96d51b0748e5341e631d93621e31"
+        },
+        "target_export_summary.json": {
+          "bytes": 1609,
+          "sha256": "ce3b42063b481190d356a355fe0266d9462cbd5436c0a89842023893b9d326c4"
+        },
+        "target_model.pt": {
+          "bytes": 46250,
+          "sha256": "5cb872c14dbcbaeff96334f23333a00b4e8797f43b96fdf613663d552dd08242"
+        }
+      },
+      "ready": true,
+      "target_id": "MNIST_QNN_zz_r5_d6_q0_s250"
+    },
+    {
+      "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_q0/MNIST_QNN_zz_r5_d6_q0_s251",
+      "files": {
+        "target_attack_data.pt": {
+          "bytes": 221274,
+          "sha256": "a2c70fa3885e88adf4c69ad2781801fb8e0eacba2040889c42a852838589d145"
+        },
+        "target_export_summary.json": {
+          "bytes": 1609,
+          "sha256": "6d7050c492b406f17eab720221f9e2ffb2bbad42f777ebcfeca18e5c794ad9b0"
+        },
+        "target_model.pt": {
+          "bytes": 46250,
+          "sha256": "c422d59444495bbc9a57acfa5b1ca92b888504a0a021781f5a22bb815ed9ae4e"
+        }
+      },
+      "ready": true,
+      "target_id": "MNIST_QNN_zz_r5_d6_q0_s251"
+    }
+  ],
+  "targets_expected": 6,
+  "targets_ready": 6
+}

@@ -472,6 +472,7 @@ def transpile_for_backend(
     backend: Any = None,
     basis_gates: Optional[Sequence[str]] = None,
     coupling_map: Optional[Sequence[Sequence[int]]] = None,
+    initial_layout: Optional[Sequence[int]] = None,
     optimization_level: int = 1,
     seed_transpiler: int = 0,
 ) -> List[Any]:
@@ -487,6 +488,8 @@ def transpile_for_backend(
             "optimization_level": int(optimization_level),
             "seed_transpiler": int(seed_transpiler),
         }
+        if initial_layout is not None:
+            kwargs["initial_layout"] = [int(value) for value in initial_layout]
         if backend is not None:
             kwargs["backend"] = backend
         else:
@@ -504,6 +507,8 @@ def transpile_for_backend(
             "optimization_level": int(optimization_level),
             "seed_transpiler": int(seed_transpiler),
         }
+        if initial_layout is not None:
+            kwargs["initial_layout"] = [int(value) for value in initial_layout]
         if backend is not None:
             kwargs["backend"] = backend
         else:

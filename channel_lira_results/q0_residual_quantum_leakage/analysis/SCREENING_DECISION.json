@@ -1,0 +1,27 @@
+{
+  "components": {
+    "classical_stochastic_control": false,
+    "conditional_gain_within_loss_strata": false,
+    "gain_over_unchanged_learned_mia": false,
+    "operational_sanity": false,
+    "practical_gain_over_loss": false,
+    "quantum_mechanism": true
+  },
+  "created_utc": "2026-08-23T14:57:45.989639+00:00",
+  "decision": "stop_stronger_quantum_stochastic_mia_claim_under_this_design",
+  "interpretation": "Exploratory screening evidence only; passing does not establish a publication claim.",
+  "mechanism_detail": {
+    "active_layout_advantage": true,
+    "fixed_raw_joint_advantage": false
+  },
+  "observed": {
+    "paired_joint_mean_realized_victim_fpr": 0.004333333333333334,
+    "paired_joint_minus_learned_loss_conditioned_auc": 0.0010995182456021528,
+    "paired_joint_minus_learned_mean_auc": -0.008185666666666647,
+    "paired_joint_minus_learned_mean_tpr_at_1pct": -0.006833333333333333,
+    "paired_joint_minus_learned_operational_tpr": -0.01,
+    "paired_joint_minus_loss_mean_auc": -0.009182833333333307,
+    "paired_joint_minus_loss_mean_tpr_at_1pct": -0.003333333333333334
+  },
+  "screen_passed": false
+}

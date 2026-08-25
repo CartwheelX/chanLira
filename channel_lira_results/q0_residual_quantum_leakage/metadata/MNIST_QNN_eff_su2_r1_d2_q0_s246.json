@@ -1,0 +1,83 @@
+{
+  "calibration_timestamp": "2026-08-21T21:16:41+08:00",
+  "candidate_count": 2000,
+  "content_identity_sha256": "73c9b4936ba9636153724e93fb25d48a866ab60be0d3bd3a6ffa7040aa23dd3d",
+  "created_utc": "2026-08-23T11:29:25.381499+00:00",
+  "data_seed": 246,
+  "layout_metadata": {
+    "layout_a": {
+      "depth_max": 88,
+      "depth_mean": 88.0,
+      "depth_min": 88,
+      "first_circuit_layout_sha256": "dac5c88384ee5ce0586bff2fa803f077620cfeb1db38625606fd48e39bb2d359",
+      "first_circuit_qpy_sha256": "a0a4cad688f8254884c4e2dfad2909c9313cdf338d923665fc200cf701c5a586",
+      "first_circuit_resources": {
+        "measurement_operations": 6,
+        "num_clbits": 6,
+        "num_qubits": 156,
+        "operation_counts": "{\"cz\": 25, \"measure\": 6, \"rz\": 109, \"sx\": 69}",
+        "transpiled_depth": 88,
+        "transpiled_multi_qubit_gates": 0,
+        "transpiled_one_qubit_gates": 178,
+        "transpiled_total_gates": 203,
+        "transpiled_two_qubit_gates": 25
+      },
+      "physical_initial_layout": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "layout_b": {
+      "depth_max": 88,
+      "depth_mean": 88.0,
+      "depth_min": 88,
+      "first_circuit_layout_sha256": "5347341219db404921ac6729eb60cb417dbc31b3071dd37c1b6b13462a69cd3f",
+      "first_circuit_qpy_sha256": "28e771b4d9fac3cd21c3dfd407a55ff653e2d56ed6bd0b42076ecb986b363bea",
+      "first_circuit_resources": {
+        "measurement_operations": 6,
+        "num_clbits": 6,
+        "num_qubits": 156,
+        "operation_counts": "{\"cz\": 25, \"measure\": 6, \"rz\": 109, \"sx\": 69}",
+        "transpiled_depth": 88,
+        "transpiled_multi_qubit_gates": 0,
+        "transpiled_one_qubit_gates": 178,
+        "transpiled_total_gates": 203,
+        "transpiled_two_qubit_gates": 25
+      },
+      "physical_initial_layout": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ]
+    }
+  },
+  "member_count": 1000,
+  "model_seed": 246,
+  "nonmember_count": 1000,
+  "payload": "/home/najeeb/chanLira/channel_lira_results/q0_residual_quantum_leakage/raw/MNIST_QNN_eff_su2_r1_d2_q0_s246.npz",
+  "payload_sha256": "bff697b9c4e9702bf28adc7ddbb2b4b935bebd3cf9e7fe78c41a84b11b802c56",
+  "protocol_sha256": "5936a137b84ee6c175f76077c9a61e9227e6882066b855483a6b357d03aef050",
+  "quantum_execution_scope": "full_main_quantum_stack",
+  "real_hardware_execution": false,
+  "resolved_noise_backend_name": "ibm_kingston",
+  "schema_version": 1,
+  "shots_per_query": 128,
+  "snapshot_manifest_sha256": "7af4abc6763339615cc42bd00fafb532e3c44a31c14bc574c88456a496136a2f",
+  "structural_cell_id": "eff_su2_r1_d2",
+  "target_id": "MNIST_QNN_eff_su2_r1_d2_q0_s246",
+  "target_load_report": {
+    "missing_keys": [],
+    "model_path": "/home/najeeb/chanLira/reviewer_runs/channel_lira_q0/MNIST_QNN_eff_su2_r1_d2_q0_s246/target_model.pt",
+    "unexpected_keys": []
+  },
+  "target_manifest_sha256": "053c1efa0a079207faef0e99f8a64c9fb6b3cb6b74d58acb18d95cc7146709ab",
+  "target_model": "/home/najeeb/chanLira/reviewer_runs/channel_lira_q0/MNIST_QNN_eff_su2_r1_d2_q0_s246/target_model.pt",
+  "target_model_sha256": "d9a77054638cbe20a9ec3435919ebef87d42677a34e85cd61ead77ba3e10fdfd"
+}

@@ -1,0 +1,36 @@
+{
+  "attacks": [
+    "loss_mia",
+    "learned_mia",
+    "classical_stochastic_control",
+    "fixed_marginal",
+    "fixed_joint",
+    "paired_probability_probe",
+    "paired_marginal_probe",
+    "paired_joint_probe",
+    "clean_z_diagnostic"
+  ],
+  "feature_counts": {
+    "classical_stochastic_control": 17,
+    "clean_z_diagnostic": 15,
+    "fixed_joint": 100,
+    "fixed_marginal": 21,
+    "learned_mia": 9,
+    "loss_mia": 1,
+    "paired_joint_probe": 304,
+    "paired_marginal_probe": 67,
+    "paired_probability_probe": 37
+  },
+  "feature_hierarchy": {
+    "classical_stochastic_control": "learned-MIA features plus dispersion from ten class-multinomial draws matched to 128 shots",
+    "clean_z_diagnostic": "exact probability-vector statistics plus exact Pauli-Z marginals; privileged diagnostic only",
+    "fixed_joint": "fixed_marginal plus the aggregate layout-A 64-outcome bitstring distribution and pairwise Z covariance",
+    "fixed_marginal": "learned-MIA features plus layout-A Pauli-Z mean and dispersion",
+    "learned_mia": "layout-A mean prediction vector plus loss, entropy, confidence, margin, and correctness",
+    "loss_mia": "true-class probability from ten layout-A queries",
+    "paired_joint_probe": "paired_marginal_probe plus per-layout 64-outcome distributions and pairwise Z covariance differences",
+    "paired_marginal_probe": "paired_probability_probe plus per-layout Pauli-Z marginals and differences",
+    "paired_probability_probe": "five layout-A and five layout-B final-probability responses, their dispersion, and channel differences"
+  },
+  "same_estimator_for_all_learned_attacks": true
+}

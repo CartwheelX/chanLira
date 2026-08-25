@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "protocol_id": "channel_lira_q0_residual_quantum_leakage_v2_20260823",
+  "created_date": "2026-08-23",
+  "automatic_execution": false,
+  "study_role": "bounded_exploratory_falsification_screen",
+  "confirmatory_claim_allowed": false,
+  "revision_history": {
+    "superseded_v1_sha256": "cf20475cae28944630850aa3a7864dfa45822c7a36e0af48e3943a413c8b22c9",
+    "v1_invalidation_stage": "preflight before any target checkpoint or response acquisition completed",
+    "v1_invalidation_reason": "TorchQuantum MNIST ignored manifest data_seed for record selection, producing six identical candidate pools.",
+    "v2_change": "Use six explicit, source-disjoint partitions of the filtered canonical MNIST training corpus; no attack, endpoint, channel, or screening-gate change."
+  },
+  "objective": "Test whether controlled quantum execution responses contain membership information beyond fixed-channel loss and the existing prediction-vector-plus-statistics learned MIA.",
+  "relationship_to_phase7": {
+    "phase7_protocol": "reviewer_targets/channel_lira_phase7_protocol.json",
+    "phase7_protocol_sha256": "ab360b674c3843670cd4a2213924098a5a9ffef43607fd5ee6510f3c56a78d18",
+    "phase7_is_unchanged": true,
+    "phase7_stage2_execution_paused_pending_q0": true,
+    "q0_results_are_excluded_from_phase7_confirmatory_endpoints": true
+  },
+  "provenance": {
+    "target_manifest": "reviewer_targets/channel_lira_q0_targets.csv",
+    "target_manifest_sha256": "053c1efa0a079207faef0e99f8a64c9fb6b3cb6b74d58acb18d95cc7146709ab",
+    "backend_snapshot": "channel_lira_results/noisy_reference_canary_phase5/backend_snapshot",
+    "snapshot_manifest_sha256": "7af4abc6763339615cc42bd00fafb532e3c44a31c14bc574c88456a496136a2f",
+    "backend_name": "ibm_kingston",
+    "execution": "local Qiskit Aer simulation with the frozen IBM-derived noise snapshot; no real-hardware jobs"
+  },
+  "threat_models": {
+    "standard_prediction_api": {
+      "access": "known candidate label and repeated final probability vectors under one fixed serving layout",
+      "attacks": ["loss_mia", "learned_mia", "classical_stochastic_control"]
+    },
+    "quantum_cloud_counts": {
+      "access": "known candidate label, raw bitstring counts, and permission to choose between two fixed physical initial layouts at the same total shot budget",
+      "attacks": ["fixed_marginal", "fixed_joint", "paired_probability_probe", "paired_marginal_probe", "paired_joint_probe"]
+    },
+    "interpretation_boundary": "Any raw-count or layout-probing advantage applies to the quantum-cloud-counts model, not automatically to a probability-only prediction API."
+  },
+  "study_population": {
+    "dataset": "MNIST digits 0,1,3,8",
+    "target_count": 6,
+    "structural_cells": ["eff_su2_r1_d2", "zz_r5_d6"],
+    "targets_per_cell": 3,
+    "data_seeds": [246, 247, 248, 249, 250, 251],
+    "model_seeds": [246, 247, 248, 249, 250, 251],
+    "mnist_partition_protocol": {
+      "source": "filtered canonical MNIST training corpus",
+      "partition_ids": [0, 1, 2, 3, 4, 5],
+      "partition_count": 6,
+      "partition_seed": 20260823,
+      "records_per_partition": {
+        "target_train_members": 1000,
+        "target_validation": 200,
+        "target_nonmembers": 1000
+      },
+      "class_balance": "exactly balanced over digits 0,1,3,8 in every split",
+      "source_indices_disjoint_across_every_target_and_split": true
+    },
+    "members_per_target": 1000,
+    "nonmembers_per_target": 1000,
+    "candidate_identity": "SHA-256 of float32 candidate tensor bytes, shape, and class label",
+    "identity_safeguard": "For every victim/calibration fold, attack-training candidates sharing a content identity with either held target are removed. Repeated auxiliary identities are averaged to one training row.",
+    "screening_only": true
+  },
+  "acquisition": {
+    "shots_per_query": 128,
+    "fixed_layout_queries": 10,
+    "paired_layout_a_queries": 5,
+    "paired_layout_b_queries": 5,
+    "total_queries_per_attack": 10,
+    "simulator_seeds_layout_a": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "simulator_seeds_layout_b": [0, 1, 2, 3, 4],
+    "transpiler_seed": 20260823,
+    "optimization_level": 1,
+    "physical_initial_layouts": {
+      "layout_a": [0, 1, 2, 3, 4, 5],
+      "layout_b": [8, 9, 10, 11, 12, 13]
+    },
+    "conditions": ["layout_a_noisy", "layout_b_noisy"],
+    "retained_arrays": [
+      "raw dense bitstring counts",
+      "per-query Pauli-Z marginals",
+      "per-query final probability vectors",
+      "exact Pauli-Z marginals",
+      "exact final probability vectors",
+      "content-bound candidate identities"
+    ],
+    "reference_models_required": 0,
+    "real_hardware_execution": false
+  },
+  "attack_model": {
+    "baseline_name": "existing learned prediction-vector-plus-statistics MIA",
+    "estimator": "MLPClassifier",
+    "hidden_layer_sizes": [64, 32],
+    "activation": "relu",
+    "solver": "adam",
+    "alpha": 0.0001,
+    "batch_size": 32,
+    "learning_rate_init": 0.001,
+    "max_iter": 300,
+    "early_stopping": true,
+    "validation_fraction": 0.15,
+    "n_iter_no_change": 20,
+    "attacker_seeds": [41, 42, 43],
+    "feature_scaling": "StandardScaler fit on attack-training targets only",
+    "hyperparameter_tuning": false
+  },
+  "evaluation": {
+    "fold": "leave one victim target and one distinct same-cell calibration target out; train on the remaining four targets",
+    "calibration_map": {
+      "MNIST_QNN_eff_su2_r1_d2_q0_s246": "MNIST_QNN_eff_su2_r1_d2_q0_s247",
+      "MNIST_QNN_eff_su2_r1_d2_q0_s247": "MNIST_QNN_eff_su2_r1_d2_q0_s248",
+      "MNIST_QNN_eff_su2_r1_d2_q0_s248": "MNIST_QNN_eff_su2_r1_d2_q0_s246",
+      "MNIST_QNN_zz_r5_d6_q0_s249": "MNIST_QNN_zz_r5_d6_q0_s250",
+      "MNIST_QNN_zz_r5_d6_q0_s250": "MNIST_QNN_zz_r5_d6_q0_s251",
+      "MNIST_QNN_zz_r5_d6_q0_s251": "MNIST_QNN_zz_r5_d6_q0_s249"
+    },
+    "nominal_fpr": 0.01,
+    "primary_screening_metrics": ["AUC", "empirical TPR at 1% FPR"],
+    "mandatory_operational_metrics": ["nominal FPR", "realized victim FPR", "victim TPR"],
+    "loss_conditioning": "20 auxiliary-feature quantile bins; weighted within-bin victim AUC, requiring both membership classes per retained bin",
+    "uncertainty": "paired target bootstrap stratified by structural cell",
+    "bootstrap_replicates": 2000,
+    "bootstrap_seed": 20260823,
+    "victim_labels_used_for_training_or_threshold_selection": false
+  },
+  "feature_hierarchy": {
+    "loss_mia": "true-class probability from ten layout-A queries",
+    "learned_mia": "layout-A mean prediction vector plus loss, entropy, confidence, margin, and correctness",
+    "classical_stochastic_control": "learned-MIA features plus dispersion from ten class-multinomial draws matched to 128 shots",
+    "fixed_marginal": "learned-MIA features plus layout-A Pauli-Z mean and dispersion",
+    "fixed_joint": "fixed_marginal plus the aggregate layout-A 64-outcome bitstring distribution and pairwise Z covariance",
+    "paired_probability_probe": "five layout-A and five layout-B final-probability responses, their dispersion, and channel differences",
+    "paired_marginal_probe": "paired_probability_probe plus per-layout Pauli-Z marginals and differences",
+    "paired_joint_probe": "paired_marginal_probe plus per-layout 64-outcome distributions and pairwise Z covariance differences",
+    "clean_z_diagnostic": "exact probability-vector statistics plus exact Pauli-Z marginals; privileged diagnostic only"
+  },
+  "screening_gate": {
+    "all_conditions_required": true,
+    "practical_gain_over_loss": {
+      "contrast": "paired_joint_probe - loss_mia",
+      "minimum_mean_auc_difference": 0.01,
+      "minimum_mean_tpr_at_1pct_difference": 0.005,
+      "minimum_targets_positive_for_both_metrics": 4
+    },
+    "gain_over_unchanged_learned_mia": {
+      "contrast": "paired_joint_probe - learned_mia",
+      "minimum_mean_auc_difference": 0.005,
+      "minimum_mean_tpr_at_1pct_difference": 0.005,
+      "minimum_targets_positive_for_both_metrics": 4
+    },
+    "conditional_gain": {
+      "contrast": "paired_joint_probe - learned_mia",
+      "metric": "loss-conditioned weighted AUC",
+      "minimum_mean_difference": 0.005,
+      "minimum_targets_positive": 4
+    },
+    "quantum_mechanism": {
+      "rule": "At least one of fixed_joint - learned_mia or paired_joint_probe - fixed_joint must have mean AUC difference at least 0.005 and positive AUC difference on at least four targets."
+    },
+    "classical_stochastic_control": {
+      "contrast": "paired_joint_probe - classical_stochastic_control",
+      "minimum_mean_auc_difference": 0.005
+    },
+    "operational_sanity": {
+      "maximum_mean_realized_victim_fpr": 0.015,
+      "paired_joint_probe_tpr_must_exceed_learned_mia": true
+    },
+    "decision": "Continue to an extended quantum-channel-probing study only if every gate passes. Otherwise stop treating quantum stochasticity/channel probing as a candidate stronger-MIA mechanism."
+  },
+  "method_change_rule": "Any feature, target, channel, attack-model, endpoint, threshold, or gate change after the lock requires a new protocol version and is exploratory relative to this Q0 screen."
+}

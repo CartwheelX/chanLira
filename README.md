@@ -38,7 +38,11 @@
 > ideal/noisy scores, reports, cost receipts, and plots pass the artifact gate.
 > Its low-FPR direction supports the mismatch/recovery questions but does not beat
 > loss MIA; it remains excluded from confirmation. The runner cannot access the
-> four confirmatory cells.
+> four confirmatory cells. Before spending the Phase-7 Stage-2 budget, the separate
+> [Q0 residual quantum leakage screen](docs/CHANNEL_LIRA_Q0.md) tests whether
+> equal-budget raw-count and active-layout response features add membership signal
+> beyond loss and the unchanged learned MIA. Q0 has independent targets, content-ID
+> blocking, a hash-locked stop rule, and zero reference models.
 > None of these phases is a real quantum-hardware execution.
 
 **QuRiFT** (**Quantum Risk and Inference Fault-line Tracer**) is a controlled audit framework for studying **structural privacy leakage in quantum machine learning (QML)**.

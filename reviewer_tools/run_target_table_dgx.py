@@ -172,6 +172,21 @@ def build_command(
         weight_decay = 0.0
     command += ["--weight-decay", str(weight_decay)]
 
+    partition_id = row.get("mnist_disjoint_partition_id", None)
+    try:
+        partition_available = partition_id is not None and not pd.isna(partition_id)
+    except Exception:
+        partition_available = partition_id is not None
+    if dataset == "mnist" and partition_available:
+        command += [
+            "--mnist-disjoint-partition-id",
+            str(safe_int(partition_id, 0)),
+            "--mnist-disjoint-partition-count",
+            str(safe_int(row.get("mnist_disjoint_partition_count", 1), 1)),
+            "--mnist-disjoint-partition-seed",
+            str(safe_int(row.get("mnist_disjoint_partition_seed", 1), 1)),
+        ]
+
     if as_bool(row.get("ql_rev", False)):
         command.append("--qlayer-ent-wire-reverse")
     if as_bool(row.get("extra_feats", False)):

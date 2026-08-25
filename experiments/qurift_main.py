@@ -2334,6 +2334,9 @@ def main():
     parser.add_argument("--run-id", type=int, default=0, help="Run ID for experiment tracking.")
     parser.add_argument("--model-seed", type=int, default=43, help="Model initialization/training seed.")
     parser.add_argument("--data-seed", type=int, default=43, help="Dataset generation/subsampling seed.")
+    parser.add_argument("--mnist-disjoint-partition-id", type=int, default=None)
+    parser.add_argument("--mnist-disjoint-partition-count", type=int, default=None)
+    parser.add_argument("--mnist-disjoint-partition-seed", type=int, default=1)
     parser.add_argument("--target-id", type=str, default=None, help="Unique reviewer target identifier stored in exports.")
     parser.add_argument("--experiment-id", type=str, default=None, help="Reviewer experiment identifier stored in exports.")
     parser.add_argument("--learning-rate", type=float, default=None, help="Optional common learning rate for controlled architecture comparisons.")
@@ -2562,6 +2565,22 @@ def main():
             print(
                 "[WARN] This TorchQuantum MNIST version does not support "
                 "same_n_samples_each_class; continuing with its native sampling."
+            )
+        if args.mnist_disjoint_partition_id is not None:
+            required_partition_parameters = {
+                "disjoint_partition_id",
+                "disjoint_partition_count",
+                "disjoint_partition_seed",
+            }
+            if not required_partition_parameters.issubset(mnist_signature.parameters):
+                raise RuntimeError(
+                    "This TorchQuantum MNIST version does not support locked "
+                    "source-disjoint partitions"
+                )
+            mnist_kwargs.update(
+                disjoint_partition_id=args.mnist_disjoint_partition_id,
+                disjoint_partition_count=args.mnist_disjoint_partition_count,
+                disjoint_partition_seed=args.mnist_disjoint_partition_seed,
             )
         dataset = MNIST(**mnist_kwargs)
         feature_dim = args.pool_hw * args.pool_hw
