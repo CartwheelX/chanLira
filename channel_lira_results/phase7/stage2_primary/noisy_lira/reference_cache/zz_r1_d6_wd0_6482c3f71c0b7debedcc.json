@@ -1,0 +1,47 @@
+{
+  "aer_max_parallel_threads": 64,
+  "cache": "/home/najeeb/chanLira/channel_lira_results/phase7/stage2_primary/noisy_lira/reference_cache/zz_r1_d6_wd0_6482c3f71c0b7debedcc.npz",
+  "cache_sha256": "4944d74db5b69a3d6ecfb37a8ea4bfc2a6b138c728153ba25c5fff6a53be696c",
+  "candidate_fingerprint": "1d2087428badd471be733025a059b3c0d597384cd6f91efba46e19dd87b02e64",
+  "modes": [
+    "noisy_shot"
+  ],
+  "num_reference_models": 16,
+  "optimization_level": 1,
+  "real_hardware_execution": false,
+  "reference_checkpoint_sha256": [
+    "9808e5e3130a29b8c7622556b9b184c16800c53d6a628008b30451d5ef000f4a",
+    "ab4933ed69b1b1c2dea0a841bfc189724354f2160d507c7fedf2b396beba4c8b",
+    "5b453d81eb7d4997b2b7e039de61d99e3a7d1db619de0affd740d799c7584089",
+    "6f14fc6f18d937aa11f382f49773f57084d7ca151080fe33536966fb2fa0f6a3",
+    "5ca59f4cb2305863dbde33cfbf8f6091748807a004fab01a460ccc6f89880318",
+    "3744d6ecf8ebaf7ddb29639132035a3d587fa69559fcf393dc4dfc4a64e7c3f6",
+    "e968c92a3cf0214d53d530457d5c529d74e306d0daaf4f2d11de5b2c9c2a2180",
+    "8c998a17c4a72d2c4c7dc4bdc9253878d06e625920df762a3cccb9bb41971754",
+    "2ee63de56964a8454b56c9cbf4c196dea50544f5fa70ac179fab24eb01ae9224",
+    "228e802e1137ca6d7f0a4a2698c93a8c4a8e8cfd52d78cf6ec1465f77148529f",
+    "109379e70b84f379b251c78845a61a93f9819310e8aa876c2ab675cb9ab2b12c",
+    "3ed02d3523efab572bc4f61342230fdd599daac160c9fadc09613a46356ac5c2",
+    "0f89396cd751cac4e61504c488d26c9eef6a8a8231e43098657ac671a82f3e1a",
+    "d59a119a5c0a4a0a85da1459368127d90bb76957146713831d0b4826a4f12a06",
+    "2b05652d8d8e9031c7a2a2e39e9a8978970f72f8046123d52ab7ebb32b573f17",
+    "c545e993df5fa145d10eac9aea3995a748af8c5dbbddb784ceaa09fc07c2b4ea"
+  ],
+  "schema_version": 1,
+  "shots": 128,
+  "simulator_seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "snapshot_manifest_sha256": "7af4abc6763339615cc42bd00fafb532e3c44a31c14bc574c88456a496136a2f",
+  "structural_cell": "zz_r1_d6_wd0",
+  "transpiler_seed": 20260822
+}

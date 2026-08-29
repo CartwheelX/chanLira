@@ -1,0 +1,4 @@
+target_id,experiment,role,seed,dataset,architecture,source_run_id,fm_kind,n_wires,reps,pad_mode,fm_ent,fm_op,depth,ql_ent,ql_op,ql_rev,original_acc_train,original_acc_test,original_gap,vector_train,vector_valid,vector_test,batch_size,epochs,extra_feats,model_seed,data_seed,structural_cell_id,learning_rate,phase7_analysis_role
+MNIST_QNN_eff_su2_r5_d2_p7_s143,channel_lira_phase7,eff_su2_r5_d2,143,MNIST,QNN,1766,eff_su2,6,5,wrap,linear,cx,2,linear,crz,False,,,,1000,200,1000,16,100,False,143,143,eff_su2_r5_d2,0.05,confirmatory
+MNIST_QNN_eff_su2_r5_d2_p7_s144,channel_lira_phase7,eff_su2_r5_d2,144,MNIST,QNN,1766,eff_su2,6,5,wrap,linear,cx,2,linear,crz,False,,,,1000,200,1000,16,100,False,144,143,eff_su2_r5_d2,0.05,confirmatory
+MNIST_QNN_eff_su2_r5_d2_p7_s145,channel_lira_phase7,eff_su2_r5_d2,145,MNIST,QNN,1766,eff_su2,6,5,wrap,linear,cx,2,linear,crz,False,,,,1000,200,1000,16,100,False,145,143,eff_su2_r5_d2,0.05,confirmatory

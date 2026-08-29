@@ -1,0 +1,67 @@
+{
+  "meta": {
+    "target_id": "MNIST_QNN_z_r1_d6_p7_s144",
+    "experiment": "channel_lira_phase7",
+    "dataset": "mnist",
+    "architecture": "qnn",
+    "model_type": "qnn",
+    "run_id": 206,
+    "model_seed": 144,
+    "data_seed": 143,
+    "seed": 144,
+    "membership_convention": "0=member",
+    "attack_feature_mode": "pv+stats",
+    "learning_rate": 0.05,
+    "weight_decay": 0.0,
+    "n_wires": 6,
+    "depth": 6,
+    "ql_ent": "linear",
+    "ql_op": "crz",
+    "fm_kind": "z",
+    "reps": 1,
+    "fm_ent": "none",
+    "fm_op": "none",
+    "pad_mode": "wrap",
+    "vector_train": 1000,
+    "vector_valid": 200,
+    "vector_test": 1000,
+    "feature_angle_scale": 1.0,
+    "dataset_provenance": {}
+  },
+  "target_metrics": {
+    "train": {
+      "loss": 0.34699809551239014,
+      "acc": 0.8629999756813049,
+      "N": 1000
+    },
+    "valid": {
+      "loss": 0.4209795892238617,
+      "acc": 0.8199999928474426,
+      "N": 200
+    },
+    "test": {
+      "loss": 0.4525977075099945,
+      "acc": 0.8069999814033508,
+      "N": 1000
+    }
+  },
+  "resource_counts": {
+    "trainable_parameters_total": 166,
+    "trainable_parameters_quantum": 138,
+    "trainable_parameters_classical": 28,
+    "trainable_parameters_unclassified": 0,
+    "gate_counts": {
+      "crz": 30,
+      "rx": 36,
+      "ry": 36,
+      "rz": 36,
+      "u1": 18,
+      "u3": 18
+    },
+    "quantum_gate_count_total": 174,
+    "quantum_one_qubit_gates": 144,
+    "quantum_two_qubit_gates": 30,
+    "gate_count_scope": "fixed encoder plus downstream variational circuit",
+    "qcnn_frontend_included": null
+  }
+}

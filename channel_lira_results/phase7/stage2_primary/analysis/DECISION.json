@@ -1,0 +1,15 @@
+{
+  "A_channel_mismatch": true,
+  "B_components": {
+    "amortized_cost_at_most_25pct": true,
+    "auc_noninferiority": true,
+    "tpr_noninferiority": true
+  },
+  "B_efficient_recovery": true,
+  "C_practical_attack": false,
+  "amortized_channel_to_matched_cost_ratio": 0.1875,
+  "auc_noninferiority_margin": 0.01,
+  "paper_decision": "A+B only: serving-channel mismatch and privacy-auditing paper",
+  "secondary_execution_warranted": true,
+  "tpr_noninferiority_margin": 0.005
+}

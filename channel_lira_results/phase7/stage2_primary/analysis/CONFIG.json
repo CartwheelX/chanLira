@@ -1,0 +1,52 @@
+{
+  "analysis_role": "confirmatory_primary",
+  "bootstrap_replicates": 20000,
+  "bootstrap_seed": 20260822,
+  "cells": [
+    "eff_su2_r5_d2",
+    "z_r1_d6",
+    "zz_r1_d6",
+    "zz_r5_d6"
+  ],
+  "created_utc": "2026-08-29T09:42:12.258044+00:00",
+  "folds": 5,
+  "learned_mia_label": "privileged victim-crossfit learned comparator",
+  "mode": "noisy_shot",
+  "noise_augmentation_draws": 32,
+  "num_references": 16,
+  "pilot_included": false,
+  "protocol_id": "channel_lira_phase7_confirmatory_v1",
+  "protocol_sha256": "ab360b674c3843670cd4a2213924098a5a9ffef43607fd5ee6510f3c56a78d18",
+  "raw_output_seal": "/home/najeeb/chanLira/channel_lira_results/phase7/stage2_primary/RAW_OUTPUT_SEAL.json",
+  "raw_output_seal_sha256": "7dd18b5bf4a9460659dd463e5fdc03006eadb6822d846b03703f8d4b770e1857",
+  "real_hardware_execution": false,
+  "shots": 128,
+  "simulator_seed_handling": "averaged within target before inference",
+  "simulator_seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "targets": [
+    "MNIST_QNN_eff_su2_r5_d2_p7_s143",
+    "MNIST_QNN_eff_su2_r5_d2_p7_s144",
+    "MNIST_QNN_eff_su2_r5_d2_p7_s145",
+    "MNIST_QNN_z_r1_d6_p7_s143",
+    "MNIST_QNN_z_r1_d6_p7_s144",
+    "MNIST_QNN_z_r1_d6_p7_s145",
+    "MNIST_QNN_zz_r1_d6_p7_s143",
+    "MNIST_QNN_zz_r1_d6_p7_s144",
+    "MNIST_QNN_zz_r1_d6_p7_s145",
+    "MNIST_QNN_zz_r5_d6_p7_s143",
+    "MNIST_QNN_zz_r5_d6_p7_s144",
+    "MNIST_QNN_zz_r5_d6_p7_s145"
+  ],
+  "variance_shrinkage": 0.15
+}

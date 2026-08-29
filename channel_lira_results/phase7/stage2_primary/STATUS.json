@@ -1,0 +1,940 @@
+{
+  "analysis": {
+    "directory": "/home/najeeb/chanLira/channel_lira_results/phase7/stage2_primary/analysis",
+    "present": {
+      "CONFIG.json": true,
+      "DECISION.json": true,
+      "REPORT.md": true,
+      "SOURCE_MANIFEST.json": true,
+      "channel_diagnostics.csv": true,
+      "hierarchical_intervals.csv": true,
+      "metrics_raw.csv": true,
+      "metrics_summary.csv": true,
+      "paired_contrasts_summary.csv": true,
+      "paired_contrasts_target.csv": true,
+      "target_mean_metrics.csv": true
+    },
+    "ready": true
+  },
+  "analysis_role": "confirmatory_primary",
+  "artifacts": {
+    "reference_banks_expected": 4,
+    "reference_banks_ready": 4,
+    "reference_cells": [
+      {
+        "balanced_inclusion": true,
+        "candidate_fingerprints": [
+          "1d2087428badd471be733025a059b3c0d597384cd6f91efba46e19dd87b02e64"
+        ],
+        "cell": "eff_su2_r5_d2",
+        "checkpoint_metadata_valid": 16,
+        "checkpoints_ready": 16,
+        "directory": "/home/najeeb/chanLira/channel_lira_results/phase7/references/reference_models/eff_su2_r5_d2_wd0",
+        "metadata_valid": 16,
+        "ready": true,
+        "references": [
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 0,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 1,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 2,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 3,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 4,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 5,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 6,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 7,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 8,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 9,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 10,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 11,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 12,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 13,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 14,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 15,
+            "score_ready": true
+          }
+        ],
+        "scores_ready": 16
+      },
+      {
+        "balanced_inclusion": true,
+        "candidate_fingerprints": [
+          "1d2087428badd471be733025a059b3c0d597384cd6f91efba46e19dd87b02e64"
+        ],
+        "cell": "z_r1_d6",
+        "checkpoint_metadata_valid": 16,
+        "checkpoints_ready": 16,
+        "directory": "/home/najeeb/chanLira/channel_lira_results/phase7/references/reference_models/z_r1_d6_wd0",
+        "metadata_valid": 16,
+        "ready": true,
+        "references": [
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 0,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 1,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 2,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 3,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 4,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 5,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 6,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 7,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 8,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 9,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 10,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 11,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 12,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 13,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 14,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 15,
+            "score_ready": true
+          }
+        ],
+        "scores_ready": 16
+      },
+      {
+        "balanced_inclusion": true,
+        "candidate_fingerprints": [
+          "1d2087428badd471be733025a059b3c0d597384cd6f91efba46e19dd87b02e64"
+        ],
+        "cell": "zz_r1_d6",
+        "checkpoint_metadata_valid": 16,
+        "checkpoints_ready": 16,
+        "directory": "/home/najeeb/chanLira/channel_lira_results/phase7/references/reference_models/zz_r1_d6_wd0",
+        "metadata_valid": 16,
+        "ready": true,
+        "references": [
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 0,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 1,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 2,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 3,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 4,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 5,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 6,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 7,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 8,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 9,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 10,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 11,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 12,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 13,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 14,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 15,
+            "score_ready": true
+          }
+        ],
+        "scores_ready": 16
+      },
+      {
+        "balanced_inclusion": true,
+        "candidate_fingerprints": [
+          "1d2087428badd471be733025a059b3c0d597384cd6f91efba46e19dd87b02e64"
+        ],
+        "cell": "zz_r5_d6",
+        "checkpoint_metadata_valid": 16,
+        "checkpoints_ready": 16,
+        "directory": "/home/najeeb/chanLira/channel_lira_results/phase7/references/reference_models/zz_r5_d6_wd0",
+        "metadata_valid": 16,
+        "ready": true,
+        "references": [
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 0,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 1,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 2,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 3,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 4,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 5,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 6,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 7,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 8,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 9,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 10,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 11,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 12,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 13,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 14,
+            "score_ready": true
+          },
+          {
+            "checkpoint_metadata_valid": true,
+            "checkpoint_ready": true,
+            "metadata_valid": true,
+            "reference_id": 15,
+            "score_ready": true
+          }
+        ],
+        "scores_ready": 16
+      }
+    ],
+    "reference_checkpoint_metadata_valid": 64,
+    "reference_checkpoints_ready": 64,
+    "reference_scores_ready": 64,
+    "references_expected": 64,
+    "target_bundles_ready": 12,
+    "targets": [
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_eff_su2_r5_d2_p7_s143",
+        "payload_error": "",
+        "payload_valid": true,
+        "present": {
+          "attack_data": true,
+          "model": true,
+          "summary": true
+        },
+        "ready": true,
+        "target_id": "MNIST_QNN_eff_su2_r5_d2_p7_s143"
+      },
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_eff_su2_r5_d2_p7_s144",
+        "payload_error": "",
+        "payload_valid": true,
+        "present": {
+          "attack_data": true,
+          "model": true,
+          "summary": true
+        },
+        "ready": true,
+        "target_id": "MNIST_QNN_eff_su2_r5_d2_p7_s144"
+      },
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_eff_su2_r5_d2_p7_s145",
+        "payload_error": "",
+        "payload_valid": true,
+        "present": {
+          "attack_data": true,
+          "model": true,
+          "summary": true
+        },
+        "ready": true,
+        "target_id": "MNIST_QNN_eff_su2_r5_d2_p7_s145"
+      },
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_z_r1_d6_p7_s143",
+        "payload_error": "",
+        "payload_valid": true,
+        "present": {
+          "attack_data": true,
+          "model": true,
+          "summary": true
+        },
+        "ready": true,
+        "target_id": "MNIST_QNN_z_r1_d6_p7_s143"
+      },
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_z_r1_d6_p7_s144",
+        "payload_error": "",
+        "payload_valid": true,
+        "present": {
+          "attack_data": true,
+          "model": true,
+          "summary": true
+        },
+        "ready": true,
+        "target_id": "MNIST_QNN_z_r1_d6_p7_s144"
+      },
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_z_r1_d6_p7_s145",
+        "payload_error": "",
+        "payload_valid": true,
+        "present": {
+          "attack_data": true,
+          "model": true,
+          "summary": true
+        },
+        "ready": true,
+        "target_id": "MNIST_QNN_z_r1_d6_p7_s145"
+      },
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_zz_r1_d6_p7_s143",
+        "payload_error": "",
+        "payload_valid": true,
+        "present": {
+          "attack_data": true,
+          "model": true,
+          "summary": true
+        },
+        "ready": true,
+        "target_id": "MNIST_QNN_zz_r1_d6_p7_s143"
+      },
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_zz_r1_d6_p7_s144",
+        "payload_error": "",
+        "payload_valid": true,
+        "present": {
+          "attack_data": true,
+          "model": true,
+          "summary": true
+        },
+        "ready": true,
+        "target_id": "MNIST_QNN_zz_r1_d6_p7_s144"
+      },
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_zz_r1_d6_p7_s145",
+        "payload_error": "",
+        "payload_valid": true,
+        "present": {
+          "attack_data": true,
+          "model": true,
+          "summary": true
+        },
+        "ready": true,
+        "target_id": "MNIST_QNN_zz_r1_d6_p7_s145"
+      },
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_zz_r5_d6_p7_s143",
+        "payload_error": "",
+        "payload_valid": true,
+        "present": {
+          "attack_data": true,
+          "model": true,
+          "summary": true
+        },
+        "ready": true,
+        "target_id": "MNIST_QNN_zz_r5_d6_p7_s143"
+      },
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_zz_r5_d6_p7_s144",
+        "payload_error": "",
+        "payload_valid": true,
+        "present": {
+          "attack_data": true,
+          "model": true,
+          "summary": true
+        },
+        "ready": true,
+        "target_id": "MNIST_QNN_zz_r5_d6_p7_s144"
+      },
+      {
+        "directory": "/home/najeeb/chanLira/reviewer_runs/channel_lira_phase7/MNIST_QNN_zz_r5_d6_p7_s145",
+        "payload_error": "",
+        "payload_valid": true,
+        "present": {
+          "attack_data": true,
+          "model": true,
+          "summary": true
+        },
+        "ready": true,
+        "target_id": "MNIST_QNN_zz_r5_d6_p7_s145"
+      }
+    ],
+    "targets_expected": 12
+  },
+  "blockers": [],
+  "candidate_count": 2000,
+  "cells": [
+    "eff_su2_r5_d2",
+    "z_r1_d6",
+    "zz_r1_d6",
+    "zz_r5_d6"
+  ],
+  "complete": true,
+  "created_utc": "2026-08-29T09:50:33.138716+00:00",
+  "exact_scores": {
+    "aggregate": "/home/najeeb/chanLira/channel_lira_results/phase7/references/lira_reference_mia_raw.csv",
+    "aggregate_ready": true,
+    "expected": 12,
+    "ready": true,
+    "targets": [
+      {
+        "path": "/home/najeeb/chanLira/channel_lira_results/phase7/references/sample_scores/MNIST_QNN_eff_su2_r5_d2_p7_s143.npz",
+        "ready": true,
+        "sha256": "69a86a576f000106eb12fdffa80673d5b75ce9dd27d8354775b92f17311833cf",
+        "target_id": "MNIST_QNN_eff_su2_r5_d2_p7_s143"
+      },
+      {
+        "path": "/home/najeeb/chanLira/channel_lira_results/phase7/references/sample_scores/MNIST_QNN_eff_su2_r5_d2_p7_s144.npz",
+        "ready": true,
+        "sha256": "f2ca4e3e0ff372619c1ed46d9e0c5a4dd8780304d7ebbdb9b0ab1fee9266673f",
+        "target_id": "MNIST_QNN_eff_su2_r5_d2_p7_s144"
+      },
+      {
+        "path": "/home/najeeb/chanLira/channel_lira_results/phase7/references/sample_scores/MNIST_QNN_eff_su2_r5_d2_p7_s145.npz",
+        "ready": true,
+        "sha256": "64736447475394b8be1710383a7901325c8419f1d1a00570cedeab9761296c46",
+        "target_id": "MNIST_QNN_eff_su2_r5_d2_p7_s145"
+      },
+      {
+        "path": "/home/najeeb/chanLira/channel_lira_results/phase7/references/sample_scores/MNIST_QNN_z_r1_d6_p7_s143.npz",
+        "ready": true,
+        "sha256": "771d11c188bd65cb8d8915ef3d040db2408e5182416a8606037224879575d235",
+        "target_id": "MNIST_QNN_z_r1_d6_p7_s143"
+      },
+      {
+        "path": "/home/najeeb/chanLira/channel_lira_results/phase7/references/sample_scores/MNIST_QNN_z_r1_d6_p7_s144.npz",
+        "ready": true,
+        "sha256": "123c03a1683e28786ecab5593689e51b12815ee1e7fe98c0ca019f0568d76a48",
+        "target_id": "MNIST_QNN_z_r1_d6_p7_s144"
+      },
+      {
+        "path": "/home/najeeb/chanLira/channel_lira_results/phase7/references/sample_scores/MNIST_QNN_z_r1_d6_p7_s145.npz",
+        "ready": true,
+        "sha256": "0bf7e9145d55310b9b4df0a0b78fb18890f0d2103796ddcc8ad9ba4268fb29d4",
+        "target_id": "MNIST_QNN_z_r1_d6_p7_s145"
+      },
+      {
+        "path": "/home/najeeb/chanLira/channel_lira_results/phase7/references/sample_scores/MNIST_QNN_zz_r1_d6_p7_s143.npz",
+        "ready": true,
+        "sha256": "4a6a3870d31fb79ac908ffaf2d797844d899cd5011bba962d78ddc06516717b3",
+        "target_id": "MNIST_QNN_zz_r1_d6_p7_s143"
+      },
+      {
+        "path": "/home/najeeb/chanLira/channel_lira_results/phase7/references/sample_scores/MNIST_QNN_zz_r1_d6_p7_s144.npz",
+        "ready": true,
+        "sha256": "216b6f0b59eeaf38951e90fdcb4dff456c61899d73600aec72ac22e177f85000",
+        "target_id": "MNIST_QNN_zz_r1_d6_p7_s144"
+      },
+      {
+        "path": "/home/najeeb/chanLira/channel_lira_results/phase7/references/sample_scores/MNIST_QNN_zz_r1_d6_p7_s145.npz",
+        "ready": true,
+        "sha256": "6c575b0e35f06dd08eddf46a651da780e817a824c90fda51cf46f6ea17f532fe",
+        "target_id": "MNIST_QNN_zz_r1_d6_p7_s145"
+      },
+      {
+        "path": "/home/najeeb/chanLira/channel_lira_results/phase7/references/sample_scores/MNIST_QNN_zz_r5_d6_p7_s143.npz",
+        "ready": true,
+        "sha256": "1d56c78c44951e5564365c5ec49a614fd4ae797be51e2c9eae0fc9b5692dbc60",
+        "target_id": "MNIST_QNN_zz_r5_d6_p7_s143"
+      },
+      {
+        "path": "/home/najeeb/chanLira/channel_lira_results/phase7/references/sample_scores/MNIST_QNN_zz_r5_d6_p7_s144.npz",
+        "ready": true,
+        "sha256": "68e5cfd2d63e1f50f233043f93d4e9ca42b722059a48dbeedd6633efd725d9a2",
+        "target_id": "MNIST_QNN_zz_r5_d6_p7_s144"
+      },
+      {
+        "path": "/home/najeeb/chanLira/channel_lira_results/phase7/references/sample_scores/MNIST_QNN_zz_r5_d6_p7_s145.npz",
+        "ready": true,
+        "sha256": "76958159b7509ef663077ce14dde5f2c408daf8823b858f980b024b4b0e4cb94",
+        "target_id": "MNIST_QNN_zz_r5_d6_p7_s145"
+      }
+    ],
+    "targets_ready": 12
+  },
+  "members": 1000,
+  "modes": [
+    "noisy_shot"
+  ],
+  "noisy_scores": {
+    "aggregate_ready": true,
+    "expected": 12,
+    "payloads_expected": 120,
+    "payloads_ready": 120,
+    "ready": true,
+    "reference_caches_expected": 4,
+    "reference_caches_ready": 4,
+    "snapshot_hashes": [
+      "7af4abc6763339615cc42bd00fafb532e3c44a31c14bc574c88456a496136a2f"
+    ],
+    "targets": [
+      {
+        "errors": [],
+        "payloads_expected": 10,
+        "payloads_ready": 10,
+        "ready": true,
+        "target_id": "MNIST_QNN_eff_su2_r5_d2_p7_s143"
+      },
+      {
+        "errors": [],
+        "payloads_expected": 10,
+        "payloads_ready": 10,
+        "ready": true,
+        "target_id": "MNIST_QNN_eff_su2_r5_d2_p7_s144"
+      },
+      {
+        "errors": [],
+        "payloads_expected": 10,
+        "payloads_ready": 10,
+        "ready": true,
+        "target_id": "MNIST_QNN_eff_su2_r5_d2_p7_s145"
+      },
+      {
+        "errors": [],
+        "payloads_expected": 10,
+        "payloads_ready": 10,
+        "ready": true,
+        "target_id": "MNIST_QNN_z_r1_d6_p7_s143"
+      },
+      {
+        "errors": [],
+        "payloads_expected": 10,
+        "payloads_ready": 10,
+        "ready": true,
+        "target_id": "MNIST_QNN_z_r1_d6_p7_s144"
+      },
+      {
+        "errors": [],
+        "payloads_expected": 10,
+        "payloads_ready": 10,
+        "ready": true,
+        "target_id": "MNIST_QNN_z_r1_d6_p7_s145"
+      },
+      {
+        "errors": [],
+        "payloads_expected": 10,
+        "payloads_ready": 10,
+        "ready": true,
+        "target_id": "MNIST_QNN_zz_r1_d6_p7_s143"
+      },
+      {
+        "errors": [],
+        "payloads_expected": 10,
+        "payloads_ready": 10,
+        "ready": true,
+        "target_id": "MNIST_QNN_zz_r1_d6_p7_s144"
+      },
+      {
+        "errors": [],
+        "payloads_expected": 10,
+        "payloads_ready": 10,
+        "ready": true,
+        "target_id": "MNIST_QNN_zz_r1_d6_p7_s145"
+      },
+      {
+        "errors": [],
+        "payloads_expected": 10,
+        "payloads_ready": 10,
+        "ready": true,
+        "target_id": "MNIST_QNN_zz_r5_d6_p7_s143"
+      },
+      {
+        "errors": [],
+        "payloads_expected": 10,
+        "payloads_ready": 10,
+        "ready": true,
+        "target_id": "MNIST_QNN_zz_r5_d6_p7_s144"
+      },
+      {
+        "errors": [],
+        "payloads_expected": 10,
+        "payloads_ready": 10,
+        "ready": true,
+        "target_id": "MNIST_QNN_zz_r5_d6_p7_s145"
+      }
+    ],
+    "targets_ready": 12
+  },
+  "nonmembers": 1000,
+  "num_references_per_cell": 16,
+  "pilot_included": false,
+  "plots": {
+    "files": {
+      "/home/najeeb/chanLira/channel_lira_results/phase7/stage2_primary/analysis/PLOTS.md": true,
+      "/home/najeeb/chanLira/channel_lira_results/phase7/stage2_primary/analysis/plots/primary_attack_metrics.png": true,
+      "/home/najeeb/chanLira/channel_lira_results/phase7/stage2_primary/analysis/plots/primary_attack_metrics.svg": true,
+      "/home/najeeb/chanLira/channel_lira_results/phase7/stage2_primary/analysis/plots/primary_gate_intervals.png": true,
+      "/home/najeeb/chanLira/channel_lira_results/phase7/stage2_primary/analysis/plots/primary_gate_intervals.svg": true
+    },
+    "ready": true
+  },
+  "projected_shots": {
+    "combined": 194560000,
+    "reference": 163840000,
+    "target": 30720000
+  },
+  "protocol_id": "channel_lira_phase7_confirmatory_v1",
+  "protocol_sha256": "ab360b674c3843670cd4a2213924098a5a9ffef43607fd5ee6510f3c56a78d18",
+  "raw_output_seal": {
+    "artifact_count": 351,
+    "path": "/home/najeeb/chanLira/channel_lira_results/phase7/stage2_primary/RAW_OUTPUT_SEAL.json",
+    "ready": true,
+    "sha256": "7dd18b5bf4a9460659dd463e5fdc03006eadb6822d846b03703f8d4b770e1857"
+  },
+  "ready_for_exact_scoring": true,
+  "ready_for_noisy_scoring": true,
+  "ready_to_analyze": true,
+  "ready_to_seal": true,
+  "real_hardware_execution": false,
+  "shots": 128,
+  "simulator_seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "target_ids": [
+    "MNIST_QNN_eff_su2_r5_d2_p7_s143",
+    "MNIST_QNN_eff_su2_r5_d2_p7_s144",
+    "MNIST_QNN_eff_su2_r5_d2_p7_s145",
+    "MNIST_QNN_z_r1_d6_p7_s143",
+    "MNIST_QNN_z_r1_d6_p7_s144",
+    "MNIST_QNN_z_r1_d6_p7_s145",
+    "MNIST_QNN_zz_r1_d6_p7_s143",
+    "MNIST_QNN_zz_r1_d6_p7_s144",
+    "MNIST_QNN_zz_r1_d6_p7_s145",
+    "MNIST_QNN_zz_r5_d6_p7_s143",
+    "MNIST_QNN_zz_r5_d6_p7_s144",
+    "MNIST_QNN_zz_r5_d6_p7_s145"
+  ],
+  "target_manifest": "/home/najeeb/chanLira/reviewer_targets/channel_lira_phase7_stage2_confirmatory.csv",
+  "target_manifest_sha256": "187b14b27667c02faff56158a3827556423fbaaa2b530c4181a38ea69b7deff5"
+}

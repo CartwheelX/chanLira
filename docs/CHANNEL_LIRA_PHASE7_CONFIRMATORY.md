@@ -182,6 +182,85 @@ See the [Stage 1 report](../channel_lira_results/phase7/stage1_pilot/analysis/RE
 [plot index](../channel_lira_results/phase7/stage1_pilot/analysis/PLOTS.md), and
 [cost receipt](../channel_lira_results/phase7/stage1_pilot/COST_RECEIPT.json).
 
+### Stage 2 primary-only runner
+
+The Stage-2 runner is restricted to the twelve confirmatory targets in
+[`channel_lira_phase7_stage2_confirmatory.csv`](../reviewer_targets/channel_lira_phase7_stage2_confirmatory.csv).
+It cannot select the pilot cell, ideal serving, 512/1,024 shots, or any Stage-3
+secondary condition. The derived manifest is validated row-for-row against the
+confirmatory projection of the protocol-hashed full target manifest.
+
+Two acknowledgements guard execution:
+
+- every compute or unblinding stage requires the external Phase-7 protocol hash;
+- noisy scoring additionally requires the exact `194560000`-shot primary budget.
+
+Use the stagewise workflow so training, exact scoring, noisy serving, sealing, and
+unblinding can be monitored independently:
+
+```bash
+PYTHON_BIN=/home/najeeb/miniconda3/envs/tq39_vv2/bin/python
+PHASE7_HASH=$(cut -d ' ' -f 1 reviewer_targets/channel_lira_phase7_protocol.sha256)
+
+"${PYTHON_BIN}" experiments/run_channel_lira_phase7_stage2.py plan
+"${PYTHON_BIN}" experiments/run_channel_lira_phase7_stage2.py status \
+  --python "${PYTHON_BIN}"
+
+"${PYTHON_BIN}" experiments/run_channel_lira_phase7_stage2.py target \
+  --python "${PYTHON_BIN}" \
+  --acknowledge-protocol-hash "${PHASE7_HASH}"
+
+"${PYTHON_BIN}" experiments/run_channel_lira_phase7_stage2.py references \
+  --python "${PYTHON_BIN}" \
+  --acknowledge-protocol-hash "${PHASE7_HASH}"
+
+"${PYTHON_BIN}" experiments/run_channel_lira_phase7_stage2.py exact \
+  --python "${PYTHON_BIN}" \
+  --acknowledge-protocol-hash "${PHASE7_HASH}"
+
+"${PYTHON_BIN}" experiments/run_channel_lira_phase7_stage2.py score \
+  --python "${PYTHON_BIN}" \
+  --acknowledge-protocol-hash "${PHASE7_HASH}" \
+  --acknowledge-shot-budget 194560000 \
+  --score-workers 4 \
+  --aer-max-parallel-threads 64
+
+"${PYTHON_BIN}" experiments/run_channel_lira_phase7_stage2.py seal \
+  --python "${PYTHON_BIN}" \
+  --acknowledge-protocol-hash "${PHASE7_HASH}"
+
+"${PYTHON_BIN}" experiments/run_channel_lira_phase7_stage2.py analyze \
+  --python "${PYTHON_BIN}" \
+  --acknowledge-protocol-hash "${PHASE7_HASH}"
+
+"${PYTHON_BIN}" experiments/run_channel_lira_phase7_stage2.py plot \
+  --python "${PYTHON_BIN}" \
+  --acknowledge-protocol-hash "${PHASE7_HASH}"
+```
+
+No aggregate ChannelLiRA comparison is produced before `seal`. The seal hashes the
+protocol, confirmatory manifest, target bundles, exact reference banks and target
+scores, all 120 noisy target payloads, four noisy-reference caches, and their
+metadata. `analyze` verifies every hash before running the frozen 20,000-replicate
+hierarchical cell/target bootstrap. The machine decision records A, each component
+of B, C, the 3/16 amortized calibration/reference cost ratio, and whether A+B
+warrants Stage 3.
+
+The runner writes status, timings, sampled peak process-tree/GPU memory, checkpoint
+and cache hashes, and the complete shot receipt under
+`channel_lira_results/phase7/stage2_primary`. Implementing and validating this
+runner does not itself authorize or launch the 194.56-million-shot scoring stage.
+
+Noisy scoring uses one sequential queue per structural cell. Up to four cell
+queues can run concurrently, while the three targets sharing a cell are kept
+strictly sequential so that exactly one process constructs that cell's reusable
+noisy-reference cache. On the 256-core execution host, four workers with 64 Aer
+threads each use the available CPU budget without changing shots, simulator seeds,
+the backend snapshot, or any attack definition. Individual target durations are
+recorded as parallel components; the cost receipt excludes those overlapping
+durations from its wall-clock sum and includes the scheduler's measured wall time
+instead.
+
 ## Readiness command
 
 The audit performs no training and submits no circuit jobs:
